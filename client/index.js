@@ -3136,8 +3136,8 @@
 					case 'Find the animal':
 						Mode.Findtheanimal = true;
 						Mode.Training = true;
-						frametype2 = "Wordsframe";
-						frametype1 = "frame";
+						frametype1 = "Wordsframe";
+						frametype2 = "frame";
 			
 						if(!Task.loadedAnimalsframeWordsframe)
 							loadAnimalsWords();
