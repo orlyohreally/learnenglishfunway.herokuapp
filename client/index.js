@@ -224,8 +224,6 @@
 				j = j + 1;
 			}
 			
-			delete i, j;
-			delete pX, pY, pW, pH;
 		}
 		MenuItem.loadedMenuItems;
 		function loadMenuItems(){
@@ -280,14 +278,11 @@
 		}
 		function clearMenuItemRect(x, y, width, height) {
 			ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height) , width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
-			delete x, y, width, height;
 		}
 		function clearScreenRect(x, y, width, height) {
 			ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height) , width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
-			delete x, y, width, height;
 		}
-		var atlasButtons = new Image();
-
+		
 		function drawLeftArrow(x, y, width, height) {
 			var frame = Properties.Buttons["left-arrow.png"];
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
@@ -505,6 +500,8 @@
 				Forms_loaded = true;
 			}, false);	
 		}
+		var atlasButtons = new Image();
+
 		var loadedButtons;
 		function loadButtons(/*l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height*/){
 			atlasButtons.src = '/img/Menu-Items/buttons.png';
@@ -512,7 +509,6 @@
 					//drawButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
 					//title
 					//drawTitle(Title.leftSpace, 20, Title.size, Title.size * 130/470);	
-					delete l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height;
 					loadedButtons  = true;
 					
 			}, false);	
@@ -590,10 +586,10 @@
 				drawTitle(Title.leftSpace, 20, Title.size, Title.size*130/470);
 			}
 			else {
-				loadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
+				loadButtons(/*l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height*/);
 				setTimeout(function(){
 					checkLoadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
-				}, 100);
+				}, 10);
 			}
 		}
 		function drawHeader() {
@@ -656,7 +652,8 @@
 			loadNumbers();
 			loadLetters();
 			drawHeader();
-			readyToShowForms();			
+			readyToShowForms();
+			loadButtons();
 		}
 
 		var mouseX;
@@ -2577,10 +2574,10 @@
 		}
 		function drawPlayerButtons() {
 			//buttons
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			var pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			var pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
 			//size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) / 2  - 40 - 10 * 4) / 5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			var size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			if(!play_btn_ch)
 				drawPlayButton(pX + 20, pY, size_btn, size_btn)
 			else
@@ -2601,7 +2598,6 @@
 				drawExitButton(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)
 			else
 				drawExitButton(pX + 20 - 3, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10 - 3, size_btn + 6, size_btn + 6)
-			delete size_btn
 		}
 		/*function setAnimalWidth() {
 			var animal_height = 50;
@@ -3516,8 +3512,6 @@
 				MenuItem.clicked = -1;
 				MenuItem.chosen = MenuItem.clicked;
 				initMenu();
-				delete mouseX
-				delete mouseY
 				if(Profile.LoggedIn) {
 					Task.Result.Finish = new Date();
 					socket.emit("Result", {Result: Task.Result});
