@@ -506,12 +506,12 @@
 			}, false);	
 		}
 		var loadedButtons;
-		function loadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height){
+		function loadButtons(/*l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height*/){
 			atlasButtons.src = '/img/Menu-Items/buttons.png';
 			atlasButtons.addEventListener("load", function() {
-					drawButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
+					//drawButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
 					//title
-					drawTitle(Title.leftSpace, 20, Title.size, Title.size * 130/470);	
+					//drawTitle(Title.leftSpace, 20, Title.size, Title.size * 130/470);	
 					delete l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height;
 					loadedButtons  = true;
 					
