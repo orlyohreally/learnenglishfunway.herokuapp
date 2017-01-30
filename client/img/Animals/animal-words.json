@@ -1,0 +1,120 @@
+{"frames": [
+
+{
+	"filename": "bee-word.png",
+	"frame": {"x":121,"y":56,"w":126,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":126,"h":56},
+	"sourceSize": {"w":126,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "bird-word.png",
+	"frame": {"x":247,"y":56,"w":150,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":56},
+	"sourceSize": {"w":150,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "butterfly-word.png",
+	"frame": {"x":0,"y":170,"w":337,"h":68},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":337,"h":68},
+	"sourceSize": {"w":337,"h":68},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "cat-word.png",
+	"frame": {"x":0,"y":56,"w":121,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":121,"h":56},
+	"sourceSize": {"w":121,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "chicken-word.png",
+	"frame": {"x":0,"y":112,"w":262,"h":57},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":262,"h":57},
+	"sourceSize": {"w":262,"h":57},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dog-word.png",
+	"frame": {"x":0,"y":308,"w":123,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":123,"h":70},
+	"sourceSize": {"w":123,"h":70},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "donkey-word.png",
+	"frame": {"x":123,"y":308,"w":240,"h":76},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":240,"h":76},
+	"sourceSize": {"w":240,"h":76},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "fish-word.png",
+	"frame": {"x":224,"y":0,"w":151,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":151,"h":56},
+	"sourceSize": {"w":151,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "hen-word.png",
+	"frame": {"x":262,"y":112,"w":125,"h":58},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":125,"h":58},
+	"sourceSize": {"w":125,"h":58},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "sheep-word.png",
+	"frame": {"x":286,"y":238,"w":200,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":70},
+	"sourceSize": {"w":200,"h":70},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "squirrel-word.png",
+	"frame": {"x":0,"y":238,"w":286,"h":69},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":286,"h":69},
+	"sourceSize": {"w":286,"h":69},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "turtle-word.png",
+	"frame": {"x":0,"y":0,"w":224,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":224,"h":55},
+	"sourceSize": {"w":224,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "animal-words.png",
+	"format": "RGBA8888",
+	"size": {"w":486,"h":384},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:0c7e386910202749a7e32c99f5f9d0c9:efb610e2fffbdd630890b397b397e5e4:ef14304fbe19d098c5c66f3de1754a0e$"
+}
+}

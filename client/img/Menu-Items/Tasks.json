@@ -1,0 +1,174 @@
+{"frames": [
+
+{
+	"filename": "AlphabetSong.png",
+	"frame": {"x":0,"y":0,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "CountAnimals.png",
+	"frame": {"x":368,"y":0,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Find numbers after 100.png",
+	"frame": {"x":0,"y":55,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Find numbers from 0 to 9.png",
+	"frame": {"x":368,"y":55,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Find numbers from 10 to 100.png",
+	"frame": {"x":0,"y":110,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "FindTheAnimal.png",
+	"frame": {"x":368,"y":110,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "LearningTheLetterSounds.png",
+	"frame": {"x":0,"y":165,"w":365,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":365,"h":55},
+	"sourceSize": {"w":365,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "MemoryGame.png",
+	"frame": {"x":365,"y":165,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Name numbers after 100.png",
+	"frame": {"x":0,"y":220,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Name numbers from 0 to 9.png",
+	"frame": {"x":368,"y":220,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Name numbers from 10 to 100.png",
+	"frame": {"x":0,"y":275,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Name-animals.png",
+	"frame": {"x":368,"y":275,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "NameTheLetter.png",
+	"frame": {"x":0,"y":330,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Reading.png",
+	"frame": {"x":368,"y":330,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Spell animal names.png",
+	"frame": {"x":0,"y":385,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "TellingTime.png",
+	"frame": {"x":368,"y":385,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "TraceTheLetters.png",
+	"frame": {"x":0,"y":440,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Unscramble-animal-names.png",
+	"frame": {"x":368,"y":440,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "Tasks.png",
+	"format": "RGBA8888",
+	"size": {"w":736,"h":495},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:ad72322d514b7a4b267a81762f94203e:b5b0670da02982ce47bfc8783a5a384f:fd425d55c4b6d9fc9e003564d75a2541$"
+}
+}

@@ -1,0 +1,20 @@
+{
+  "name": "lefw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Orly Knop",
+  "dependencies": {
+    "express": "*",
+    "socket.io": "^1.7.2",
+	"mongojs": "*",
+	"bcryptjs": "*",
+	"client-sessions": "*"
+  },
+  "engines": {
+    "node": "4.6.0"
+  }
+}

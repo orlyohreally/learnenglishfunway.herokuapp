@@ -1,0 +1,147 @@
+{"frames": [
+
+{
+	"filename": "AlphabetSong.png",
+	"frame": {"x":0,"y":0,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "CountAnimals.png",
+	"frame": {"x":0,"y":55,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "FindTheAnimal.png",
+	"frame": {"x":0,"y":110,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "LearningNumbersAfter100.png",
+	"frame": {"x":0,"y":165,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "LearningNumbersFrom0To10.png",
+	"frame": {"x":0,"y":220,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "LearningNumbersFrom11To100.png",
+	"frame": {"x":0,"y":275,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "LearningTheLetterSounds.png",
+	"frame": {"x":0,"y":330,"w":365,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":365,"h":55},
+	"sourceSize": {"w":365,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "MatchTheAnimalsWithTheirNames.png",
+	"frame": {"x":0,"y":385,"w":368,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":56},
+	"sourceSize": {"w":368,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "MemoryGame.png",
+	"frame": {"x":0,"y":441,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "NameTheAnimals.png",
+	"frame": {"x":0,"y":496,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "NameTheLetter.png",
+	"frame": {"x":0,"y":551,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Reading.png",
+	"frame": {"x":0,"y":606,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "TellingTime.png",
+	"frame": {"x":0,"y":661,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "TraceTheLetters.png",
+	"frame": {"x":0,"y":716,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Unscramble-animal-names.png",
+	"frame": {"x":0,"y":771,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "Tasks.png",
+	"format": "RGBA8888",
+	"size": {"w":368,"h":826},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:68281243b607a491afa7415d5178945a:c5c55ad5327e016794fc25bcd2ddf76c:fd425d55c4b6d9fc9e003564d75a2541$"
+}
+}
