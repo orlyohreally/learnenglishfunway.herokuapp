@@ -3962,9 +3962,6 @@
 	}
 	var current = 0;
 	loadLoading();
-	current = 0;
-	drawLoading();
-			
 	try {
 		loadButtons();
 		loadAnimals();
@@ -3988,7 +3985,6 @@
 			if(Properties.Tasks.length && Properties.Topics.length) {
 				console.log("respondCanvas");
 				console.log("Profile", Profile.UserName, Profile.Password);
-				loadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
 				respondCanvas();
 				MenuItem.ItemList = [];
 				for (i = 0; i < MenuItem.itemsCount; i++) {
@@ -4023,6 +4019,8 @@
 			Properties.Numbers = data.numbers;
 			Properties.Letters = data.letters;
 			console.log(Properties.Letters);
+			current = 0;
+			drawLoading();
 			var l_a_x = MenuItem.leftSpace;
 			var l_a_width = 100*koef;
 			var l_a_height = koef*100*226/152;
@@ -4033,6 +4031,7 @@
 			var r_a_width = koef*100;
 			var r_a_x = MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;
 			
+			//loadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
 			console.log("drawLoading");
 			displayMenu();
 			
