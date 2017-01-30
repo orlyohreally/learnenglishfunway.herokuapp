@@ -3572,7 +3572,7 @@
 				delete Task.Result.time;
 				
 				
-				if(Profile.LoggedIn){
+				if(Profile.LoggedIn && !Mode.Training){
 					socket.emit("Result", {Result: Task.Result});
 					
 				}
