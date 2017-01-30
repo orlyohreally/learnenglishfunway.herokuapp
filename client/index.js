@@ -583,6 +583,19 @@
 				}, 1);
 			}
 		}
+		function checkLoadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height) {
+			if(loadedButtons) {
+				drawButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
+				//title
+				drawTitle(Title.leftSpace, 20, Title.size, Title.size*130/470);
+			}
+			else {
+				loadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
+				setTimeout(function(){
+					checkLoadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
+				}, 100);
+			}
+		}
 		function drawHeader() {
 			ctx.fillStyle="#F7FE2E";
 			ctx.fillRect(0, 0, Screen.width, MenuItem.starts * Math.min(Screen.k_width, Screen.k_height));
@@ -598,14 +611,8 @@
 			var r_a_y =  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2;
 			var r_a_width = koef*100;
 			var r_a_x = MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;
-			if(loadedButtons) {
-				drawButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
-				//title
-				drawTitle(Title.leftSpace, 20, Title.size, Title.size*130/470);
-			}
-			else {
-				loadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
-			}
+			checkLoadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
+			
 			
 			if(Profile.LoggedIn) {
 				clearScreenRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
