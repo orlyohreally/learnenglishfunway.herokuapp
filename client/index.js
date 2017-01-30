@@ -661,18 +661,18 @@
 			event.preventDefault();
 			try {
 				var touch = mouseEvent.changedTouches[0];
-				var rect = MainCanvas.getBoundingRect();
+				var rect = MainCanvas.getBoundingClientRect();
 				var scaleX = MainCanvas.width / rect.width;
 				var scaleY = MainCanvas.height / rect.height;
-				mouseX = (touch.X - rect.left) * scaleX;   // scale mouse coordinates after they have
-				mouseY = (touch.Y - rect.top) * scaleY;
+				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (touch.clientY - rect.top) * scaleY;
 			}
 			catch(e) {
-			var rect = MainCanvas.getBoundingRect(),
+			var rect = MainCanvas.getBoundingClientRect(),
 				scaleX = MainCanvas.width / rect.width;
 				scaleY = MainCanvas.height / rect.height;
-				mouseX = (mouseEvent.X - rect.left) * scaleX;   // scale mouse coordinates after they have
-				mouseY = (mouseEvent.Y - rect.top) * scaleY;
+				mouseX = (mouseEvent.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (mouseEvent.clientY - rect.top) * scaleY;
 				
 			}
 			HoverMenuItem(mouseX, mouseY);
@@ -2740,11 +2740,11 @@
 			event.preventDefault();
 			try {
 				var touch = mouseEvent.changedTouches[0];
-				var rect = MainCanvas.getBoundingRect();
+				var rect = MainCanvas.getBoundingClientRect();
 				var scaleX = MainCanvas.width / rect.width;
 				var scaleY = MainCanvas.height / rect.height;
-				mouseX = (touch.X - rect.left) * scaleX;   // scale mouse coordinates after they have
-				mouseY = (touch.Y - rect.top) * scaleY;
+				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (touch.clientY - rect.top) * scaleY;
 				console.log(mouseX, mouseY);
 			}
 			catch(e) {
@@ -3828,11 +3828,11 @@
 			event.preventDefault();
 			try {
 				var touch = mouseEvent.changedTouches[0];
-				var rect = MainCanvas.getBoundingRect();
+				var rect = MainCanvas.getBoundingClientRect();
 				var scaleX = MainCanvas.width / rect.width;
 				var scaleY = MainCanvas.height / rect.height;
-				mouseX = (touch.X - rect.left) * scaleX;   // scale mouse coordinates after they have
-				mouseY = (touch.Y - rect.top) * scaleY;
+				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (touch.clientY - rect.top) * scaleY;
 			}
 			catch(e) {
 				
@@ -3896,11 +3896,11 @@
 						
 					try {
 						var touch = mouseEvent.changedTouches[0];
-						var rect = MainCanvas.getBoundingRect();
+						var rect = MainCanvas.getBoundingClientRect();
 						var scaleX = MainCanvas.width / rect.width;
 						var scaleY = MainCanvas.height / rect.height;
-						mouseX = (touch.X - rect.left) * scaleX;   // scale mouse coordinates after they have
-						mouseY = (touch.Y - rect.top) * scaleY;
+						mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+						mouseY = (touch.clientY - rect.top) * scaleY;
 					}
 					catch(e) {}
 					Pressed.x = mouseX;
