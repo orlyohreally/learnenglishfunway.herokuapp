@@ -283,6 +283,8 @@ io.sockets.on('connection', function(socket) {
 										socket.emit('newUser', {
 											res:true
 										});
+										delete session.user.Password;
+										delete User.Password;
 									}
 									else {
 										socket.emit('newUser',{
@@ -320,6 +322,8 @@ io.sockets.on('connection', function(socket) {
 						console.log("emitting", res);
 						session.user = User;
 						socket.emit('auth', {res:res, User: User});
+						delete session.user.Password;
+						delete User.Password;
 					})
 				}
 			}
