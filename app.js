@@ -1,28 +1,8 @@
 var mongojs = require("mongojs");
 var bcrypt = require("bcryptjs"), SALT_WORK_FACTOR = 10;
-var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
-//var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
-//db.Topics.find({"Name":"Animals"}, function(err, res){console.log(res[0])})
+//var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
+var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
 
-//db.SpreadSheets.aggregate( [ { $match:  { "Name": "menu_items"}}, {$lookup: {    from: "db.Topics",     localField: "Content.filename",    foreignField: "Name",    as: "Properties"}  }])
-/*
-var express = require('express');
-var app = express();
-var serv = require('http').Server(app);
-var favicon = require('serve-favicon');
-app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/client/index.html');
-});
-app.use('/client', express.static(__dirname + '/client'));
-app.use(favicon(__dirname + '/client/img/favicon.ico'));
-//serv.listen(5000);
-app.listen(process.env.PORT || 3000, function() {
-	console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-});
-console.log("Server started");
-SOCKET_LIST = {};
-var io = require('socket.io')(serv);
-*/
 
 var express = require('express');
 var app = express();
@@ -218,6 +198,7 @@ io.sockets.on('connection', function(socket) {
 	getNumbers();
 	getLetters();
 		
+	
 	function getTaskFrames() {
 		db.Exercise.find({}, function(err, res){
 			Properties.Tasks = [];
@@ -358,4 +339,108 @@ io.sockets.on('connection', function(socket) {
 			res: true
 		})
 	})
+	socket.on('getQuiz', function(data){
+		console.log("getQuiz", data.UserName);
+		db.Results.find({"UserName":data.UserName}).sort({Exercise:1, Start:-1}, function(err, res){
+			if(res.length) {
+				res = getRecentResults(res);
+				console.log("finally res:", res);
+				var list = [];
+				for(var i = 0; i < res.length; i++) {
+					for(var j = 0; j < res[i].Answers.length; j++) {
+						console.log(res[i]);
+						var item = {};
+						item.Exercise = res[i].Exercise;
+						//item.Topic_Name = res[i].Topic_Name;
+						item.testStart = res[i].Start;
+						item.duration = res[i].Answers[j].Time;
+						item.Word = res[i].Answers[j].Word;
+						item.Attempts = res[i].Answers[j].Attempts;
+						item.duration_est = 0;
+						item.attempts_est = 0;
+						list.push(item);
+					}
+				}
+				for(var i = 0; i < list.length; i++){
+					for (var j = i + 1; j < list.length; j++) {
+						if(list[i].duration > list[j].duration)
+							list[i].duration_est = list[i].duration_est + 1 * 2 / list.length / (list.length - 1);
+						else if(list[i].duration != list[j].duration)
+							list[j].duration_est = list[j].duration_est + 1 * 2 / list.length / (list.length - 1);
+						if((list[i].Attempts == 0 && list[i].Attempts != list[j].Attempts) || list[i].Attempts > list[j].Attempts)
+							list[i].attempts_est = list[i].attempts_est  + 1 * 2 / list.length / (list.length - 1);
+						else if (list[j].Attempts == 0 || list[i].Attempts != list[j].Attempts)
+							list[j].attempts_est = list[j].attempts_est  + 1 * 2 / list.length / (list.length - 1);
+					}
+				}
+				for(var i = 0; i < list.length; i++){
+					list[i].w = (list[i].duration_est + list[i].attempts_est) / res.length;
+				}
+				list = list.sort(function(a, b){
+					return -a.w + b.w;
+				})
+				console.log(list);
+				console.log(list.length);
+				list = list.splice(0, 20);
+				console.log(list);
+				console.log(list.length);
+				var Quiz = getQuiz(list);
+				console.log(Quiz);
+			}
+			else {
+				console.log("No data");
+			}
+		})
+	})
+	function getRecentResults(res) {
+		console.log("all data", res);
+		var currEx = res[0].Exercise;
+		var count = 0;
+		var list = [];
+		for (var i = 0; i < res.length; i++) {
+			console.log("currEx == res[i].Exercise, count", currEx == res[i].Exercise, count)
+			if(currEx == res[i].Exercise && count < 2) {
+				//console.log("res[", i, "]",res[i]);
+				list.push(res[i]);
+				count++;
+			}
+			else if (currEx != res[i].Exercise) {
+				currEx = res[i].Exercise;
+				//console.log("res[", i, "]",res[i]);
+				list.push(res[i]);
+				count = 1;
+			}
+		}
+		return list;
+	}
+	function getQuiz(list) {
+		list = list.sort(function(a, b){
+			if(a.Exercise > b.Exercise) return 1;
+			if(a.Exercise < b.Exercise) return -1;
+			return 0;
+		});
+		//console.log(list);
+		var Quiz = [];
+		currEx = "";
+		var item = {};
+		for (var i = 0; i < list.length; i++) {
+			console.log("list[", i, "].Exercise", currEx, list[i].Exercise);
+			if(currEx != list[i].Exercise) {
+				console.log(currEx);
+				if(currEx != "")
+					Quiz.push(item);
+				currEx = list[i].Exercise;
+				item = {};
+				item.Name = list[i].Exercise;
+				//item.Topic_Name = list[i].Topic_Name;
+				item.Content = [];
+			}
+			else if(currEx == list[i].Exercise) {
+				console.log(currEx);
+				item.Content.push(list[i].Word);
+			}
+		}
+		Quiz.push(item);
+		return Quiz.slice(0);
+	}
 })

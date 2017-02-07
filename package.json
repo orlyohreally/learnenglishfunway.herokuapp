@@ -8,11 +8,13 @@
   },
   "author": "Orly Knop",
   "dependencies": {
+    "bcryptjs": "*",
+    "client-sessions": "*",
+    "connect-mongo": "^1.3.2",
+    "cookie": "^0.3.1",
     "express": "*",
-    "socket.io": "^1.7.2",
-	"mongojs": "*",
-	"bcryptjs": "*",
-	"client-sessions": "*"
+    "mongojs": "*",
+    "socket.io": "^1.7.2"
   },
   "engines": {
     "node": "4.6.0"
