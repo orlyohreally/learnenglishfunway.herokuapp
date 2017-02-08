@@ -2689,6 +2689,7 @@
 					if(Mode.Tasks && mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height)){
 						
 					}
+					
 					//background has been clicked
 					else if(((Mode.Tasks && !(mouseX >= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace + (Profile.size_btn - 2 * 5) / 3)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= ((20 + 5) + Profile.size_btn*75/228 + 150*75/228 + 5)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= ((20 + 5) + Profile.size_btn*75/228 + 3 + Profile.size_btn*75/228 + 5 + (Profile.size_btn - 2 * 5) / 3)* Math.min(Screen.k_width, Screen.k_height))) && !(mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + t_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + t_a_height)*Math.min(Screen.k_width, Screen.k_height)))&&!(mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height))) {
 						X_l = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
@@ -2720,7 +2721,6 @@
 			var j = 0;
 			if(Mode.MenuItem && MenuItem.clicked == -1) {
 				while (j < MenuItem.display)  {
-					
 					X_l = 2 * MenuItem.leftSpace + 100*koef + 68 * (j + 1) + MenuItem.size * j - 68;
 					X_r = 2 * MenuItem.leftSpace + 100*koef + 68 * (j + 1) + MenuItem.size * (j + 1) - 68;
 					if(mouseY >= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace)  && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.size + MenuItem.topSpace)  && (mouseX >= Math.min(Screen.k_width, Screen.k_height) * X_l && mouseX <= Math.min(Screen.k_width, Screen.k_height) * X_r)){
@@ -3161,7 +3161,7 @@
 					}, 200)
 				}
 			}
-			function showTask(TaskName, TopicName,Points, N) {
+			function showTask(TaskName, TopicName,Points, N, j = -1) {
 				Mode.CountDown = false;
 				Task.TaskName = TaskName;
 				Task.TopicName = TopicName;
@@ -3190,10 +3190,7 @@
 							loadAnimalsWords();
 						if(!Task.loadedAnimalsframe)
 							loadAnimals();
-						try{
-							Task.Frames[TaskName].length;
-						}
-						catch(e){
+						
 							//stop_loading = false;
 							drawLoading();
 							socket.emit('getTask', {
@@ -3202,10 +3199,10 @@
 							socket.on('getTask', function(data){
 								//Animals = data.Content;
 								Task.Frames[TaskName] = data.Content;
-							})
-						}
+							
 						
-						checkloaded.Animals(TaskName, N);
+						
+						checkloaded.Animals(TaskName, N);})
 						try{
 							size_btn = setWordHeight();
 							if(frametype1 == "Wordsframe" && frametype2 == "frame")
@@ -3227,10 +3224,7 @@
 							loadAnimalsWords();
 						if(!Task.loadedAnimalsframe)
 							loadAnimals();
-						try{
-							Task.Frames[TaskName].length;
-						}
-						catch(e){
+						
 							//stop_loading = false;
 							drawLoading();
 							socket.emit('getTask', {
@@ -3238,10 +3232,10 @@
 							})
 							socket.on('getTask', function(data){
 								Task.Frames[TaskName] = data.Content;
-							})
-						}
+							
 						
-						checkloaded.Animals(TaskName, N);							
+						
+						checkloaded.Animals(TaskName, N);	})						
 						try{
 							size_btn = setWordHeight();
 							if(frametype1 == "Wordsframe" && frametype2 == "frame")
@@ -3261,10 +3255,7 @@
 							loadNumbersWords();
 						if(!Task["loaded" +TopicName + "frame"])
 							loadNumbers();
-						try{
-							Task.Frames[TaskName].length;
-						}
-						catch(e){
+						
 							//stop_loading = false;
 							drawLoading();
 							socket.emit('getTask', {
@@ -3272,10 +3263,11 @@
 							})
 							socket.on('getTask', function(data){
 								Task.Frames[TaskName] = data.Content;
-							})
-						}
+							
 						
-						checkloaded.Numbers(TaskName, N);							
+						
+						checkloaded.Numbers(TaskName, N);
+							})						
 						try{
 							size_btn = setWordHeight();
 							if(frametype1 == "Wordsframe" && frametype2 == "frame")
@@ -3295,11 +3287,7 @@
 								loadNumbersWords();
 							if(!Task["loaded" +TopicName + "frame"])
 								loadNumbers();
-							try{
-								Task.Frames[TaskName].length;
-							}
-							catch(e){
-								//stop_loading = false;
+							//stop_loading = false;
 								drawLoading();
 								socket.emit('getTask', {
 									TaskName: TaskName
@@ -3307,10 +3295,11 @@
 								socket.on('getTask', function(data){
 									Task.Frames[TaskName] = data.Content;
 									
-								})
-							}
+								
 							
-							checkloaded.Numbers(TaskName, N);							
+							
+							checkloaded.Numbers(TaskName, N);
+							})							
 							try{
 								size_btn = setWordHeight();
 								if(frametype1 == "Wordsframe" && frametype2 == "frame")
@@ -3322,6 +3311,24 @@
 							drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height) + 20, size_btn, size_btn);
 							
 						break;
+						default: 
+								delete Task.TaskName;
+								delete Task.TopicName;
+								delete Task.MaxPoint;
+								delete Task.N_toTest;
+								Mode.Exercise = false;
+								Mode.Tasks = true;
+								Mode.MenuItem = true;
+								MenuItem.clicked = j;
+								MenuItem.chosen = j;
+								console.log(Mode.MenuItem, MenuItem.clicked);
+								
+								Mode.LogIn = false;
+								Mode.SignIn = false;
+								Mode.Results = false;
+								
+								respondCanvas();
+								alert(TaskName + " is not available yet:(");
 				}
 			}
 			
@@ -3393,12 +3400,16 @@
 					var t_a_width = 100*0.5;
 					var t_a_height = 0.5*100*226/152;
 					if(mouseInRect(pX, (pY + (55/368*MenuItem.size + 10) * i + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)){
-						Mode.Exercise = true;
-						clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height))
-						Mode.Tasks = false;
-						Mode.MenuItem = false;
-						console.log("Properties.Tasks[j][i].Name, Properties.Tasks[j][i].Topic_Name, Properties.Tasks[j][i].Max_point, Properties.Tasks[j][i].N_toTest", Properties.Tasks[j][i].Name, Properties.Tasks[j][i].Topic_Name, Properties.Tasks[j][i].Max_point, Properties.Tasks[j][i].N_toTest);						
-						showTask(Properties.Tasks[j][i].Name, Properties.Tasks[j][i].Topic_Name, Properties.Tasks[j][i].Max_point, Properties.Tasks[j][i].N_toTest);						
+						
+						try{
+							console.log("Properties.Tasks[j][i].Name, Properties.Tasks[j][i].Topic_Name, Properties.Tasks[j][i].Max_point, Properties.Tasks[j][i].N_toTest", Properties.Tasks[j][i].Name, Properties.Tasks[j][i].Topic_Name, Properties.Tasks[j][i].Max_point, Properties.Tasks[j][i].N_toTest);						
+							Mode.Exercise = true;
+							clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height))
+							Mode.Tasks = false;
+							Mode.MenuItem = false;
+							showTask(Properties.Tasks[j][i].Name, Properties.Tasks[j][i].Topic_Name, Properties.Tasks[j][i].Max_point, Properties.Tasks[j][i].N_toTest, j);						
+						}
+						catch(e){};
 						i  = Task.display + 1;
 					}
 					else {
@@ -3420,6 +3431,7 @@
 			if (Mode.Exercise && !Mode.SignIn && !Mode.LogIn && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height) + 20, size_btn, size_btn)) {
 				Mode.MenuItem = true;
 				Mode.Exercise = false;
+				delete Task.Frames[Task.TaskName];
 				Mode[Task.TaskName.replace(/\s/g,'')] = false;
 				ctx.clearRect(0, 0.2 * Screen.height, Screen.width, 0.6 * Screen.height)
 				MenuItem.clicked = -1;
@@ -3627,6 +3639,7 @@
 				if (Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height)) {
 					Mode.MenuItem = true;
 					Mode.Exercise = false;
+					delete Task.Frames[Task.TaskName];
 					Mode.Results = false;
 					Task.Result = {};
 					Mode[Task.TaskName.replace(/\s/g,'')] = false;
