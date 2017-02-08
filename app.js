@@ -343,55 +343,101 @@ io.sockets.on('connection', function(socket) {
 		console.log("getQuiz", data.UserName);
 		db.Results.find({"UserName":data.UserName}).sort({Exercise:1, Start:-1}, function(err, res){
 			if(res.length) {
-				res = getRecentResults(res);
-				console.log("finally res:", res);
-				var list = [];
-				for(var i = 0; i < res.length; i++) {
-					for(var j = 0; j < res[i].Answers.length; j++) {
-						console.log(res[i]);
-						var item = {};
-						item.Exercise = res[i].Exercise;
-						//item.Topic_Name = res[i].Topic_Name;
-						item.testStart = res[i].Start;
-						item.duration = res[i].Answers[j].Time;
-						item.Word = res[i].Answers[j].Word;
-						item.Attempts = res[i].Answers[j].Attempts;
-						item.duration_est = 0;
-						item.attempts_est = 0;
-						list.push(item);
+				resp = getRecentResults(res);
+				db.Exercise.find({"Quiz": false}, {"Name":1, "_id":0}, function(err, res){
+					var notForQuiz = res;
+					var list = [];
+					for(var i = 0; i < resp.length; i++) {
+						if(!inList(resp[i].Exercise, notForQuiz, "Name")) {
+							for(var j = 0; j < resp[i].Answers.length; j++) {
+								console.log(resp[i]);
+								var item = {};
+								item.Exercise = resp[i].Exercise;
+								item.Topic_Name = resp[i].Topic_Name;
+								item.testStart = resp[i].Start;
+								item.duration = resp[i].Answers[j].Time;
+								item.Word = resp[i].Answers[j].Word;
+								item.Attempts = resp[i].Answers[j].Attempts;
+								item.duration_est = 0;
+								item.attempts_est = 0;
+								list.push(item);
+							}
+						}
 					}
-				}
-				for(var i = 0; i < list.length; i++){
-					for (var j = i + 1; j < list.length; j++) {
-						if(list[i].duration > list[j].duration)
-							list[i].duration_est = list[i].duration_est + 1 * 2 / list.length / (list.length - 1);
-						else if(list[i].duration != list[j].duration)
-							list[j].duration_est = list[j].duration_est + 1 * 2 / list.length / (list.length - 1);
-						if((list[i].Attempts == 0 && list[i].Attempts != list[j].Attempts) || list[i].Attempts > list[j].Attempts)
-							list[i].attempts_est = list[i].attempts_est  + 1 * 2 / list.length / (list.length - 1);
-						else if (list[j].Attempts == 0 || list[i].Attempts != list[j].Attempts)
-							list[j].attempts_est = list[j].attempts_est  + 1 * 2 / list.length / (list.length - 1);
+					for(var i = 0; i < list.length; i++){
+						for (var j = i + 1; j < list.length; j++) {
+							if(list[i].duration > list[j].duration)
+								list[i].duration_est = list[i].duration_est + 1 * 2 / list.length / (list.length - 1);
+							else if(list[i].duration != list[j].duration)
+								list[j].duration_est = list[j].duration_est + 1 * 2 / list.length / (list.length - 1);
+							if((list[i].Attempts == 0 && list[i].Attempts != list[j].Attempts) || list[i].Attempts > list[j].Attempts)
+								list[i].attempts_est = list[i].attempts_est  + 1 * 2 / list.length / (list.length - 1);
+							else if (list[j].Attempts == 0 || list[i].Attempts != list[j].Attempts)
+								list[j].attempts_est = list[j].attempts_est  + 1 * 2 / list.length / (list.length - 1);
+						}
 					}
-				}
-				for(var i = 0; i < list.length; i++){
-					list[i].w = (list[i].duration_est + list[i].attempts_est) / res.length;
-				}
-				list = list.sort(function(a, b){
-					return -a.w + b.w;
+					for(var i = 0; i < list.length; i++){
+						list[i].w = (list[i].duration_est + list[i].attempts_est) / list.length;
+					}
+					list = list.sort(function(a, b){
+						return -a.w + b.w;
+					})
+					console.log(list);
+					console.log(list.length);
+					list = list.splice(0, 20);
+					console.log(list);
+					console.log(list.length);
+					var Quiz = getQuiz(list);
+					console.log("Quiz", Quiz);
+					console.log("Not for Quiz:", notForQuiz);
+					var i = 0;
+					console.log(Quiz[i].Name, Quiz[i].Topic_Name);
+					setFramesForQuiz(i, Quiz);
+					
 				})
-				console.log(list);
-				console.log(list.length);
-				list = list.splice(0, 20);
-				console.log(list);
-				console.log(list.length);
-				var Quiz = getQuiz(list);
-				console.log(Quiz);
 			}
 			else {
-				console.log("No data");
+				socket.emit('getQuiz', {
+					quiz: false
+				})
 			}
+			
 		})
 	})
+	function setFramesForQuiz(i, Quiz) {
+		if(i < Quiz.length) {
+			db.Exercise.find({"Name": Quiz[i].Name, "Topic_Name": Quiz[i].Topic_Name}, function(err, res) {
+				if(res) {
+					res = res[0].Content;
+					console.log(res);
+					for(var j = 0; j < Quiz[i].Content.length; j++) {
+						console.log(Quiz[i].Content[j].Word);
+						var q = inList(Quiz[i].Content[j].Word, res, "Word");
+						console.log("q:", q, res[q]);
+						if(q) {
+							Quiz[i].Content[j] = res[q];
+						}
+					}
+				}
+				i++;
+				setFramesForQuiz(i, Quiz);
+			})
+		}
+		if(i == Quiz.length) {
+			socket.emit('getQuiz', {
+				quiz: Quiz
+			})
+		}
+			
+	}
+	function inList(str, list, field) {
+		for(var i = 0; i < list.length; i++) {
+			//console.log(list[i], list[i][field]);
+			if(list[i][field] == str)
+				return i;
+		}
+		return false;
+	}
 	function getRecentResults(res) {
 		console.log("all data", res);
 		var currEx = res[0].Exercise;
@@ -432,12 +478,12 @@ io.sockets.on('connection', function(socket) {
 				currEx = list[i].Exercise;
 				item = {};
 				item.Name = list[i].Exercise;
-				//item.Topic_Name = list[i].Topic_Name;
+				item.Topic_Name = list[i].Topic_Name;
 				item.Content = [];
 			}
 			else if(currEx == list[i].Exercise) {
 				console.log(currEx);
-				item.Content.push(list[i].Word);
+				item.Content.push({"Word": list[i].Word});
 			}
 		}
 		Quiz.push(item);

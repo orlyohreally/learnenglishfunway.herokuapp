@@ -3686,12 +3686,25 @@
 			}
 			//drawQuizButton(Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 				
-			if(Profile.LoggedIn && !Mode.Results&& !Mode.Exercise && (Mode.Tasks  || Mode.MenuItem) && mouseInRect(Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228)) {
-				console.log(Profile.UserName);
-				console.log("quiz clicked", Profile.UserName);
-				socket.emit("getQuiz", {
-					UserName: Profile.UserName
-				});
+			if(!Mode.Results&& !Mode.Exercise && (Mode.Tasks  || Mode.MenuItem) && mouseInRect(Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228)) {
+				if(Profile.LoggedIn) {
+					console.log(Profile.UserName);
+					console.log("quiz clicked", Profile.UserName);
+					socket.emit('getQuiz', {
+						UserName: Profile.UserName
+					});
+					socket.on('getQuiz', function(data) {
+						if(data.quiz) {
+							var Quiz = data.quiz;
+							console.log("Quiz:", Quiz);
+						}
+						else
+							console.log("no quiz", data.quiz);
+					})
+				}
+				else {
+					alert("You must be logged in to get a quiz");
+				}
 			}
 			
 		}
