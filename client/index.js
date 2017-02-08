@@ -20,12 +20,15 @@
 		var Profile = {};
 		var Thumbnails = [];
 		var currentVideoFrame = new Image();
+		var Quiz = {};
+		Quiz.Content = [];
 		Mode.MenuItem  = true;
 		Mode.Tasks = false;
 		Mode.LogIn = false;
 		Mode.SignIn = false;
 		Mode.Exercise = false;
 		Mode.Results = false;
+		Mode.Quiz = false;
 		//Mode.Alphabetsong = false;
 		Mode.CountDown = false;
 		MenuItem.height = 600;
@@ -242,11 +245,11 @@
 			})
 		}
 		atlas.AnimalsWordsframe = new Image();
-		Task.loadedAnimalsframeWordsframe;
+		Task.loadedAnimalsWordsframe;
 		function loadAnimalsWords(){
 			atlas.AnimalsWordsframe.src = '/img/Animals/animal-words.png';
 			atlas.AnimalsWordsframe.addEventListener("load", function() {
-				Task.loadedAnimalsframeWordsframe = true;
+				Task.loadedAnimalsWordsframe = true;
 			})
 		}
 		atlas.Numbersframe = new Image();
@@ -1405,6 +1408,7 @@
 				var TopforTap = 0;
 				for(var i = 0; i < Task.test.length; i++) {
 					var wordFrame = Task.test[i][frametype2];
+					//console.log(wordFrame);
 					Array[i] = {};
 					Array[i].x = (edge + center/2-wordFrame.w*word_height/wordFrame.h/2);
 					Array[i].y = top;
@@ -1516,12 +1520,12 @@
 			var btn_height = btn_width * btn.h / btn.w;
 			
 			//try again hovered in show results
-			if (Mode.Results && !Mode.SignIn && !Mode.LogIn &&!try_again_ch && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height)) {
+			if (!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn &&!try_again_ch && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height)) {
 				//clearScreenRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
 				drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width + 6, btn_height + 6);
 				try_again_ch = true;
 			}
-			else if(Mode.Results && !Mode.SignIn && !Mode.LogIn && try_again_ch && !(mouseInRect(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width - 6, btn_height + 6))) {
+			else if(!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn && try_again_ch && !(mouseInRect(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width - 6, btn_height + 6))) {
 				clearScreenRect(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width + 6, btn_height + 6);
 				drawResultForm(Result_form.x, Result_form.y, Result_form.w, Result_form.h);
 				drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
@@ -1628,12 +1632,20 @@
 					clearScreenRect(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width - 3, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w - 3 + 6, btn_width, btn_height + 6);
 					drawResultForm(Result_form.x, Result_form.y, Result_form.w, Result_form.h);
 					drawResultOkayButton(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height);
-					drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
-						
-					var Correct = countCorrect(Task.Result.Answers);
+					if(!Mode.Quiz)
+						drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
+					var Correct = 0;
+					if(!Mode.Quiz)
+						Correct = countCorrect(Task.Result.Answers);
+					else
+						Correct = Quiz.Correct;
 					console.log("Correct answers:", Correct);
 					var Answers = Task.Result.Answers;
-					var Total = Task.Total;
+					var Total = 0;
+					if(!Mode.Quiz)
+						Total = Task.Total;
+					else
+						Total = Quiz.Total;
 					var Max = Task.MaxPoint;
 					var digit_frame = Properties.Numbers["small-dark-1.png"];
 					var digit = {};
@@ -1642,8 +1654,15 @@
 					
 					drawDigit(Correct, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 51 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 					drawDigit(Total, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 68 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
-					var points = countPoints(Answers, Total, Max);
-					var stars = Math.round(points / (Max * Total) * 5);
+					var point = 0;
+					if(!Mode.Quiz)
+						points = countPoints(Answers, Total, Max);
+					else
+						points = Quiz.Points;
+					if(!Mode.Quiz)
+						stars = Math.round(points / (Max * Total) * 5);
+					else
+						stars = Math.round(points / Quiz.TotalMax * 5);
 					points = points +"";
 					for(var j = 0; j < points.length; j++)
 						drawDigit(points[j], Result_form.x + 115 * Result_form.w / frame.w + j * digit.w, Result_form.y + 86 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
@@ -2113,11 +2132,12 @@
 		function countPoints(Answers, TaskN, Max) {
 			var points = 0;
 			for (var i = 0; i < Answers.length; i++) {
-				points = points + Max + 1 - Answers[i].Attempts;
+				if(Answers[i].Attempts)
+					points = points + Max + 1 - Answers[i].Attempts;
 			}
 			return points;
 		}
-		function showResultForm(Answers = Task.Result.Answers, Total = Task.Total, Max){
+		function showResultForm(Answers = Task.Result.Answers, Total = Task.Total, Max = 4){
 				delete Pressed.x;
 				delete Pressed.y;
 				delete Task.asked;
@@ -2125,7 +2145,13 @@
 				drawHeader();
 				Mode.Results = true;
 				//stop_loading = true;
-				var Correct = countCorrect(Task.Result.Answers);
+				var Correct = 0;
+				if(!Mode.Quiz)
+					Correct = countCorrect(Task.Result.Answers);
+				else {
+					Correct = Quiz.Correct;
+					Total = Quiz.Total;
+				}
 				console.log("Correct answers:", Correct);
 				if(Forms_loaded){
 					var frame = Properties.Forms["result_form.png"];
@@ -2140,7 +2166,8 @@
 					var btn = Properties.Forms["result_form_try_again_btn.png"];
 					var btn_width = (Result_form.w - 2 * 20 * Result_form.w / frame.w - 20) / 2;
 					var btn_height = btn_width * btn.h / btn.w;
-					drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
+					if(!Mode.Quiz)
+						drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
 					drawResultOkayButton(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height);
 					
 					
@@ -2150,9 +2177,17 @@
 					digit.w = digit.h * digit_frame.w / digit_frame.h;
 					drawDigit(Correct, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 51 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 					drawDigit(Total, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 68 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
-					var points = countPoints(Answers, Total, Max);
+					var points = 0;
+					if(!Mode.Quiz)
+						points = countPoints(Answers, Total, Max);
+					else
+						points = Quiz.Points;
 					Task.Result.Points = points;
-					var stars = Math.round(points / (Max * Total) * 5);
+					var stars = 0;
+					if(!Mode.Quiz)
+						stars = Math.round(points / (Max * Total) * 5);
+					else
+						stars = Math.round(points / Quiz.TotalMax * 5);
 					points = points +"";
 					for(var j = 0; j < points.length; j++)
 						drawDigit(points[j], Result_form.x + 115 * Result_form.w / frame.w + j * digit.w, Result_form.y + 86 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
@@ -3056,11 +3091,40 @@
 					delete Task.Result.time;
 					Mode[Task.TaskName.replace(/\s/g,'')] = false;
 					
-					loadForms();
-					//stop_loading = false;
-					drawLoading();
-					showResultForm(Task.Result.Answers, Task.Total, Task.MaxPoint);
-					
+					if(!Mode.Quiz) {
+						loadForms();
+						drawLoading();
+						showResultForm(Task.Result.Answers, Task.Total, Task.MaxPoint);
+					}
+					else {
+						console.log(Quiz.Content[Exercise_num].Name, "has just been finished");
+						if(Profile.LoggedIn) {
+							Task.Result.Finish = new Date();
+							socket.emit("Result", {Result: Task.Result});
+						}
+						Quiz.Total = Quiz.Total + Task.Result.Answers.length;
+						Quiz.Correct = Quiz.Correct + countCorrect(Task.Result.Answers);
+						Quiz.Points = Quiz.Points + countPoints(Task.Result.Answers, Task.Result.Answers.length, Quiz.Content[Exercise_num].Max_point);
+						Quiz.TotalMax = Quiz.TotalMax + Quiz.Total * Quiz.Content[Exercise_num].Max_point;
+						console.log(Task.Result);
+						console.log("for this part:", Task.Result.Answers.length, countCorrect(Task.Result.Answers), countPoints(Task.Result.Answers, Task.Result.Answers.length, Quiz.Content[Exercise_num].Max_point));
+						console.log("yields:", Quiz.Total, Quiz.Correct, Quiz.Points);
+						Mode.Results = false;
+						Task.Result = {};
+						delete Task.Frames[Task.TaskName];
+						ctx.clearRect(0, 0.2 * Screen.height, Screen.width, 0.6 * Screen.height)
+							
+						Exercise_num++;
+						console.log(Exercise_num);
+						if(Exercise_num < Quiz.Content.length)
+							showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+						else {
+							console.log("quiz finished");
+							loadForms();
+							drawLoading();
+							showResultForm(Correct = Quiz.Correct, points = Quiz.Points, Total = Quiz.Total);
+						}
+					}
 				}
 				else {
 					Mode[Task.TaskName.replace(/\s/g,'')] = false;
@@ -3091,19 +3155,7 @@
 					},1000)
 				}
 			}
-			function setTest(Array, N){
-				document.getElementById("Loading").style.visibility = "hidden";
-				Mode.Results = false;
-				Mode.CountDown = false;
-				console.log("N:", N);
-				Task.Total = N;
-				if(!Mode.Training)
-					Task.test = getRandomArray(Array, [], N);
-				else
-					Task.test = getRandomArray(Array, [], Array.length);
-				Task.toTest = Task.test.slice(0);
-				selectAnimal();
-			}
+			
 			function checkAnswer(answer_i) {
 				if(Task.test[answer_i].Word == Task.asked.Word) {
 					return true;
@@ -3112,9 +3164,23 @@
 					return false;
 				}
 			}
+			function setTest(Array, N){
+				console.log("set test");
+				document.getElementById("Loading").style.visibility = "hidden";
+				Mode.Results = false;
+				Mode.CountDown = false;
+				//console.log("N:", N);
+				Task.Total = N;
+				if(!Mode.Training)
+					Task.test = getRandomArray(Array, [], N);
+				else
+					Task.test = getRandomArray(Array, [], Array.length);
+				Task.toTest = Task.test.slice(0);
+				selectAnimal();
+			}
 			var checkloaded = {};
 			checkloaded.Animals = function (TaskName, N) {
-				if(Task.loadedAnimalsframeWordsframe && Task.loadedAnimalsframe) {
+				if(Task.loadedAnimalsWordsframe && Task.loadedAnimalsframe) {
 					try {
 						console.log("N", N);
 						console.log("Profile.LoggedIn", Profile.LoggedIn);
@@ -3139,19 +3205,22 @@
 				}
 			}
 			checkloaded.Numbers = function (TaskName, N) {
+				console.log("here I am", Task.loadedNumbersWordsframe, Task.loadedNumbersframe);
 				if(Task.loadedNumbersWordsframe && Task.loadedNumbersframe) {
 					try {
-						console.log("Profile.LoggedIn", Profile.LoggedIn);
-					if(Profile.LoggedIn) {
-						Task.Result.UserName = Profile.UserName;
-						Task.Result.Exercise = TaskName;
-						Task.Result.Topic_Name = Task.TopicName;
-					};
-					setTest(Task.Frames[TaskName].concat(), N);
+						//console.log("Profile.LoggedIn", Profile.LoggedIn);
+						if(Profile.LoggedIn) {
+							Task.Result.UserName = Profile.UserName;
+							Task.Result.Exercise = TaskName;
+							Task.Result.Topic_Name = Task.TopicName;
+						};
+						console.log(TaskName, N);
+						console.log(Task.Frames[TaskName], N);
+						setTest(Task.Frames[TaskName].concat(), N);
 					}
 					catch(e) {
 						setTimeout(function() {
-							checkloaded.Numbers(TaskName, N);
+							//checkloaded.Numbers(TaskName, N);
 						}, 200);
 						
 					}
@@ -3161,12 +3230,19 @@
 					}, 200)
 				}
 			}
-			function showTask(TaskName, TopicName,Points, N, j = -1) {
+			function showTask(TaskName, TopicName,Points, N, j = -1, QuizArray = []) {
+				console.log("showTask", TaskName, TopicName,Points, N, j, QuizArray);
 				Mode.CountDown = false;
 				Task.TaskName = TaskName;
 				Task.TopicName = TopicName;
 				Task.MaxPoint = Points;
 				Task.N_toTest = N;
+				if(Mode.Quiz) {
+					Task.Frames[TaskName] = QuizArray;
+					console.log(Task.Frames[TaskName], QuizArray);
+					Mode.Training = false;
+				}
+				console.log("Mode.Quiz", Mode.Quiz);
 				switch(TaskName) {
 					case 'Alphabet song':
 						
@@ -3184,25 +3260,27 @@
 						Mode[Task.TaskName.replace(/\s/g,'')] = true;
 						frametype1 = "frame";
 						frametype2 = "Wordsframe";
-			
-						Mode.Training = true;
-						if(!Task.loadedAnimalsframeWordsframe)
+						if(!Mode.Quiz)
+							Mode.Training = true;
+						if(!Task.loadedAnimalsWordsframe)
 							loadAnimalsWords();
 						if(!Task.loadedAnimalsframe)
 							loadAnimals();
 						
-							//stop_loading = false;
-							drawLoading();
-							socket.emit('getTask', {
-								TaskName: TaskName
+						//stop_loading = false;
+						drawLoading();
+						if(!Mode.Quiz) {
+						socket.emit('getTask', {
+							TaskName: TaskName
+						})
+						socket.on('getTask', function(data){
+							//Animals = data.Content;
+							Task.Frames[TaskName] = data.Content;
+							checkloaded.Animals(TaskName, N);
 							})
-							socket.on('getTask', function(data){
-								//Animals = data.Content;
-								Task.Frames[TaskName] = data.Content;
-							
-						
-						
-						checkloaded.Animals(TaskName, N);})
+						}
+						else
+							checkloaded.Animals(TaskName, N);
 						try{
 							size_btn = setWordHeight();
 							if(frametype1 == "Wordsframe" && frametype2 == "frame")
@@ -3215,27 +3293,31 @@
 						
 						break;
 					case 'Find the animal':
+						drawLoading();
+						
 						Mode.Findtheanimal = true;
-						Mode.Training = true;
+						if(!Mode.Quiz)
+							Mode.Training = true;
 						frametype1 = "Wordsframe";
 						frametype2 = "frame";
 			
-						if(!Task.loadedAnimalsframeWordsframe)
+						if(!Task.loadedAnimalsWordsframe)
 							loadAnimalsWords();
 						if(!Task.loadedAnimalsframe)
 							loadAnimals();
 						
-							//stop_loading = false;
-							drawLoading();
+							
+						if(!Mode.Quiz) {
 							socket.emit('getTask', {
 								TaskName: TaskName
 							})
 							socket.on('getTask', function(data){
 								Task.Frames[TaskName] = data.Content;
-							
-						
-						
-						checkloaded.Animals(TaskName, N);	})						
+								checkloaded.Animals(TaskName, N);	
+							})	
+						}
+						else							
+							checkloaded.Animals(TaskName, N);							
 						try{
 							size_btn = setWordHeight();
 							if(frametype1 == "Wordsframe" && frametype2 == "frame")
@@ -3248,58 +3330,61 @@
 						
 						break;
 					case 'Name numbers from 0 to 9':
-						Mode.Training = true;
-						frametype2 = "Wordsframe";
+						
+						if(!Mode.Quiz)
+								Mode.Training = true;
+							//console.log("loaded" +TopicName + "Wordsframe", "Task.loadedNumbersWordsframe");
+							frametype2 = "Wordsframe";
 						frametype1 = "frame";
-						if(!Task["loaded" +TopicName + "frameWordsframe"])
-							loadNumbersWords();
-						if(!Task["loaded" +TopicName + "frame"])
-							loadNumbers();
-						
-							//stop_loading = false;
-							drawLoading();
-							socket.emit('getTask', {
-								TaskName: TaskName
-							})
-							socket.on('getTask', function(data){
-								Task.Frames[TaskName] = data.Content;
-							
-						
-						
-						checkloaded.Numbers(TaskName, N);
-							})						
-						try{
-							size_btn = setWordHeight();
-							if(frametype1 == "Wordsframe" && frametype2 == "frame")
-								size_btn = 70;
-						}
-						catch(e) {
-							size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
-						}
-						drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height) + 20, size_btn, size_btn);
-						
-						break;
-						case 'Find numbers from 0 to 9':
-							Mode.Training = true;
-							frametype1 = "Wordsframe";
-							frametype2 = "frame";
-							if(!Task["loaded" +TopicName + "frameWordsframe"])
+							if(!Task["loaded" +TopicName + "Wordsframe"])
 								loadNumbersWords();
 							if(!Task["loaded" +TopicName + "frame"])
 								loadNumbers();
-							//stop_loading = false;
-								drawLoading();
+							drawLoading();
+							if(!Mode.Quiz) {
 								socket.emit('getTask', {
 									TaskName: TaskName
 								})
 								socket.on('getTask', function(data){
 									Task.Frames[TaskName] = data.Content;
-									
-								
+									checkloaded.Numbers(TaskName, N);		
+								})		
+							}
+							else
+								checkloaded.Numbers(TaskName, N);
+							try{
+								size_btn = setWordHeight();
+								if(frametype1 == "Wordsframe" && frametype2 == "frame")
+									size_btn = 70;
+							}
+							catch(e) {
+								size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+							}
+							drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height) + 20, size_btn, size_btn);
 							
-							
-							checkloaded.Numbers(TaskName, N);
-							})							
+						break;
+						case 'Find numbers from 0 to 9':
+							if(!Mode.Quiz)
+								Mode.Training = true;
+							//console.log("loaded" +TopicName + "Wordsframe", "Task.loadedNumbersWordsframe");
+							frametype1 = "Wordsframe";
+							frametype2 = "frame";
+							if(!Task["loaded" +TopicName + "Wordsframe"])
+								loadNumbersWords();
+							if(!Task["loaded" +TopicName + "frame"])
+								loadNumbers();
+							drawLoading();
+							if(!Mode.Quiz) {
+								socket.emit('getTask', {
+									TaskName: TaskName
+								})
+								socket.on('getTask', function(data){
+									Task.Frames[TaskName] = data.Content;
+									checkloaded.Numbers(TaskName, N);		
+								})		
+							}
+							else
+								checkloaded.Numbers(TaskName, N);
 							try{
 								size_btn = setWordHeight();
 								if(frametype1 == "Wordsframe" && frametype2 == "frame")
@@ -3429,6 +3514,8 @@
 				}
 			}
 			if (Mode.Exercise && !Mode.SignIn && !Mode.LogIn && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height) + 20, size_btn, size_btn)) {
+				if(Mode.Quiz)
+					Mode.Quiz = false;
 				Mode.MenuItem = true;
 				Mode.Exercise = false;
 				delete Task.Frames[Task.TaskName];
@@ -3605,7 +3692,7 @@
 				var btn = Properties.Forms["result_form_try_again_btn.png"];
 				var btn_width = (Result_form.w - 2 * 20 * Result_form.w / frame.w - 20) / 2;
 				var btn_height = btn_width * btn.h / btn.w;
-				console.log(Mode.Results, mouseInRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height));
+				//console.log(Mode.Results, mouseInRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height));
 				if (Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height)) {
 					Task.Result = {};
 					Mode[Task.TaskName.replace(/\s/g,'')] = true;
@@ -3637,6 +3724,18 @@
 				
 				//okay has been clicked in show results
 				if (Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height)) {
+					/*
+						Mode.Quiz = false;
+							Mode.MenuItem = true;
+							Mode.Exercise = false;
+							
+							ctx.clearRect(0, 0.2 * Screen.height, Screen.width, 0.6 * Screen.height)
+							MenuItem.clicked = -1;
+							MenuItem.chosen = MenuItem.clicked;
+							initMenu();
+
+					*/
+					Mode.Quiz = false;
 					Mode.MenuItem = true;
 					Mode.Exercise = false;
 					delete Task.Frames[Task.TaskName];
@@ -3708,8 +3807,25 @@
 					});
 					socket.on('getQuiz', function(data) {
 						if(data.quiz) {
-							var Quiz = data.quiz;
-							console.log("Quiz:", Quiz);
+							Mode.Quiz = true;
+							Mode.Exercise = true;
+							clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height))
+							Mode.Tasks = false;
+							Mode.MenuItem = false;
+							
+							drawLoading();
+							Quiz.Content = data.quiz;
+							console.log("Quiz:", Quiz.Content);
+							Exercise_num = 0;
+							console.log(Exercise_num);
+							Quiz.Correct = 0;
+							Quiz.Total = 0;
+							Quiz.Points = 0;
+							Quiz.TotalMax = 0;
+							if(Exercise_num < Quiz.Content.length) {
+								console.log(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+								showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+							}
 						}
 						else
 							console.log("no quiz", data.quiz);
@@ -3902,6 +4018,7 @@
 			Properties.Forms = data.forms;
 			Properties.Numbers = data.numbers;
 			Properties.Letters = data.letters;
+			console.log(Properties.Tasks);
 			current = 0;
 			drawLoading();
 			var l_a_x = MenuItem.leftSpace;

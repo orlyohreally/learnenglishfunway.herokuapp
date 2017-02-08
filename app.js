@@ -348,7 +348,7 @@ io.sockets.on('connection', function(socket) {
 					var notForQuiz = res;
 					var list = [];
 					for(var i = 0; i < resp.length; i++) {
-						if(!inList(resp[i].Exercise, notForQuiz, "Name")) {
+						if(inList(resp[i].Exercise, notForQuiz, "Name") == -1) {
 							for(var j = 0; j < resp[i].Answers.length; j++) {
 								console.log(resp[i]);
 								var item = {};
@@ -364,6 +364,8 @@ io.sockets.on('connection', function(socket) {
 							}
 						}
 					}
+					console.log("list:", list, list != []);
+					if(list.length) {
 					for(var i = 0; i < list.length; i++){
 						for (var j = i + 1; j < list.length; j++) {
 							if(list[i].duration > list[j].duration)
@@ -382,18 +384,25 @@ io.sockets.on('connection', function(socket) {
 					list = list.sort(function(a, b){
 						return -a.w + b.w;
 					})
-					console.log(list);
-					console.log(list.length);
+					//console.log(list);
+					console.log("before removing duplicates list.length",list.length);
+					list = removeUnique(list);
+					//console.log(list);
+					console.log("after removing duplicates list.length", list.length);
 					list = list.splice(0, 20);
-					console.log(list);
-					console.log(list.length);
+					//console.log(list);
+					console.log("list.length", list.length);
 					var Quiz = getQuiz(list);
 					console.log("Quiz", Quiz);
-					console.log("Not for Quiz:", notForQuiz);
 					var i = 0;
 					console.log(Quiz[i].Name, Quiz[i].Topic_Name);
 					setFramesForQuiz(i, Quiz);
-					
+					}
+					else {
+						socket.emit('getQuiz', {
+							quiz: false
+						})
+					}
 				})
 			}
 			else {
@@ -404,17 +413,50 @@ io.sockets.on('connection', function(socket) {
 			
 		})
 	})
+	function removeUnique(list) {
+		//console.log(list);
+		var i = 0;
+		while(i < list.length) {
+			var j = i + 1;
+			while(j < list.length){
+				//console.log(list[i]);
+				//console.log("list[", i, "]", list[i].Word, list[i].Exercise, "list[j]", list[j].Word, list[j].Exercise);
+				if(i == 3)	
+					console.log(i, j);
+					
+				if(list[i].Word == list[j].Word && list[i].Exercise == list[j].Exercise) {
+					if(i == 3) {
+					console.log("removing", j,  list[j].Word, list[j].Exercise, "length", list.length);
+					console.log("before", list);
+					}
+					list.splice(j, 1);
+					if(i == 3) {
+						console.log("after", list)
+						console.log("new", j, "i:", i, list[j].Word, list[j].Exercise);
+					}
+				}
+				else
+					j++;
+			}
+			console.log("i++");
+			i++;
+		}
+		return list;
+	}
 	function setFramesForQuiz(i, Quiz) {
+		console.log("setFramesForQuiz()");
 		if(i < Quiz.length) {
 			db.Exercise.find({"Name": Quiz[i].Name, "Topic_Name": Quiz[i].Topic_Name}, function(err, res) {
 				if(res) {
+					//console.log("res:", res);
+					Quiz[i].Max_point = res[0].Max_point;					
 					res = res[0].Content;
-					console.log(res);
+					//console.log(res);
 					for(var j = 0; j < Quiz[i].Content.length; j++) {
 						console.log(Quiz[i].Content[j].Word);
 						var q = inList(Quiz[i].Content[j].Word, res, "Word");
 						console.log("q:", q, res[q]);
-						if(q) {
+						if(q != -1) {
 							Quiz[i].Content[j] = res[q];
 						}
 					}
@@ -427,6 +469,12 @@ io.sockets.on('connection', function(socket) {
 			socket.emit('getQuiz', {
 				quiz: Quiz
 			})
+			console.log("emitting");
+			for(var i = 0; i < Quiz.length; i++) {
+				console.log(Quiz[i].Content);
+			}
+			console.log("emmited");
+			
 		}
 			
 	}
@@ -436,7 +484,7 @@ io.sockets.on('connection', function(socket) {
 			if(list[i][field] == str)
 				return i;
 		}
-		return false;
+		return -1;
 	}
 	function getRecentResults(res) {
 		console.log("all data", res);
@@ -445,7 +493,7 @@ io.sockets.on('connection', function(socket) {
 		var list = [];
 		for (var i = 0; i < res.length; i++) {
 			console.log("currEx == res[i].Exercise, count", currEx == res[i].Exercise, count)
-			if(currEx == res[i].Exercise && count < 2) {
+			if(res[i].Answers && res[i].Answers.length && currEx == res[i].Exercise && count < 2) {
 				//console.log("res[", i, "]",res[i]);
 				list.push(res[i]);
 				count++;
@@ -480,6 +528,7 @@ io.sockets.on('connection', function(socket) {
 				item.Name = list[i].Exercise;
 				item.Topic_Name = list[i].Topic_Name;
 				item.Content = [];
+				item.Content.push({"Word": list[i].Word});
 			}
 			else if(currEx == list[i].Exercise) {
 				console.log(currEx);
