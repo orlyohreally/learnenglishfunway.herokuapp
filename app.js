@@ -421,19 +421,10 @@ io.sockets.on('connection', function(socket) {
 			while(j < list.length){
 				//console.log(list[i]);
 				//console.log("list[", i, "]", list[i].Word, list[i].Exercise, "list[j]", list[j].Word, list[j].Exercise);
-				if(i == 3)	
-					console.log(i, j);
-					
+				
 				if(list[i].Word == list[j].Word && list[i].Exercise == list[j].Exercise) {
-					if(i == 3) {
-					console.log("removing", j,  list[j].Word, list[j].Exercise, "length", list.length);
-					console.log("before", list);
-					}
+					
 					list.splice(j, 1);
-					if(i == 3) {
-						console.log("after", list)
-						console.log("new", j, "i:", i, list[j].Word, list[j].Exercise);
-					}
 				}
 				else
 					j++;
