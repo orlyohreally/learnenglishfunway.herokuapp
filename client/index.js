@@ -3911,7 +3911,7 @@
 							}
 						}
 						else
-							alert("You have not finished any exercise to get a Quiz");
+							alert("You have not finished any exercises to get a Quiz");
 					})
 				}
 				else {
