@@ -3827,7 +3827,10 @@
 					ctx.clearRect(0, 0.2 * Screen.height, Screen.width, 0.6 * Screen.height)
 					MenuItem.clicked = -1;
 					MenuItem.chosen = MenuItem.clicked;
-					initMenu();
+					setTimeout(function() {
+						initMenu();
+					}, 20);
+					
 				}
 				//skip has been clicked
 				var size_btn = setWordHeight();
