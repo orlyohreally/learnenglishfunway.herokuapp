@@ -3908,7 +3908,7 @@
 							}
 						}
 						else
-							console.log("no quiz", data.quiz);
+							alert("You have not finished any exercise to get a Quiz");
 					})
 				}
 				else {
