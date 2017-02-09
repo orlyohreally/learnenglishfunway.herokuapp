@@ -649,12 +649,30 @@
 				if(Mode.Alphabetsong && video.paused) {
 					console.log("video is paused");
 					if(video.src.indexOf("/img/Alphabet/abc%20song.mp4") !== -1) {
-					pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2
+					/*pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2
 					document.getElementById("Loading").style.visibility = "hidden";
 					ctx.drawImage(currentVideoFrame, pX * Math.min(Screen.k_width, Screen.k_height), (MenuItem.starts + 20)*Math.min(Screen.k_width, Screen.k_height), 1366 / 768 * (0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)), 0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height));
 					ctx.clearRect(pX * Math.min(Screen.k_width, Screen.k_height), (MenuItem.starts + 20)*Math.min(Screen.k_width, Screen.k_height), 300 / 768 * (0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)), 0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height));
 					ctx.clearRect(pX * Math.min(Screen.k_width, Screen.k_height) + 1066 / 768 * (0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)), (MenuItem.starts + 20)*Math.min(Screen.k_width, Screen.k_height), 1366 / 768 * (0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)) - 1066 / 768 * (0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)), 0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height));
-					//buttons were here
+					*/
+						if(currentVideoFrame == Thumbnails['abc song']) {
+							var VideoFrame = {};
+							VideoFrame.height = 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40;
+							VideoFrame.width = Thumbnails.videoWidth / Thumbnails.videoHeight * VideoFrame.height - 600 / 768 * VideoFrame.height;
+							VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * VideoFrame.height) / 2 + 300 / 768 * VideoFrame.height;
+							VideoFrame.y = (MenuItem.starts + 20);
+							ctx.drawImage(currentVideoFrame, VideoFrame.x * Math.min(Screen.k_width, Screen.k_height), VideoFrame.y *Math.min(Screen.k_width, Screen.k_height), VideoFrame.width * Math.min(Screen.k_width, Screen.k_height), VideoFrame.height * Math.min(Screen.k_width, Screen.k_height));
+						}
+						else {
+							var VideoFrame = {};
+							VideoFrame.height = 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40;
+							VideoFrame.width = video.videoWidth / video.videoHeight * VideoFrame.height;
+							VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * VideoFrame.height) / 2
+							VideoFrame.y = (MenuItem.starts + 20);
+							ctx.drawImage(currentVideoFrame, VideoFrame.x * Math.min(Screen.k_width, Screen.k_height), VideoFrame.y *Math.min(Screen.k_width, Screen.k_height), VideoFrame.width * Math.min(Screen.k_width, Screen.k_height), VideoFrame.height * Math.min(Screen.k_width, Screen.k_height));
+							ctx.clearRect(VideoFrame.x * Math.min(Screen.k_width, Screen.k_height), (MenuItem.starts + 20)*Math.min(Screen.k_width, Screen.k_height), 300 / 768 * VideoFrame.height * Math.min(Screen.k_width, Screen.k_height), VideoFrame.height * Math.min(Screen.k_width, Screen.k_height));
+							ctx.clearRect(VideoFrame.x * Math.min(Screen.k_width, Screen.k_height) + 1066 / 768 * VideoFrame.height * Math.min(Screen.k_width, Screen.k_height), VideoFrame.y * Math.min(Screen.k_width, Screen.k_height), 1366 / 768 * VideoFrame.height * Math.min(Screen.k_width, Screen.k_height) - 1066 / 768 * VideoFrame.height * Math.min(Screen.k_width, Screen.k_height), VideoFrame.height * Math.min(Screen.k_width, Screen.k_height)); 
+						}
 					}
 					drawPlayerButtons();
 				}
@@ -1108,7 +1126,6 @@
 				help_ch = false;
 			}
 			//Info button has been hovered
-			//drawInfoButton((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace + 5 + (Profile.size_btn - 2 * 5)/3 + (Profile.size_btn - 2 * 5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
 			if (!Mode.LogIn && !Mode.SignIn &&!info_ch&& mouseX >= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace + (Profile.size_btn - 2 * 5)/3 + 5+ (Profile.size_btn - 2 * 5)/3 + 5)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn- MenuItem.leftSpace + (Profile.size_btn - 2 * 5)/3 + 5 + (Profile.size_btn - 2*5) / 3+ (Profile.size_btn - 2 * 5)/3 + 5 )* Math.min(Screen.k_width, Screen.k_height) && mouseY >= ((20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= ((20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5 + (Profile.size_btn - 2*5) / 3)* Math.min(Screen.k_width, Screen.k_height)) {
 				clearScreenRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace + (Profile.size_btn - 2*5)/3 + 5 + (Profile.size_btn - 2*5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
 				fillRectYellow((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace + (Profile.size_btn - 2*5)/3 + 5 + (Profile.size_btn - 2*5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
@@ -1229,12 +1246,11 @@
 				drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
 				
 			}
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			
 			//pause button has been hovered
-			//fillRect(pX + 20 - 3, pY + size_btn + 10 - 3, size_btn + 6, size_btn + 6)
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn &&!pause_btn_ch && mouseInRect(pX + 20, pY + size_btn + 10, size_btn, size_btn)) {
 				clearScreenRect(pX + 20, pY + size_btn + 10, size_btn, size_btn);
 				drawPauseButton(pX + 20 - 3, pY + size_btn + 10 - 3, size_btn + 6, size_btn + 6)
@@ -1246,9 +1262,9 @@
 				pause_btn_ch = false;
 			}
 			//play button has been hovered
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn &&!play_btn_ch && mouseInRect(pX + 20, pY, size_btn, size_btn)) {
 				clearScreenRect(pX + 20, pY, size_btn, size_btn);
@@ -1262,9 +1278,9 @@
 			}
 			
 			//stop button has been hovered
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn &&!stop_btn_ch && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
 				clearScreenRect(pX + 20, pY + size_btn + 10 + size_btn + 10, size_btn, size_btn);
@@ -1277,9 +1293,9 @@
 				stop_btn_ch = false;
 			}
 			//restart button has been hovered
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn &&!restart_btn_ch && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
 				clearScreenRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn);
@@ -1292,9 +1308,9 @@
 				restart_btn_ch = false;
 			}
 			//exit button has been hovered
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn &&!exit_btn_ch && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
 				clearScreenRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn);
@@ -2485,10 +2501,18 @@
 		video.addEventListener('loadstart', function() {
 			var $this = this; //cache
 			if (Mode.Exercise && Mode.Alphabetsong) {
-				pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2
+				/*pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2
 				drawPlayerButtons()
-				pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2
-				ctx.drawImage(Thumbnails['abc song'], pX * Math.min(Screen.k_width, Screen.k_height) +  300 / 768 * (0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)), (MenuItem.starts + 20)*Math.min(Screen.k_width, Screen.k_height), 1066 / 768 * (0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)) - 300 / 768 * (0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)), 0.6 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height));
+				pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2
+				ctx.drawImage(Thumbnails['abc song'], pX * Math.min(Screen.k_width, Screen.k_height) +  300 / 768 * (0.8 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)), (MenuItem.starts + 20)*Math.min(Screen.k_width, Screen.k_height), 1066 / 768 * (0.8 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)) - 300 / 768 * (0.8 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height)), 0.8 * Screen.height - 40 * Math.min(Screen.k_width, Screen.k_height));
+				*/
+				var VideoFrame = {};
+				VideoFrame.height = 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40;
+				VideoFrame.width = Thumbnails.videoWidth / Thumbnails.videoHeight * VideoFrame.height - 600 / 768 * VideoFrame.height;
+				VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * VideoFrame.height) / 2 + 300 / 768 * VideoFrame.height;
+				VideoFrame.y = (MenuItem.starts + 20);
+				ctx.drawImage(currentVideoFrame, VideoFrame.x * Math.min(Screen.k_width, Screen.k_height), VideoFrame.y *Math.min(Screen.k_width, Screen.k_height), VideoFrame.width * Math.min(Screen.k_width, Screen.k_height), VideoFrame.height * Math.min(Screen.k_width, Screen.k_height));
+					
 				if(!playing)
 					//stop_loading = false;
 					drawLoading();
@@ -2512,13 +2536,13 @@
 					var VideoFrame = {};
 					VideoFrame.height = 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40;
 					VideoFrame.width = video.videoWidth / video.videoHeight * VideoFrame.height;
-					VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - VideoFrame.width) / 2;
-					var gap = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) -  video.videoHeight * Thumbnails['abc song'].width / Thumbnails['abc song'].height) / 2;
-					console.log(VideoFrame.width, VideoFrame.height, Thumbnails['abc song'].height, Thumbnails['abc song'].width, gap);
-					ctx.fillRect(gap * Math.min(Screen.k_width, Screen.k_height), 0, 10, 1000);
+					Thumbnails.videoWidth = VideoFrame.width;
+					Thumbnails.videoHeight = VideoFrame.height;
+					VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * VideoFrame.height) / 2;
 					VideoFrame.y = (MenuItem.starts + 20);
-					//pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2
 					ctx.drawImage($this, VideoFrame.x * Math.min(Screen.k_width, Screen.k_height), VideoFrame.y *Math.min(Screen.k_width, Screen.k_height), VideoFrame.width * Math.min(Screen.k_width, Screen.k_height), VideoFrame.height * Math.min(Screen.k_width, Screen.k_height));
+					ctx.clearRect(VideoFrame.x * Math.min(Screen.k_width, Screen.k_height), (MenuItem.starts + 20)*Math.min(Screen.k_width, Screen.k_height), 300 / 768 * VideoFrame.height * Math.min(Screen.k_width, Screen.k_height), VideoFrame.height * Math.min(Screen.k_width, Screen.k_height));
+					ctx.clearRect(VideoFrame.x * Math.min(Screen.k_width, Screen.k_height) + 1066 / 768 * VideoFrame.height * Math.min(Screen.k_width, Screen.k_height), VideoFrame.y * Math.min(Screen.k_width, Screen.k_height), 1366 / 768 * VideoFrame.height * Math.min(Screen.k_width, Screen.k_height) - 1066 / 768 * VideoFrame.height * Math.min(Screen.k_width, Screen.k_height), VideoFrame.height * Math.min(Screen.k_width, Screen.k_height));
 					//buttons were here
 					setTimeout(loop, 1000 / 30); // drawing at 30fps
 				}
@@ -2530,6 +2554,7 @@
 			video.src = "/img/Alphabet/abc song.mp4"
 			if(!sound_on)
 				video.muted = true;
+			currentVideoFrame = Thumbnails['abc song'];
 			video.play()
 		}
 		function AlphabetSongEx() {
@@ -2543,16 +2568,15 @@
 			
 			var VideoFrame = {};
 			VideoFrame.height = 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40;
-			VideoFrame.width = (video.videoWidth - 600 /  video.videoHeight)/ video.videoHeight * VideoFrame.height;
+			VideoFrame.width =  768 / 1366 * VideoFrame.height;
 			VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - VideoFrame.width) / 2;
 			VideoFrame.y = (MenuItem.starts + 20);
-			console.log(Screen.width /  Math.min(Screen.k_width, Screen.k_height), VideoFrame.width);
-			console.log(VideoFrame.x,VideoFrame.y,VideoFrame.width,VideoFrame.height);
 			
-			var pX = VideoFrame.x + VideoFrame.width;
+			var pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * VideoFrame.height) / 2 + 1066 / 768 * VideoFrame.height;
 			var pY = VideoFrame.y + (VideoFrame.height) / 5;
-			//size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) / 2  - 40 - 10 * 4) / 5
-			var size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			
+			var size_btn = (VideoFrame.height- 4 * 10 - VideoFrame.height * 2/5) / 5;
+			
 			if(!play_btn_ch)
 				drawPlayButton(pX + 20, pY, size_btn, size_btn)
 			else
@@ -3474,43 +3498,44 @@
 			
 			//AlphabetSong play button has been clicked
 			//pause button has been clicked
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn && mouseInRect(pX + 20, pY + size_btn + 10, size_btn, size_btn)) {
 				video.pause();
 				
 			}
 			//play button has been clicked
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn && mouseInRect(pX + 20, pY, size_btn, size_btn)) {
 				video.play()
 			}
 			//stop button has been clicked
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
+				currentVideoFrame = Thumbnails['abc song'];
 				video.load();
 			}
 			
 			//restart button has been clicked
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
-				ctx.clearRect(0, 0.2 * Screen.height, Screen.width, 0.6 * Screen.height)
+				ctx.clearRect(0, 0.2 * Screen.height, Screen.width, 0.8 * Screen.height)
 				video.load()
 				video.play()
 			}
 			//exit button has been clicked
-			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
-			pY = MenuItem.starts + 20 + (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
-			size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
+			pX = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - 1366 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40)) / 2 + 1066 / 768 * (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height)- 40)
+			pY = MenuItem.starts + 20 + (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 1/5
+			size_btn = ((0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
 				Mode.MenuItem = true;
 				Mode.Exercise = false;
@@ -3518,7 +3543,7 @@
 				Mode[Task.TaskName.replace(/\s/g,'')] = false;
 					
 				video.load()
-				ctx.clearRect(0, 0.2 * Screen.height, Screen.width, 0.6 * Screen.height)
+				ctx.clearRect(0, 0.2 * Screen.height, Screen.width, 0.8 * Screen.height)
 				MenuItem.clicked = -1;
 				MenuItem.chosen = MenuItem.clicked;
 				initMenu();
@@ -3855,6 +3880,7 @@
 				
 			if(!Mode.Results&& !Mode.Exercise && (Mode.Tasks  || Mode.MenuItem) && mouseInRect(Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228)) {
 				if(Profile.LoggedIn) {
+					drawLoading();
 					console.log(Profile.UserName);
 					console.log("quiz clicked", Profile.UserName);
 					socket.emit('getQuiz', {
@@ -3868,7 +3894,6 @@
 							Mode.Tasks = false;
 							Mode.MenuItem = false;
 							
-							drawLoading();
 							Quiz.Content = data.quiz;
 							console.log("Quiz:", Quiz.Content);
 							Exercise_num = 0;
@@ -3902,8 +3927,14 @@
 			if (!Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68,  Rewards.topSpace, Rewards.size + 68, Rewards.size*75/228)) {
 				alert("Phrases are not available yet:(");
 			}
-			
-			
+			//help button has been clicked
+			if (!Mode.LogIn && !Mode.SignIn && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace + (Profile.size_btn - 2 * 5)/3 + 5,  (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3)) {
+				alert("Help is not available yet:(");
+			}
+			//info button has been clicked
+			if (!Mode.LogIn && !Mode.SignIn && mouseInRect(Screen.width/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace + (Profile.size_btn - 2 * 5)/3 + 5+ (Profile.size_btn - 2 * 5)/3 + 5,(20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2 * 5)/3 + 5 , (Profile.size_btn - 2*5) / 3)){
+				alert("Information is not available yet:(");
+			}
 		}
 		MainCanvas.addEventListener("mousedown", MouseDown);
 		MainCanvas.addEventListener("touchstart", MouseDown);
