@@ -622,6 +622,7 @@
 			}
 		}
 		function initMenu() {
+			drawHeader();
 			if(!Mode.Exercise) {
 				if(MenuItem.loadedMenuItems) {
 					drawMenuItems();
@@ -686,7 +687,6 @@
 			}
 			loadNumbers();
 			loadLetters();
-			drawHeader();
 			readyToShowForms();
 			loadButtons();
 		}
@@ -2230,21 +2230,23 @@
 			return points;
 		}
 		function showResultForm(Answers = Task.Result.Answers, Total = Task.Total, Max = 4){
-				delete Pressed.x;
-				delete Pressed.y;
-				delete Task.asked;
-				clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
-				drawHeader();
-				Mode.Results = true;
-				//stop_loading = true;
-				var Correct = 0;
-				if(!Mode.Quiz)
-					Correct = countCorrect(Task.Result.Answers);
-				else {
-					Correct = Quiz.Correct;
-					Total = Quiz.Total;
-				}
 				if(Forms_loaded){
+					console.log("showResultForm");
+					delete Pressed.x;
+					delete Pressed.y;
+					delete Task.asked;
+					clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
+					drawHeader();
+					Mode.Results = true;
+					//stop_loading = true;
+					var Correct = 0;
+					if(!Mode.Quiz)
+						Correct = countCorrect(Task.Result.Answers);
+					else {
+						Correct = Quiz.Correct;
+						Total = Quiz.Total;
+					}
+					
 					try {
 					var frame = Properties.Forms["result_form.png"];
 					var Result_form = {};
@@ -2335,6 +2337,7 @@
 				}
 				else {
 					setTimeout(function(){
+						console.log("waiting showResultForm");
 						showResultForm(Answers, Total, Max);
 					}, 100);
 				}
@@ -2891,9 +2894,10 @@
 						setTimeout(function(){
 							Mode.Tasks = true;
 							Mode.Exercise = false;
-						}, 5);
+							MenuItemClicked(MenuItem.clicked);
+						}, 20);
 						
-						MenuItemClicked(MenuItem.clicked);
+						
 						j = MenuItem.display + 1;		
 						
 						
