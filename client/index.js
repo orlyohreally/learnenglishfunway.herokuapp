@@ -2336,6 +2336,8 @@
 					catch(e) {showResultForm(Answers, Total, Max);}
 				}
 				else {
+					if(Forms_loaded == false)
+						loadForms();
 					setTimeout(function(){
 						console.log("waiting showResultForm");
 						showResultForm(Answers, Total, Max);
@@ -3931,7 +3933,7 @@
 					MenuItem.chosen = MenuItem.clicked;
 					setTimeout(function() {
 						initMenu();
-					}, 20);
+					}, 100);
 					
 				}
 				//skip has been clicked
