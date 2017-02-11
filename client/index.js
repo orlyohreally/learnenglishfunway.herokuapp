@@ -3829,6 +3829,7 @@
 								drawWrong((Screen.width / Math.min(Screen.k_width, Screen.k_height) - word_width) / 2, 0.2*Screen.height / Math.min(Screen.k_width, Screen.k_height) - word_height - 20, word_width, word_height);
 								
 								k3 = -1;
+								drawTest();
 								delete Pressed.x;
 								delete Pressed.y;
 								
