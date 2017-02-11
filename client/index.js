@@ -1362,7 +1362,7 @@
 			
 			var size_btn = (VideoFrame.height- 4 * 10 - VideoFrame.height * 2/5) / 5;
 			
-			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn &&!exit_btn_ch && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
+			if (Mode.Exercise && Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn &&!exit_btn_ch && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
 				clearScreenRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn);
 				drawExitButton(pX + 20 - 3, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10 - 3, size_btn + 6, size_btn + 6)
 				exit_btn_ch = true;
@@ -3631,7 +3631,7 @@
 			var pY = VideoFrame.y + (VideoFrame.height) / 5;
 			
 			var size_btn = (VideoFrame.height- 4 * 10 - VideoFrame.height * 2/5) / 5;
-			if (Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
+			if (Mode.Exercise && Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn && mouseInRect(pX + 20, pY + size_btn + 10 + size_btn + 10 + size_btn + 10 + size_btn + 10, size_btn, size_btn)) {
 				Mode.MenuItem = true;
 				Mode.Exercise = false;
 				//Mode.Alphabetsong = false;
@@ -3689,7 +3689,7 @@
 					size_btn = ((0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) - 4 * 10 - (0.6 * Screen.height / Math.min(Screen.k_width, Screen.k_height) - 40) * 2/5) / 5
 				}
 			}
-			if (Mode.Exercise && !Mode.SignIn && !Mode.LogIn && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height) + 20, size_btn, size_btn)) {
+			if (Mode.Exercise && !Mode.Alphabetsong && !Mode.SignIn && !Mode.LogIn && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height) + 20, size_btn, size_btn)) {
 				if(Mode.Quiz)
 					Mode.Quiz = false;
 				Mode.MenuItem = true;
