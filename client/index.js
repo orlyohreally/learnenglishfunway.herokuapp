@@ -2339,7 +2339,7 @@
 					setTimeout(function(){
 						console.log("waiting showResultForm");
 						showResultForm(Answers, Total, Max);
-					}, 100);
+					}, 20);
 				}
 		}
 		function showSignInForm(){
