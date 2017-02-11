@@ -200,6 +200,7 @@
 		loadThumbnail(name);
 		k1 = -1;
 		function DrawMenuItem(i, j, pX, pY, pW, pH){
+			console.log(Forms_loaded);
 			var X = 368 * i;
 			var Y = 0;
 			var W = 368;
@@ -685,6 +686,7 @@
 					drawPlayerButtons();
 				}
 			}
+			loadForms();
 			loadNumbers();
 			loadLetters();
 			readyToShowForms();
@@ -2254,8 +2256,8 @@
 					Result_form.w = Result_form.h * frame.w / frame.h;
 					Result_form.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Result_form.w) / 2;
 					Result_form.y = (Screen.height / Math.min(Screen.k_width, Screen.k_height) - Result_form.h) / 2;
-					document.getElementById("Loading").style.visibility = "hidden";
 					drawResultForm(Result_form.x, Result_form.y, Result_form.w, Result_form.h);
+					document.getElementById("Loading").style.visibility = "hidden";
 					var btn = Properties.Forms["result_form_try_again_btn.png"];
 					var btn_width = (Result_form.w - 2 * 20 * Result_form.w / frame.w - 20) / 2;
 					var btn_height = btn_width * btn.h / btn.w;
