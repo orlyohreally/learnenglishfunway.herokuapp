@@ -2245,6 +2245,7 @@
 					Total = Quiz.Total;
 				}
 				if(Forms_loaded){
+					try {
 					var frame = Properties.Forms["result_form.png"];
 					var Result_form = {};
 					Result_form.h = MenuItem.size;
@@ -2252,7 +2253,6 @@
 					Result_form.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Result_form.w) / 2;
 					Result_form.y = (Screen.height / Math.min(Screen.k_width, Screen.k_height) - Result_form.h) / 2;
 					document.getElementById("Loading").style.visibility = "hidden";
-			
 					drawResultForm(Result_form.x, Result_form.y, Result_form.w, Result_form.h);
 					var btn = Properties.Forms["result_form_try_again_btn.png"];
 					var btn_width = (Result_form.w - 2 * 20 * Result_form.w / frame.w - 20) / 2;
@@ -2266,7 +2266,6 @@
 					var digit = {};
 					digit.h = 12  * Result_form.h / frame.h;
 					digit.w = digit.h * digit_frame.w / digit_frame.h;
-					//drawDigit(Correct, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 51 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 					Correct = Correct +"";
 					for(var j = 0; j < Correct.length; j++)
 						drawDigit(Correct[j], Result_form.x + 115 * Result_form.w / frame.w + j * digit.w, Result_form.y + 51 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
@@ -2274,7 +2273,6 @@
 					for(var j = 0; j < Total.length; j++)
 						drawDigit(Total[j], Result_form.x + 115 * Result_form.w / frame.w + j * digit.w, Result_form.y + 68 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 					
-					//drawDigit(Total, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 68 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 					var points = 0;
 					if(!Mode.Quiz)
 						points = countPoints(Answers, Total, Max);
@@ -2332,7 +2330,8 @@
 					}
 					if(Profile.LoggedIn)
 						socket.emit("Result", {Result: Task.Result});
-				
+					}
+					catch(e) {showResultForm(Answers, Total, Max);}
 				}
 				else {
 					setTimeout(function(){
