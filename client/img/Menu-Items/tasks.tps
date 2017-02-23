@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.2.2</string>
         <key>fileName</key>
-        <string>C:/Users/Orly/Desktop/Learn English Fun Way/client/img/Menu-Items/tasks.tps</string>
+        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Menu-Items/tasks.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -188,24 +188,27 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">AlphabetSong.png</key>
-            <key type="filename">CountAnimals.png</key>
-            <key type="filename">Find numbers after 100.png</key>
-            <key type="filename">Find numbers from 0 to 9.png</key>
-            <key type="filename">Find numbers from 10 to 100.png</key>
-            <key type="filename">FindTheAnimal.png</key>
-            <key type="filename">LearningTheLetterSounds.png</key>
-            <key type="filename">MemoryGame.png</key>
-            <key type="filename">Name numbers after 100.png</key>
-            <key type="filename">Name numbers from 0 to 9.png</key>
-            <key type="filename">Name numbers from 10 to 100.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/AlphabetSong.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/CountAnimals.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Find numbers after 100.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Find numbers from 0 to 9.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Find numbers from 10 to 100.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/FindTheAnimal.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/MemoryGame.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Name numbers after 100.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Name numbers from 0 to 9.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Name numbers from 10 to 100.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Reading.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Spell animal names.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/TellingTime.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Unscramble-animal-names.png</key>
+            <key type="filename">Animals-Song.png</key>
+            <key type="filename">LearningLetterSounds.png</key>
             <key type="filename">Name-animals.png</key>
-            <key type="filename">NameTheLetter.png</key>
-            <key type="filename">Reading.png</key>
-            <key type="filename">Spell animal names.png</key>
-            <key type="filename">TellingTime.png</key>
-            <key type="filename">TraceTheLetters.png</key>
-            <key type="filename">Unscramble-animal-names.png</key>
+            <key type="filename">Name-letters.png</key>
+            <key type="filename">NumbersSong(1-10).png</key>
+            <key type="filename">NumbersSong(1-20).png</key>
+            <key type="filename">TracingLetters.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -213,24 +216,27 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>TraceTheLetters.png</filename>
-            <filename>AlphabetSong.png</filename>
-            <filename>NameTheLetter.png</filename>
-            <filename>LearningTheLetterSounds.png</filename>
-            <filename>MemoryGame.png</filename>
-            <filename>Unscramble-animal-names.png</filename>
-            <filename>Reading.png</filename>
-            <filename>CountAnimals.png</filename>
-            <filename>TellingTime.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/AlphabetSong.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/MemoryGame.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Unscramble-animal-names.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Reading.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/CountAnimals.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/TellingTime.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Name numbers after 100.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Name numbers from 0 to 9.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Name numbers from 10 to 100.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Find numbers after 100.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Find numbers from 10 to 100.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Find numbers from 0 to 9.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Spell animal names.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/FindTheAnimal.png</filename>
+            <filename>Name-letters.png</filename>
+            <filename>LearningLetterSounds.png</filename>
+            <filename>TracingLetters.png</filename>
+            <filename>NumbersSong(1-20).png</filename>
+            <filename>NumbersSong(1-10).png</filename>
+            <filename>Animals-Song.png</filename>
             <filename>Name-animals.png</filename>
-            <filename>Name numbers after 100.png</filename>
-            <filename>Name numbers from 0 to 9.png</filename>
-            <filename>Name numbers from 10 to 100.png</filename>
-            <filename>Find numbers after 100.png</filename>
-            <filename>Find numbers from 10 to 100.png</filename>
-            <filename>Find numbers from 0 to 9.png</filename>
-            <filename>Spell animal names.png</filename>
-            <filename>FindTheAnimal.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

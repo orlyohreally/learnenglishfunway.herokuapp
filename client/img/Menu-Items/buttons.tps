@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.2.2</string>
         <key>fileName</key>
-        <string>C:/Users/Orly/Desktop/Learn English Fun Way/client/img/Menu-Items/buttons.tps</string>
+        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Menu-Items/buttons.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -188,39 +188,42 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">drag-flick.png</key>
-            <key type="filename">exit_btn.png</key>
-            <key type="filename">flick-up.png</key>
-            <key type="filename">help_btn.png</key>
-            <key type="filename">info_btn.png</key>
-            <key type="filename">left-arrow.png</key>
-            <key type="filename">login_btn.png</key>
-            <key type="filename">pause_btn.png</key>
-            <key type="filename">phrase_of_the_day_btn.png</key>
-            <key type="filename">play_btn.png</key>
-            <key type="filename">profile_boy1.png</key>
-            <key type="filename">profile_boy2.png</key>
-            <key type="filename">profile_girl1.png</key>
-            <key type="filename">profile_girl2.png</key>
-            <key type="filename">quiz_btn.png</key>
-            <key type="filename">restart_btn.png</key>
-            <key type="filename">right-arrow.png</key>
-            <key type="filename">sign_up_btn.png</key>
-            <key type="filename">skip.png</key>
-            <key type="filename">sound_off.png</key>
-            <key type="filename">sound_on.png</key>
-            <key type="filename">stop_btn.png</key>
-            <key type="filename">tap.png</key>
-            <key type="filename">title1.png</key>
-            <key type="filename">touch-and-hold.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/drag-flick.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/exit_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/flick-up.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/help_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/info_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/left-arrow.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/login_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/pause_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/phrase_of_the_day_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/play_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy1.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy2.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl1.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl2.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/quiz_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/restart_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/right-arrow.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sign_up_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/skip.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sound_off.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sound_on.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/stop_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/tap.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/touch-and-hold.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/dark-star.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/heart.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/progress_btn.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/red-heart.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/star-board.png</key>
+            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/star.png</key>
+            <key type="filename">lock.png</key>
+            <key type="filename">menu_btn.png</key>
+            <key type="filename">settings_btn.png</key>
+            <key type="filename">title.png</key>
             <key type="filename">../Reward/correct.png</key>
-            <key type="filename">../Reward/dark-star.png</key>
-            <key type="filename">../Reward/heart.png</key>
-            <key type="filename">../Reward/progress_btn.png</key>
-            <key type="filename">../Reward/red-heart.png</key>
-            <key type="filename">../Reward/rewards_btn1.png</key>
-            <key type="filename">../Reward/star-board.png</key>
-            <key type="filename">../Reward/star.png</key>
+            <key type="filename">../Reward/rewards_btn.png</key>
             <key type="filename">../Reward/wrong.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -229,40 +232,43 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>sign_up_btn.png</filename>
-            <filename>../Reward/progress_btn.png</filename>
-            <filename>title1.png</filename>
-            <filename>phrase_of_the_day_btn.png</filename>
-            <filename>info_btn.png</filename>
-            <filename>../Reward/star.png</filename>
-            <filename>exit_btn.png</filename>
-            <filename>pause_btn.png</filename>
-            <filename>stop_btn.png</filename>
-            <filename>play_btn.png</filename>
-            <filename>restart_btn.png</filename>
-            <filename>left-arrow.png</filename>
-            <filename>help_btn.png</filename>
-            <filename>../Reward/rewards_btn1.png</filename>
-            <filename>sound_on.png</filename>
-            <filename>sound_off.png</filename>
-            <filename>right-arrow.png</filename>
-            <filename>../Reward/dark-star.png</filename>
-            <filename>../Reward/red-heart.png</filename>
-            <filename>../Reward/heart.png</filename>
-            <filename>../Reward/star-board.png</filename>
-            <filename>../Reward/correct.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sign_up_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/progress_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/phrase_of_the_day_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/info_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/star.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/exit_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/pause_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/stop_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/play_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/restart_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/left-arrow.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/help_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sound_on.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sound_off.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/right-arrow.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/dark-star.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/red-heart.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/heart.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/star-board.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/tap.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/touch-and-hold.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/drag-flick.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/flick-up.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/login_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/quiz_btn.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl2.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl1.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy1.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy2.png</filename>
+            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/skip.png</filename>
+            <filename>lock.png</filename>
+            <filename>settings_btn.png</filename>
+            <filename>menu_btn.png</filename>
             <filename>../Reward/wrong.png</filename>
-            <filename>tap.png</filename>
-            <filename>touch-and-hold.png</filename>
-            <filename>drag-flick.png</filename>
-            <filename>flick-up.png</filename>
-            <filename>login_btn.png</filename>
-            <filename>quiz_btn.png</filename>
-            <filename>profile_girl2.png</filename>
-            <filename>profile_girl1.png</filename>
-            <filename>profile_boy1.png</filename>
-            <filename>profile_boy2.png</filename>
-            <filename>skip.png</filename>
+            <filename>../Reward/correct.png</filename>
+            <filename>title.png</filename>
+            <filename>../Reward/rewards_btn.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
