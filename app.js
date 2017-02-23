@@ -1,7 +1,7 @@
 var mongojs = require("mongojs");
 var bcrypt = require("bcryptjs"), SALT_WORK_FACTOR = 10;
-var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
-//var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
+//var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
+var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
 
 
 var express = require('express');
@@ -319,6 +319,15 @@ io.sockets.on('connection', function(socket) {
 		db.Exercise.find({"Name":data.TaskName}, function(err, res){
 			//console.log("emitting Animals", res[0].Content);
 			socket.emit('getTask', {
+				Content: res[0].Content
+			})
+		})
+	})
+	socket.on('getVideoID', function(data){
+		//console.log("TaskName", data.TaskName);
+		db.Exercise.aggregate({$match:{"Name":data.TaskName, "Content.Accent":data.Accent}}, {$unwind:"$Content"}, {$match:{"Content.Accent":data.Accent}}, function(err, res){
+			//console.log("emitting Animals", res[0].Content);
+			socket.emit('getVideoID', {
 				Content: res[0].Content
 			})
 		})
