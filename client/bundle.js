@@ -1,7 +1,128 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+var Display = {};
+Display.Buttons = {};
+
+Display.Buttons["login_btn.png"] = {};
+
+
+function setLogInButton(x, y, w, h) {
+	Display.Buttons["login_btn.png"].x = x;
+	Display.Buttons["login_btn.png"].y = y;
+	Display.Buttons["login_btn.png"].w = w;
+	Display.Buttons["login_btn.png"].h = h;
+}
+function getLogInButton() {
+	return Display.Buttons["login_btn.png"];
+}
+module.exports= {
+	getLogInButton: getLogInButton,
+	setLogInButton: setLogInButton,	
+}
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+function randomInteger(min, max) {
+	return Math.floor(Math.random() * (max - min) + min);
+}
+function getRandomArray(array, arrayB, size) {
+	//console.log("array", array);
+	var arrayA = array.slice(0);
+	//console.log(arrayA);
+	for(var i = 0; i < size; i++){
+		var j = randomInteger(0, arrayA.length);
+		arrayB[i] = arrayA[j];
+		arrayA.splice(j, 1);
+		//console.log("splicing in function");
+	}
+	return arrayB;
+}
+
+module.exports = {
+	randomInteger: randomInteger(),
+	getRandomArray: getRandomArray,
+}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 (function(){
 	$(document).ready(function(){
-		var functions = require('./functions.js');
-		var Display = require('./display.js');
+		var functions = __webpack_require__(1);
+		var Display = __webpack_require__(0);
 		var ctx = document.getElementById("MainCanvas").getContext("2d");
 		var video;
 		
@@ -4088,3 +4209,7 @@
 });
 })();
 
+
+
+/***/ })
+/******/ ]);

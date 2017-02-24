@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+	"build": "webpack"
   },
   "author": "Orly Knop",
   "dependencies": {
@@ -14,7 +15,7 @@
     "cookie": "^0.3.1",
     "express": "*",
     "mongojs": "*",
-    "socket.io": "^1.7.2"
+    "socket.io": "^1.7.2"	
   },
   "engines": {
     "node": "4.6.0"

@@ -13,3 +13,8 @@ function getRandomArray(array, arrayB, size) {
 	}
 	return arrayB;
 }
+
+module.exports = {
+	randomInteger: randomInteger(),
+	getRandomArray: getRandomArray,
+}
