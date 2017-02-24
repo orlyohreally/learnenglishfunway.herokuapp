@@ -216,7 +216,7 @@
 			ctx.drawImage(atlasMenuItem, frame.x, frame.y, frame.w, frame.h, pX * Math.min(Screen.k_width, Screen.k_height), pY * Math.min(Screen.k_width, Screen.k_height), pW * Math.min(Screen.k_width, Screen.k_height), pH * Math.min(Screen.k_width, Screen.k_height));
 			var frame = Properties.Buttons['lock.png'];
 			if(!Properties.Tasks[i].length) {
-				drawLock(pX + (pW - frame.w / frame.h * pH / 4) / 2, pY + (pY - pY / 4) / 2, frame.w / frame.h * pH / 4, pH / 4);
+				drawLock(pX + (pW - frame.w / frame.h * pH / 4) / 2, pY + (pH - pH / 4) / 2, frame.w / frame.h * pH / 4, pH / 4);
 			}
 		}
 		var atlasMenuItem = new Image();
@@ -670,9 +670,10 @@
 					loadMenuItems();
 				}
 				if(MenuItem.clicked > -1) {
-					MenuItem.audio_played = true;
-					Task.firstTask = 0;
+					//console.log(Task.firstTask);
+					//Task.firstTask = 0;
 					MenuItemClicked(MenuItem.clicked);
+					console.log(Task.firstTask);
 				}
 			}
 			else {
@@ -1781,7 +1782,8 @@
 					b_a_height = 100*0.5;
 					b_a_width = 0.5*100*226/152;
 					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
-					pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
+					//pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
+					pY = MenuItem.topSpace + MenuItem.size - b_a_height;
 					ctx.clearRect((pX-3)*Math.min(Screen.k_width, Screen.k_height), (pY-3)*Math.min(Screen.k_width, Screen.k_height), (b_a_width + 6)*Math.min(Screen.k_width, Screen.k_height), (b_a_height + 6)*Math.min(Screen.k_width, Screen.k_height));
 				}
 		}
@@ -2027,15 +2029,14 @@
 			ctx.restore();
 			}
 			
-			
 			if(Task.itemsCount[j] >= 0){
-				drawTask(j, 0, pX, (pY+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+				drawTask(j, Task.firstTask, pX, (pY+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
 				if(Task.itemsCount[j] >= 1){
-					drawTask(j, 1, pX, (pY + 55/368*MenuItem.size + 10 + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+					drawTask(j, Task.firstTask + 1, pX, (pY + 55/368*MenuItem.size + 10 + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
 					if(Task.itemsCount[j] >= 2){
-						drawTask(j, 2, pX, (pY + (55/368*MenuItem.size + 10) * 2+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+						drawTask(j, Task.firstTask + 2, pX, (pY + (55/368*MenuItem.size + 10) * 2+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
 						if(Task.itemsCount[j] >= 3){
-							drawTask(j, 3, pX, (pY + (55/368*MenuItem.size + 10) * 3+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+							drawTask(j, Task.firstTask + 3, pX, (pY + (55/368*MenuItem.size + 10) * 3+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
 						}
 					}
 				}
@@ -2065,7 +2066,6 @@
 					speak(MenuItem.ItemList[j]);
 				MenuItem.chosen = MenuItem.clicked;
 				
-				MenuItem.audio_played = true;
 			}
 			if(!MenuItem.loadMenuItemsTasks) {
 				loadMenuItemsTasks(j);
@@ -2492,7 +2492,7 @@
 			try {
 				if(frametype1 == "frame" && frametype2 == "Wordsframe") {
 					var animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
-					var word_height = (MenuItem.ends - 40 * Math.floor((Task.test.length + 1) / 2) - animal_height - (Math.floor((Task.test.length + 1) / 2) - 1) * 30) / Math.floor((Task.test.length + 1) / 2);
+					var word_height = (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 40 * Math.floor((Task.test.length + 1) / 2) - animal_height - (Math.floor((Task.test.length + 1) / 2) - 1) * 30) / Math.floor((Task.test.length + 1) / 2);
 					var broadest_word = (Task.test).slice(0);
 					for(var i = 0; i < broadest_word.length; i++) {
 						broadest_word[i][frametype2] = Task.test.slice(0)[i][frametype2];
@@ -2582,6 +2582,7 @@
 					}
 				}
 			}
+			console.log(top, Screen.height  / Math.min(Screen.k_width, Screen.k_height));
 			size_btn = word_height;
 			if(frametype1 == "Wordsframe" && frametype2 == "frame") {
 				size_btn = 70;
@@ -2607,7 +2608,7 @@
 		MainCanvas.addEventListener("touchend", checkClick);
 		function checkClick(mouseEvent){
 			event.preventDefault();
-			if(mouseEvent.which == 1) {
+			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {
 				try {
 					var touch = mouseEvent.changedTouches[0];
 					var rect = MainCanvas.getBoundingClientRect();
@@ -2620,7 +2621,6 @@
 				if(Mode.MenuItem) {
 				if(Mode.Tasks && MenuItem.clicked > -1) {
 					//top arrow has been clicked
-					
 					t_a_height = 100*0.5;
 					t_a_width = 0.5*100*226/152;
 					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
@@ -2635,12 +2635,13 @@
 					b_a_height = 100*0.5;
 					b_a_width = 0.5*100*226/152;
 					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
-					pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
-					
-					if(mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height)){
+					//pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
+					//####console.log("clicked arrow",mouseX >= pX*Math.min(Screen.k_width, Screen.k_height), mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height), mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height),mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height));
+					pY = MenuItem.topSpace + MenuItem.size - b_a_height;
+					if(mouseInRect(pX, pY, b_a_width, b_a_height)){
 						Task.a_clicked = true;
 						if(Task.firstTask + Task.display < Task.itemsCount[MenuItem.clicked]) {
-							bottomArrowClicked()
+							bottomArrowClicked();
 						}
 					}
 				}
@@ -2698,7 +2699,6 @@
 							if(Properties.Tasks[j + MenuItem.firstItem].length) {
 								Mode.Tasks = false;
 								Task.firstTask = 0;
-								MenuItem.audio_played = false;
 								MenuItem.clicked = j + MenuItem.firstItem;
 								setTimeout(function(){
 									Mode.Tasks = true;
@@ -2738,7 +2738,8 @@
 						rightArrowClicked();
 					}
 				}
-				var frame = Properties.Buttons["menu_btn.png"];
+				try {
+					var frame = Properties.Buttons["menu_btn.png"];
 				var MenuFrame = {};
 				MenuFrame.x = Title.leftSpace;
 				MenuFrame.y = 20;
@@ -2754,6 +2755,7 @@
 					drawTitle(Title.leftSpace, 20, Title.size, Title.size*130/470);
 					drawLogInButton(100,100,100,100);
 				}
+				}catch(e){}
 				//Login button has been clicked
 				if(!Mode.Mobile && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseX >= ((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) * Math.min(Screen.k_width, Screen.k_height) && mouseX <= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + Profile.size_btn) * Math.min(Screen.k_width, Screen.k_height) && mouseY >= (20) * Math.min(Screen.k_width, Screen.k_height) && mouseY <= (20 + Profile.size_btn*75/228) * Math.min(Screen.k_width, Screen.k_height)) {
 					if(Forms_loaded == false)
@@ -3810,7 +3812,7 @@
 		MainCanvas.addEventListener("touchstart", MouseDown);
 		function MouseDown(mouseEvent){
 			event.preventDefault();
-			if(mouseEvent.which == 1) {
+			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {
 				try {
 					var touch = mouseEvent.changedTouches[0];
 					var rect = MainCanvas.getBoundingClientRect();
