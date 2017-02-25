@@ -75,19 +75,27 @@ Display.Buttons = {};
 
 Display.Buttons["login_btn.png"] = {};
 
+function setButton(name, x, y, w, h) {
+	Display.Buttons[name] = {};
+	Display.Buttons[name].x = x;
+	Display.Buttons[name].y = y;
+	Display.Buttons[name].w = w;
+	Display.Buttons[name].h = h;
+}
+function getButton(name) {
+	return Display.Buttons[name];
+}
+function expandButton(name, n) {
+	Display.Buttons[name].x = Display.Buttons[name].x- n;
+	Display.Buttons[name].y = Display.Buttons[name].y- n;
+	Display.Buttons[name].w = Display.Buttons[name].w + 2 * n;
+	Display.Buttons[name].h = Display.Buttons[name].h + 2 * n;
+}
 
-function setLogInButton(x, y, w, h) {
-	Display.Buttons["login_btn.png"].x = x;
-	Display.Buttons["login_btn.png"].y = y;
-	Display.Buttons["login_btn.png"].w = w;
-	Display.Buttons["login_btn.png"].h = h;
-}
-function getLogInButton() {
-	return Display.Buttons["login_btn.png"];
-}
 module.exports= {
-	getLogInButton: getLogInButton,
-	setLogInButton: setLogInButton,	
+	getButton: getButton,
+	setButton: setButton,	
+	expandButton: expandButton,	
 }
 
 /***/ }),
@@ -438,12 +446,12 @@ module.exports = {
 			var frame = Properties.Buttons["lock.png"];
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
 		}
-		function drawMenuButton(x, y, width, height) {
+		function drawMenuButton() {
 			var frame = Properties.Buttons["menu_btn.png"];
 			if(!Mode.Menu)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("menu_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("menu_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("menu_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("menu_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 			else
-				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
+				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("menu_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("menu_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("menu_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("menu_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function drawRewardsButton(x, y, width, height){
 			var frame = Properties.Buttons["rewards_btn.png"];
@@ -463,7 +471,7 @@ module.exports = {
 		}
 		function drawLogInButton(x,y,width,height){
 			var frame = Properties.Buttons["login_btn.png"];
-			var LogIn = Display.getLogInButton();
+			var LogIn = Display.getButton("login_btn.png");
 			if(!Mode.Mobile)
 				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, LogIn.x * Math.min(Screen.k_width, Screen.k_height), LogIn.y * Math.min(Screen.k_width, Screen.k_height), LogIn.w * Math.min(Screen.k_width, Screen.k_height), LogIn.h * Math.min(Screen.k_width, Screen.k_height))
 			else
@@ -544,11 +552,16 @@ module.exports = {
 		}
 		function drawLogInCancelButton(x, y, width, height) {
 			var frame = Properties.Forms["log_in_form_cancel_btn.png"];
-			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			var button = Display.getButton("log_in_form_cancel_btn.png");
+			if(!Mode.Mobile)
+				ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, button.x * Math.min(Screen.k_width, Screen.k_height), button.y * Math.min(Screen.k_width, Screen.k_height), button.w * Math.min(Screen.k_width, Screen.k_height), button.h * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Menu_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, button.x * Math.min(Screen.k_width, Screen.k_height), button.y * Math.min(Screen.k_width, Screen.k_height), button.w * Math.min(Screen.k_width, Screen.k_height), button.h * Math.min(Screen.k_width, Screen.k_height))
 		}
-		function drawLogInLogInButton(x, y, width, height) {
+		function drawLogInLogInButton() {
 			var frame = Properties.Forms["log_in_form_login_btn.png"];
-			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			var button = Display.getButton("log_in_form_login_btn.png");
+			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, button.x * Math.min(Screen.k_width, Screen.k_height), button.y * Math.min(Screen.k_width, Screen.k_height), button.w * Math.min(Screen.k_width, Screen.k_height), button.h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawSignInSignInButton(x, y, width, height) {
 			var frame = Properties.Forms["sign_in_form_signin_btn.png"];
@@ -615,11 +628,17 @@ module.exports = {
 		}
 		function fillRectYellow(x, y, width, height) {
 			ctx.fillStyle="#F7FE2E";
-			ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(!Mode.Menu)
+				ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Menu_ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function fillRectGreen(x, y, width, height) {
 			ctx.fillStyle="#7cc576";
-			ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(!Mode.Menu)
+				ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Menu_ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function PointInRect(Point, Rect) {
 			if(Point.x >= Rect.x* Math.min(Screen.k_width, Screen.k_height) && Point.x <= (Rect.x + Rect.w)* Math.min(Screen.k_width, Screen.k_height) && Point.y >= Rect.y * Math.min(Screen.k_width, Screen.k_height) && Point.y <= (Rect.y + Rect.h)* Math.min(Screen.k_width, Screen.k_height))
@@ -627,9 +646,20 @@ module.exports = {
 			return false;
 		}
 		function mouseInRect(x, y, width, height) {
-			if(mouseX >= x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x + width)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (y + height)* Math.min(Screen.k_width, Screen.k_height))
-				return true
-			return false;
+			try{
+				if(mouseX >= x.x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x.x + x.w)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= x.y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (x.y + x.h)* Math.min(Screen.k_width, Screen.k_height)){
+					console.log("in try");
+					return true;
+				}
+				return false;
+			}
+			catch(e) {
+				if(mouseX >= x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x + width)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (y + height)* Math.min(Screen.k_width, Screen.k_height)) {
+					console.log("in catch")
+					return true;
+				}
+				return false;
+			}
 		}
 		function speak(Word) {
 			try {
@@ -691,7 +721,7 @@ module.exports = {
 				}
 				if(!Profile.LoggedIn) {
 					//Log in button
-					Display.setLogInButton((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
+					Display.setButton("login_btn.png", (Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
 					drawLogInButton();
 					//Sign in button
 					drawSignInButton((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) -  Profile.size_btn - Title.leftSpace, (20 + 5) + Profile.size_btn*75/228, Profile.size_btn, Profile.size_btn*75/228);
@@ -714,8 +744,8 @@ module.exports = {
 				if(Screen.width < Screen.height) {
 					var frame = Properties.Buttons["login_btn.png"];
 					var button_frame = {};
-					button_frame.y = MenuItem.topSpace;
-					button_frame.h = (MenuItem.ends - MenuItem.topSpace - 6 * 20) / 7;
+					button_frame.y = MenuItem.starts + 20;
+					button_frame.h = (MenuItem.ends - MenuItem.starts - 7 * 20) / 7;
 					button_frame.w = frame.w / frame.h * button_frame.h;
 					if(button_frame.w + 2 * 20 > Screen.width / Math.min(Screen.k_width, Screen.k_height)) {
 						button_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20;
@@ -723,7 +753,7 @@ module.exports = {
 					}
 					button_frame.x = 20 + (Screen.width / Math.min(Screen.k_width, Screen.k_height) - button_frame.w - 2* 20) / 2;
 				}
-				Display.setLogInButton(button_frame.x, button_frame.y, button_frame.w, button_frame.h);
+				Display.setButton("login_btn.png", button_frame.x, button_frame.y, button_frame.w, button_frame.h);
 				drawLogInButton();
 			}
 		}
@@ -762,7 +792,8 @@ module.exports = {
 					MenuFrame.y = 20;
 					MenuFrame.h = MenuItem.starts - 2 * 20;
 					MenuFrame.w = frame.w / frame.h * MenuFrame.h;
-					drawMenuButton(MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
+					Display.setButton("menu_btn.png", MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
+					drawMenuButton();
 				}
 			}
 			else {
@@ -1180,27 +1211,29 @@ module.exports = {
 					
 				}
 			//Login button hovered
-			if (!Mode.Mobile && !Mode.Exercise && !Profile.LoggedIn && !Mode.LogIn && !Mode.SignIn &&!login_ch && mouseX >= ((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) * Math.min(Screen.k_width, Screen.k_height) && mouseX <= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + Profile.size_btn) * Math.min(Screen.k_width, Screen.k_height) && mouseY >= (20) * Math.min(Screen.k_width, Screen.k_height) && mouseY <= (20 + Profile.size_btn*75/228) * Math.min(Screen.k_width, Screen.k_height)) {
-				clearScreenRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
-				fillRectYellow((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
-				
-				ctx.fillStyle="#F7FE2E";
-				fillRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
-				
-				Display.setLogInButton((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace - 2, 20 - 2, Profile.size_btn + 4, Profile.size_btn*75/228 + 4);
+			if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.LogIn && !Mode.SignIn &&!login_ch && mouseInRect(Display.getButton("login_btn.png"))) {
+				fillRectYellow(Display.getButton("login_btn.png").x, Display.getButton("login_btn.png").y, Display.getButton("login_btn.png").w, Display.getButton("login_btn.png").h);
+				var n = 2;
+				if(Mode.Menu)
+					n = 10;
+				console.log(n);
+				Display.expandButton("login_btn.png", n);
 				drawLogInButton();
 				login_ch = true;
 			}
-			else if(!Mode.Mobile && !Mode.Exercise && !Profile.LoggedIn && !Mode.LogIn && !Mode.SignIn &&login_ch && !(mouseX >= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn- Title.leftSpace) * Math.min(Screen.k_width, Screen.k_height) && mouseX <= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + Profile.size_btn) * Math.min(Screen.k_width, Screen.k_height) && mouseY >= (20) * Math.min(Screen.k_width, Screen.k_height) && mouseY <= (20 + Profile.size_btn*75/228) * Math.min(Screen.k_width, Screen.k_height))) {
+			else if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.LogIn && !Mode.SignIn &&login_ch && !(mouseInRect(Display.getButton("login_btn.png")))) {
 				if(!Profile.LoggedIn) {
-					clearScreenRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace - 2, 20 - 2, Profile.size_btn + 4, Profile.size_btn*75/228 + 4);;
-					fillRectYellow((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace - 2, 20 - 2, Profile.size_btn + 4, Profile.size_btn*75/228 + 4);;
-					Display.setLogInButton((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
+					fillRectYellow(Display.getButton("login_btn.png").x, Display.getButton("login_btn.png").y, Display.getButton("login_btn.png").w, Display.getButton("login_btn.png").h);
+					var n = 2;
+					if(Mode.Menu)
+						n = 10;
+					console.log(n);
+					Display.expandButton("login_btn.png", -n);
 					drawLogInButton();
+					login_ch = false;
 				}
-				login_ch = false;
 			}
-			//Sign in button hovered
+			//Sign in button hovered###
 			if (!Mode.Mobile && !Mode.Exercise && !Profile.LoggedIn && !Mode.LogIn && !Mode.SignIn && !signin_ch && mouseX >= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) * Math.min(Screen.k_width, Screen.k_height) && mouseX <= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + Profile.size_btn) * Math.min(Screen.k_width, Screen.k_height) && mouseY >= ((20 + 5) + Profile.size_btn*75/228)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= ((20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228)* Math.min(Screen.k_width, Screen.k_height)) {
 				clearScreenRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, (20 + 5) + Profile.size_btn*75/228 + 3, Profile.size_btn, Profile.size_btn*75/228);
 				fillRectYellow((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, (20 + 5) + Profile.size_btn*75/228 + 3, Profile.size_btn, Profile.size_btn*75/228);
@@ -1326,15 +1359,16 @@ module.exports = {
 			if(Mode.SignIn && mouseInRect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size *3/2))/2, MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size * 3/2) / 2, (MenuItem.size *6/4), MenuItem.size * 6/4)) {
 				//sign in area
 			}
-			//Login form cancel button has been hovered
+			//Login form login button has been hovered
 			X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 			Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
-			if (Mode.LogIn && !log_in_btn && mouseInRect(X_ + 49, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)) {
+			if (Mode.LogIn && !log_in_btn && mouseInRect(Display.getButton("log_in_form_login_btn.png"))) {
 				clearScreenRect(X_ + 49, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
-				drawLogInLogInButton(X_ + 47 - 2, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40 - 2, (MenuItem.size) / 202 * 156 + 4, MenuItem.size * 37 / 202 + 4)
+				Display.expandButton("log_in_form_login_btn.png", 2);
+				drawLogInLogInButton();
 				log_in_btn = true;
 			}
-			else if(Mode.LogIn && log_in_btn && !(mouseInRect(X_ + 49, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202))) {
+			else if(Mode.LogIn && log_in_btn && !(mouseInRect(Display.getButton("log_in_form_login_btn.png")))) {
 				clearScreenRect(X_ + 49 - 2, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40 - 2, (MenuItem.size) / 202 * 156 + 4, MenuItem.size * 37 / 202 + 4);
 				log_in_btn = false;
 				X_1 = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
@@ -1342,21 +1376,20 @@ module.exports = {
 				X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 				Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 				drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
-				//ctx.font = 40 * Math.min(Screen.k_width, Screen.k_height) + "px Ariel"
-				//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 80 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
-				//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 138 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
-				drawLogInLogInButton(X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
-				drawLogInCancelButton(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
+				Display.expandButton("log_in_form_login_btn.png", -2);
+				drawLogInLogInButton();
+				drawLogInCancelButton();
 			}
-			//Login button has been hovered during login mode
+			//Cancel button has been hovered during login mode
 			X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 			Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
-			if (Mode.LogIn && !cancel_btn && mouseInRect(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)) {
+			if (Mode.LogIn && !cancel_btn && mouseInRect(Display.getButton("log_in_form_cancel_btn.png"))) {
 				clearScreenRect(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
-				drawLogInCancelButton(X_ + 49 + (MenuItem.size) / 202 * 156 + 35 - 2, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40 - 2, (MenuItem.size) / 202 * 156 + 4, MenuItem.size * 37 / 202 + 4)
+				Display.expandButton("log_in_form_cancel_btn.png", 2);
+				drawLogInCancelButton();
 				cancel_btn = true;
 			}
-			else if(Mode.LogIn && cancel_btn && !(mouseInRect(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202))) {
+			else if(Mode.LogIn && cancel_btn && !(mouseInRect(Display.getButton("log_in_form_cancel_btn.png")))) {
 				clearScreenRect(X_ + 49 + (MenuItem.size) / 202 * 156 + 35 - 2, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40 - 2, (MenuItem.size) / 202 * 156 + 4, MenuItem.size * 37 / 202 + 4);
 				cancel_btn = false;
 				X_1 = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
@@ -1365,8 +1398,9 @@ module.exports = {
 				X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 				Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 				drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
-				drawLogInLogInButton(X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
-				drawLogInCancelButton(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
+				drawLogInLogInButton();
+				Display.expandButton("log_in_form_cancel_btn.png", -2);
+				drawLogInCancelButton();
 			}
 			
 			//Signin button hovered SignIn mode
@@ -1862,22 +1896,20 @@ module.exports = {
 					okay_ch = false;
 				}
 			}
-			if(Mode.MenuItem) {
+			if(Mode.MenuItem || Mode.Menu) {
 				try {
-					var frame = Properties.Buttons["menu_btn.png"];
-					var MenuFrame = {};
-					MenuFrame.x = Title.leftSpace;
-					MenuFrame.y = 20;
-					MenuFrame.h = MenuItem.starts - 2 * 20;
-					MenuFrame.w = frame.w / frame.h * MenuFrame.h;
 					// menu button has been hovered
-					if(Mode.Mobile && (Mode.MenuItem || Mode.Menu) && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && !menu_btn_ch && mouseInRect(MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h)) {
-						drawMenuButton(MenuFrame.x - 5, MenuFrame.y - 5, MenuFrame.w + 10, MenuFrame.h + 10);
+					if(Mode.Mobile && (Mode.MenuItem || Mode.Menu) && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && !menu_btn_ch && mouseInRect(Display.getButton("menu_btn.png"))) {
+						console.log("removing");
+						fillRectYellow(Display.getButton("menu_btn.png").x, Display.getButton("menu_btn.png").y, Display.getButton("menu_btn.png").w, Display.getButton("menu_btn.png").h);
+						Display.expandButton("menu_btn.png", 5);
+						drawMenuButton();
 						menu_btn_ch = true;
 					}
-					else if(Mode.Mobile && (Mode.MenuItem || Mode.Menu) && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && menu_btn_ch && !mouseInRect(MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h)) {
-						fillRectYellow(MenuFrame.x - 5, MenuFrame.y - 5, MenuFrame.w + 10, MenuFrame.h + 10);
-						drawMenuButton(MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
+					else if(Mode.Mobile && (Mode.MenuItem || Mode.Menu) && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && menu_btn_ch && !mouseInRect(Display.getButton("menu_btn.png"))) {
+						fillRectYellow(Display.getButton("menu_btn.png").x, Display.getButton("menu_btn.png").y, Display.getButton("menu_btn.png").w, Display.getButton("menu_btn.png").h);
+						Display.expandButton("menu_btn.png", -5);
+						drawMenuButton();
 						menu_btn_ch = false;
 					}
 				}
@@ -2028,8 +2060,8 @@ module.exports = {
 						Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 						drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
 						//ctx.font = 40 * Math.min(Screen.k_width, Screen.k_height) + "px Ariel"
-						drawLogInLogInButton(X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
-						drawLogInCancelButton(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
+						drawLogInLogInButton();
+						drawLogInCancelButton();
 						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 80 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
 						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 138 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
 						delete key, e
@@ -2066,8 +2098,8 @@ module.exports = {
 						Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 						drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
 						//ctx.font = 40 * Math.min(Screen.k_width, Screen.k_height) + "px Ariel"
-						drawLogInLogInButton(X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
-						drawLogInCancelButton(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
+						drawLogInLogInButton();
+						drawLogInCancelButton();
 						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 138 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
 						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 80 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
 						delete key
@@ -2249,8 +2281,11 @@ module.exports = {
 					Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 					document.getElementById("Loading").style.visibility = "hidden";
 					drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
-					drawLogInLogInButton(X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
-					drawLogInCancelButton(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
+					Display.setButton("log_in_form_login_btn.png", X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
+					drawLogInLogInButton();
+					console.log("log_in_form_cancel_btn.png", X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
+					Display.setButton("log_in_form_cancel_btn.png", X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
+					drawLogInCancelButton();
 					ctx.fillStyle='#000000';
 					var div = document.createElement('inputDiv');
 					div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input id = 'Password' name = 'UserName' autofocus/>";
@@ -2511,8 +2546,8 @@ module.exports = {
 				Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 				drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
 				pressedUserNameLogIn = pressedUserNameLogIn + 1;
-				drawLogInLogInButton(X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
-				drawLogInCancelButton(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
+				drawLogInLogInButton();
+				drawLogInCancelButton();
 				if(Profile.storeUserNameLogIn != false && Profile.storeUserNameLogIn != true) {
 					Profile.storeUserNameLogIn = true;
 					if(Profile.storePasswordLogIn == true)
@@ -2534,8 +2569,8 @@ module.exports = {
 				Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 				drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
 				pressedPasswordLogIn = pressedPasswordLogIn + 1;
-				drawLogInLogInButton(X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
-				drawLogInCancelButton(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)
+				drawLogInLogInButton();
+				drawLogInCancelButton();
 				
 				
 		}
@@ -2780,15 +2815,9 @@ module.exports = {
 				}
 				catch(e) {}
 				console.log(mouseX, mouseY);
-				var frame = Properties.Buttons["menu_btn.png"];
-				var MenuFrame = {};
-				MenuFrame.x = Title.leftSpace;
-				MenuFrame.y = 20;
-				MenuFrame.h = MenuItem.starts - 2 * 20;
-				MenuFrame.w = frame.w / frame.h * MenuFrame.h;
 				
 				// menu button has been clicked
-				if(Mode.Mobile && !Mode.Menu && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h)) {
+				if(Mode.Mobile && !Mode.Menu && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = true;
 					Mode.MenuItem = false;
 					var Menu = document.createElement('canvas');
@@ -2808,13 +2837,13 @@ module.exports = {
 					
 					respondCanvas();
 				}
-				else if(Mode.Mobile && Mode.Menu && mouseInRect(MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h)) {
+				else if(Mode.Mobile && Mode.Menu && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = false;
 					Mode.MenuItem = true;
 					$("#MenuCanvas").remove();
 					respondCanvas();
 				}
-				if(Mode.MenuItem) {
+				//if(Mode.MenuItem) {
 					if(Mode.Tasks && MenuItem.clicked > -1) {
 						//top arrow has been clicked
 						t_a_height = 100*0.5;
@@ -2939,9 +2968,11 @@ module.exports = {
 					
 					
 					//Login button has been clicked
-					if(!Mode.Mobile && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseX >= ((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) * Math.min(Screen.k_width, Screen.k_height) && mouseX <= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + Profile.size_btn) * Math.min(Screen.k_width, Screen.k_height) && mouseY >= (20) * Math.min(Screen.k_width, Screen.k_height) && mouseY <= (20 + Profile.size_btn*75/228) * Math.min(Screen.k_width, Screen.k_height)) {
+					console.log("clicked login button")
+					console.log(((Mode.Mobile && Mode.Menu) || (!Mode.Mobile && Mode.MenuItem)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("login_btn.png")))
+					if(((Mode.Mobile && Mode.Menu) || (!Mode.Mobile && Mode.MenuItem)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("login_btn.png"))) {
 						if(Forms_loaded == false)
-								loadForms()
+							loadForms()
 						drawLoading();
 						if(Profile.storeUserNameLogIn == true)
 							Profile.storeUserNameLogIn = false;
@@ -2982,15 +3013,17 @@ module.exports = {
 					
 				}
 				if(Mode.LogIn) {
+					console.log("here")
 					if(Mode.LogIn && mouseInRect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size *4/3) / 205 * 368)/2, MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size * 4/3) / 2, (MenuItem.size *4/3) / 205 * 368, MenuItem.size * 4/3)) {
 						//log in area clicked
 					}
-							
+					console.log("here1")
 					
 					//cancel button has been clicked during login mode
 					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 					Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
-					if(Mode.LogIn && mouseInRect(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202)) {
+					console.log(Mode.LogIn, mouseInRect(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202))
+					if(Mode.LogIn && mouseInRect(Display.getButton("log_in_form_cancel_btn.png"))) {
 						setTimeout(function(){
 						if(Profile.storeUserNameLogIn == true)
 							Profile.storeUserNameLogIn = false;
@@ -3027,7 +3060,7 @@ module.exports = {
 					//login button clicked LogIn Mode
 					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 					Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
-					if(Mode.LogIn && mouseInRect(X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202))
+					if(Mode.LogIn && mouseInRect(Display.getButton("log_in_form_login_btn.png")))
 					{
 						if(checkProfileData(document.getElementById("UserName").value, document.getElementById("Password").value)) {
 							drawLoading();
@@ -3077,7 +3110,7 @@ module.exports = {
 						if(Profile.storePasswordLogIn == true)
 							Profile.storePasswordLogIn = false;
 					}
-				}
+				//}
 				if(Mode.SignIn){
 					//username area clicked SignIn Mode
 					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2

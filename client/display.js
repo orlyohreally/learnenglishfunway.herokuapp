@@ -3,17 +3,25 @@ Display.Buttons = {};
 
 Display.Buttons["login_btn.png"] = {};
 
+function setButton(name, x, y, w, h) {
+	Display.Buttons[name] = {};
+	Display.Buttons[name].x = x;
+	Display.Buttons[name].y = y;
+	Display.Buttons[name].w = w;
+	Display.Buttons[name].h = h;
+}
+function getButton(name) {
+	return Display.Buttons[name];
+}
+function expandButton(name, n) {
+	Display.Buttons[name].x = Display.Buttons[name].x- n;
+	Display.Buttons[name].y = Display.Buttons[name].y- n;
+	Display.Buttons[name].w = Display.Buttons[name].w + 2 * n;
+	Display.Buttons[name].h = Display.Buttons[name].h + 2 * n;
+}
 
-function setLogInButton(x, y, w, h) {
-	Display.Buttons["login_btn.png"].x = x;
-	Display.Buttons["login_btn.png"].y = y;
-	Display.Buttons["login_btn.png"].w = w;
-	Display.Buttons["login_btn.png"].h = h;
-}
-function getLogInButton() {
-	return Display.Buttons["login_btn.png"];
-}
 module.exports= {
-	getLogInButton: getLogInButton,
-	setLogInButton: setLogInButton,	
+	getButton: getButton,
+	setButton: setButton,	
+	expandButton: expandButton,	
 }
