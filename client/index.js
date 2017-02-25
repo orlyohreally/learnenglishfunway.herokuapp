@@ -691,10 +691,8 @@
 						loadMenuItems();
 					}
 					if(MenuItem.clicked > -1) {
-						//console.log(Task.firstTask);
-						//Task.firstTask = 0;
 						MenuItemClicked(MenuItem.clicked);
-						console.log(Task.firstTask);
+
 					}
 				}
 				else {
@@ -1338,7 +1336,6 @@
 			//MatchTheAnimalsWithTheirNames word has been hovered
 			try {
 				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn &&!word_ch) {
-					console.log("checking here");
 					var Array = [];
 					var animal_height
 					if(frametype1 == "frame") {
@@ -1394,7 +1391,7 @@
 					}
 				}
 				else if((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn && word_ch) {
-					console.log("checking here");
+					
 					var Array = [];
 					var animal_height, center, top;
 					if(frametype1 == "frame") {
@@ -1447,7 +1444,6 @@
 								edge = edge + center;
 							}
 						}
-						
 					}
 					var i = k2;
 					if(k3 == -1 && !PointInRect({x:mouseX, y:mouseY}, Array[i])) {
@@ -1755,7 +1751,6 @@
 					MenuFrame.w = frame.w / frame.h * MenuFrame.h;
 					// menu button has been hovered
 					if(Mode.Mobile && (Mode.MenuItem || Mode.Menu) && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && !menu_btn_ch && mouseInRect(MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h)) {
-						console.log("hovering button");
 						drawMenuButton(MenuFrame.x - 5, MenuFrame.y - 5, MenuFrame.w + 10, MenuFrame.h + 10);
 						menu_btn_ch = true;
 					}
@@ -2518,7 +2513,6 @@
 				
 				VideoFrame.width = 1280/720*VideoFrame.height;
 				if(VideoFrame.width + 2 * Title.leftSpace + size_btn > Screen.width / Math.min(Screen.k_width, Screen.k_height)) {
-					console.log("not fitting in");
 					VideoFrame.width = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * Title.leftSpace - size_btn;
 					VideoFrame.height = 720 / 1280 * VideoFrame.width;
 				}
@@ -2573,8 +2567,6 @@
 					}
 					else {
 						return max_word_width * broadest_word[frametype2].h / broadest_word[frametype2].w;
-						
-						
 					}
 				}
 			
@@ -2582,7 +2574,6 @@
 			catch(e){};
 		}
 		function drawTest() {
-			console.log("drawTest");
 			ctx.clearRect(0, MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
 			var top, center, animal_height;
 			if(frametype1 == "frame") {
@@ -2600,11 +2591,9 @@
 			else if(frametype1 == "Wordsframe") {
 				center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / Math.floor((Task.test.length + 1) / 2);
 				top = MenuItem.starts + 40 + animal_height + 40;
-			
 			}
 			var word_height = setWordHeight();
 			ctx.drawImage(atlas[Task.TopicName + frametype1],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, (Screen.width - Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h*Math.min(Screen.k_width, Screen.k_height)) / 2, MenuItem.starts*Math.min(Screen.k_width, Screen.k_height) + (20 + 20) * Math.min(Screen.k_width, Screen.k_height), Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h*Math.min(Screen.k_width, Screen.k_height), animal_height*Math.min(Screen.k_width, Screen.k_height));
-				
 			for(var i = 0; i < Task.test.length; i++) {
 				var wordFrame = (Task.test.concat())[i][frametype2];
 				if(frametype1 == "frame") {
@@ -2633,7 +2622,7 @@
 					}
 				}
 			}
-			console.log(top, Screen.height  / Math.min(Screen.k_width, Screen.k_height));
+			
 			size_btn = word_height;
 			if(frametype1 == "Wordsframe" && frametype2 == "frame") {
 				size_btn = 70;
@@ -2694,13 +2683,11 @@
 					MenuCanvas.addEventListener("touchstart", MouseDown);
 					MenuCanvas.addEventListener("mouseup", checkClick);
 					MenuCanvas.addEventListener("touchend", checkClick);
-					console.log("look1");
 					Menu_ctx = document.getElementById("MenuCanvas").getContext("2d");
 					
 					respondCanvas();
 				}
 				else if(Mode.Mobile && Mode.Menu && mouseInRect(MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h)) {
-					console.log("here");
 					Mode.Menu = false;
 					Mode.MenuItem = true;
 					$("#MenuCanvas").remove();
@@ -2723,8 +2710,6 @@
 						b_a_height = 100*0.5;
 						b_a_width = 0.5*100*226/152;
 						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
-						//pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
-						//####console.log("clicked arrow",mouseX >= pX*Math.min(Screen.k_width, Screen.k_height), mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height), mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height),mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height));
 						pY = MenuItem.topSpace + MenuItem.size - b_a_height;
 						if(mouseInRect(pX, pY, b_a_width, b_a_height)){
 							Task.a_clicked = true;
@@ -3110,7 +3095,6 @@
 				}
 				function selectAnimal(){
 					
-					
 					if(!Mode.Training && Task.toTest.length == Task.test.length) {
 						
 						Task.Result.Start = new Date;
@@ -3210,7 +3194,6 @@
 					Mode.Results = false;
 					Mode.CountDown = false;
 					Task.Total = N;
-					console.log("setting test");
 					if(!Mode.Training)
 						Task.test = functions.getRandomArray(Array, [], N);
 					else
@@ -3302,7 +3285,6 @@
 							if(!Task.loadedAnimalsframe)
 								loadAnimals();
 							
-							console.log("in case");
 							drawLoading();
 							if(!Mode.Quiz) {
 							socket.emit('getTask', {
@@ -3573,7 +3555,6 @@
 				}
 				//MatchTheAnimalsWithTheirNames word has been clicked
 				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
-					console.log("trying");
 					try {
 						Array = [];
 						var edge = 0;

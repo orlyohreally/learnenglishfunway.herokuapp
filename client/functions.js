@@ -15,6 +15,6 @@ function getRandomArray(array, arrayB, size) {
 }
 
 module.exports = {
-	randomInteger: randomInteger(),
+	randomInteger: randomInteger,
 	getRandomArray: getRandomArray,
 }
