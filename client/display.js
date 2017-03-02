@@ -1,4 +1,30 @@
 var Display = {};
+
+Display.Tasks = [];
+function setTask(j, i, x, y, w, h) {
+	try{		
+		Display.Tasks[j][i] = {};
+	}
+	catch(e) {
+		console.log(Display.Tasks, i, j);
+		Display.Tasks[j] = [];
+		Display.Tasks[j][i] = {};
+	}
+	Display.Tasks[j][i].x = x;
+	Display.Tasks[j][i].y = y;
+	Display.Tasks[j][i].w = w;
+	Display.Tasks[j][i].h = h;
+}
+function getTask(j, i) {
+	try {
+		return Display.Tasks[j][i];
+	}
+	catch(e){
+		return false;
+	}
+}
+
+
 Display.Buttons = {};
 
 Display.Buttons["login_btn.png"] = {};
@@ -23,5 +49,7 @@ function expandButton(name, n) {
 module.exports= {
 	getButton: getButton,
 	setButton: setButton,	
-	expandButton: expandButton,	
+	expandButton: expandButton,
+	setTask: setTask,
+	getTask: getTask
 }

@@ -519,14 +519,12 @@
 		function mouseInRect(x, y, width, height) {
 			try{
 				if(mouseX >= x.x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x.x + x.w)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= x.y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (x.y + x.h)* Math.min(Screen.k_width, Screen.k_height)){
-					console.log("in try");
 					return true;
 				}
 				return false;
 			}
 			catch(e) {
 				if(mouseX >= x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x + width)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (y + height)* Math.min(Screen.k_width, Screen.k_height)) {
-					console.log("in catch")
 					return true;
 				}
 				return false;
@@ -571,10 +569,12 @@
 			if(Mode.MenuItem) {
 				//left arrow
 				if(MenuItem.firstItem) {
+					Display.setButton("left-arrow.png", l_a_x, l_a_y, l_a_width, l_a_height);
 					drawLeftArrow(l_a_x, l_a_y, l_a_width, l_a_height);
 				}
 				//right arrow
 				if(MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount) {
+					Display.setButton("right-arrow.png", r_a_x, r_a_y, r_a_width, r_a_height);
 					drawRightArrow(r_a_x, r_a_y, r_a_width, r_a_height);
 				}
 			}
@@ -582,12 +582,16 @@
 				if(!Mode.Exercise) {
 					fillRectYellow(0, MenuItem.ends, Screen.width/ Math.min(Screen.k_width, Screen.k_height), 1000)
 					//Rewards
-					drawRewardsButton(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228)
+					Display.setButton("rewards_btn.png",Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
+					drawRewardsButton(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					//Progress button
+					Display.setButton("progress_btn.png", Rewards.leftSpace + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawProgressButton(Rewards.leftSpace + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					//Phrases button
+					Display.setButton("phrase_of_the_day_btn.png", Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawPhrasesButton(Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					//Quiz button
+					Display.setButton("quiz_btn.png", Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawQuizButton(Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 				}
 				if(!Profile.LoggedIn) {
@@ -880,7 +884,6 @@
 					var dh = 10;
 					drawLeftArrow(l_a_x + dx, l_a_y + dy, l_a_width + dw, l_a_height + dh);
 					l_a_ch = true;
-					delete l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height;
 				}else if ((l_a_ch) && !(mouseX >= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.leftSpace - 5) && mouseX <= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.leftSpace + koef*100 + 5) && mouseY >=  Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 - l_a_height / 2 - 5)  && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 - l_a_height / 2 + koef*100*226/152 + 5) )) {	
 					var dx = -5;
 					var dy = -5;
@@ -904,7 +907,6 @@
 					dh = 10;
 					drawRightArrow(Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width + dx,  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2 + dy, koef*100 + dw, koef*100*226/152 + dh);
 					r_a_ch = true;
-					delete dx, dy, dw, dh;
 				}else if ((r_a_ch) && !(mouseX >= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - 100*koef - 5) && mouseX <= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - 100*koef + koef*100 + 5) && mouseY >=  Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2 - 5)  && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2 + koef*100*226/152 + 5) )) {
 					dx = -5;
 					dy = -5;
@@ -913,7 +915,6 @@
 					clearMenuItemRect(MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - 100*koef + dx, MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2 + dy, koef*100 + dw, koef*100*226/152 + dh);
 					drawRightArrow(MenuItem.rwidth / Math.min(Screen.k_width,  Screen.k_height) - MenuItem.leftSpace - koef*100, MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2 , koef*100, koef*100*226/152);
 					r_a_ch = false;
-					delete dx, dy, dw, dh;
 				}
 			}
 			// menu tasks has been hovered
@@ -924,7 +925,8 @@
 				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
 				pY =  MenuItem.topSpace;
 				while (i < Task.display) {
-					if(k1 == -1 && !(task_ch) && mouseInRect(pX, pY + (55/ 368 * MenuItem.size + 10) * i + t_a_width + Task.topSpace, MenuItem.size, 55/368*MenuItem.size)){
+					//if(k1 == -1 && !(task_ch) && mouseInRect(pX, pY + (55/ 368 * MenuItem.size + 10) * i + t_a_width + Task.topSpace, MenuItem.size, 55/368*MenuItem.size)){
+					if(k1 == -1 && !(task_ch) && mouseInRect(Display.getTask(MenuItem.clicked, Task.firstTask + i))){
 						if(Properties.Tasks[MenuItem.clicked][Task.firstTask + i].Content) {
 							ctx.clearRect(pX*Math.min(Screen.k_width, Screen.k_height), (pY  + (55 / 368 * MenuItem.size + 10) * i + t_a_width + Task.topSpace)*Math.min(Screen.k_width, Screen.k_height), (MenuItem.size)*Math.min(Screen.k_width, Screen.k_height), (55/ 368 * MenuItem.size)*Math.min(Screen.k_width, Screen.k_height));
 							drawTask(MenuItem.clicked, Task.firstTask + i, pX - 3, pY + (55 / 368 * MenuItem.size + 10) * i  + t_a_width + Task.topSpace - 3,  MenuItem.size + 6, 55/368*MenuItem.size + 6)
@@ -967,9 +969,6 @@
 						ctx.restore();
 						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
 						pY =  MenuItem.topSpace;
-						delete pX, pY;
-						delete t_a_height, t_a_width;
-					
 					
 					}
 					else if (Mode.Tasks && t_a_ch && !(mouseX >= (2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2)*Math.min(Screen.k_width, Screen.k_height) && mouseX <= (2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2 + t_a_width + 3)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (MenuItem.topSpace - 3)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (MenuItem.topSpace + t_a_height + 3)*Math.min(Screen.k_width, Screen.k_height))){
@@ -982,8 +981,7 @@
 						ctx.rotate(Math.PI / 2);
 						drawLeftArrow(0, 0, t_a_height, t_a_width)
 						ctx.restore();
-						delete pX, pY;
-						delete t_a_height, t_a_width;
+						
 					}
 					
 				}
@@ -999,8 +997,13 @@
 					pY = MenuItem.topSpace + MenuItem.size - b_a_height;
 					//if(!(b_a_ch) && mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height)){
 					//fillRect(pX, pY, b_a_width, b_a_height);
-						
-					if(!(b_a_ch) && mouseInRect(pX, pY, b_a_width, b_a_height)){
+					var Arrow = {};
+					Arrow.x = pX;
+					Arrow.y = pY;
+					Arrow.w = b_a_width;
+					Arrow.h = b_a_height;
+					//if(!(b_a_ch) && mouseInRect(pX, pY, b_a_width, b_a_height)){
+					if(!(b_a_ch) && mouseInRect(Arrow)){
 						ctx.clearRect(pX*Math.min(Screen.k_width, Screen.k_height), (pY)*Math.min(Screen.k_width, Screen.k_height), (b_a_width)*Math.min(Screen.k_width, Screen.k_height), (b_a_height)*Math.min(Screen.k_width, Screen.k_height));
 						//ctx.fillRect(pX*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height), b_a_width*Math.min(Screen.k_width, Screen.k_height), b_a_height*Math.min(Screen.k_width, Screen.k_height))
 						b_a_ch = true;
@@ -1015,10 +1018,13 @@
 						
 						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
 						pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
-					
+						Arrow.x -= 5;
+						Arrow.y -= 5;
+						Arrow.w += 10;
+						Arrow.h += 10;
 					}
-					//else if (Mode.Tasks && b_a_ch && !(mouseX >= (2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2 - 3)*Math.min(Screen.k_width, Screen.k_height) && mouseX <= (2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2 + b_a_width + 3)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height - 3)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height + b_a_height + 3)*Math.min(Screen.k_width, Screen.k_height))){
-					else if((b_a_ch) && !(mouseInRect(pX - 5, pY - 5, b_a_width + 10, b_a_height + 10))){
+					//else if((b_a_ch) && !(mouseInRect(pX - 5, pY - 5, b_a_width + 10, b_a_height + 10))){
+					else if((b_a_ch) && !(mouseInRect(Arrow))){
 						b_a_ch = false;
 						ctx.clearRect((pX - 5)*Math.min(Screen.k_width, Screen.k_height), (pY - 5)*Math.min(Screen.k_width, Screen.k_height), (b_a_width + 10)*Math.min(Screen.k_width, Screen.k_height), (b_a_height + 10)*Math.min(Screen.k_width, Screen.k_height))
 						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
@@ -1029,8 +1035,7 @@
 						drawLeftArrow(0, 0, b_a_height, b_a_width)
 						ctx.restore();
 					}
-					delete pX, pY;
-					delete b_a_height, b_a_width;
+					
 				}
 			}
 			//Menuitems hovered
@@ -1061,7 +1066,7 @@
 				else {
 					i++;
 				}
-				delete X_l, X_r;
+				
 			}
 			
 				if (Mode.MenuItem && (k > -1) && !(mouseY >= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.topSpace - 10)  && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.size + MenuItem.topSpace + 10)  && (mouseX >= Math.min(Screen.k_width, Screen.k_height) * (2 * MenuItem.leftSpace + 100*koef + 68 * (k + 1) + MenuItem.size * k - 68 - 10) && mouseX <= Math.min(Screen.k_width, Screen.k_height) * (2 * MenuItem.leftSpace + 100*koef + 68 * (k + 1) + MenuItem.size * (k + 1) - 68 + 10)))){
@@ -1078,7 +1083,6 @@
 					X_r = 2 * MenuItem.leftSpace + 100*koef + 68 * (k + 1) + MenuItem.size * (k + 1) - 68;
 					DrawMenuItem(k + MenuItem.firstItem, k + MenuItem.firstItem, pX, pY, pW, pH);
 					k = -1;
-					delete X_l, pX, pY, pW, pH;
 					
 				}
 			//Login button hovered
@@ -1087,7 +1091,6 @@
 				var n = 2;
 				if(Mode.Menu)
 					n = 10;
-				console.log(n);
 				Display.expandButton("login_btn.png", n);
 				drawLogInButton();
 				login_ch = true;
@@ -1098,7 +1101,6 @@
 					var n = 2;
 					if(Mode.Menu)
 						n = 10;
-					console.log(n);
 					Display.expandButton("login_btn.png", -n);
 					drawLogInButton();
 					login_ch = false;
@@ -1118,26 +1120,30 @@
 				signin_ch = false;
 			}
 			//rewards button
-			if (!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!rewards_ch && mouseX >= (Rewards.leftSpace)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (Rewards.leftSpace + Rewards.size)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= (Rewards.topSpace)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (Rewards.topSpace + Rewards.size*75/228)* Math.min(Screen.k_width, Screen.k_height)) {
+			//if (!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!rewards_ch && mouseX >= (Rewards.leftSpace)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (Rewards.leftSpace + Rewards.size)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= (Rewards.topSpace)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (Rewards.topSpace + Rewards.size*75/228)* Math.min(Screen.k_width, Screen.k_height)) {
+			if (!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!rewards_ch && mouseInRect(Display.getButton("rewards_btn.png"))) {
 				clearScreenRect(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 				fillRectYellow(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
+				Display.expandButton("rewards_btn.png", 5);
 				drawRewardsButton(Rewards.leftSpace - 5, Rewards.topSpace - 5, Rewards.size + 10, Rewards.size*75/228 + 10);
 				rewards_ch = true;
 			}
 			else if(!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&rewards_ch && !(mouseX >= (Rewards.leftSpace - 5)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (Rewards.leftSpace + Rewards.size + 5)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= (Rewards.topSpace - 5)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (Rewards.topSpace + Rewards.size*75/228 + 5)* Math.min(Screen.k_width, Screen.k_height))) {
 				clearScreenRect(Rewards.leftSpace - 5, Rewards.topSpace - 5, Rewards.size + 10, Rewards.size*75/228 + 10);
 				fillRectYellow(Rewards.leftSpace - 5, Rewards.topSpace - 5, Rewards.size + 10, Rewards.size*75/228 + 10);
+				Display.expandButton("rewards_btn.png", -5);
 				drawRewardsButton(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 				rewards_ch = false;
 			}
 			//Progress button hovered
-			if (!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!progress_ch && mouseX >= (Rewards.leftSpace + Rewards.size + 68)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (Rewards.leftSpace + Rewards.size + 68 + Rewards.size)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= (Rewards.topSpace)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (Rewards.topSpace + Rewards.size*75/228)* Math.min(Screen.k_width, Screen.k_height)) {
+			//if (!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!progress_ch && mouseX >= (Rewards.leftSpace + Rewards.size + 68)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (Rewards.leftSpace + Rewards.size + 68 + Rewards.size)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= (Rewards.topSpace)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (Rewards.topSpace + Rewards.size*75/228)* Math.min(Screen.k_width, Screen.k_height)) {
+			if (!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!progress_ch && mouseInRect(Display.getButton("progress_btn.png"))) {
 				clearScreenRect(Rewards.leftSpace + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 				fillRectYellow(Rewards.leftSpace + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 				drawProgressButton(Rewards.leftSpace + Rewards.size + 68 - 5, Rewards.topSpace - 5, Rewards.size + 10, Rewards.size*75/228 + 10);
 				progress_ch = true;
 			}
-			else if(!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&progress_ch && !(mouseX >= (Rewards.leftSpace + Rewards.size + 68 - 5)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 5)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= (Rewards.topSpace - 5)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (Rewards.topSpace + Rewards.size*75/228 + 5)* Math.min(Screen.k_width, Screen.k_height))) {
+			else if(!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&progress_ch && !(mouseInRect(Display.getButton("progress_btn.png")))) {
 				clearScreenRect(Rewards.leftSpace + Rewards.size + 68 - 5, Rewards.topSpace - 5, Rewards.size + 10, Rewards.size*75/228 + 10);
 				fillRectYellow(Rewards.leftSpace + Rewards.size + 68 - 5, Rewards.topSpace - 5, Rewards.size + 10, Rewards.size*75/228 + 10);
 				drawProgressButton(Rewards.leftSpace + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
@@ -1223,13 +1229,13 @@
 				info_ch = false;
 			}
 				
-			if(Mode.LogIn && mouseInRect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size *4/3) / 205 * 368)/2, MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size * 4/3) / 2, (MenuItem.size *4/3) / 205 * 368, MenuItem.size * 4/3)) {
+			/*if(Mode.LogIn && mouseInRect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size *4/3) / 205 * 368)/2, MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size * 4/3) / 2, (MenuItem.size *4/3) / 205 * 368, MenuItem.size * 4/3)) {
 				//log in area
 			}
 					
 			if(Mode.SignIn && mouseInRect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size *3/2))/2, MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size * 3/2) / 2, (MenuItem.size *6/4), MenuItem.size * 6/4)) {
 				//sign in area
-			}
+			}*/
 			//Login form login button has been hovered
 			X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 			Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
@@ -1278,12 +1284,14 @@
 			Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
 			size_ = 2*(Y_ -  MenuItem.starts) + MenuItem.size;
 			X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-			if (Mode.SignIn && !sign_in_btn && mouseInRect(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
+			//if (Mode.SignIn && !sign_in_btn && mouseInRect(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
+			if (Mode.SignIn && !sign_in_btn && mouseInRect(Display.getButton("sign_in_form_signin_btn.png"))) {
 				clearScreenRect(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
 				drawSignInSignInButton(X_ + 20 / 368 * size_ - 2, Y_ + 318 / 368 * size_ - 2, 157 / 368 * size_ + 4, 157 / 368 * size_ * 37 / 156 + 4)
 				sign_in_btn = true;
 			}
-			else if(Mode.SignIn && sign_in_btn && !(mouseInRect(X_ + 20 / 368 * size_ - 2, Y_ + 318 / 368 * size_ - 2, 157 / 368 * size_ + 4, 157 / 368 * size_ * 37 / 156 + 4))) {
+			//else if(Mode.SignIn && sign_in_btn && !(mouseInRect(X_ + 20 / 368 * size_ - 2, Y_ + 318 / 368 * size_ - 2, 157 / 368 * size_ + 4, 157 / 368 * size_ * 37 / 156 + 4))) {
+			else if(Mode.SignIn && sign_in_btn && !(mouseInRect(Display.getButton("sign_in_form_signin_btn.png")))) {
 				clearScreenRect(X_ + 20 / 368 * size_ - 2, Y_ + 318 / 368 * size_ - 2, 157 / 368 * size_ + 4, 157 / 368 * size_ * 37 / 156 + 4);
 				sign_in_btn = false;
 				Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
@@ -1304,12 +1312,14 @@
 			Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
 			size_ = 2*(Y_ -  MenuItem.starts) + MenuItem.size;
 			X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-			if (Mode.SignIn && !cancel_btn && mouseInRect(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
+			//if (Mode.SignIn && !cancel_btn && mouseInRect(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
+			if (Mode.SignIn && !cancel_btn && mouseInRect(Display.getButton("sign_in_form_cancel_btn.png"))) {
 				clearScreenRect(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
 				drawSignInCancelButton(X_ + 190 / 368 * size_ - 2, Y_ + 318 / 368 * size_ - 2, 157 / 368 * size_ + 4, 157 / 368 * size_ * 37 / 156 + 4)
 				cancel_btn = true;
 			}
-			else if(Mode.SignIn && cancel_btn && !(mouseInRect(X_ + 190 / 368 * size_ - 2, Y_ + 318 / 368 * size_ - 2, 157 / 368 * size_ + 4, 157 / 368 * size_ * 37 / 156 + 4))) {
+			//else if(Mode.SignIn && cancel_btn && !(mouseInRect(X_ + 190 / 368 * size_ - 2, Y_ + 318 / 368 * size_ - 2, 157 / 368 * size_ + 4, 157 / 368 * size_ * 37 / 156 + 4))) {
+			else if(Mode.SignIn && cancel_btn && !(mouseInRect(Display.getButton("sign_in_form_cancel_btn.png")))) {
 				clearScreenRect(X_ + 20 / 368 * size_ - 2, Y_ + 318 / 368 * size_ - 2, 157 / 368 * size_ + 4, 157 / 368 * size_ * 37 / 156 + 4);
 				cancel_btn = false;
 				Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
@@ -1771,7 +1781,6 @@
 				try {
 					// menu button has been hovered
 					if(Mode.Mobile && (Mode.MenuItem || Mode.Menu) && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && !menu_btn_ch && mouseInRect(Display.getButton("menu_btn.png"))) {
-						console.log("removing");
 						fillRectYellow(Display.getButton("menu_btn.png").x, Display.getButton("menu_btn.png").y, Display.getButton("menu_btn.png").w, Display.getButton("menu_btn.png").h);
 						Display.expandButton("menu_btn.png", 5);
 						drawMenuButton();
@@ -1809,7 +1818,7 @@
 					drawRightArrow(Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width,  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2, koef*100, koef*100*226/152);
 				}
 			}
-			delete l_a_x, l_a_y , l_a_width, l_a_height
+			
 		}
 		function rightArrowClicked() {
 			MenuItem.clicked = -1;
@@ -1823,8 +1832,8 @@
 				clearMenuItemRect(MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - 100*koef - 5, MenuItem.topSpace + MenuItem.size / 2 - l_a_height / 2 - 5, koef*100 + 10, koef*100*226/152 + 10);
 			}
 			drawLeftArrow(l_a_x, l_a_y, l_a_width, l_a_height);
-			drawMenuItems()
-			delete l_a_x, l_a_y , l_a_width, l_a_height
+			drawMenuItems();
+			
 		}
 
 		function bottomArrowClicked() {
@@ -1935,12 +1944,11 @@
 						drawLogInCancelButton();
 						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 80 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
 						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 138 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
-						delete key, e
+						
 					}
 				});
 			
 			return str
-			delete x, y, str
 		}
 
 		function getPasswordLogIn(str, x, y){
@@ -1958,7 +1966,7 @@
 						}
 					else if(key == 8)
 						Profile.Password = Profile.Password.substring(0, Profile.Password.length-1);
-					delete key
+					
 					}
 					
 				});
@@ -1973,11 +1981,10 @@
 						drawLogInCancelButton();
 						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 138 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
 						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 80 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
-						delete key
+						
 					}
 				});
 			return str
-			delete x, y, str
 		}
 
 		function getUserNameSignIn(str, x, y){
@@ -1995,7 +2002,7 @@
 						}
 					else if(key == 8)
 						Profile.UserName = Profile.UserName.substring(0, Profile.UserName.length-1);
-					delete key, e
+					
 					}
 					
 				});
@@ -2020,12 +2027,11 @@
 						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 57 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
 						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), ( Y_ + 115 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
 						
-					delete key, e
+					
 					}
 				});
 			
 			return str
-			delete x, y, str
 		}
 
 		function getPasswordSignIn(str, x, y){
@@ -2043,7 +2049,7 @@
 						}
 					else if(key == 8)
 						Profile.Password = Profile.Password.substring(0, Profile.Password.length-1);
-					delete key
+					
 					}
 					
 				});
@@ -2064,16 +2070,16 @@
 						drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
 						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 57 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
 						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), ( Y_ + 115 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						delete key
+						
 					}
 				});
 			return str
-			delete x, y, str
 		}
 
 		function drawTask(j, i, x, y, width, height) {
 			try{
 				var frame = Properties.Tasks[j][i].Frame;
+				Display.setTask(j, i, x, y, width, height);
 				ctx.drawImage(atlasMenuItemTask, frame.x, frame.y, frame.w, frame.h, x*Math.min(Screen.k_width, Screen.k_height), y*Math.min(Screen.k_width, Screen.k_height) , width*Math.min(Screen.k_width, Screen.k_height), height*Math.min(Screen.k_width, Screen.k_height))
 				var Lockframe = Properties.Buttons['lock.png'];
 				if(!Properties.Tasks[j][i].Content) {
@@ -2099,7 +2105,7 @@
 			}
 			
 			if(Task.itemsCount[j] >= 0){
-				drawTask(j, Task.firstTask, pX, (pY+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+				drawTask(j, Task.firstTask, pX, (pY+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size);
 				if(Task.itemsCount[j] >= 1){
 					drawTask(j, Task.firstTask + 1, pX, (pY + 55/368*MenuItem.size + 10 + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
 					if(Task.itemsCount[j] >= 2){
@@ -2122,8 +2128,7 @@
 			}
 			
 			
-			delete pX, pY;
-			delete t_a_width, t_a_height;
+			
 			
 		}
 		function MenuItemClicked(j) {
@@ -2154,7 +2159,6 @@
 					drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
 					Display.setButton("log_in_form_login_btn.png", X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
 					drawLogInLogInButton();
-					console.log("log_in_form_cancel_btn.png", X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
 					Display.setButton("log_in_form_cancel_btn.png", X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
 					drawLogInCancelButton();
 					ctx.fillStyle='#000000';
@@ -2186,7 +2190,6 @@
 					
 					pressedUserNameLogIn = 0;
 					pressedPasswordLogIn = 0;
-					delete X_, Y_
 					Mode.MenuItem  = false;
 					Mode.Tasks = false;
 					Mode.LogIn = true;	
@@ -2356,9 +2359,11 @@
 					if(Profile.Password)
 						document.getElementById('Password').value = Profile.Password;
 					
-					BritishAccent()
-					drawSignInSignInButton(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-					drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
+					BritishAccent();
+					Display.setButton("sign_in_form_signin_btn.png", X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
+					drawSignInSignInButton(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
+					Display.setButton("sign_in_form_cancel_btn.png", X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
+					drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
 					ctx.fillStyle='#000000';
 					//ctx.font = 35 * Math.min(Screen.k_width, Screen.k_height) + "px Ariel"
 					//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), ( Y_ + 115 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
@@ -2366,7 +2371,7 @@
 					pressedUserNameSignIn = 0;
 					pressedPasswordSignIn = 0;
 					
-					delete X_, Y_, size_
+					
 					Mode.MenuItem  = false;
 					Mode.Tasks = false;
 					Mode.LogIn = false;
@@ -2721,7 +2726,12 @@
 						t_a_width = 0.5*100*226/152;
 						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
 						pY =  MenuItem.topSpace;
-						if(mouseInRect(pX, pY, t_a_width, t_a_height)){	
+						var Arrow = {};
+						Arrow.x = pX;
+						Arrow.y = pY;
+						Arrow.w = t_a_width;
+						Arrow.h = t_a_height;
+						if(mouseInRect(Arrow)){	
 							Task.a_clicked = true;
 							if(Task.firstTask > 0) {
 								topArrowClicked()
@@ -2732,7 +2742,12 @@
 						b_a_width = 0.5*100*226/152;
 						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
 						pY = MenuItem.topSpace + MenuItem.size - b_a_height;
-						if(mouseInRect(pX, pY, b_a_width, b_a_height)){
+						var Arrow = {};
+						Arrow.x = pX;
+						Arrow.y = pY;
+						Arrow.w = b_a_width;
+						Arrow.h = b_a_height;
+						if(mouseInRect(Arrow)){
 							Task.a_clicked = true;
 							if(Task.firstTask + Task.display < Task.itemsCount[MenuItem.clicked]) {
 								bottomArrowClicked();
@@ -2793,14 +2808,10 @@
 							X_r = 2 * MenuItem.leftSpace + 100*koef + 68 * (j + 1) + MenuItem.size * (j + 1) - 68;
 							if(mouseY >= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace)  && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.size + MenuItem.topSpace)  && (mouseX >= Math.min(Screen.k_width, Screen.k_height) * X_l && mouseX <= Math.min(Screen.k_width, Screen.k_height) * X_r)){
 								if(Properties.Tasks[j + MenuItem.firstItem].length) {
-									Mode.Tasks = false;
+									Mode.Tasks = true;
 									Task.firstTask = 0;
+									Mode.Exercise = false;
 									MenuItem.clicked = j + MenuItem.firstItem;
-									setTimeout(function(){
-										Mode.Tasks = true;
-										Mode.Exercise = false;
-										
-									}, 150);
 									MenuItemClicked(MenuItem.clicked);
 								}
 								else {
@@ -2839,8 +2850,6 @@
 					
 					
 					//Login button has been clicked
-					console.log("clicked login button")
-					console.log(((Mode.Mobile && Mode.Menu) || (!Mode.Mobile && Mode.MenuItem)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("login_btn.png")))
 					if(((Mode.Mobile && Mode.Menu) || (!Mode.Mobile && Mode.MenuItem)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("login_btn.png"))) {
 						if(Forms_loaded == false)
 							loadForms()
@@ -2884,11 +2893,9 @@
 					
 				}
 				if(Mode.LogIn) {
-					console.log("here")
 					if(Mode.LogIn && mouseInRect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size *4/3) / 205 * 368)/2, MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size * 4/3) / 2, (MenuItem.size *4/3) / 205 * 368, MenuItem.size * 4/3)) {
 						//log in area clicked
 					}
-					console.log("here1")
 					
 					//cancel button has been clicked during login mode
 					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
@@ -2981,7 +2988,7 @@
 						if(Profile.storePasswordLogIn == true)
 							Profile.storePasswordLogIn = false;
 					}
-				//}
+				}
 				if(Mode.SignIn){
 					//username area clicked SignIn Mode
 					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
@@ -3051,7 +3058,8 @@
 					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
 					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
 					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-					if (Mode.SignIn && mouseInRect(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
+					//if (Mode.SignIn && mouseInRect(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
+					if (Mode.SignIn && mouseInRect(Display.getButton("sign_in_form_cancel_btn.png"))) {
 						setTimeout(function(){
 						Mode.SignIn = false;
 						Mode.MenuItem = true;
@@ -3074,7 +3082,9 @@
 					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
 					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
 					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-					if (Mode.SignIn && mouseInRect(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
+					console.log(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156, Display.getButton("sign_in_form_signin_btn.png"));
+					//if (Mode.SignIn && mouseInRect(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
+					if (Mode.SignIn && mouseInRect(Display.getButton("sign_in_form_signin_btn.png"))) {
 						if(checkProfileData(document.getElementById("UserName").value, document.getElementById("Password").value)){
 							drawLoading();
 							var ok;
@@ -3495,6 +3505,7 @@
 					}
 				}
 				
+				
 				//exit during song
 				var size_btn = 70;
 				if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn)) {
@@ -3528,7 +3539,8 @@
 						var pY =  MenuItem.topSpace;
 						var t_a_width = 100*0.5;
 						var t_a_height = 0.5*100*226/152;
-						if(mouseInRect(pX, (pY + (55/368*MenuItem.size + 10) * i + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)){
+						//if(mouseInRect(pX, (pY + (55/368*MenuItem.size + 10) * i + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)){
+						if(mouseInRect(Display.getTask(j, i))){
 							
 							try{
 								Mode.Exercise = true;
@@ -3723,6 +3735,7 @@
 					}
 					catch(e){}
 				}
+				
 				if(Mode.Results || (Mode.Exercise && !Mode.MusicVideo)) {
 					//try again clicked in result form
 					var frame = Properties.Forms["result_form.png"];
@@ -3872,7 +3885,7 @@
 					}
 				}
 				//rewards button has been clicked
-				if (!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228)) {
+				if (!Mode.Mobile && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("rewards_btn.png"))) {
 					alert("Rewards are not available yet:(");
 				}
 				//progress buton has been clicked
@@ -3891,7 +3904,7 @@
 				if (!Mode.Mobile && !Mode.LogIn && !Mode.SignIn && mouseInRect(Screen.width/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + (Profile.size_btn - 2 * 5)/3 + 5+ (Profile.size_btn - 2 * 5)/3 + 5,(20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2 * 5)/3 + 5 , (Profile.size_btn - 2*5) / 3)){
 					alert("Information is not available yet:(");
 				}
-			}
+			
 		}
 		MainCanvas.addEventListener("mousedown", MouseDown);
 		MainCanvas.addEventListener("touchstart", MouseDown);

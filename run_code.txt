@@ -1,0 +1,3 @@
+C:\Users\Orly\Documents\GitHub\LEFWHeroku\learnenglishfunway.herokuapp
+node_modules\.bin\webpack -w client\index.js client\bundle.js
+C:\Program Files\MongoDB\Server\3.2\bin
