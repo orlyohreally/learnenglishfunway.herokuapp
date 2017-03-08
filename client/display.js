@@ -40,7 +40,13 @@ function getTask(j, i) {
 		return false;
 	}
 }
-
+function expandTask(j, i, n) {
+	//console.log(Display.Tasks[j][i]);
+	Display.Tasks[j][i].x = Display.Tasks[j][i].x - n;
+	Display.Tasks[j][i].y = Display.Tasks[j][i].y - n;
+	Display.Tasks[j][i].w = Display.Tasks[j][i].w + 2 * n;
+	Display.Tasks[j][i].h = Display.Tasks[j][i].h + 2 * n;
+}
 
 Display.Buttons = {};
 
@@ -70,7 +76,9 @@ module.exports= {
 	expandButton: expandButton,
 	setTask: setTask,
 	getTask: getTask,
+	expandTask: expandTask,
 	setTopic: setTopic,
 	getTopic: getTopic,
 	expandTopic: expandTopic
+	
 }
