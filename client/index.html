@@ -12,7 +12,7 @@
 	
 <div id = "mainDiv" role = "main">
 	<canvas id = "MainCanvas" width = "180" height = "360"></canvas>
-	<script> socket = io(); </script>
+	<script> try{socket = io();}catch(e){} </script>
 	<img id = "Loading" src = "title.gif"></img>
 	<input id = "hiddenInput" type = "hidden" name = "hiddenInput" autofocus size = 5/>
 	

@@ -154,13 +154,13 @@
 			}
 			//menu items start
 			MenuItem.topSpace = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
-			MenuItem.leftSpace = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.display * MenuItem.size - (MenuItem.display - 1) * 68 - 2 * 100*koef) / 4;
+			MenuItem.leftSpace = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.display * MenuItem.size - (MenuItem.display - 1) * 68 - 2 * 100*koef - 5) / 4;
 			if(!Math.floor(2 * MenuItem.topSpace / MenuItem.size) > 0 && Math.floor(2 * MenuItem.leftSpace / MenuItem.size) > 0) {
 				MenuItem.display = MenuItem.display + Math.floor( 2 * MenuItem.leftSpace / MenuItem.size);
 				if(MenuItem.display > MenuItem.itemsCount) {
 					MenuItem.display = MenuItem.itemsCount;
 				}
-				MenuItem.leftSpace = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.display * MenuItem.size - (MenuItem.display - 1) * 68 - 2 * 100*koef) / 4;
+				MenuItem.leftSpace = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.display * MenuItem.size - (MenuItem.display - 1) * 68 - 2 * 100*koef - 5) / 4;
 			
 			}
 			if(MenuItem.firstItem + MenuItem.display > MenuItem.itemsCount) {
@@ -189,7 +189,6 @@
 			} else {
 				Profile.size_btn = 75/(228 + 6 * 75) * (3 * MenuItem.starts - 3 * 2 * 20 - 3 * 2 * 5 + 2 * 5)*228/75;
 			}
-			
 			initMenu();
 			
 			ctx.fillStyle="#000000";
@@ -305,13 +304,28 @@
 		}
 		function drawBottomArrow() {
 			var frame = Properties.Buttons["left-arrow.png"];
-			console.log("drawing bottom arrow");
+			pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
+			pY =  MenuItem.topSpace + MenuItem.size;
+			b_a_width = 100*0.5;
+			b_a_height = 0.5*100*226/152;
+			ctx.save();
+			ctx.translate((pX + MenuItem.size / 2 - 3/4*b_a_width)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
+			ctx.rotate(-Math.PI / 2);
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("bottom-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("bottom-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("bottom-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("bottom-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));
+			ctx.restore();
 		}
 
 		function drawTopArrow(){
 			var frame = Properties.Buttons["left-arrow.png"];
+			pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+			pY =  MenuItem.topSpace;
+			t_a_width = 100*0.5;
+			t_a_height = 0.5*100*226/152;
+			ctx.save();
+			ctx.translate((pX + MenuItem.size / 2 + 3/4*t_a_width)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
+			ctx.rotate(Math.PI / 2);			
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("top-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("top-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("top-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("top-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));		
+			ctx.restore();
 		}
 		function drawTitle(x, y, width, height){
 			var frame = Properties.Buttons["title.png"];
@@ -880,6 +894,7 @@
 		var skip_ch = false;
 		var menu_btn_ch = false;
 		function HoverMenuItem(mouseX, mouseY){
+			//left arrow has been hovered
 			if(Mode.MenuItem && MenuItem.firstItem > 0) {
 				if (!(l_a_ch) && mouseInRect(Display.getButton("left-arrow.png"))) {	
 					clearMenuItemRect(Display.getButton("left-arrow.png").x, Display.getButton("left-arrow.png").y, Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h);
@@ -943,40 +958,19 @@
 			//top arrow has been hovered
 			if(Mode.Tasks && (Task.firstTask > 0)) {
 				if(MenuItem.clicked > -1) {
-					t_a_height = 100*0.5;
-					t_a_width = 0.5*100*226/152;
-					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
-					pY =  MenuItem.topSpace;
-					if(!(t_a_ch) && mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + t_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + t_a_height)*Math.min(Screen.k_width, Screen.k_height)){
-						ctx.clearRect(pX*Math.min(Screen.k_width, Screen.k_height), (pY)*Math.min(Screen.k_width, Screen.k_height), (t_a_width)*Math.min(Screen.k_width, Screen.k_height), (t_a_height)*Math.min(Screen.k_width, Screen.k_height));
+					if(!(t_a_ch) && mouseInRect(Display.getButton("top-arrow"))){
+						clearRectRect(Display.getButton("top-arrow"));
 						t_a_ch = true;
-						
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
-						pY =  MenuItem.topSpace;
-						ctx.save();
-						ctx.translate((pX + MenuItem.size / 2 + 3/4*t_a_height)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-						ctx.rotate(Math.PI / 2);
-						//drawLeftArrow(0 - 3, 0 - 3, t_a_height + 6, t_a_width + 6)
 						Display.expandButton("top-arrow.png", 5);
+						Display.expandButton("top-arrow", 5);
 						drawTopArrow();
-						ctx.restore();
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
-						pY =  MenuItem.topSpace;
-					
 					}
-					else if (Mode.Tasks && t_a_ch && !(mouseX >= (2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2)*Math.min(Screen.k_width, Screen.k_height) && mouseX <= (2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2 + t_a_width + 3)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (MenuItem.topSpace - 3)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (MenuItem.topSpace + t_a_height + 3)*Math.min(Screen.k_width, Screen.k_height))){
+					else if (Mode.Tasks && t_a_ch && !(mouseInRect(Display.getButton("top-arrow")))){
 						t_a_ch = false;
-						ctx.clearRect((pX - 5)*Math.min(Screen.k_width, Screen.k_height), (pY - 5)*Math.min(Screen.k_width, Screen.k_height), (t_a_width + 10)*Math.min(Screen.k_width, Screen.k_height), (t_a_height + 10)*Math.min(Screen.k_width, Screen.k_height))
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
-						pY =  MenuItem.topSpace;
-						ctx.save();
-						ctx.translate((pX + MenuItem.size / 2 + 3/4*t_a_height)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-						ctx.rotate(Math.PI / 2);
-						//drawLeftArrow(0, 0, t_a_height, t_a_width);
+						clearRectRect(Display.getButton("top-arrow"));
 						Display.expandButton("top-arrow.png", -5);
+						Display.expandButton("top-arrow", -5);
 						drawTopArrow();
-						ctx.restore();
-						
 					}
 					
 				}
@@ -984,55 +978,21 @@
 			if(Mode.Tasks && (Task.firstTask + Task.display < Task.itemsCount[MenuItem.clicked])) {
 			//bottom arrow hovered
 				if(MenuItem.clicked > -1) {
-					b_a_height = 100*0.5;
-					b_a_width = 0.5*100*226/152;
-					t_a_height = b_a_width;
-					t_a_width = b_a_height;
-					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
-					pY = MenuItem.topSpace + MenuItem.size - b_a_height;
-					//if(!(b_a_ch) && mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height)){
-					//fillRect(pX, pY, b_a_width, b_a_height);
-					var Arrow = {};
-					Arrow.x = pX;
-					Arrow.y = pY;
-					Arrow.w = b_a_width;
-					Arrow.h = b_a_height;
-					//if(!(b_a_ch) && mouseInRect(pX, pY, b_a_width, b_a_height)){
-					if(!(b_a_ch) && mouseInRect(Arrow)){
-						ctx.clearRect(pX*Math.min(Screen.k_width, Screen.k_height), (pY)*Math.min(Screen.k_width, Screen.k_height), (b_a_width)*Math.min(Screen.k_width, Screen.k_height), (b_a_height)*Math.min(Screen.k_width, Screen.k_height));
-						//ctx.fillRect(pX*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height), b_a_width*Math.min(Screen.k_width, Screen.k_height), b_a_height*Math.min(Screen.k_width, Screen.k_height))
+					if(!(b_a_ch) && mouseInRect(Display.getButton("bottom-arrow"))){
 						b_a_ch = true;
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
-						pY =  MenuItem.topSpace + MenuItem.size;
-						ctx.save();
-						ctx.translate((pX + MenuItem.size / 2 - 3/4*b_a_height)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-						ctx.rotate(-Math.PI / 2);
-						//drawLeftArrow(0 - 3, 0 - 3, b_a_height + 6, b_a_width + 6)
+						clearRectRect(Display.getButton("bottom-arrow"));
 						Display.expandButton("bottom-arrow.png", 5);
+						Display.expandButton("bottom-arrow", 5);
 						drawBottomArrow();
-						//fillRect(0 - 3, 0 - 3, b_a_height + 6, b_a_width + 6)
-						ctx.restore();
 						
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
-						pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
-						Arrow.x -= 5;
-						Arrow.y -= 5;
-						Arrow.w += 10;
-						Arrow.h += 10;
 					}
 					//else if((b_a_ch) && !(mouseInRect(pX - 5, pY - 5, b_a_width + 10, b_a_height + 10))){
-					else if((b_a_ch) && !(mouseInRect(Arrow))){
+					else if((b_a_ch) && !(mouseInRect(Display.getButton("bottom-arrow")))){
 						b_a_ch = false;
-						ctx.clearRect((pX - 5)*Math.min(Screen.k_width, Screen.k_height), (pY - 5)*Math.min(Screen.k_width, Screen.k_height), (b_a_width + 10)*Math.min(Screen.k_width, Screen.k_height), (b_a_height + 10)*Math.min(Screen.k_width, Screen.k_height))
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
-						pY =  MenuItem.topSpace + MenuItem.size;
-						ctx.save();
-						ctx.translate((pX + MenuItem.size / 2 - 3/4*b_a_height)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-						ctx.rotate(-Math.PI / 2);
-						//drawLeftArrow(0, 0, b_a_height, b_a_width);
+						clearRectRect(Display.getButton("bottom-arrow"));
 						Display.expandButton("bottom-arrow.png", -5);
+						Display.expandButton("bottom-arrow", -5);
 						drawBottomArrow();
-						ctx.restore();
 					}
 					
 				}
@@ -1800,6 +1760,11 @@
 			
 		}
 		function rightArrowClicked() {
+			if(MenuItem.firstItem + MenuItem.display >= MenuItem.itemsCount) {
+				//clearMenuItemRect(MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - 100*koef - 5, MenuItem.topSpace + MenuItem.size / 2 - l_a_height / 2 - 5, koef*100 + 10, koef*100*226/152 + 10);
+				clearRectRect(Display.getTopic(MenuItem.firstItem + MenuItem.clicked));
+			}
+			console.log("im here");
 			MenuItem.clicked = -1;
 			MenuItem.chosen = MenuItem.clicked;
 			MenuItem.firstItem = MenuItem.firstItem + 1;
@@ -1807,9 +1772,7 @@
 			l_a_width = 100*koef;
 			l_a_height = koef*100*226/152;
 			l_a_y =  MenuItem.topSpace + MenuItem.size / 2 - l_a_height / 2;
-			if(MenuItem.firstItem + MenuItem.display >= MenuItem.itemsCount) {
-				clearMenuItemRect(MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - 100*koef - 5, MenuItem.topSpace + MenuItem.size / 2 - l_a_height / 2 - 5, koef*100 + 10, koef*100*226/152 + 10);
-			}
+			
 			drawLeftArrow(l_a_x, l_a_y, l_a_width, l_a_height);
 			drawMenuItems();
 			
@@ -1828,21 +1791,10 @@
 				drawTask(j , Task.firstTask + 3, pX, (pY + (55/368*MenuItem.size + 10) * 3+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
 				
 				if(Task.firstTask > 0) {
-				//top arrow
-				ctx.save();
-				ctx.translate((pX + MenuItem.size / 2 + 3/4*t_a_width)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-				ctx.rotate(Math.PI / 2);
-				//drawLeftArrow(0, 0, t_a_width, t_a_height)
-				drawTopArrow();
-				ctx.restore();
+					drawTopArrow();
 				}
 				if(Task.firstTask + Task.display >= Task.itemsCount[MenuItem.clicked]){
-					b_a_height = 100*0.5;
-					b_a_width = 0.5*100*226/152;
-					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
-					//pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
-					pY = MenuItem.topSpace + MenuItem.size - b_a_height;
-					ctx.clearRect((pX-3)*Math.min(Screen.k_width, Screen.k_height), (pY-3)*Math.min(Screen.k_width, Screen.k_height), (b_a_width + 6)*Math.min(Screen.k_width, Screen.k_height), (b_a_height + 6)*Math.min(Screen.k_width, Screen.k_height));
+					clearRectRect(Display.getButton("bottom-arrow"));
 				}
 		}
 
@@ -1861,26 +1813,25 @@
 				drawTask(j, Task.firstTask + 2, pX, (pY + (55/368*MenuItem.size + 10) * 2+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
 				//Name the letter sounds
 				drawTask(j , Task.firstTask + 3, pX, (pY + (55/368*MenuItem.size + 10) * 3+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
-				
+				console.log(Display.getButton("top-arrow"), Task.firstTask);
 				if(Task.firstTask <= 0) {
-				t_a_height = 100*0.5;
-				t_a_width = 0.5*100*226/152;
-				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
-				pY =  MenuItem.topSpace;
-				ctx.clearRect((pX - 3)*Math.min(Screen.k_width, Screen.k_height), (pY - 3)*Math.min(Screen.k_width, Screen.k_height), (t_a_width + 6)*Math.min(Screen.k_width, Screen.k_height), (t_a_height + 6)*Math.min(Screen.k_width, Screen.k_height))
+					console.log("hello");
+					clearRectRect(Display.getButton("top-arrow"));
+					//fillRect(Display.getButton("top-arrow").x - 5, Display.getButton("top-arrow").y - 5, Display.getButton("top-arrow").w + 10, Display.getButton("top-arrow").h + 10);
+					
 				}
 				//draw bottom arrow
 					//bottom arrow
-					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
+					/*pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
 					pY =  MenuItem.topSpace + MenuItem.size;
 					b_a_width = 100*0.5;
 					b_a_height = 0.5*100*226/152;
 					ctx.save();
 					ctx.translate((pX + MenuItem.size / 2 - 3/4*b_a_width)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-					ctx.rotate(-Math.PI / 2);
+					ctx.rotate(-Math.PI / 2);*/
 					//drawLeftArrow(0, 0, b_a_width, b_a_height)
 					drawBottomArrow();
-					ctx.restore();
+					//ctx.restore();
 				
 		}
 
@@ -2069,26 +2020,20 @@
 			}
 			catch(e){}
 		}
-
+		
 		function drawMenuItemsTasks(j){
-			console.log("drawing menuitemstasks");
+			
 			pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 			pY =  MenuItem.topSpace;
 			t_a_width = 100*0.5;
 			t_a_height = 0.5*100*226/152;
-			clearMenuItemRect(pX - 10, pY - 10, MenuItem.size + 20, MenuItem.size + 20);
+			clearRectRect(Display.getTopic(j));
 			Display.setButton("top-arrow.png", 0, 0, t_a_width, t_a_height);
-			console.log("top arrow", Display.getButton("top-arrow.png"));
 			if(Task.firstTask > 0) {
-			//top arrow
-			ctx.save();
-			ctx.translate((pX + MenuItem.size / 2 + 3/4*t_a_width)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-			ctx.rotate(Math.PI / 2);
-			drawTopArrow();
-			ctx.restore();
+				drawTopArrow();
 			}
 			
-			if(Task.itemsCount[j] >= 0){
+			/*if(Task.itemsCount[j] >= 0){
 				drawTask(j, Task.firstTask, pX, (pY+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size);
 				if(Task.itemsCount[j] >= 1){
 					drawTask(j, Task.firstTask + 1, pX, (pY + 55/368*MenuItem.size + 10 + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
@@ -2099,19 +2044,32 @@
 						}
 					}
 				}
+			}*/
+			var i = 0;
+			while((i < Task.itemsCount[j]) && (i < Task.display)) {
+				drawTask(j, Task.firstTask + i, pX, (pY + (55/368*MenuItem.size + 10) * i + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size);
+				i = i + 1;
 			}
 			if(Task.firstTask + Task.display < Task.itemsCount[MenuItem.clicked]) {
-			//bottom arrow
-			pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
-			pY =  MenuItem.topSpace + MenuItem.size;
-			ctx.save();
-			ctx.translate((pX + MenuItem.size / 2 - 3/4*t_a_width)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-			ctx.rotate(-Math.PI / 2);
-			Display.setButton("bottom-arrow.png", 0, 0, t_a_width, t_a_height);
-			console.log(Display.getButton("bottom-arrow.png"));
-			console.log(Display.getButton("bottom-arrow.png"));
-			drawBottomArrow();
-			ctx.restore();
+				//bottom arrow
+				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+				pY =  MenuItem.topSpace + MenuItem.size;
+				/*ctx.save();
+				ctx.translate((pX + MenuItem.size / 2 - 3/4*t_a_width)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
+				ctx.rotate(-Math.PI / 2);*/
+				b_a_height = 100*0.5;
+				b_a_width = 0.5*100*226/152;
+				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
+				pY = MenuItem.topSpace + MenuItem.size - b_a_height;
+				Display.setButton("bottom-arrow.png", 0, 0, t_a_width, t_a_height);
+				Display.setButton("bottom-arrow", pX, pY, b_a_width, b_a_height);
+				console.log(Display.getButton("bottom-arrow.png"));
+				drawBottomArrow();
+				t_a_height = 100*0.5;
+				t_a_width = 0.5*100*226/152;
+				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
+				pY =  MenuItem.topSpace;
+				Display.setButton("top-arrow", pX, pY,t_a_width, t_a_height);		
 			}
 			
 			
@@ -2132,7 +2090,7 @@
 				loadMenuItemsTasks(j);
 			}
 			else {
-				drawMenuItemsTasks(j)
+				drawMenuItemsTasks(j);
 			}
 			
 		}
@@ -2468,12 +2426,12 @@
 
 		function AmericanAccent() {
 			drawSignInForm(X_, Y_, size_, size_);
-			ctx.fillStyle = "#000000"
-			fillRect(X_ + (35 - 4) / 368 * size_, Y_ + (177 - 4) / 368 * size_, 2, (23 + 8) / 368 * size_)
-			fillRect(X_ + (35 - 4) / 368 * size_, Y_ + (177 - 4) / 368 * size_, (36 + 8) / 368 * size_, 2)
-			fillRect(X_ + (35 - 4) / 368 * size_, Y_ + 177 / 368 * size_ + (23 + 4) / 368 * size_, (36 + 8) / 368 * size_, 2)
-			fillRect(X_ + 35 / 368 * size_ + (36 + 4) / 368 * size_, Y_ + (177 - 4) / 368 * size_, 2, (23 + 8) / 368 * size_)
-			NewAccent = "US English Female"
+			ctx.fillStyle = "#000000";
+			fillRect(X_ + (35 - 4) / 368 * size_, Y_ + (177 - 4) / 368 * size_, 2, (23 + 8) / 368 * size_);
+			fillRect(X_ + (35 - 4) / 368 * size_, Y_ + (177 - 4) / 368 * size_, (36 + 8) / 368 * size_, 2);
+			fillRect(X_ + (35 - 4) / 368 * size_, Y_ + 177 / 368 * size_ + (23 + 4) / 368 * size_, (36 + 8) / 368 * size_, 2);
+			fillRect(X_ + 35 / 368 * size_ + (36 + 4) / 368 * size_, Y_ + (177 - 4) / 368 * size_, 2, (23 + 8) / 368 * size_);
+			NewAccent = "US English Female";
 		}
 		function AustralianAccent() {
 			drawSignInForm(X_, Y_, size_, size_);
@@ -2716,28 +2674,14 @@
 						t_a_width = 0.5*100*226/152;
 						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
 						pY =  MenuItem.topSpace;
-						var Arrow = {};
-						Arrow.x = pX;
-						Arrow.y = pY;
-						Arrow.w = t_a_width;
-						Arrow.h = t_a_height;
-						if(mouseInRect(Arrow)){	
+						if(mouseInRect(Display.getButton("top-arrow"))){	
 							Task.a_clicked = true;
 							if(Task.firstTask > 0) {
 								topArrowClicked()
 							}
 						}			
 						//bottom arrow has been clicked
-						b_a_height = 100*0.5;
-						b_a_width = 0.5*100*226/152;
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
-						pY = MenuItem.topSpace + MenuItem.size - b_a_height;
-						var Arrow = {};
-						Arrow.x = pX;
-						Arrow.y = pY;
-						Arrow.w = b_a_width;
-						Arrow.h = b_a_height;
-						if(mouseInRect(Arrow)){
+						if(mouseInRect(Display.getButton("bottom-arrow"))){
 							Task.a_clicked = true;
 							if(Task.firstTask + Task.display < Task.itemsCount[MenuItem.clicked]) {
 								bottomArrowClicked();
@@ -2785,7 +2729,7 @@
 						}
 					}
 					
-					//MenuItem has been clicked
+					//Menu Item has been clicked
 					if(Mode.MenuItem && MenuItem.clicked == -1) {
 						var j = 0;
 						while (j < MenuItem.display)  {
@@ -2795,9 +2739,11 @@
 								if(Properties.Tasks[j + MenuItem.firstItem].length) {
 									Mode.Tasks = true;
 									Task.firstTask = 0;
-									Mode.Exercise = false;
+									//Mode.Exercise = false;
 									MenuItem.clicked = j + MenuItem.firstItem;
 									MenuItemClicked(MenuItem.clicked);
+									//###								
+									
 								}
 								else {
 									console.log("no tasks yet");
@@ -3517,16 +3463,17 @@
 				}
 				
 				//task has been clicked
+				console.log("look", Mode.Tasks);
 				if(Mode.Tasks) {
 					var j = MenuItem.clicked;
 					var i = 0;
-					
+					console.log("here", i);
 					while (i < Task.display)  {
 						var pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 						var pY =  MenuItem.topSpace;
 						var t_a_width = 100*0.5;
 						var t_a_height = 0.5*100*226/152;
-						//if(mouseInRect(pX, (pY + (55/368*MenuItem.size + 10) * i + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)){
+						console.log("here", i);
 						if(mouseInRect(Display.getTask(j, i))){
 							
 							try{
