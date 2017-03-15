@@ -18,6 +18,26 @@ function expandTopic(j, n) {
 	Display.Topics[j].w = Display.Topics[j].w + 2 * n;
 	Display.Topics[j].h = Display.Topics[j].h + 2 * n;
 }
+Display.TestItems = [];
+function setTestItem(j, x, y, w, h) {
+	Display.TestItems[j] = {};
+	Display.TestItems[j].x = x;
+	Display.TestItems[j].y = y;
+	Display.TestItems[j].w = w;
+	Display.TestItems[j].h = h;
+}
+function getTestItem(j) {
+	return Display.TestItems[j];
+}
+function getTestItems() {
+	return Display.TestItems;
+}
+function expandTestItem(j, n) {
+	Display.TestItems[j].x = Display.TestItems[j].x - n;
+	Display.TestItems[j].y = Display.TestItems[j].y - n;
+	Display.TestItems[j].w = Display.TestItems[j].w + 2 * n;
+	Display.TestItems[j].h = Display.TestItems[j].h + 2 * n;
+}
 Display.Tasks = [];
 function setTask(j, i, x, y, w, h) {
 	try{		
@@ -50,8 +70,6 @@ function expandTask(j, i, n) {
 
 Display.Buttons = {};
 
-Display.Buttons["login_btn.png"] = {};
-
 function setButton(name, x, y, w, h) {
 	//console.log(name, x, y, w, h);
 	Display.Buttons[name] = {};
@@ -69,16 +87,33 @@ function expandButton(name, n) {
 	Display.Buttons[name].w = Display.Buttons[name].w + 2 * n;
 	Display.Buttons[name].h = Display.Buttons[name].h + 2 * n;
 }
-
+Display.Forms = {};
+function setForm(name, x, y, w, h) {
+	//console.log(name, x, y, w, h);
+	Display.Forms[name] = {};
+	Display.Forms[name].x = x;
+	Display.Forms[name].y = y;
+	Display.Forms[name].w = w;
+	Display.Forms[name].h = h;
+}
+function getForm(name) {
+	return Display.Forms[name];
+}
 module.exports= {
 	getButton: getButton,
-	setButton: setButton,	
+	setButton: setButton,
+	getForm: getForm,
+	setForm: setForm,	
 	expandButton: expandButton,
 	setTask: setTask,
 	getTask: getTask,
 	expandTask: expandTask,
 	setTopic: setTopic,
 	getTopic: getTopic,
-	expandTopic: expandTopic
+	expandTopic: expandTopic,
+	setTestItem: setTestItem,
+	getTestItem: getTestItem,
+	getTestItems: getTestItems,
+	expandTestItem: expandTestItem
 	
 }
