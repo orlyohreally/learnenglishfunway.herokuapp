@@ -482,9 +482,12 @@
 			var frame = Properties.Forms["sign_in_form_cancel_btn.png"];
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("sign_in_form_cancel_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("sign_in_form_cancel_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("sign_in_form_cancel_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("sign_in_form_cancel_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
-		function drawProfilePicture(x, y, width, height) {
+		function drawProfilePicture() {
 			var frame = Properties.Buttons["profile_girl1.png"];
-			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(!Mode.Menu)
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("profile_pic.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").h * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("profile_pic.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		
 		function drawCorrect(x, y, width, height) {
@@ -655,7 +658,7 @@
 					drawSignInButton();
 				}
 				else {
-					drawProfilePicture(((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) + Profile.size_btn * 1/ 6, 20, Profile.size_btn * 2/3, Profile.size_btn * 2/ 3);
+					Display.setButton("profile_pic.png", ((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) + Profile.size_btn * 1/ 6, 20, Profile.size_btn * 2/3, Profile.size_btn * 2/ 3);
 				}
 				//Sound button
 				Display.setButton("sound_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
@@ -667,7 +670,19 @@
 				Display.setButton("info_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + 5 + (Profile.size_btn - 2 * 5)/3 + (Profile.size_btn - 2 * 5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
 				drawInfoButton();
 			}
-			else if(Mode.Menu) {
+			else {
+				var frame = Properties.Buttons["menu_btn.png"];
+				var MenuFrame = {};
+				MenuFrame.x = Title.leftSpace;
+				MenuFrame.y = 20;
+				MenuFrame.h = MenuItem.starts - 2 * 20;
+				ctx.fillStyle = "#000000";
+				MenuFrame.w = frame.w / frame.h * MenuFrame.h;
+				Display.setButton("menu_btn.png", MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
+				drawMenuButton();
+				Display.setButton("profile_pic.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Display.getButton("menu_btn.png").w - 20,Display.getButton("menu_btn.png").y,Display.getButton("menu_btn.png").w, Display.getButton("menu_btn.png").h);
+			}
+			if(Mode.Menu) {
 				if(Screen.width < Screen.height) {
 					//login button
 					var login_frame = Properties.Buttons["login_btn.png"];
@@ -838,6 +853,9 @@
 				drawQuizButton();
 
 			}
+			if(Profile.LoggedIn)
+				drawProfilePicture();
+			//clearRectRect(Display.getButton("profile_pic.png"));
 		}
 		/************************************Starting*******************************************************/
 		
@@ -867,17 +885,6 @@
 				if(!Mode.Mobile) {
 					drawTitle(Title.leftSpace, 20, Title.size, Title.size*130/470);
 				}
-				else {
-					var frame = Properties.Buttons["menu_btn.png"];
-					var MenuFrame = {};
-					MenuFrame.x = Title.leftSpace;
-					MenuFrame.y = 20;
-					MenuFrame.h = MenuItem.starts - 2 * 20;
-					ctx.fillStyle = "#000000";
-					MenuFrame.w = frame.w / frame.h * MenuFrame.h;
-					Display.setButton("menu_btn.png", MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
-					drawMenuButton();
-				}
 			}
 			else {
 				loadButtons();
@@ -905,15 +912,6 @@
 			var r_a_x = MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;
 			checkLoadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
 			
-			
-			if(Profile.LoggedIn) {
-				clearScreenRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
-				clearScreenRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace - 2, (20 + 5) + Profile.size_btn*75/228 - 2, Profile.size_btn + 4, Profile.size_btn*75/228 + 4)
-				fillRectYellow((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
-				fillRectYellow((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace - 2, (20 + 5) + Profile.size_btn*75/228 - 2, Profile.size_btn + 4, Profile.size_btn*75/228 + 4)
-				drawProfilePicture(((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) + Profile.size_btn * 1/ 6, 20, Profile.size_btn * 2/3, Profile.size_btn * 2/ 3)
-				
-			}
 		}
 		function initMenu() {
 			if(!Mode.Menu) {
@@ -1079,6 +1077,8 @@
 		var okay_ch = false;
 		var skip_ch = false;
 		var menu_btn_ch = false;
+		var profile_pic_ch = false;
+		
 		function HoverMenuItem(mouseX, mouseY){
 			//left arrow has been hovered
 			if(Mode.MenuItem && MenuItem.firstItem > 0) {
@@ -1245,6 +1245,18 @@
 				Display.expandButton("sign_in_btn.png", -n);
 				drawSignInButton();
 				signin_ch = false;
+			}
+			if (!Mode.Exercise && Profile.LoggedIn && !profile_pic_ch && mouseInRect(Display.getButton("profile_pic.png"))) {
+				clearRectRectYellow(Display.getButton("profile_pic.png"));
+				Display.expandButton("profile_pic.png", 3);
+				drawProfilePicture();
+				profile_pic_ch = true;
+			}
+			else if(!Mode.Exercise && Profile.LoggedIn && profile_pic_ch && !(mouseInRect(Display.getButton("profile_pic.png")))) {
+				clearRectRectYellow(Display.getButton("profile_pic.png"));
+				Display.expandButton("profile_pic.png", -3);
+				drawProfilePicture();
+				profile_pic_ch = false;
 			}
 			//rewards button
 			if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!rewards_ch && mouseInRect(Display.getButton("rewards_btn.png"))) {
@@ -1474,13 +1486,11 @@
 			}
 			//exit button has been hovered during MusicVideo
 			var size_btn = 70;
-			//if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn &&!exit_btn_ch && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn)) {
 			if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn &&!exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
 				clearScreenRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 				drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
 				exit_btn_ch = true;
 			}
-			//else if(Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6))) {
 			else if(Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				clearScreenRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
 				drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
@@ -3656,7 +3666,7 @@
 				}
 				//drawProfilePicture(((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace) + Profile.size_btn * 1/ 6, 20, Profile.size_btn * 2/3, Profile.size_btn * 2/ 3);
 				//Profile picture has been clicked
-				if((Mode.MenuItem || Mode.Tasks) && Profile.LoggedIn && mouseInRect(((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) + Profile.size_btn * 1/ 6, 20, Profile.size_btn * 2/3, Profile.size_btn * 2/ 3)) {
+				if((Mode.MenuItem || Mode.Tasks) && Profile.LoggedIn && mouseInRect(Display.getButton("profile_pic.png"))) {
 					socket.emit("Logout", {});
 					socket.on("Logout", function(data){
 						if(data.res) {
