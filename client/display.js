@@ -13,7 +13,7 @@ function getTopic(j) {
 }
 function expandTopic(j, n) {
 	//console.log(j, Display.Topics[j], Display.Topics[j]);
-	console.log("expanding", j);
+	//console.log("expanding", j);
 	Display.Topics[j].x = Display.Topics[j].x - n;
 	Display.Topics[j].y = Display.Topics[j].y - n;
 	Display.Topics[j].w = Display.Topics[j].w + 2 * n;

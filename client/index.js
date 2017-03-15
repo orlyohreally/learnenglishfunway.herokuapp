@@ -76,46 +76,34 @@
 		
 		
 		
-		var c = $('#MainCanvas');
-		var ct = c.get(0).getContext('2d');
-		var container = $(c).parent();
-		c.attr('width', $(container).width()); //max width
-		c.attr('height', $(container).height() ); //max height
-		Screen = {};
-		Screen.width = $(container).width();
-		Screen.height = $(container).height();
-		MenuItem.rwidth = Screen.width;
-		MenuItem.rheight = Screen.height * 0.6;
-		Screen.k_width = MenuItem.rwidth / MenuItem.width;
-		Screen.k_height =  MenuItem.rheight / MenuItem.height;
-		
 		function respondCanvas(){ 
 			MenuItem.display = 2;
 			MenuItem.itemsCount = 5;
 			MenuItem.size = 100;
-			try{
-				Profile.UserName = document.getElementById("UserName").value;
-				Profile.Password = document.getElementById("Password").value;
+			if(document.getElementById("UserName")) {
+				console.log("removing");
 				$("#UserName").remove();
 				$("#Password").remove();
-				$("#inputdiv").remove();
+				$("inputdiv").remove();
 			}
-			catch(e){
-				if(!Profile.LoggedIn) {
-					Profile.UserName = "";
-					Profile.Password = "";
-				}
-			}
+			var c = $('#MainCanvas');
+			if(document.getElementById("MenuCanvas"))
+				c = $('#MenuCanvas');
+			var ct = c.get(0).getContext('2d');
+			var container = $(c).parent();
 			c.attr('width', $(container).width()); //max width
 			c.attr('height', $(container).height() ); //max height
+			Screen = {};
 			Screen.width = $(container).width();
 			Screen.height = $(container).height();
 			MenuItem.rwidth = Screen.width;
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
 			Screen.k_height =  MenuItem.rheight / MenuItem.height;
-			
-			clearScreenRect(0, 0, Screen.width/Math.min(Screen.k_width, Screen.k_height), Screen.height/Math.min(Screen.k_width, Screen.k_height))
+			console.log("screen", Screen);
+			ctx.clearRect(0, 0, Screen.width, Screen.height);
+			if(Mode.Menu)
+				Menu_ctx.clearRect(0, 0, Screen.width, Screen.height);
 			
 			//white space starts
 			if(Screen.width < 482 || Screen.height < 482) {
@@ -125,9 +113,12 @@
 				MenuItem.ends = Screen.height / Math.min(Screen.k_width, Screen.k_height);
 			}
 			else {
+				console.log("normal screen");
 				Mode.Mobile = false;
-				if(Mode.Menu)
+				if(Mode.Menu) {
 					Mode.MenuItem = true;
+					$("#MenuCanvas").remove();
+				}
 				Mode.Menu = false;
 				MenuItem.starts = 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height);
 				MenuItem.ends = 0.8 * Screen.height / Math.min(Screen.k_width, Screen.k_height);
@@ -211,7 +202,6 @@
 			try{
 				var j = MenuItem.firstItem; //порядок в спрайте
 				while(j < MenuItem.firstItem + MenuItem.display){
-						console.log("drawing", j);
 						var pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 						var pY =  MenuItem.topSpace;
 						var pW = MenuItem.size;
@@ -222,8 +212,6 @@
 					}
 					j = j + 1;
 				}
-				//console.log(Display.getTopic(0));
-				//console.log(Display.getTopic(1));
 				document.getElementById("Loading").style.visibility = "hidden";
 			
 			}
@@ -371,9 +359,10 @@
 		function drawLogInButton(){
 			var frame = Properties.Buttons["login_btn.png"];
 			if(!Mode.Mobile)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 			else
-				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
+				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
+			//console.log(Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function drawSignInButton(){
 			var frame = Properties.Buttons["sign_up_btn.png"];
@@ -539,13 +528,20 @@
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("skip.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function fillRect(x, y, width, height) {
-			ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			console.log("fillRect");
+			if(!Mode.Menu)
+				ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Menu_ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function clearRect(x, y, width, height) {
 			ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function clearRectRect(rect) {
-			ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
+			if(!Mode.Menu)
+				ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Menu_ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function clearRectRectYellow(rect) {
 			if(!Mode.Menu) {
@@ -554,8 +550,6 @@
 			}
 			else {
 				Menu_ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
-				console.log(rect);
-				
 			}
 		}
 		function fillRectYellow(x, y, width, height) {
@@ -638,7 +632,7 @@
 			}
 			if(!Mode.Mobile) {
 				if(!Mode.Exercise) {
-					fillRectYellow(0, MenuItem.ends, Screen.width/ Math.min(Screen.k_width, Screen.k_height), 1000)
+					//fillRectYellow(0, MenuItem.ends, Screen.width/ Math.min(Screen.k_width, Screen.k_height), 1000)
 					//Rewards
 					Display.setButton("rewards_btn.png",Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawRewardsButton(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
@@ -792,15 +786,14 @@
 					//rewards button
 					var rewards_frame = Properties.Buttons["rewards_btn.png"];
 					var rewards_button_frame = {};
-					rewards_button_frame.x = 20 + (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 4 * login_button_frame.w - 5 * 20) / 2;
-					rewards_button_frame.y = login_button_frame.y + login_button_frame.h + 20;
-					rewards_button_frame.w = login_button_frame.w;
-					rewards_button_frame.h = sound_button_frame.h;
+					rewards_button_frame.h = (MenuItem.ends - MenuItem.starts - 3 * 20) / 2;
 					rewards_button_frame.w = rewards_frame.w / rewards_frame.h * rewards_button_frame.h;
 					if(4 * rewards_button_frame.w + 5 * 20 > Screen.width / Math.min(Screen.k_width, Screen.k_height)) {
 						rewards_button_frame.w = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 5 * 20) / 4;
 						rewards_button_frame.h = login_frame.h / login_frame.w * login_button_frame.w;
 					}
+					rewards_button_frame.x = 20 + (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 4 * rewards_button_frame.w - 5 * 20) / 2;
+					rewards_button_frame.y = MenuItem.starts + 20 + login_button_frame.h + 20;
 					//progress button
 					var progress_frame = Properties.Buttons["rewards_btn.png"];
 					var progress_button_frame = {};
@@ -843,6 +836,7 @@
 				drawProgressButton();
 				drawPhrasesButton();
 				drawQuizButton();
+
 			}
 		}
 		/************************************Starting*******************************************************/
@@ -879,6 +873,7 @@
 					MenuFrame.x = Title.leftSpace;
 					MenuFrame.y = 20;
 					MenuFrame.h = MenuItem.starts - 2 * 20;
+					ctx.fillStyle = "#000000";
 					MenuFrame.w = frame.w / frame.h * MenuFrame.h;
 					Display.setButton("menu_btn.png", MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
 					drawMenuButton();
@@ -893,9 +888,11 @@
 		}
 		function drawHeader() {
 			ctx.fillStyle="#F7FE2E";
-			ctx.fillRect(0, 0, Screen.width, MenuItem.starts * Math.min(Screen.k_width, Screen.k_height));
+			if(document.getElementById("MenuCanvas"))
+				Menu_ctx.fillStyle="#F7FE2E";
+			fillRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), MenuItem.starts);
 			if(!Mode.Exercise && !Mode.Mobile)
-				ctx.fillRect(0, MenuItem.ends, Screen.width, Screen.height - MenuItem.ends * Math.min(Screen.k_width, Screen.k_height));
+				fillRect(0, MenuItem.ends, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.ends);
 			
 			var l_a_x = MenuItem.leftSpace;
 			var l_a_width = 100*koef;
@@ -914,8 +911,6 @@
 				clearScreenRect((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace - 2, (20 + 5) + Profile.size_btn*75/228 - 2, Profile.size_btn + 4, Profile.size_btn*75/228 + 4)
 				fillRectYellow((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
 				fillRectYellow((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace - 2, (20 + 5) + Profile.size_btn*75/228 - 2, Profile.size_btn + 4, Profile.size_btn*75/228 + 4)
-				
-				
 				drawProfilePicture(((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) + Profile.size_btn * 1/ 6, 20, Profile.size_btn * 2/3, Profile.size_btn * 2/ 3)
 				
 			}
@@ -1204,7 +1199,6 @@
 				}
 				
 			}
-			
 			if (Mode.MenuItem && (k > -1) && !(mouseInRect(Display.getTopic(k + MenuItem.firstItem)))){
 				clearRect(Display.getTopic(k + MenuItem.firstItem).x, Display.getTopic(k + MenuItem.firstItem).y, Display.getTopic(k + MenuItem.firstItem).w, Display.getTopic(k + MenuItem.firstItem).h);
 				Display.expandTopic(k + MenuItem.firstItem, -10);
@@ -2268,7 +2262,6 @@
 				}
 		}
 		function showSignInForm(){
-				var iter = 0;
 				drawLoading();
 				if(Forms_loaded){
 					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
@@ -2430,7 +2423,6 @@
 				
 		}
 		function selectAccent(flag) {
-			console.log("drawing flagnvsjdvjsvnslf v");
 			console.log(flag, Display.getButton(flag));
 			/*if(flag == "british_flag.png")
 				BritishAccent();
@@ -2598,6 +2590,7 @@
 		}
 		function drawTest() {
 			ctx.clearRect(0, MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
+			drawHeader();
 			var top, center, animal_height;
 			if(frametype1 == "frame") {
 				animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
@@ -2659,6 +2652,7 @@
 				
 				// menu button has been clicked
 				if(Mode.Mobile && !Mode.Menu && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
+					console.log("clicked");
 					Mode.Menu = true;
 					Mode.MenuItem = false;
 					var Menu = document.createElement('canvas');
@@ -2709,12 +2703,7 @@
 					//check background click
 					//not top & bottom arrows have been clicked
 					//top arrow has been clicked
-					t_a_height = 100*0.5;
-					t_a_width = 0.5*100*226/152;
-					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
-					pY =  MenuItem.topSpace;
-					//if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked)) && mouseInRect({x:0, y:MenuItem.starts, w:Screen.width / Math.min(Screen.k_width, Screen.k_height), h:MenuItem.ends - MenuItem.starts})){
-					if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked))){
+					if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked)) && !mouseInRect(Display.getButton("sound_btn.png"))){
 						Display.expandTopic(MenuItem.clicked, -10);
 						MenuItem.chosen = MenuItem.clicked;
 						DrawMenuItem(MenuItem.clicked);
@@ -2746,7 +2735,6 @@
 				}
 				//left arrow has been clicked
 				if(Mode.MenuItem && MenuItem.firstItem >= 0) {
-					//if (mouseX >= Math.min(Screen.k_width, Screen.k_height) * MenuItem.leftSpace && mouseX <= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.leftSpace + koef*100) && mouseY >=  Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 -  koef*100*226/152/ 2 ) && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 -  koef*100*226/152/ 2 + koef*100*226/152) ) {	
 					if(mouseInRect(Display.getButton("left-arrow.png"))){
 						leftArrowClicked();
 					}
@@ -2760,6 +2748,10 @@
 				}
 				//Login button has been clicked
 				if(((Mode.Mobile && Mode.Menu) || (!Mode.Mobile && Mode.MenuItem)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("login_btn.png"))) {
+					if(document.getElementById("MenuCanvas"))
+						$("#MenuCanvas").remove();
+					Mode.Menu = false;
+					respondCanvas();
 					if(Forms_loaded == false)
 						loadForms()
 					drawLoading();
@@ -2771,10 +2763,12 @@
 				}
 				//Sign Up button has been clicked
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Profile.LoggedIn && !Mode.LogIn && !Mode.LogIn && mouseInRect(Display.getButton("sign_in_btn.png"))) {
-					console.log("vhgshjzl");
 					if(Forms_loaded == false)
 						loadForms();
-					$("#MenuCanvas").remove();
+					if(document.getElementById("MenuCanvas"))
+						$("#MenuCanvas").remove();
+					Mode.Menu = false;
+					respondCanvas();
 					showSignInForm();
 					
 				
@@ -2812,7 +2806,7 @@
 						Profile.Password = "";
 						$("#UserName").remove();
 						$("#Password").remove();
-						$("#inputdiv").remove();
+						$("inputdiv").remove();
 						
 						clearScreenRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
 						Mode.LogIn = false;
@@ -2864,7 +2858,7 @@
 									clearScreenRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
 									$("#UserName").remove();
 									$("#Password").remove();
-									$("#inputdiv").remove();
+									$("inputdiv").remove();
 									Profile.Password = "";
 									$("#MenuCanvas").remove();
 									Mode.Menu = false;
@@ -2942,7 +2936,7 @@
 						Profile.Password = "";
 						$("#UserName").remove();
 						$("#Password").remove();
-						$("#inputdiv").remove();
+						$("inputdiv").remove();
 						clearScreenRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
 						respondCanvas();
 						}, 200);
@@ -2975,7 +2969,7 @@
 									clearScreenRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
 									$("#UserName").remove();
 									$("#Password").remove();
-									$("#inputdiv").remove();
+									$("inputdiv").remove();
 									Profile.Password = "";
 									respondCanvas();
 								}
@@ -3681,7 +3675,10 @@
 						});
 						socket.on('getQuiz', function(data) {
 							if(data.quiz) {
-								$("#MenuCanvas").remove();
+								if(document.getElementById("MenuCanvas"))
+									$("#MenuCanvas").remove();
+								Mode.Menu = false;
+								respondCanvas();
 								Mode.Quiz = true;
 								Mode.Exercise = true;
 								clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), MenuItem.ends);
