@@ -652,17 +652,19 @@ module.exports = {
 			var frame = Properties.Forms["sign_in_form.png"];
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("sign_in_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("sign_in_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("sign_in_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("sign_in_form.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
-		function drawResultForm(x, y, width, height) {
+		function drawResultForm() {
 			var frame = Properties.Forms["result_form.png"];
-			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("result_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawResultOkayButton(x, y, width, height) {
 			var frame = Properties.Forms["result_form_okay_btn.png"];
-			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			//ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("result_form_okay_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawResultTryAgainButton(x, y, width, height) {
 			var frame = Properties.Forms["result_form_try_again_btn.png"];
-			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			//ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("result_form_try_again_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawDigit(n, x, y, width, height, type = "") {
 			if(type != "")
@@ -1779,15 +1781,18 @@ module.exports = {
 			var btn_height = btn_width * btn.h / btn.w;
 			
 			//try again hovered in show results
-			if (!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn &&!try_again_ch && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height)) {
+			if (!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn &&!try_again_ch && mouseInRect(Display.getButton("result_form_try_again_btn.png"))) {
+				console.log("vgbshnv ksfnjsjn");
+				Display.expandButton("result_form_try_again_btn.png", 3);
 				drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width + 6, btn_height + 6);
 				try_again_ch = true;
 			}
-			else if(!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn && try_again_ch && !(mouseInRect(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width - 6, btn_height + 6))) {
-				clearScreenRect(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width + 6, btn_height + 6);
-				drawResultForm(Result_form.x, Result_form.y, Result_form.w, Result_form.h);
-				drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
-				drawResultOkayButton(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height);
+			else if(!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn && try_again_ch && !(mouseInRect(Display.getButton("result_form_try_again_btn.png")))) {
+				clearScreenRect(Display.getButton("result_form_try_again_btn.png"));
+				drawResultForm();
+				Display.expandButton("result_form_try_again_btn.png", -3);
+				drawResultTryAgainButton();
+				drawResultOkayButton();
 					
 				var Correct = countCorrect(Task.Result.Answers);
 				var Answers = Task.Result.Answers;
@@ -1899,17 +1904,18 @@ module.exports = {
 				
 				
 				//okay hovered in show results
-				if (Mode.Results && !Mode.SignIn && !Mode.LogIn &&!okay_ch && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height)) {
-					//clearScreenRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
-					drawResultOkayButton(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width - 3, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w - 3, btn_width + 6, btn_height + 6);
+				if (Mode.Results && !Mode.SignIn && !Mode.LogIn &&!okay_ch && mouseInRect(Display.getButton("result_form_okay_btn.png"))) {
+					Display.expandButton("result_form_okay_btn.png", 3);
+					drawResultOkayButton();
 					okay_ch = true;
 				}
-				else if(Mode.Results && !Mode.SignIn && !Mode.LogIn && okay_ch && !(mouseInRect(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width - 3, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w - 3, btn_width + 6, btn_height + 6))) {
-					clearScreenRect(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width - 3, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w - 3 + 6, btn_width, btn_height + 6);
-					drawResultForm(Result_form.x, Result_form.y, Result_form.w, Result_form.h);
-					drawResultOkayButton(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height);
+				else if(Mode.Results && !Mode.SignIn && !Mode.LogIn && okay_ch && !(mouseInRect(Display.getButton("result_form_okay_btn.png")))) {
+					clearScreenRect(Display.getButton("result_form_okay_btn.png"));
+					drawResultForm();
+					Display.expandButton("result_form_okay_btn.png", -3);
+					drawResultOkayButton();
 					if(!Mode.Quiz)
-						drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
+						drawResultTryAgainButton();
 					var Correct = 0;
 					if(!Mode.Quiz)
 						Correct = countCorrect(Task.Result.Answers);
@@ -2393,14 +2399,17 @@ module.exports = {
 					Result_form.w = Result_form.h * frame.w / frame.h;
 					Result_form.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Result_form.w) / 2;
 					Result_form.y = (Screen.height / Math.min(Screen.k_width, Screen.k_height) - Result_form.h) / 2;
-					drawResultForm(Result_form.x, Result_form.y, Result_form.w, Result_form.h);
+					Display.setForm("result_form.png", Result_form.x, Result_form.y, Result_form.w, Result_form.h);
+					drawResultForm();
 					document.getElementById("Loading").style.visibility = "hidden";
 					var btn = Properties.Forms["result_form_try_again_btn.png"];
 					var btn_width = (Result_form.w - 2 * 20 * Result_form.w / frame.w - 20) / 2;
 					var btn_height = btn_width * btn.h / btn.w;
+					Display.setButton("result_form_try_again_btn.png", Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
+					Display.setButton("result_form_okay_btn.png", Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height);
 					if(!Mode.Quiz)
-						drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
-					drawResultOkayButton(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height);
+						drawResultTryAgainButton();
+					drawResultOkayButton();
 					
 					
 					var digit_frame = Properties.Numbers["small-dark-1.png"];
@@ -2659,40 +2668,37 @@ module.exports = {
 		}
 		
 		function displayVideo() {
-			//if(Mode.Alphabetsong) {
-				//video.src = "/img/Alphabet/abc song.mp4"
+			video = document.getElementById("Video");
+			document.getElementById("Loading").style.visibility = "hidden";
+			if(!video) {
+				var ID = Task.Frames[Task.TaskName].YoutubeID;
+				var url_ = "https://www.youtube.com/embed/" + ID + "?controls=2&autoplay=1";
+				var div = document.createElement('inputDiv');
+				div.innerHTML = '<iframe id = "Video" width="420" height="315"></iframe>';
+				document.getElementById("mainDiv").appendChild(div);
 				video = document.getElementById("Video");
-				document.getElementById("Loading").style.visibility = "hidden";
-				if(!video) {
-					var ID = Task.Frames[Task.TaskName].YoutubeID;
-					var url_ = "https://www.youtube.com/embed/" + ID + "?controls=2&autoplay=1";
-					var div = document.createElement('inputDiv');
-					div.innerHTML = '<iframe id = "Video" width="420" height="315"></iframe>';
-					document.getElementById("mainDiv").appendChild(div);
-					video = document.getElementById("Video");
-					video.style.visibility = "visible";
-					video.style.position = "absolute";
-					video.src = url_;
-				}
-				var size_btn = 70;
-				var VideoFrame = {};
-				VideoFrame.height = MenuItem.ends - 40;
-				
-				VideoFrame.width = 1280/720*VideoFrame.height;
-				if(VideoFrame.width + 2 * Title.leftSpace + size_btn > Screen.width / Math.min(Screen.k_width, Screen.k_height)) {
-					VideoFrame.width = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * Title.leftSpace - size_btn;
-					VideoFrame.height = 720 / 1280 * VideoFrame.width;
-				}
-				VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - VideoFrame.width - 2 * Title.leftSpace) / 2;
-				VideoFrame.y = (MenuItem.starts + 20);
-				
+				video.style.visibility = "visible";
+				video.style.position = "absolute";
+				video.src = url_;
+			}
+			var size_btn = 70;
+			var VideoFrame = {};
+			VideoFrame.height = MenuItem.ends - 40;
+			
+			VideoFrame.width = 1280/720*VideoFrame.height;
+			if(VideoFrame.width + 2 * Title.leftSpace + size_btn > Screen.width / Math.min(Screen.k_width, Screen.k_height)) {
+				VideoFrame.width = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * Title.leftSpace - size_btn;
+				VideoFrame.height = 720 / 1280 * VideoFrame.width;
+			}
+			VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - VideoFrame.width - 2 * Title.leftSpace) / 2;
+			VideoFrame.y = (MenuItem.starts + 20);
+			
 
-				
-				video.style.top = VideoFrame.y * Math.min(Screen.k_width, Screen.k_height);
-				video.style.left = VideoFrame.x * Math.min(Screen.k_width, Screen.k_height);
-				video.style.width = VideoFrame.width * Math.min(Screen.k_width, Screen.k_height);
-				video.style.height = VideoFrame.height * Math.min(Screen.k_width, Screen.k_height);
-			//}
+			
+			video.style.top = VideoFrame.y * Math.min(Screen.k_width, Screen.k_height);
+			video.style.left = VideoFrame.x * Math.min(Screen.k_width, Screen.k_height);
+			video.style.width = VideoFrame.width * Math.min(Screen.k_width, Screen.k_height);
+			video.style.height = VideoFrame.height * Math.min(Screen.k_width, Screen.k_height);
 		}
 		function PlaySong() {
 			var size_btn = 70;
@@ -3765,7 +3771,7 @@ module.exports = {
 					var btn = Properties.Forms["result_form_try_again_btn.png"];
 					var btn_width = (Result_form.w - 2 * 20 * Result_form.w / frame.w - 20) / 2;
 					var btn_height = btn_width * btn.h / btn.w;
-					if (!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height)) {
+					if (!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("result_form_try_again_btn.png"))) {
 						Task.Result = {};
 						Mode[Task.TaskName.replace(/\s/g,'')] = true;
 						Mode.Results = false;
@@ -3793,7 +3799,7 @@ module.exports = {
 					
 					
 					//okay has been clicked in show results
-					if (Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height)) {
+					if (Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("result_form_okay_btn.png"))) {
 						
 						Mode.Quiz = false;
 						Mode.MenuItem = true;
