@@ -85,6 +85,7 @@ function getTopic(j) {
 }
 function expandTopic(j, n) {
 	//console.log(j, Display.Topics[j], Display.Topics[j]);
+	console.log("expanding", j);
 	Display.Topics[j].x = Display.Topics[j].x - n;
 	Display.Topics[j].y = Display.Topics[j].y - n;
 	Display.Topics[j].w = Display.Topics[j].w + 2 * n;
@@ -254,17 +255,14 @@ module.exports = {
 		Mode.Results = false;
 		Mode.Quiz = false;
 		Mode.Menu = false;
-		//Mode.Alphabetsong = false;
 		Mode.CountDown = false;
 		Mode.Mobile = false;
 		MenuItem.height = 600;
 		MenuItem.width = 1800;
 		MenuItem.display = 2;
-		//MenuItem.itemsCount = 5;
 		MenuItem.firstItem = 0;
 		MenuItem.size = 100;
 		MenuItem.ItemList = {};
-		//MenuItem.ItemList = ["alphabet", "animals", "numbers", "sport", "toys"];
 		MenuItem.clicked = -1;
 		MenuItem.chosen = MenuItem.clicked;
 
@@ -393,7 +391,6 @@ module.exports = {
 			t_a_width = 100*0.5;
 			Task.topSpace = (MenuItem.size - 2 * t_a_width - (Task.display) * (55/368*MenuItem.size + 10) + 10) / 2;
 			
-			//Title.leftSpace = MenuItem.leftSpace;
 			Title.leftSpace = 50;
 			
 			if(MenuItem.starts < Rewards.size){
@@ -436,16 +433,19 @@ module.exports = {
 			try{
 				var j = MenuItem.firstItem; //порядок в спрайте
 				while(j < MenuItem.firstItem + MenuItem.display){
-					if(j != MenuItem.clicked - MenuItem.firstItem){
+						console.log("drawing", j);
 						var pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 						var pY =  MenuItem.topSpace;
 						var pW = MenuItem.size;
 						var pH = MenuItem.size;
 						Display.setTopic(j, pX, pY, pW, pH);
+					if(j != MenuItem.clicked - MenuItem.firstItem){
 						DrawMenuItem(j);
 					}
 					j = j + 1;
 				}
+				//console.log(Display.getTopic(0));
+				//console.log(Display.getTopic(1));
 				document.getElementById("Loading").style.visibility = "hidden";
 			
 			}
@@ -840,11 +840,7 @@ module.exports = {
 		function loadButtons(/*l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height*/){
 			atlasButtons.src = '/img/Menu-Items/buttons.png';
 			atlasButtons.addEventListener("load", function() {
-					//drawButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
-					//title
-					//drawTitle(Title.leftSpace, 20, Title.size, Title.size * 130/470);	
-					loadedButtons  = true;
-					
+				loadedButtons  = true;
 			}, false);	
 		}
 				
@@ -1111,7 +1107,7 @@ module.exports = {
 				}
 			}
 			else {
-				loadButtons(/*l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height*/);
+				loadButtons();
 				setTimeout(function(){
 					checkLoadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
 				}, 10);
@@ -1164,7 +1160,6 @@ module.exports = {
 					if(Mode.Exercise && !Mode.MusicVideo && !Mode.Results) {
 						document.getElementById("Loading").style.visibility = "hidden";
 						drawHeader();
-						//drawTest();					
 						setItemsProp();
 					}
 					else if(!Mode.MusicVideo){
@@ -1320,7 +1315,6 @@ module.exports = {
 					drawLeftArrow();
 					l_a_ch = true;
 				}
-				//else if ((l_a_ch) && !(mouseX >= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.leftSpace - 5) && mouseX <= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.leftSpace + koef*100 + 5) && mouseY >=  Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 - l_a_height / 2 - 5)  && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 - l_a_height / 2 + koef*100*226/152 + 5) )) {	
 				else if ((l_a_ch) && !(mouseInRect(Display.getButton("left-arrow.png")))) {	
 					clearMenuItemRect(Display.getButton("left-arrow.png").x, Display.getButton("left-arrow.png").y, Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h);
 					Display.expandButton("left-arrow.png", -5);
@@ -1401,7 +1395,6 @@ module.exports = {
 						drawBottomArrow();
 						
 					}
-					//else if((b_a_ch) && !(mouseInRect(pX - 5, pY - 5, b_a_width + 10, b_a_height + 10))){
 					else if((b_a_ch) && !(mouseInRect(Display.getButton("bottom-arrow")))){
 						b_a_ch = false;
 						clearRectRect(Display.getButton("bottom-arrow"));
@@ -1415,7 +1408,6 @@ module.exports = {
 			//Menu items hovered
 			var i = 0;
 			while (Mode.MenuItem && (i < MenuItem.display)) {
-				//if((k == -1) && mouseY >= Math.min(Screen.k_width, Screen.k_height) * MenuItem.topSpace   && mouseY <= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.size + MenuItem.topSpace) && (mouseX >= Math.min(Screen.k_width, Screen.k_height) * X_l && mouseX <= Math.min(Screen.k_width, Screen.k_height) * X_r)){
 				if((k == -1) && mouseInRect(Display.getTopic(i + MenuItem.firstItem))){
 					if(MenuItem.clicked - MenuItem.firstItem != i){
 						if(Properties.Tasks[i + MenuItem.firstItem].length) {
@@ -1435,16 +1427,15 @@ module.exports = {
 				
 			}
 			
-				if (Mode.MenuItem && (k > -1) && !(mouseInRect(Display.getTopic(k + MenuItem.firstItem)))){
-					clearRect(Display.getTopic(k + MenuItem.firstItem).x, Display.getTopic(k + MenuItem.firstItem).y, Display.getTopic(k + MenuItem.firstItem).w, Display.getTopic(k + MenuItem.firstItem).h);
-					Display.expandTopic(k + MenuItem.firstItem, -10);
-					DrawMenuItem(k + MenuItem.firstItem);
-					k = -1;
-					
-				}
+			if (Mode.MenuItem && (k > -1) && !(mouseInRect(Display.getTopic(k + MenuItem.firstItem)))){
+				clearRect(Display.getTopic(k + MenuItem.firstItem).x, Display.getTopic(k + MenuItem.firstItem).y, Display.getTopic(k + MenuItem.firstItem).w, Display.getTopic(k + MenuItem.firstItem).h);
+				Display.expandTopic(k + MenuItem.firstItem, -10);
+				DrawMenuItem(k + MenuItem.firstItem);
+				k = -1;
+				
+			}
 			//Login button hovered
 			if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.LogIn && !Mode.SignIn &&!login_ch && mouseInRect(Display.getButton("login_btn.png"))) {
-				//fillRectYellow(Display.getButton("login_btn.png").x, Display.getButton("login_btn.png").y, Display.getButton("login_btn.png").w, Display.getButton("login_btn.png").h);
 				clearRectRectYellow(Display.getButton("login_btn.png"));
 				var n = 2;
 				if(Mode.Menu)
@@ -1735,13 +1726,11 @@ module.exports = {
 					size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 				}
 			}
-			//if ((Mode.Exercise && !Mode.MusicVideo && !Mode.Results) && !Mode.SignIn && !Mode.LogIn &&!exit_btn_ch && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn)) {
 			if ((Mode.Exercise && !Mode.MusicVideo && !Mode.Results) && !Mode.SignIn && !Mode.LogIn &&!exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
 				clearRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 				drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
 				exit_btn_ch = true;
 			}
-			//else if((Mode.Exercise && !Mode.MusicVideo && !Mode.Results) && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6))) {
 			else if((Mode.Exercise && !Mode.MusicVideo && !Mode.Results) && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				clearRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
 				drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
@@ -1750,187 +1739,38 @@ module.exports = {
 			//MatchTheAnimalsWithTheirNames word has been hovered
 			try {
 				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn &&!word_ch) {
-					/*var Array = [];
-					var animal_height
-					if(frametype1 == "frame") {
-						animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
-					}
-					else if(frametype1 == "Wordsframe"){
-						animal_height = 100;
-					}
-					var edge = 0;
-					var word_height = setWordHeight();
-					//var center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2;
-					//var top = Screen.height * 0.2 / Math.min(Screen.k_width, Screen.k_height) + 40 + animal_height + 40;
-					var top, center;
-					if(frametype1 == "frame") {
-						center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2;
-						top = MenuItem.starts + 40 + animal_height + 40;
-					}
-					else if(frametype1 == "Wordsframe") {
-						center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / Math.floor((Task.test.length + 1) / 2);
-						top = MenuItem.starts + 40 + animal_height + 40;
-					}
-					for(var i = 0; i < Task.test.length; i++) {
-						var wordFrame = (Task.test.concat())[i][frametype2];
-							Array[i] = {};
-							Array[i].x = (edge + center/2-wordFrame.w*word_height/wordFrame.h/2);
-							Array[i].y = top;
-							Array[i].w = wordFrame.w*word_height/wordFrame.h;
-							Array[i].h = word_height;
-						if(frametype1 == "frame") {
-							if(i % 2){
-								top = top + word_height + 30;
-								edge = 0;
-							}
-							else edge = center;
-						}
-						else if(frametype1 == "Wordsframe") {
-							if(!((i + 1) % Math.floor((Task.test.length + 1) / 2))){
-							top = top + word_height + 20;
-							edge = 0;
-							}
-							else { 
-								edge = edge + center;
-							}
-						}
-					}*/
-					//var i = checkPoint({x:mouseX, y:mouseY}, Array);
 					var i = checkPoint({x:mouseX, y:mouseY}, Display.getTestItems());
 					k2 = i;
-					//if(k2 < Array.length) {
 					if(k2 < Display.getTestItems().length) {
 						wordFrame = (Task.test.concat())[k2][frametype2];
-						//ctx.clearRect((Array[k2]).x*Math.min(Screen.k_width, Screen.k_height), (Array[k2].y)*Math.min(Screen.k_width, Screen.k_height), (Array[k2].w)*Math.min(Screen.k_width, Screen.k_height), (Array[k2].h)*Math.min(Screen.k_width, Screen.k_height));
 						clearRectRect(Display.getTestItem(k2));
 						Display.expandTestItem(i, 3);
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Array[k2].x - 6)*Math.min(Screen.k_width, Screen.k_height), (Array[k2].y - 3)*Math.min(Screen.k_width, Screen.k_height), (Array[k2].w + 6)*Math.min(Screen.k_width, Screen.k_height), (Array[k2].h + 6)*Math.min(Screen.k_width, Screen.k_height));
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k2).x - 6)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).y - 3)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).w + 6)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).h + 6)*Math.min(Screen.k_width, Screen.k_height));
 						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k2).x)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).h)*Math.min(Screen.k_width, Screen.k_height));
 						word_ch = true;
 					}
 				}
 				else if((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn && word_ch) {
 					
-					var Array = [];
-					var animal_height, center, top;
-					if(frametype1 == "frame") {
-						animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
-					}
-					else if(frametype1 == "Wordsframe"){
-						animal_height = 100;
-					}
-					var edge = 0;
-					var word_height = setWordHeight();
-					if(frametype1 == "frame") {
-						center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2;
-						top = MenuItem.starts + 40 + animal_height + 40;
-					}
-					else if(frametype1 == "Wordsframe") {
-						center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / Math.floor((Task.test.length + 1) / 2);
-						top = MenuItem.starts + 40 + animal_height + 40;
-					}
-					var TopforTap = 0;
-					for(var i = 0; i < Task.test.length; i++) {
-						var wordFrame = Task.test[i][frametype2];
-						Array[i] = {};
-						Array[i].x = (edge + center/2-wordFrame.w*word_height/wordFrame.h/2);
-						Array[i].y = top;
-						Array[i].w = wordFrame.w*word_height/wordFrame.h;
-						Array[i].h = word_height;
-						if(Mode.Training && Task.test[i].Word == Task.asked.Word) {
-							var Hand_frame =  Properties.Buttons["tap.png"];
-							var Hand = {};
-							Hand.h = 3/2*setWordHeight();
-							Hand.w = Hand.h * Hand_frame.w / Hand_frame.h;
-							
-							drawTap( (edge + center/2-wordFrame.w*word_height/wordFrame.h/2) + wordFrame.w*word_height/wordFrame.h / 2 - Hand.w / 2, top, Hand.w, Hand.h);
-							var TopforTap = top;
-							var edgeforTap = edge;
-						}
-						if(frametype1 == "frame") {
-							if(i % 2){
-								top = top + word_height + 30;
-								edge = 0;
-							}
-							else edge = center;
-						}
-						else if(frametype1 == "Wordsframe"){
-							if(!((i + 1) % Math.floor((Task.test.length + 1) / 2))){
-								top = top + word_height + 20;
-								edge = 0;
-							}
-							else { 
-								edge = edge + center;
-							}
-						}
-					}
 					var i = k2;
-					//if(k3 == -1 && !PointInRect({x:mouseX, y:mouseY}, Array[i])) {
 					if(k3 == -1 && !PointInRect({x:mouseX, y:mouseY}, Display.getTestItem(i))) {
 						wordFrame = Task.test[i][frametype2];
-						
-						//ctx.clearRect((Array[i].x - 6)*Math.min(Screen.k_width, Screen.k_height), (Array[i].y - 3)*Math.min(Screen.k_width, Screen.k_height), (Array[i].w + 6)*Math.min(Screen.k_width, Screen.k_height), (Array[i].h + 6)*Math.min(Screen.k_width, Screen.k_height));
 						clearRectRect(Display.getTestItem(i));
 						Display.expandTestItem(i, -3);
-						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(i)).x*Math.min(Screen.k_width, Screen.k_height), (Array[i].y)*Math.min(Screen.k_width, Screen.k_height), (Array[i].w)*Math.min(Screen.k_width, Screen.k_height), (Array[i].h)*Math.min(Screen.k_width, Screen.k_height));
-						//drawTest();
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Array[i]).x*Math.min(Screen.k_width, Screen.k_height), (Array[i].y)*Math.min(Screen.k_width, Screen.k_height), (Array[i].w)*Math.min(Screen.k_width, Screen.k_height), (Array[i].h)*Math.min(Screen.k_width, Screen.k_height));
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Array[i] - 6).x*Math.min(Screen.k_width, Screen.k_height), (Array[i].y)*Math.min(Screen.k_width, Screen.k_height), (Array[i].w)*Math.min(Screen.k_width, Screen.k_height), (Array[i].h)*Math.min(Screen.k_width, Screen.k_height));
-						if(Mode.Training && Task.test[k2].Word == Task.asked.Word) {
-							var Hand_frame =  Properties.Buttons["tap.png"];
-							var Hand = {};
-							Hand.h = 3/2*setWordHeight();
-							Hand.w = Hand.h * Hand_frame.w / Hand_frame.h;
-							
-							top = TopforTap;
-							edge = edgeforTap;
-							drawTap( (edge + center/2-wordFrame.w*word_height/wordFrame.h/2) + wordFrame.w*word_height/wordFrame.h / 2 - Hand.w / 2, top, Hand.w, Hand.h);
-						
-						}
+						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(i)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).h)*Math.min(Screen.k_width, Screen.k_height));
 						word_ch = false;
 						k2 = -1;
 					}
 					if(k3 != -1){
+						console.log("dragging");
 						drawHeader();
 						wordFrame = Task.test[k3][frametype2];
-						Array[k3].x = Array[k3].x + mouseX/Math.min(Screen.k_width, Screen.k_height) - Pressed.x/Math.min(Screen.k_width, Screen.k_height);
-						Array[k3].y = Array[k3].y + mouseY/Math.min(Screen.k_width, Screen.k_height) - Pressed.y/Math.min(Screen.k_width, Screen.k_height);
-						var Point = {x:Array[k3].x*Math.min(Screen.k_width, Screen.k_height), y:Array[k3].y*Math.min(Screen.k_width, Screen.k_height)};
-						var Rect = {x:0, y:0, w:Screen.width/Math.min(Screen.k_width, Screen.k_height), h:MenuItem.starts + 20};
-						
-						ctx.clearRect((Array[k3].x - 6)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].y - 3)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].w + 6)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].h + 6)*Math.min(Screen.k_width, Screen.k_height));
-						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Array[k3] - 6).x*Math.min(Screen.k_width, Screen.k_height), (Array[k3].y - 6)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].w + 12)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].h + 12)*Math.min(Screen.k_width, Screen.k_height));
-						ctx.clearRect(0, MenuItem.starts, Screen.width, Screen.height);
+						Item = {};
+						console.log(Display.getTestItem(k3));
+						Item.x = Display.getTestItem(k3).x + mouseX/Math.min(Screen.k_width, Screen.k_height) - Pressed.x/Math.min(Screen.k_width, Screen.k_height);
+						Item.y = Display.getTestItem(k3).y + mouseY/Math.min(Screen.k_width, Screen.k_height) - Pressed.y/Math.min(Screen.k_width, Screen.k_height);
 						drawTest();
-						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Array[k3]).x*Math.min(Screen.k_width, Screen.k_height), (Array[k3].y)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].w)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].h)*Math.min(Screen.k_width, Screen.k_height));
-						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Array[k3] - 6).x*Math.min(Screen.k_width, Screen.k_height), (Array[k3].y)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].w)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].h)*Math.min(Screen.k_width, Screen.k_height));
-						if(Mode.Training && Task.test[k3].Word == Task.asked.Word) {
-							var Hand_frame =  Properties.Buttons["tap.png"];
-							var Hand = {};
-							Hand.h = 3/2*setWordHeight();
-							Hand.w = Hand.h * Hand_frame.w / Hand_frame.h;
-							var top, animal_height, center;
-							//var animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
-							if(frametype1 == "frame") {
-								animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
-							}
-							else {
-								animal_height = 50;
-							}
-							var edge = 0;
-							if(frametype1 == "frame") {
-								center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2;
-								top = MenuItem.starts + 40 + animal_height + 40;
-							}
-							else if(frametype1 == "Wordsframe") {
-								center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / Math.floor((Task.test.length + 1) / 2);
-								top = MenuItem.starts + 40 + animal_height + 40;
-							}
-							var word_height = setWordHeight();
-							drawTap( (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h) / 2 +  Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h / 2 - Hand.w / 2, MenuItem.starts + (20 + 20) + animal_height / 2 - Hand.h / 2, Hand.w, Hand.h);
-										
-						}
+						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Item.x)*Math.min(Screen.k_width, Screen.k_height), (Item.y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
+						
 					}
 				}
 			}
@@ -1950,7 +1790,6 @@ module.exports = {
 			
 			//try again hovered in show results
 			if (!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn &&!try_again_ch && mouseInRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height)) {
-				//clearScreenRect(Result_form.x + 20 * Result_form.w / frame.w, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w, btn_width, btn_height);
 				drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width + 6, btn_height + 6);
 				try_again_ch = true;
 			}
@@ -1969,8 +1808,6 @@ module.exports = {
 				digit.h = 12  * Result_form.h / frame.h;
 				digit.w = digit.h * digit_frame.w / digit_frame.h;
 				
-				//drawDigit(Correct, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 51 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
-				//drawDigit(Total, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 68 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 				Correct = Correct +"";
 				for(var j = 0; j < Correct.length; j++)
 					drawDigit(Correct[j], Result_form.x + 115 * Result_form.w / frame.w + j * digit.w, Result_form.y + 51 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
@@ -1979,7 +1816,6 @@ module.exports = {
 					drawDigit(Total[j], Result_form.x + 115 * Result_form.w / frame.w + j * digit.w, Result_form.y + 68 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 				
 				var points = countPoints(Answers, Total, Max);
-				//var stars = Math.round(points / (Max * Total) * 5);
 				var stars = 0;
 				if(!Mode.Quiz)
 					stars = Math.round(points / (Max * Total) * 5);
@@ -2101,8 +1937,6 @@ module.exports = {
 					digit.h = 12  * Result_form.h / frame.h;
 					digit.w = digit.h * digit_frame.w / digit_frame.h;
 					
-					//drawDigit(Correct, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 51 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
-					//drawDigit(Total, Result_form.x + 115 * Result_form.w / frame.w, Result_form.y + 68 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 					Correct = Correct +"";
 					for(var j = 0; j < Correct.length; j++)
 						drawDigit(Correct[j], Result_form.x + 115 * Result_form.w / frame.w + j * digit.w, Result_form.y + 51 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
@@ -2239,39 +2073,23 @@ module.exports = {
 				t_a_width = 100*0.5;
 				t_a_height = 0.5*100*226/152;
 				Task.firstTask = Task.firstTask - 1;
-				
-				drawTask(j, Task.firstTask, pX, (pY+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
-				//Trace the letters
-				drawTask(j, Task.firstTask + 1, pX, (pY + 55/368*MenuItem.size + 10 + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
-				//Name the letter
-				drawTask(j, Task.firstTask + 2, pX, (pY + (55/368*MenuItem.size + 10) * 2+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
-				//Name the letter sounds
-				drawTask(j , Task.firstTask + 3, pX, (pY + (55/368*MenuItem.size + 10) * 3+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+				//drawTask(j, Task.firstTask, pX, (pY+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+				//drawTask(j, Task.firstTask + 1, pX, (pY + 55/368*MenuItem.size + 10 + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+				//drawTask(j, Task.firstTask + 2, pX, (pY + (55/368*MenuItem.size + 10) * 2+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+				//drawTask(j , Task.firstTask + 3, pX, (pY + (55/368*MenuItem.size + 10) * 3+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
+				for (var i = 0; i < Task.display; i++) {
+					drawTask(j , Task.firstTask + i, pX, (pY + (55/368*MenuItem.size + 10) * i + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size);
+				}
 				if(Task.firstTask <= 0) {
-					console.log("hello");
 					clearRectRect(Display.getButton("top-arrow"));
-					//fillRect(Display.getButton("top-arrow").x - 5, Display.getButton("top-arrow").y - 5, Display.getButton("top-arrow").w + 10, Display.getButton("top-arrow").h + 10);
-					
 				}
 				//draw bottom arrow
-					//bottom arrow
-					/*pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
-					pY =  MenuItem.topSpace + MenuItem.size;
-					b_a_width = 100*0.5;
-					b_a_height = 0.5*100*226/152;
-					ctx.save();
-					ctx.translate((pX + MenuItem.size / 2 - 3/4*b_a_width)*Math.min(Screen.k_width, Screen.k_height), pY*Math.min(Screen.k_width, Screen.k_height));
-					ctx.rotate(-Math.PI / 2);*/
-					//drawLeftArrow(0, 0, b_a_width, b_a_height)
-					drawBottomArrow();
-					//ctx.restore();
-				
+				drawBottomArrow();
 		}
 
 		var atlasMenuItemTask = new Image();
 		MenuItem.loadedMenuItemTasks = false;
 		function loadMenuItemsTasks(j){
-			// Load image and the json that defines locations
 			atlasMenuItemTask.src = '/img/Menu-Items/Tasks.png';
 			atlasMenuItemTask.addEventListener("load", function() {
 				MenuItem.loadMenuItemsTasks = true;
@@ -2304,12 +2122,8 @@ module.exports = {
 						X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 						Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 						drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
-						//ctx.font = 40 * Math.min(Screen.k_width, Screen.k_height) + "px Ariel"
 						drawLogInLogInButton();
 						drawLogInCancelButton();
-						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 80 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
-						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 138 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
-						
 					}
 				});
 			
@@ -2341,12 +2155,8 @@ module.exports = {
 						X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 						Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 						drawLogInForm(X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
-						//ctx.font = 40 * Math.min(Screen.k_width, Screen.k_height) + "px Ariel"
 						drawLogInLogInButton();
 						drawLogInCancelButton();
-						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 138 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
-						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 80 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height))
-						
 					}
 				});
 			return str
@@ -2378,8 +2188,6 @@ module.exports = {
 						size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
 						X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (size_))/2
 						
-						//mouseInRect(X_ + 35 / 368 * size_, Y_ + 57 / 368 * size_, 298 / 368 * size_, 36 / 368 * size_)
-			
 						drawSignInForm();
 						if(NewAccent == "US English Female")
 							AmericanAccent()
@@ -2389,10 +2197,7 @@ module.exports = {
 							BritishAccent()
 						drawSignInSignInButton(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
 						drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 57 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), ( Y_ + 115 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
 						
-					
 					}
 				});
 			
@@ -2433,8 +2238,6 @@ module.exports = {
 								BritishAccent()
 						drawSignInSignInButton(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
 						drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 57 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), ( Y_ + 115 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
 						
 					}
 				});
@@ -2494,6 +2297,7 @@ module.exports = {
 			
 		}
 		function MenuItemClicked(j) {
+			console.log("MenuItemClicked", j);
 			k = -1;
 			k1 = -1;
 			task_ch = false;
@@ -2986,11 +2790,7 @@ module.exports = {
 			for(var i = 0; i < Task.test.length; i++) {
 				var wordFrame = (Task.test.concat())[i][frametype2];
 				if(frametype1 == "frame") {
-					//if(k3 != i)
-						Display.setTestItem(i,(edge + center/2-wordFrame.w*word_height/wordFrame.h/2), top, wordFrame.w*word_height/wordFrame.h, word_height);
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h,(edge + center/2-wordFrame.w*word_height/wordFrame.h/2)*Math.min(Screen.k_width, Screen.k_height), top*Math.min(Screen.k_width, Screen.k_height), wordFrame.w*word_height/wordFrame.h*Math.min(Screen.k_width, Screen.k_height), word_height*Math.min(Screen.k_width, Screen.k_height));
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x, Display.getTestItem(i).y, Display.getTestItem(i).w, Display.getTestItem(i).h);
-					
+					Display.setTestItem(i,(edge + center/2-wordFrame.w*word_height/wordFrame.h/2), top, wordFrame.w*word_height/wordFrame.h, word_height);
 					if(i % 2){
 						top = top + word_height + 30;
 						edge = 0;
@@ -2998,13 +2798,7 @@ module.exports = {
 					else edge = center;
 				}
 				else if(frametype1 == "Wordsframe") {
-					//if(k3 != i) {
-						//ctx.fillRect((edge + center/2-wordFrame.w*word_height/wordFrame.h/2)*Math.min(Screen.k_width, Screen.k_height), top*Math.min(Screen.k_width, Screen.k_height), wordFrame.w*word_height/wordFrame.h*Math.min(Screen.k_width, Screen.k_height), word_height*Math.min(Screen.k_width, Screen.k_height));
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h,(edge + center/2-wordFrame.w*word_height/wordFrame.h/2)*Math.min(Screen.k_width, Screen.k_height), top*Math.min(Screen.k_width, Screen.k_height), wordFrame.w*word_height/wordFrame.h*Math.min(Screen.k_width, Screen.k_height), word_height*Math.min(Screen.k_width, Screen.k_height));
-						Display.setTestItem(i, (edge + center/2-wordFrame.w*word_height/wordFrame.h/2), top, wordFrame.w*word_height/wordFrame.h, word_height);
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x, Display.getTestItem(i).y, Display.getTestItem(i).w, Display.getTestItem(i).h);
-						
-					//}
+					Display.setTestItem(i, (edge + center/2-wordFrame.w*word_height/wordFrame.h/2), top, wordFrame.w*word_height/wordFrame.h, word_height);
 					if(!((i + 1) % Math.floor((Task.test.length + 1) / 2))){
 						top = top + word_height + 20;
 						edge = 0;
@@ -3021,6 +2815,7 @@ module.exports = {
 			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 			var frame = Properties.Buttons["skip.png"];
 			Display.setButton("skip.png", Title.leftSpace + 20, MenuItem.starts + 20, size_btn * frame.w / frame.h, size_btn);
+			console.log(Display.getTestItem(0));
 			drawTest();
 		}
 		function drawTest() {
@@ -3043,40 +2838,7 @@ module.exports = {
 				top = MenuItem.starts + 40 + animal_height + 40;
 			}
 			var word_height = setWordHeight();
-			//Display.setButton("itemImage", (Screen.width - Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h*Math.min(Screen.k_width, Screen.k_height)) / 2, MenuItem.starts*Math.min(Screen.k_width, Screen.k_height) + (20 + 20) * Math.min(Screen.k_width, Screen.k_height), Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h*Math.min(Screen.k_width, Screen.k_height), animal_height*Math.min(Screen.k_width, Screen.k_height));
 			ctx.drawImage(atlas[Task.TopicName + frametype1],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
-			/*for(var i = 0; i < Task.test.length; i++) {
-				var wordFrame = (Task.test.concat())[i][frametype2];
-				if(frametype1 == "frame") {
-					//if(k3 != i)
-						Display.setTestItem(i,(edge + center/2-wordFrame.w*word_height/wordFrame.h/2)*Math.min(Screen.k_width, Screen.k_height), top*Math.min(Screen.k_width, Screen.k_height), wordFrame.w*word_height/wordFrame.h*Math.min(Screen.k_width, Screen.k_height), word_height*Math.min(Screen.k_width, Screen.k_height));
-						console.log(Display.getTestItem(i));
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h,(edge + center/2-wordFrame.w*word_height/wordFrame.h/2)*Math.min(Screen.k_width, Screen.k_height), top*Math.min(Screen.k_width, Screen.k_height), wordFrame.w*word_height/wordFrame.h*Math.min(Screen.k_width, Screen.k_height), word_height*Math.min(Screen.k_width, Screen.k_height));
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x, Display.getTestItem(i).y, Display.getTestItem(i).w, Display.getTestItem(i).h);
-					
-					if(i % 2){
-						top = top + word_height + 30;
-						edge = 0;
-					}
-					else edge = center;
-				}
-				else if(frametype1 == "Wordsframe") {
-					//if(k3 != i) {
-						//ctx.fillRect((edge + center/2-wordFrame.w*word_height/wordFrame.h/2)*Math.min(Screen.k_width, Screen.k_height), top*Math.min(Screen.k_width, Screen.k_height), wordFrame.w*word_height/wordFrame.h*Math.min(Screen.k_width, Screen.k_height), word_height*Math.min(Screen.k_width, Screen.k_height));
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h,(edge + center/2-wordFrame.w*word_height/wordFrame.h/2)*Math.min(Screen.k_width, Screen.k_height), top*Math.min(Screen.k_width, Screen.k_height), wordFrame.w*word_height/wordFrame.h*Math.min(Screen.k_width, Screen.k_height), word_height*Math.min(Screen.k_width, Screen.k_height));
-						Display.setTestItem(i, (edge + center/2-wordFrame.w*word_height/wordFrame.h/2)*Math.min(Screen.k_width, Screen.k_height), top*Math.min(Screen.k_width, Screen.k_height), wordFrame.w*word_height/wordFrame.h*Math.min(Screen.k_width, Screen.k_height), word_height*Math.min(Screen.k_width, Screen.k_height));
-						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x, Display.getTestItem(i).y, Display.getTestItem(i).w, Display.getTestItem(i).h);
-						
-					//}
-					if(!((i + 1) % Math.floor((Task.test.length + 1) / 2))){
-						top = top + word_height + 20;
-						edge = 0;
-					}
-					else { 
-						edge = edge + center;
-					}
-				}
-			}*/
 			for(var i = 0; i < Task.test.length; i++) {
 				var wordFrame = (Task.test.concat())[i][frametype2];
 				if(k3 != i) {
@@ -3115,7 +2877,7 @@ module.exports = {
 					mouseY = (touch.clientY - rect.top) * scaleY;
 				}
 				catch(e) {}
-				console.log(mouseX, mouseY);
+				//console.log(mouseX, mouseY);
 				
 				// menu button has been clicked
 				if(Mode.Mobile && !Mode.Menu && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
@@ -3144,198 +2906,106 @@ module.exports = {
 					$("#MenuCanvas").remove();
 					respondCanvas();
 				}
-				//if(Mode.MenuItem) {
-					if(Mode.Tasks && MenuItem.clicked > -1) {
-						//top arrow has been clicked
-						t_a_height = 100*0.5;
-						t_a_width = 0.5*100*226/152;
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
-						pY =  MenuItem.topSpace;
-						if(mouseInRect(Display.getButton("top-arrow"))){	
-							Task.a_clicked = true;
-							if(Task.firstTask > 0) {
-								topArrowClicked()
-							}
-						}			
-						//bottom arrow has been clicked
-						if(mouseInRect(Display.getButton("bottom-arrow"))){
-							Task.a_clicked = true;
-							if(Task.firstTask + Task.display < Task.itemsCount[MenuItem.clicked]) {
-								bottomArrowClicked();
-							}
+				if(Mode.Tasks && MenuItem.clicked > -1) {
+					//top arrow has been clicked
+					t_a_height = 100*0.5;
+					t_a_width = 0.5*100*226/152;
+					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
+					pY =  MenuItem.topSpace;
+					if(mouseInRect(Display.getButton("top-arrow"))){	
+						Task.a_clicked = true;
+						if(Task.firstTask > 0) {
+							topArrowClicked()
 						}
-					}
-					
-					if(Mode.MenuItem && MenuItem.clicked > -1) {
-						//check background click
-						//not top & bottom arrows have been clicked
-						//top arrow has been clicked
-						t_a_height = 100*0.5;
-						t_a_width = 0.5*100*226/152;
-						pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
-						pY =  MenuItem.topSpace;
-						//fillRect(pX, pY, t_a_width,t_a_height);
-						//if(Mode.Tasks && mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + t_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + t_a_height)*Math.min(Screen.k_width, Screen.k_height)){
-						/*if(Mode.Tasks && (mouseInRect(Display.getButton("top-arrow")) || mouseInRect(Display.getButton("bottom-arrow")))){
-							fillRect(pX, pY, t_a_width,t_a_height);
-							console.log("fillRect(pX, pY, t_a_width,t_a_height)111", mouseInRect({x:pX, y:pY, w:t_a_width,h:t_a_height}));
+					}			
+					//bottom arrow has been clicked
+					if(mouseInRect(Display.getButton("bottom-arrow"))){
+						Task.a_clicked = true;
+						if(Task.firstTask + Task.display < Task.itemsCount[MenuItem.clicked]) {
+							bottomArrowClicked();
 						}
-						else {
-							b_a_height = 100*0.5;
-							b_a_width = 0.5*100*226/152;
-							pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
-							pY = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.topSpace - b_a_height;
-							if(Mode.Tasks && mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height)){
-								
-							}
-							
-							//background has been clicked
-							else if(((Mode.Tasks && !(mouseX >= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace)* Math.min(Screen.k_width, Screen.k_height) && mouseX <= ((Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace + (Profile.size_btn - 2 * 5) / 3)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= ((20 + 5) + Profile.size_btn*75/228 + 150*75/228 + 5)* Math.min(Screen.k_width, Screen.k_height) && mouseY <= ((20 + 5) + Profile.size_btn*75/228 + 3 + Profile.size_btn*75/228 + 5 + (Profile.size_btn - 2 * 5) / 3)* Math.min(Screen.k_width, Screen.k_height))) && !(mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + t_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + t_a_height)*Math.min(Screen.k_width, Screen.k_height)))&&!(mouseX >= pX*Math.min(Screen.k_width, Screen.k_height)&& mouseX <= (pX + b_a_width)*Math.min(Screen.k_width, Screen.k_height) && mouseY >= (pY)*Math.min(Screen.k_width, Screen.k_height) && mouseY <= (pY + b_a_height)*Math.min(Screen.k_width, Screen.k_height))) {
-								X_l = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
-
-								if(!mouseInRect(X_l, MenuItem.topSpace, MenuItem.size, MenuItem.size)) {
-									MenuItem.chosen = MenuItem.clicked;
-									DrawMenuItem(MenuItem.clicked);
-									MenuItem.clicked = -1;
-									Mode.Tasks = false;
-									
-								}
-								else {
-									//MenuItem.clicked = MenuItem.chosen;
-								}
-								
-								
-							}	
-						}*/
-						/*console.log(Task.firstTask > 0 , mouseInRect(Display.getButton("top-arrow")), Task.firstTask + Task.display >= Task.itemsCount[MenuItem.clicked], mouseInRect(Display.getButton("bottom-arrow")));
-						if(!(Task.firstTask > 0 == mouseInRect(Display.getButton("top-arrow"))) && !(Task.firstTask + Task.display >= Task.itemsCount[MenuItem.clicked] == mouseInRect(Display.getButton("bottom-arrow")))) {
-							var i = 0;
-							while (i < Task.display && background_clicked) {
-								if(mouseInRect(Display.getTask(MenuItem.clicked, Task.firstTask + i))) {
-									background_clicked = false;
-								}
-								else {
-									i = i + 1;
-								}
-							}
-							if(i == i + Task.display){
-								background_clicked = true;
-								if(background_clicked) {
-									console.log("background_clicked", background_clicked);
-								}
-							}
-							else {
-								console.log("@@@i:", i, background_clicked);
-							}
-						}
-						else {
-							console.log("not there");
-						}*/
-						/*var background_clicked = true;
-						console.log(Task.firstTask, Task.display, Task.itemsCount[MenuItem.clicked], Task.firstTask + Task.display >= Task.itemsCount[MenuItem.clicked], Task.firstTask <= 0);
-						if(background_clicked && Task.firstTask <= 0)
-							background_clicked = mouseInRect(Display.getButton("top-arrow"));
-						if(background_clicked && Task.firstTask + Task.display >= Task.itemsCount[MenuItem.clicked])
-							background_clicked = mouseInRect(Display.getButton("bottom-arrow"));
-						console.log("background_clicked", background_clicked);
-						var i = 0;
-						while (i < Task.display && background_clicked) {
-							if(mouseInRect(Display.getTask(MenuItem.clicked, Task.firstTask + i))) {
-								background_clicked = false;
-							}
-							else {
-								i = i + 1;
-							}
-						}
-						if(i == i + Task.display)
-							background_clicked = true;
-						*/
-						if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked)) && mouseInRect({x:0, y:MenuItem.starts, w:Screen.width / Math.min(Screen.k_width, Screen.k_height), h:MenuItem.ends - MenuItem.starts})){
-							Display.expandTopic(MenuItem.clicked, -10);
-							MenuItem.chosen = MenuItem.clicked;
-							DrawMenuItem(MenuItem.clicked);
-							MenuItem.clicked = -1;
-							Mode.Tasks = false;
-						}
-					}
-					
-					//Menu Item has been clicked
-					if(Mode.MenuItem && MenuItem.clicked == -1) {
-						var j = 0;
-						while (j < MenuItem.display)  {
-							X_l = 2 * MenuItem.leftSpace + 100*koef + 68 * (j + 1) + MenuItem.size * j - 68;
-							X_r = 2 * MenuItem.leftSpace + 100*koef + 68 * (j + 1) + MenuItem.size * (j + 1) - 68;
-							if(mouseY >= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace)  && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.size + MenuItem.topSpace)  && (mouseX >= Math.min(Screen.k_width, Screen.k_height) * X_l && mouseX <= Math.min(Screen.k_width, Screen.k_height) * X_r)){
-								if(Properties.Tasks[j + MenuItem.firstItem].length) {
-									Mode.Tasks = true;
-									Task.firstTask = 0;
-									//Mode.Exercise = false;
-									MenuItem.clicked = j + MenuItem.firstItem;
-									MenuItemClicked(MenuItem.clicked);
-									//###								
-									
-								}
-								else {
-									console.log("no tasks yet");
-								}
-								
-								j = MenuItem.display + 1;		
-								
-								
-							}
-							else {
-								j++;
-							}
-						}
-					}
-					
-					//left arrow has been clicked
-					if(Mode.MenuItem && MenuItem.firstItem >= 0) {
-						if (mouseX >= Math.min(Screen.k_width, Screen.k_height) * MenuItem.leftSpace && mouseX <= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.leftSpace + koef*100) && mouseY >=  Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 -  koef*100*226/152/ 2 ) && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 -  koef*100*226/152/ 2 + koef*100*226/152) ) {	
-							leftArrowClicked();
-						}
-					}
-					
-					//right arrow has been clicked
-					var r_a_height = koef*100*226/152;
-					var r_a_y =  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2;
-					var r_a_width = koef*100;
-					var r_a_x = MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;
-					if(Mode.MenuItem && MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount){
-						if (mouseX >= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - 100*koef) && mouseX <= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - 100*koef + koef*100) && mouseY >=  Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2)  && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2 + koef*100*226/152)) {	
-							rightArrowClicked();
-						}
-					}
-					
-						
-					
-					
-					//Login button has been clicked
-					if(((Mode.Mobile && Mode.Menu) || (!Mode.Mobile && Mode.MenuItem)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("login_btn.png"))) {
-						if(Forms_loaded == false)
-							loadForms()
-						drawLoading();
-						if(Profile.storeUserNameLogIn == true)
-							Profile.storeUserNameLogIn = false;
-						if(Profile.storePasswordLogIn == true)
-							Profile.storePasswordLogIn = false;
-						showLogInForm()
-					}
-					//Sign Up button has been clicked
-					if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Profile.LoggedIn && !Mode.LogIn && !Mode.LogIn && mouseInRect(Display.getButton("sign_in_btn.png"))) {
-						console.log("vhgshjzl");
-						if(Forms_loaded == false)
-							loadForms();
-						$("#MenuCanvas").remove();
-						showSignInForm();
-						
-					
-						//Profile.UserName = "Username"
-						Profile.UserName = "";
-						//Profile.Password = "Password"
-						Profile.Password = "";
 					}
 				}
+					
+				if(Mode.MenuItem && MenuItem.clicked > -1) {
+					//check background click
+					//not top & bottom arrows have been clicked
+					//top arrow has been clicked
+					t_a_height = 100*0.5;
+					t_a_width = 0.5*100*226/152;
+					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
+					pY =  MenuItem.topSpace;
+					//if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked)) && mouseInRect({x:0, y:MenuItem.starts, w:Screen.width / Math.min(Screen.k_width, Screen.k_height), h:MenuItem.ends - MenuItem.starts})){
+					if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked))){
+						Display.expandTopic(MenuItem.clicked, -10);
+						MenuItem.chosen = MenuItem.clicked;
+						DrawMenuItem(MenuItem.clicked);
+						MenuItem.clicked = -1;
+						Mode.Tasks = false;
+					}
+				}
+					
+				//Menu Item has been clicked
+				if(Mode.MenuItem && MenuItem.clicked == -1) {
+					var j = 0;
+					while (j < MenuItem.display)  {
+						if(mouseInRect(Display.getTopic(j + MenuItem.firstItem))){
+							if(Properties.Tasks[j + MenuItem.firstItem].length) {
+								Mode.Tasks = true;
+								Task.firstTask = 0;
+								MenuItem.clicked = j + MenuItem.firstItem;
+								MenuItemClicked(MenuItem.clicked);
+							}
+							else {
+								console.log("no tasks yet");
+							}
+							j = MenuItem.display + 1;
+						}
+						else {
+							j++;
+						}
+					}
+				}
+				//left arrow has been clicked
+				if(Mode.MenuItem && MenuItem.firstItem >= 0) {
+					//if (mouseX >= Math.min(Screen.k_width, Screen.k_height) * MenuItem.leftSpace && mouseX <= Math.min(Screen.k_width, Screen.k_height) * (MenuItem.leftSpace + koef*100) && mouseY >=  Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 -  koef*100*226/152/ 2 ) && mouseY <= Math.min(Screen.k_width, Screen.k_height) * ( MenuItem.topSpace + MenuItem.size / 2 -  koef*100*226/152/ 2 + koef*100*226/152) ) {	
+					if(mouseInRect(Display.getButton("left-arrow.png"))){
+						leftArrowClicked();
+					}
+				}
+					
+				//right arrow has been clicked
+				if(Mode.MenuItem && MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount){
+					if (mouseInRect(Display.getButton("right-arrow.png"))) {	
+						rightArrowClicked();
+					}
+				}
+				//Login button has been clicked
+				if(((Mode.Mobile && Mode.Menu) || (!Mode.Mobile && Mode.MenuItem)) && !Mode.Exercise && !Profile.LoggedIn && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("login_btn.png"))) {
+					if(Forms_loaded == false)
+						loadForms()
+					drawLoading();
+					if(Profile.storeUserNameLogIn == true)
+						Profile.storeUserNameLogIn = false;
+					if(Profile.storePasswordLogIn == true)
+						Profile.storePasswordLogIn = false;
+					showLogInForm()
+				}
+				//Sign Up button has been clicked
+				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Profile.LoggedIn && !Mode.LogIn && !Mode.LogIn && mouseInRect(Display.getButton("sign_in_btn.png"))) {
+					console.log("vhgshjzl");
+					if(Forms_loaded == false)
+						loadForms();
+					$("#MenuCanvas").remove();
+					showSignInForm();
+					
+				
+					//Profile.UserName = "Username"
+					Profile.UserName = "";
+					//Profile.Password = "Password"
+					Profile.Password = "";
+				}
+				//}
 				//Sound button is clicked
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("sound_btn.png"))) {
 					fillRectYellow(Display.getButton("sound_btn.png").x,Display.getButton("sound_btn.png").y, Display.getButton("sound_btn.png").w, Display.getButton("sound_btn.png").h);
@@ -3391,8 +3061,6 @@ module.exports = {
 					
 					
 					//login button clicked LogIn Mode
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
-					Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 					if(Mode.LogIn && mouseInRect(Display.getButton("log_in_form_login_btn.png")))
 					{
 						if(checkProfileData(document.getElementById("UserName").value, document.getElementById("Password").value)) {
@@ -3443,78 +3111,16 @@ module.exports = {
 						}
 					}
 					//background has been clicked during LogIn Mode
-					if(Mode.LogIn && !mouseInRect(X_ + 47 - 2, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40 - 2, (MenuItem.size) / 202 * 156 + 4, MenuItem.size * 37 / 202 + 4)&& !(mouseInRect(X_ + 35 / 368 * (MenuItem.size) / 202 * 368, Y_ + 115 / 202 * MenuItem.size, 297 / 368 * (MenuItem.size) / 202 * 368, 35 / 202 * MenuItem.size) || mouseInRect(X_ + 35 / 368 * (MenuItem.size) / 202 * 368, Y_ + 57 / 202 * MenuItem.size, 297 / 368 * (MenuItem.size) / 202 * 368, 35 / 202 * MenuItem.size))) {
+					/*if(Mode.LogIn && !mouseInRect(X_ + 47 - 2, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40 - 2, (MenuItem.size) / 202 * 156 + 4, MenuItem.size * 37 / 202 + 4)&& !(mouseInRect(X_ + 35 / 368 * (MenuItem.size) / 202 * 368, Y_ + 115 / 202 * MenuItem.size, 297 / 368 * (MenuItem.size) / 202 * 368, 35 / 202 * MenuItem.size) || mouseInRect(X_ + 35 / 368 * (MenuItem.size) / 202 * 368, Y_ + 57 / 202 * MenuItem.size, 297 / 368 * (MenuItem.size) / 202 * 368, 35 / 202 * MenuItem.size))) {
 						if(Profile.storeUserNameLogIn == true)
 							Profile.storeUserNameLogIn = false;
 						if(Profile.storePasswordLogIn == true)
 							Profile.storePasswordLogIn = false;
-					}
+					}*/
 				}
 				if(Mode.SignIn){
 					//username area clicked SignIn Mode
-					/*Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
-					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-					if(Mode.SignIn && mouseInRect(X_ + 35 / 368 * size_, Y_ + 57 / 368 * size_, 298 / 368 * size_, 36 / 368 * size_)) {
-						UserNameAreaClickedSignIn()
-						//fillRect(X_ + 35 / 368 * size_, Y_ + 57 / 368 * size_, 298 / 368 * size_, 36 / 368 * size_)
-						
-					}
-					if(Mode.SignIn && mouseInRect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size *3/2))/2, MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size * 3/2) / 2, (MenuItem.size *6/4), MenuItem.size * 6/4)) {
-									
-					}
-					//password area clicked SignIn Mode
-					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
-					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-					if(Mode.SignIn && mouseInRect(X_ + 35 / 368 * size_, Y_ + 115 / 368 * size_, 298 / 368 * size_, 36 / 368 * size_)) {
-						//PasswordAreaClickedSignIn()
-						//fillRect(X_ + 35 / 368 * size_, Y_ + 115 / 368 * size_, 298 / 368 * size_, 36 / 368 * size_)
-					}
-					if(Mode.SignIn && !(mouseInRect(X_ + 35 / 368 * size_, Y_ + 57 / 368 * size_, 298 / 368 * size_, 36 / 368 * size_) || mouseInRect(X_ + 35 / 368 * size_, Y_ + 115 / 368 * size_, 298 / 368 * size_, 36 / 368 * size_))) {
-						if(Profile.storeUserNameSignIn == true)
-							Profile.storeUserNameSignIn = false;
-						if(Profile.storePasswordSignIn == true)
-							Profile.storePasswordSignIn = false;
-					}*/
 					
-					//flag area clicked SignIn Mode
-					/*Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
-					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-					//American accent
-					if(Mode.SignIn && mouseInRect(X_ + 35 / 368 * size_, Y_ + 177 / 368 * size_, 36 / 368 * size_, 23/ 368 * size_)) {
-						AmericanAccent()
-						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), ( Y_ + 115 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 57 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						drawSignInSignInButton(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-						drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-							
-					}
-					//Australian accent
-					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
-					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-					if(Mode.SignIn && mouseInRect(X_ + 80 / 368 * size_, Y_ + 177 / 368 * size_, 36 / 368 * size_, 23 / 368 * size_)) {
-						AustralianAccent()
-						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), ( Y_ + 115 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 57 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						drawSignInSignInButton(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-						drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-						
-					}
-					//British accent
-					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
-					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-					if(Mode.SignIn && mouseInRect(X_ + 124 / 368 * size_, Y_ + 177 / 368 * size_, 36 / 368 * size_, 23 / 368 * size_)) {
-						BritishAccent()
-						//ctx.fillText(Profile.Password, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), ( Y_ + 115 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						//ctx.fillText(Profile.UserName, (X_ + (35 + 20) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height), (Y_ + 57 / 368 * size_ + (36 - 11) / 368 * size_) * Math.min(Screen.k_width, Screen.k_height))
-						drawSignInSignInButton(X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-						drawSignInCancelButton(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)
-						
-					}*/
 					if(Mode.SignIn) {
 						var i = 0;
 						while(i < flags.length) {
@@ -3544,10 +3150,6 @@ module.exports = {
 						}
 					}
 					//Cancel button clicked SignIn Mode
-					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
-					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-					//if (Mode.SignIn && mouseInRect(X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156)) {
 					if (Mode.SignIn && mouseInRect(Display.getButton("sign_in_form_cancel_btn.png"))) {
 						setTimeout(function(){
 						Mode.SignIn = false;
@@ -3569,9 +3171,6 @@ module.exports = {
 					}
 					
 					//Signin button clicked SignIn mode
-					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
-					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
 					if (Mode.SignIn && mouseInRect(Display.getButton("sign_in_form_signin_btn.png"))) {
 						if(checkProfileData(document.getElementById("UserName").value, document.getElementById("Password").value)){
 							drawLoading();
@@ -3605,6 +3204,7 @@ module.exports = {
 								else if(!data.res) {
 									if(ok == undefined) {
 										ok = false;
+										document.getElementById("Loading").style.visibility = "hidden";
 										alert("This user name is already taken");
 									}
 								}
@@ -3613,10 +3213,11 @@ module.exports = {
 							
 						}
 						else {
+							document.getElementById("Loading").style.visibility = "hidden";
 							alert("Fill all information");
 						}
 					}
-				}
+				}}
 				function selectAnimal(){
 					
 					if(!Mode.Training && Task.toTest.length == Task.test.length) {
@@ -3998,8 +3599,6 @@ module.exports = {
 				
 				
 				//exit button has been clicked during song
-				//var size_btn = 70;
-				//if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn)) {
 				if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
 					Mode.MenuItem = true;
 					Mode.Exercise = false;
@@ -4058,7 +3657,6 @@ module.exports = {
 						size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 					}
 				}
-				//if (Mode.Exercise && !Mode.MusicVideo && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn)) {
 				if (Mode.Exercise && !Mode.MusicVideo && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
 					if(Mode.Quiz)
 						Mode.Quiz = false;
@@ -4084,52 +3682,9 @@ module.exports = {
 				//MatchTheAnimalsWithTheirNames word has been clicked
 				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
 					try {
-						/*Array = [];
-						var edge = 0;
-						var top, center, animal_height;
-						if(frametype1 == "frame") {
-							animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
-							top = Screen.height * MenuItem.starts + 40 + animal_height + 40;
-							center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2;
-						}
-						else if(frametype1 == "Wordsframe") {
-							center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / Math.floor((Task.test.length + 1) / 2);
-							top = MenuItem.starts + 40 + animal_height + 40;
-							animal_height = 100;
-						}
-						var word_height = setWordHeight();
-						
-						
-						for(var i = 0; i < Task.test.length; i++) {
-							var wordFrame = (Task.test.concat())[i][frametype2];
-							Array[i] = {};
-							Array[i].x = (edge + center/2-wordFrame.w*word_height/wordFrame.h/2);
-							Array[i].y = top;
-							Array[i].w = wordFrame.w*word_height/wordFrame.h;
-							Array[i].h = word_height;
-							//clearRectRectYellow(Display.getTestItem(i));
-							if(frametype1 == "frame") {
-								if(i % 2){
-									top = top + word_height + 30;
-									edge = 0;
-								}
-								else edge = center;
-							}
-							else if(frametype1 == "Wordsframe") {
-								if(!((i + 1) % Math.floor((Task.test.length + 1) / 2))){
-								top = top + word_height + 20;
-								edge = 0;
-								}
-								else { 
-									edge = edge + center;
-								}
-							}
-						}*/
 						if((Mode.Exercise && !Mode.MusicVideo) &&k3 != -1) {
 							drawHeader();
 							clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height/ Math.min(Screen.k_width, Screen.k_height));
-							
-							//if(mouseInRect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h) / 2, MenuItem.starts + (20 + 20), Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h, animal_height)) {
 							if(mouseInRect(Display.getButton("itemImage"))) {
 								Task.tries--;
 								var correct = checkAnswer(k3);
@@ -4211,9 +3766,7 @@ module.exports = {
 								drawTest();
 							}
 						}
-						//var i = checkPoint({x:mouseX, y:mouseY}, Array);
 						var i = checkPoint({x:mouseX, y:mouseY}, Display.getTestItems());
-						//if(i < Array.length) {
 						if(i < Display.getTestItems().length) {
 							if(Task.TopicName != "Numbers")
 								speak("a " + Task.test[i].Word);
@@ -4342,7 +3895,6 @@ module.exports = {
 					})
 				}
 				//Quiz has been clicked
-				console.log(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)), Profile.LoggedIn);
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Results&& !Mode.Exercise && mouseInRect(Display.getButton("quiz_btn.png"))) {
 					if(Profile.LoggedIn) {
 						drawLoading();
@@ -4423,54 +3975,7 @@ module.exports = {
 				}
 				try {
 					if ((!Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
-						/*var Array = [];
-						var edge = 0;
-						var top, center, animal_height;
-						if(frametype1 == "frame") {
-							animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
-							center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2;
-							top = MenuItem.starts + 40 + animal_height + 40;
-						}
-						else if(frametype1 == "Wordsframe") {
-							animal_height = 100;
-							center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / Math.floor((Task.test.length + 1) / 2);
-							top = MenuItem.starts + 40 + animal_height + 40;
-							
-						}
-						var word_height = setWordHeight();
-						for(var i = 0; i < Task.test.length; i++) {
-							var wordFrame = (Task.test.concat())[i][frametype2];
-							Array[i] = {};
-							Array[i].x = (edge + center/2-wordFrame.w*word_height/wordFrame.h/2);
-							Array[i].y = top;
-							Array[i].w = wordFrame.w*word_height/wordFrame.h;
-							Array[i].h = word_height;
-							var TopforTap;
-							var edgeforTap;
-							if(Task.test[i].Word == Task.asked.Word) {
-								TopforTap = top;
-								edgeforTap = edge;
-							}
-							if(frametype1 == "frame") {
-								if(i % 2){
-									top = top + word_height + 30;
-									edge = 0;
-								}
-								else edge = center;
-							}
-							else if(frametype1 == "Wordsframe") {
-								if(!((i + 1) % Math.floor((Task.test.length + 1) / 2))){
-								top = top + word_height + 20;
-								edge = 0;
-								}
-								else { 
-									edge = edge + center;
-								}
-							}
-						}*/
-						//var i = checkPoint({x:mouseX, y:mouseY}, Array);
 						var i = checkPoint({x:mouseX, y:mouseY}, Display.getTestItems());
-						//if(i < Array.length) {
 						if(i < Display.getTestItems().length) {
 							k3 = i;
 								
@@ -4487,22 +3992,8 @@ module.exports = {
 							Pressed.y = mouseY;
 							if(Mode.Training) {
 								drawTest();
-								//top = TopforTap;
-								//edge = edgeforTap;
 								var wordFrame = (Task.test.concat())[k3][frametype2];
-								//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Array[k3]).x*Math.min(Screen.k_width, Screen.k_height), (Array[k3].y)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].w)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].h)*Math.min(Screen.k_width, Screen.k_height));
 								ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
-								//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Array[k3] - 6).x*Math.min(Screen.k_width, Screen.k_height), (Array[k3].y)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].w)*Math.min(Screen.k_width, Screen.k_height), (Array[k3].h)*Math.min(Screen.k_width, Screen.k_height));
-								/*if(Task.test[k3].Word == Task.asked.Word) {
-									console.log("drawing drag");
-								var Hand_frame =  Properties.Buttons["tap.png"];
-								var Hand = {};
-								Hand.h = 3/2*setWordHeight();
-								Hand.w = Hand.h * Hand_frame.w / Hand_frame.h;
-								var wordFrame = (Task.test.concat())[Task.test.indexOf(Task.asked)][frametype2];
-								
-								drawDrag( (edge + center/2-wordFrame.w*word_height/wordFrame.h/2) + wordFrame.w*word_height/wordFrame.h / 2 - Hand.w / 2, top, Hand.w, Hand.h);
-								}*/
 							}
 						}
 						else {
@@ -4517,7 +4008,6 @@ module.exports = {
 			}
 		}
 	var loading = new Image();
-	//var stop_loading = false;
 	loading.loadedLoading;
 	function loadLoading(){
 		loading.src = '/img/Loading/loading.png';
@@ -4526,20 +4016,7 @@ module.exports = {
 		})
 	}
 	function drawLoading(){
-		/*if(!stop_loading) {
-			ctx.clearRect(Screen.width / 2 - 48*Math.min(Screen.k_width, Screen.k_height), Screen.height / 2 - 48*Math.min(Screen.k_width, Screen.k_height), 48*Math.min(Screen.k_width, Screen.k_height), 48*Math.min(Screen.k_width, Screen.k_height));
-			ctx.drawImage(loading, current * 48, 0, 48, 48, Screen.width / 2 - 48*Math.min(Screen.k_width, Screen.k_height), Screen.height / 2 - 48*Math.min(Screen.k_width, Screen.k_height), 48*Math.min(Screen.k_width, Screen.k_height), 48*Math.min(Screen.k_width, Screen.k_height));
-			if(current < 16)
-				current++;
-			else
-				current = 0;
-			setTimeout(function(){
-				drawLoading();
-			}, 200);
-		}*/
 		document.getElementById("Loading").style.visibility = "visible";
-
-		
 	}
 	var current = 0;
 	loadLoading();
@@ -4597,7 +4074,6 @@ module.exports = {
 			current = 0;
 			drawLoading();
 			console.log(data);
-			//loadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
 			displayMenu();
 		
 		})
