@@ -292,8 +292,8 @@ module.exports = {
 		NewAccent = Profile.Accent
 		Profile.LoggedIn = false;
 		koef = 0.75;
-		flags = ["british_flag.png", "australian_flag.png", "american_flag.png"];
-		
+		flags = [ "american_flag.png", "australian_flag.png", "british_flag.png"];
+		var flag = flags[2];
 		
 		
 		
@@ -303,7 +303,6 @@ module.exports = {
 			MenuItem.itemsCount = 5;
 			MenuItem.size = 100;
 			if(document.getElementById("UserName")) {
-				console.log("removing");
 				$("#UserName").remove();
 				$("#Password").remove();
 				$("inputdiv").remove();
@@ -322,7 +321,6 @@ module.exports = {
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
 			Screen.k_height =  MenuItem.rheight / MenuItem.height;
-			console.log("screen", Screen);
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
 			if(Mode.Menu)
 				Menu_ctx.clearRect(0, 0, Screen.width, Screen.height);
@@ -423,6 +421,7 @@ module.exports = {
 		function drawMenuItems(){
 			try{
 				var j = MenuItem.firstItem; //порядок в спрайте
+				clearRect(Display.getButton("left-arrow.png").x + Display.getButton("left-arrow.png").w, MenuItem.starts, Display.getButton("right-arrow.png").x - Display.getButton("left-arrow.png").w - Display.getButton("left-arrow.png").x, MenuItem.ends - MenuItem.starts);
 				while(j < MenuItem.firstItem + MenuItem.display){
 						var pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 						var pY =  MenuItem.topSpace;
@@ -584,7 +583,6 @@ module.exports = {
 				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 			else
 				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
-			//console.log(Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function drawSignInButton(){
 			var frame = Properties.Buttons["sign_up_btn.png"];
@@ -753,7 +751,6 @@ module.exports = {
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("skip.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function fillRect(x, y, width, height) {
-			console.log("fillRect");
 			if(!Mode.Menu)
 				ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 			else
@@ -842,7 +839,6 @@ module.exports = {
 		}
 				
 		function drawButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height) {
-			console.log("drawbuttons");
 			if(Mode.MenuItem) {
 				//left arrow
 				Display.setButton("left-arrow.png", l_a_x, l_a_y, l_a_width, l_a_height);
@@ -1077,7 +1073,6 @@ module.exports = {
 			}
 			if(Profile.LoggedIn)
 				drawProfilePicture();
-			//clearRectRect(Display.getButton("profile_pic.png"));
 		}
 		/************************************Starting*******************************************************/
 		
@@ -1170,9 +1165,7 @@ module.exports = {
 				}
 			}
 			else {
-				console.log("drawHeader2");
 				clearScreenRect(0, 0, (Screen.width)/ Math.min(Screen.k_width, Screen.k_height), (Screen.height)/ Math.min(Screen.k_width, Screen.k_height));
-				
 				drawHeader();
 			}
 			loadForms();
@@ -1673,13 +1666,7 @@ module.exports = {
 				Display.expandButton("sign_in_form_signin_btn.png", -2);
 				sign_in_btn = false;
 				drawSignInForm();
-				console.log("hovered sign in button");
-				if(NewAccent == "US English Female")
-					selectAccent("american_flag.png");
-				if(NewAccent == "Australian Female")
-					selectAccent("australian_flag.png");
-				if(NewAccent == "UK English Male")
-					selectAccent("british_flag.png");
+				selectAccent(flag);
 				drawSignInSignInButton();
 				drawSignInCancelButton();
 			}
@@ -1696,12 +1683,13 @@ module.exports = {
 				Display.expandButton("sign_in_form_cancel_btn.png", -2);
 				cancel_btn = false;
 				drawSignInForm();
-				if(NewAccent == "US English Female")
+				/*if(NewAccent == "US English Female")
 					selectAccent("american_flag.png");
 				if(NewAccent == "Australian Female")
 					selectAccent("australian_flag.png");
 				if(NewAccent == "UK English Male")
-					selectAccent("british_flag.png");
+					selectAccent("british_flag.png");*/
+				selectAccent(flag);
 				drawSignInSignInButton();
 				drawSignInCancelButton();
 				
@@ -1765,11 +1753,9 @@ module.exports = {
 						k2 = -1;
 					}
 					if(k3 != -1){
-						console.log("dragging");
 						drawHeader();
 						wordFrame = Task.test[k3][frametype2];
 						Item = {};
-						console.log(Display.getTestItem(k3));
 						Item.x = Display.getTestItem(k3).x + mouseX/Math.min(Screen.k_width, Screen.k_height) - Pressed.x/Math.min(Screen.k_width, Screen.k_height);
 						Item.y = Display.getTestItem(k3).y + mouseY/Math.min(Screen.k_width, Screen.k_height) - Pressed.y/Math.min(Screen.k_width, Screen.k_height);
 						drawTest();
@@ -2295,13 +2281,16 @@ module.exports = {
 				pY =  MenuItem.topSpace;
 				Display.setButton("top-arrow", pX, pY,t_a_width, t_a_height);		
 			}
+			setTimeout(function(){
+				Mode.Tasks = true;
+			},100)
 			
+								
 			
 			
 			
 		}
 		function MenuItemClicked(j) {
-			console.log("MenuItemClicked", j);
 			k = -1;
 			k1 = -1;
 			task_ch = false;
@@ -2535,14 +2524,7 @@ module.exports = {
 					drawSignInSignInButton();
 					Display.setButton("sign_in_form_cancel_btn.png", X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
 					drawSignInCancelButton();
-					//selectAccent("british_flag.png");
-					if(NewAccent == "US English Female")
-						selectAccent("american_flag.png");
-					if(NewAccent == "Australian Female")
-						selectAccent("australian_flag.png");
-					if(NewAccent == "UK English Male")
-						selectAccent("british_flag.png");
-					
+					selectAccent(flag);
 					ctx.fillStyle='#000000';
 					pressedUserNameSignIn = 0;
 					pressedPasswordSignIn = 0;
@@ -2565,7 +2547,7 @@ module.exports = {
 			Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
 			size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
 			X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - size_)/2
-			drawSignInForm(X_, Y_, size_, size_);
+			drawSignInForm();
 			ctx.font = 35 * Math.min(Screen.k_width, Screen.k_height) + "px Ariel"
 			if(NewAccent == "US English Female")
 				AmericanAccent();
@@ -2630,7 +2612,7 @@ module.exports = {
 				Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
 				size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
 				X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (size_))/2
-				drawSignInForm(X_, Y_, size_, size_);
+				drawSignInForm();
 				if(NewAccent == "US English Female")
 					AmericanAccent()
 				if(NewAccent == "Australian Female")
@@ -2654,17 +2636,10 @@ module.exports = {
 				}
 				
 		}
-		function selectAccent(flag) {
-			console.log(flag, Display.getButton(flag));
-			/*if(flag == "british_flag.png")
-				BritishAccent();
-			else if(flag == "american_flag.png")
-				AmericanAccent();
-			else
-				AustralianAccent();*/
-			console.log(NewAccent);
-			ctx.fillStyle = "#000000";
+		function selectAccent(new_flag) {
+			flag = new_flag;
 			Display.expandButton(flag, 5);
+			ctx.beginPath();
 			ctx.moveTo(Display.getButton(flag).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(flag).y * Math.min(Screen.k_width, Screen.k_height));
 			ctx.lineTo(Display.getButton(flag).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(flag).y * Math.min(Screen.k_width, Screen.k_height) + Display.getButton(flag).h * Math.min(Screen.k_width, Screen.k_height));
 			ctx.lineTo(Display.getButton(flag).x * Math.min(Screen.k_width, Screen.k_height) + Display.getButton(flag).w * Math.min(Screen.k_width, Screen.k_height), Display.getButton(flag).y * Math.min(Screen.k_width, Screen.k_height) + Display.getButton(flag).h * Math.min(Screen.k_width, Screen.k_height));
@@ -2672,7 +2647,6 @@ module.exports = {
 			ctx.lineTo(Display.getButton(flag).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(flag).y * Math.min(Screen.k_width, Screen.k_height));
 			ctx.stroke();
 			Display.expandButton(flag, -5);
-			
 		}
 		function AmericanAccent() {
 			NewAccent = "US English Female";
@@ -2768,7 +2742,6 @@ module.exports = {
 			catch(e){};
 		}
 		function setItemsProp() {
-			console.log("setItemsProp");
 			var top, center, animal_height;
 			if(frametype1 == "frame") {
 				animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
@@ -2787,7 +2760,6 @@ module.exports = {
 				top = MenuItem.starts + 40 + animal_height + 40;
 			}
 			var word_height = setWordHeight();
-			console.log(2 * word_height + top, Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			Display.setButton("itemImage", (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h) / 2, MenuItem.starts + (20 + 20), Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h, animal_height);
 			for(var i = 0; i < Task.test.length; i++) {
 				var wordFrame = (Task.test.concat())[i][frametype2];
@@ -2817,7 +2789,6 @@ module.exports = {
 			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 			var frame = Properties.Buttons["skip.png"];
 			Display.setButton("skip.png", Title.leftSpace + 20, MenuItem.starts + 20, size_btn * frame.w / frame.h, size_btn);
-			console.log(Display.getTestItem(0));
 			drawTest();
 		}
 		function drawTest() {
@@ -2884,7 +2855,6 @@ module.exports = {
 				
 				// menu button has been clicked
 				if(Mode.Mobile && !Mode.Menu && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
-					console.log("clicked");
 					Mode.Menu = true;
 					Mode.MenuItem = false;
 					var Menu = document.createElement('canvas');
@@ -2936,7 +2906,6 @@ module.exports = {
 					//not top & bottom arrows have been clicked
 					//top arrow has been clicked
 					if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked)) && !mouseInRect(Display.getButton("sound_btn.png"))){
-						Display.expandTopic(MenuItem.clicked, -10);
 						MenuItem.chosen = MenuItem.clicked;
 						DrawMenuItem(MenuItem.clicked);
 						MenuItem.clicked = -1;
@@ -2950,7 +2919,6 @@ module.exports = {
 					while (j < MenuItem.display)  {
 						if(mouseInRect(Display.getTopic(j + MenuItem.firstItem))){
 							if(Properties.Tasks[j + MenuItem.firstItem].length) {
-								Mode.Tasks = true;
 								Task.firstTask = 0;
 								MenuItem.clicked = j + MenuItem.firstItem;
 								MenuItemClicked(MenuItem.clicked);
@@ -3027,7 +2995,6 @@ module.exports = {
 					//cancel button has been clicked during login mode
 					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 					Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
-					console.log(Mode.LogIn, mouseInRect(X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202))
 					if(Mode.LogIn && mouseInRect(Display.getButton("log_in_form_cancel_btn.png"))) {
 						setTimeout(function(){
 						if(Profile.storeUserNameLogIn == true)
@@ -3127,30 +3094,26 @@ module.exports = {
 					
 					if(Mode.SignIn) {
 						var i = 0;
+						var new_flag = flag; 
 						while(i < flags.length) {
-							console.log("i:", i, flags.length);
-							console.log(mouseInRect(Display.getButton(flags[i])));
 							if(mouseInRect(Display.getButton(flags[i]))){
-								clearRectRect(Display.getForm("sign_in_form.png"));
 								if(flags[i] == "american_flag.png")
 									NewAccent = "US English Female";
 								else if(flags[i] == "australian_flag.png")
 									NewAccent = "Australian Female";
 								if(flags[i] == "british_flag.png")
 									NewAccent = "UK English Male";
-								
-								//showSignInForm();
-								//drawSignInCancelButton();
-								//drawSignInSignInButton();
-								drawSignInForm();
-								selectAccent(flags[i]);
-								console.log(flags[i]);
-								console.log("found", i);
+								new_flag = flags[i];
 								i = flags.length + 1;
-								console.log("last", i);
 							}
 							else
 								i = i + 1;
+						}
+						if(new_flag != flag) {
+							drawSignInForm();
+							drawSignInCancelButton();
+							drawSignInSignInButton();
+							selectAccent(new_flag);
 						}
 					}
 					//Cancel button clicked SignIn Mode
@@ -3421,7 +3384,6 @@ module.exports = {
 								TaskName: TaskName
 							})
 							socket.on('getTask', function(data){
-								//Animals = data.Content;
 								Task.Frames[TaskName] = data.Content;
 								checkloaded.Animals(TaskName, N);
 								})
@@ -3570,6 +3532,7 @@ module.exports = {
 								drawLoading();
 							break;
 							case 'Numbers song (1 - 20)':
+								Mode.MusicVideo = true;
 								Mode[Task.TaskName.replace(/\s/g,'')] = true;
 								socket.emit('getVideoID', {
 									TaskName: TaskName,
@@ -3604,9 +3567,10 @@ module.exports = {
 				
 				//exit button has been clicked during song
 				if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
+					console.log(Mode.MusicVideo);
 					Mode.MenuItem = true;
 					Mode.Exercise = false;
-					$("#Video").remove();
+					$("Video").remove();
 					$("inputdiv").remove();
 					
 					Mode[Task.TaskName.replace(/\s/g,'')] = false;
@@ -3886,7 +3850,6 @@ module.exports = {
 							},1000)
 					}
 				}
-				//drawProfilePicture(((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - MenuItem.leftSpace) + Profile.size_btn * 1/ 6, 20, Profile.size_btn * 2/3, Profile.size_btn * 2/ 3);
 				//Profile picture has been clicked
 				if((Mode.MenuItem || Mode.Tasks) && Profile.LoggedIn && mouseInRect(Display.getButton("profile_pic.png"))) {
 					socket.emit("Logout", {});
@@ -3936,7 +3899,6 @@ module.exports = {
 					}
 					else {
 						document.getElementById("Loading").style.visibility = "hidden";
-						console.log("g hjm,");
 						alert("You must be logged in to get a quiz");
 						
 						
