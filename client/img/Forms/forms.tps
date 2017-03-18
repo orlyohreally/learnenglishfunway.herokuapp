@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.2.2</string>
         <key>fileName</key>
-        <string>C:/Users/Orly/Desktop/Learn English Fun Way/client/img/Forms/forms.tps</string>
+        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Forms/forms.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -191,6 +191,7 @@
             <key type="filename">log_in_form.png</key>
             <key type="filename">log_in_form_cancel_btn.png</key>
             <key type="filename">log_in_form_login_btn.png</key>
+            <key type="filename">progress_form.png</key>
             <key type="filename">result_form.png</key>
             <key type="filename">result_form_okay_btn.png</key>
             <key type="filename">result_form_try_again_btn.png</key>
@@ -215,6 +216,7 @@
             <filename>result_form.png</filename>
             <filename>result_form_okay_btn.png</filename>
             <filename>result_form_try_again_btn.png</filename>
+            <filename>progress_form.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

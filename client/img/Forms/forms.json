@@ -2,7 +2,7 @@
 
 {
 	"filename": "log_in_form.png",
-	"frame": {"x":0,"y":0,"w":368,"h":202},
+	"frame": {"x":0,"y":196,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -11,7 +11,7 @@
 },
 {
 	"filename": "log_in_form_cancel_btn.png",
-	"frame": {"x":0,"y":202,"w":156,"h":37},
+	"frame": {"x":156,"y":37,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -20,7 +20,7 @@
 },
 {
 	"filename": "log_in_form_login_btn.png",
-	"frame": {"x":156,"y":202,"w":156,"h":37},
+	"frame": {"x":0,"y":37,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -28,8 +28,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "progress_form.png",
+	"frame": {"x":0,"y":564,"w":736,"h":403},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":403},
+	"sourceSize": {"w":736,"h":403},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "result_form.png",
-	"frame": {"x":0,"y":239,"w":368,"h":159},
+	"frame": {"x":312,"y":37,"w":368,"h":159},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":159},
@@ -38,7 +47,7 @@
 },
 {
 	"filename": "result_form_okay_btn.png",
-	"frame": {"x":0,"y":398,"w":156,"h":37},
+	"frame": {"x":468,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -47,7 +56,7 @@
 },
 {
 	"filename": "result_form_try_again_btn.png",
-	"frame": {"x":156,"y":398,"w":156,"h":37},
+	"frame": {"x":312,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -56,7 +65,7 @@
 },
 {
 	"filename": "sign_in_form.png",
-	"frame": {"x":0,"y":435,"w":368,"h":368},
+	"frame": {"x":368,"y":196,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
@@ -65,7 +74,7 @@
 },
 {
 	"filename": "sign_in_form_cancel_btn.png",
-	"frame": {"x":0,"y":803,"w":156,"h":37},
+	"frame": {"x":156,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -74,7 +83,7 @@
 },
 {
 	"filename": "sign_in_form_save_btn.png",
-	"frame": {"x":156,"y":803,"w":156,"h":37},
+	"frame": {"x":0,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -83,7 +92,7 @@
 },
 {
 	"filename": "sign_in_form_signin_btn.png",
-	"frame": {"x":312,"y":803,"w":156,"h":37},
+	"frame": {"x":624,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -95,8 +104,8 @@
 	"version": "1.0",
 	"image": "forms.png",
 	"format": "RGBA8888",
-	"size": {"w":468,"h":840},
+	"size": {"w":780,"h":967},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:156ee98237ef9dc9964ce7786aad1de8:21c722a17ed172b319aa7cfd91740ca7:9b03ed0702ee7e82d798cd9ace954c38$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e34d42f96cfe94b6c50c8d341e3b54ec:0cdd4f90a34d9749b3d5786a921ab553:9b03ed0702ee7e82d798cd9ace954c38$"
 }
 }

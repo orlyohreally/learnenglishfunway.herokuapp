@@ -222,6 +222,7 @@
             <key type="filename">menu_btn.png</key>
             <key type="filename">settings_btn.png</key>
             <key type="filename">title.png</key>
+            <key type="filename">title_in_line.png</key>
             <key type="filename">../Reward/correct.png</key>
             <key type="filename">../Reward/rewards_btn.png</key>
             <key type="filename">../Reward/wrong.png</key>
@@ -269,6 +270,7 @@
             <filename>../Reward/correct.png</filename>
             <filename>title.png</filename>
             <filename>../Reward/rewards_btn.png</filename>
+            <filename>title_in_line.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -81,6 +81,8 @@
 			MenuItem.itemsCount = 5;
 			MenuItem.size = 100;
 			if(document.getElementById("UserName")) {
+				Profile.UserName = document.getElementById('UserName').value;
+				Profile.Password = document.getElementById('Password').value;
 				$("#UserName").remove();
 				$("#Password").remove();
 				$("inputdiv").remove();
@@ -105,17 +107,19 @@
 			
 			//white space starts
 			if(Screen.width < 482 || Screen.height < 482) {
-				console.log("small screen", Screen.width, Screen.height);
+				//console.log("small screen", Screen.width, Screen.height);
 				Mode.Mobile = true;
 				MenuItem.starts = 50 / Math.min(Screen.k_width, Screen.k_height);
 				MenuItem.ends = Screen.height / Math.min(Screen.k_width, Screen.k_height);
 			}
 			else {
-				console.log("normal screen");
+				//console.log("normal screen");
 				Mode.Mobile = false;
 				if(Mode.Menu) {
 					Mode.MenuItem = true;
+					Mode.Menu = false;
 					$("#MenuCanvas").remove();
+					respondCanvas();
 				}
 				Mode.Menu = false;
 				MenuItem.starts = 0.2 * Screen.height / Math.min(Screen.k_width, Screen.k_height);
@@ -309,12 +313,20 @@
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("top-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("top-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("top-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("top-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));		
 			ctx.restore();
 		}
-		function drawTitle(x, y, width, height){
-			var frame = Properties.Buttons["title.png"];
-			if(!Mode.Mobile)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height) , y * Math.min(Screen.k_width, Screen.k_height) , width * Math.min(Screen.k_width, Screen.k_height) , height * Math.min(Screen.k_width, Screen.k_height) );			
-			else
-				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height) , y * Math.min(Screen.k_width, Screen.k_height) , width * Math.min(Screen.k_width, Screen.k_height) , height * Math.min(Screen.k_width, Screen.k_height) );			
+		function drawTitle(){
+			if(!Mode.Mobile) {
+				var frame = Properties.Buttons["title.png"];
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("title.png").x * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").y * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").w * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").h * Math.min(Screen.k_width, Screen.k_height) );			
+			}
+			else if(!Mode.Menu)
+			{
+				var frame = Properties.Buttons["title_in_line.png"];
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("title.png").x * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").y * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").w * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").h * Math.min(Screen.k_width, Screen.k_height) );			
+			}
+			else{
+				var frame = Properties.Buttons["title_in_line.png"];
+				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("title.png").x * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").y * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").w * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").h * Math.min(Screen.k_width, Screen.k_height) );			
+			}
 		}
 		function drawLock(x, y, width, height) {
 			var frame = Properties.Buttons["lock.png"];
@@ -489,7 +501,11 @@
 			else
 				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("profile_pic.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
-		
+		function drawAvatar(name) {
+			var frame = Properties.Buttons[name];
+			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).h * Math.min(Screen.k_width, Screen.k_height))
+			
+		}
 		function drawCorrect(x, y, width, height) {
 			var frame = Properties.Buttons["correct.png"];
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
@@ -631,9 +647,14 @@
 					drawRightArrow();
 				}
 			}
+			//title
+				if(!Mode.Mobile) {
+					
+				}
 			if(!Mode.Mobile) {
 				if(!Mode.Exercise) {
-					//fillRectYellow(0, MenuItem.ends, Screen.width/ Math.min(Screen.k_width, Screen.k_height), 1000)
+					//title
+					Display.setButton("title.png", Title.leftSpace, 20, Title.size, Title.size*130/470);
 					//Rewards
 					Display.setButton("rewards_btn.png",Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawRewardsButton(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
@@ -679,6 +700,18 @@
 				Display.setButton("menu_btn.png", MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
 				drawMenuButton();
 				Display.setButton("profile_pic.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Display.getButton("menu_btn.png").w - 20,Display.getButton("menu_btn.png").y,Display.getButton("menu_btn.png").w, Display.getButton("menu_btn.png").h);
+				var frame = Properties.Buttons["title_in_line.png"];
+				Titleframe = {};
+				Titleframe.x = Display.getButton("menu_btn.png").x + Display.getButton("menu_btn.png").w + 20;
+				Titleframe.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * Display.getButton("menu_btn.png").w - 5 * 20;
+				Titleframe.h = Titleframe.w * frame.h / frame.w;
+				if(Titleframe.h > MenuItem.starts) {
+					Titleframe.h = Display.getButton("menu_btn.png").h;
+					Titleframe.w = Titleframe.h * frame.w / frame.h;
+				}
+				Titleframe.y = (MenuItem.starts - Titleframe.h) / 2;
+				Display.setButton("title.png", Titleframe.x, Titleframe.y, Titleframe.w, Titleframe.h);
+				
 			}
 			if(Mode.Menu) {
 				if(Screen.width < Screen.height) {
@@ -849,10 +882,10 @@
 				drawProgressButton();
 				drawPhrasesButton();
 				drawQuizButton();
-
 			}
 			if(Profile.LoggedIn)
 				drawProfilePicture();
+			drawTitle();
 		}
 		/************************************Starting*******************************************************/
 		
@@ -878,10 +911,6 @@
 		function checkLoadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height) {
 			if(loadedButtons) {
 				drawButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
-				//title
-				if(!Mode.Mobile) {
-					drawTitle(Title.leftSpace, 20, Title.size, Title.size*130/470);
-				}
 			}
 			else {
 				loadButtons();
@@ -1560,7 +1589,6 @@
 			
 			//try again hovered in show results
 			if (!Mode.Quiz && Mode.Results && !Mode.SignIn && !Mode.LogIn &&!try_again_ch && mouseInRect(Display.getButton("result_form_try_again_btn.png"))) {
-				console.log("vgbshnv ksfnjsjn");
 				Display.expandButton("result_form_try_again_btn.png", 3);
 				drawResultTryAgainButton(Result_form.x + 20 * Result_form.w / frame.w - 3, Result_form.y + Result_form.h - btn_height / 2 - 10 * Result_form.w / frame.w - 3, btn_width + 6, btn_height + 6);
 				try_again_ch = true;
@@ -2270,7 +2298,6 @@
 				}
 		}
 		function showSignInForm(){
-				drawLoading();
 				if(Forms_loaded){
 					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
 					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
@@ -2280,6 +2307,8 @@
 					Display.setButton("british_flag.png", X_ + 124 / 368 * size_, Y_ + 177 / 368 * size_, 36 / 368 * size_, 23 / 368 * size_);
 					Display.setButton("american_flag.png", X_ + 35 / 368 * size_, Y_ + 177 / 368 * size_, 36 / 368 * size_, 23/ 368 * size_);
 					Display.setButton("australian_flag.png", X_ + 80 / 368 * size_, Y_ + 177 / 368 * size_, 36 / 368 * size_, 23 / 368 * size_);
+					Display.setButton("profile_girl2.png", 100, 100, 100, 100);
+					
 					var div = document.createElement('inputDiv');
 					div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input id = 'Password' name = 'UserName' autofocus/>";
 					
@@ -2577,7 +2606,7 @@
 		}
 		function drawTest() {
 			ctx.clearRect(0, MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
-			drawHeader();
+			//drawHeader();
 			var top, center, animal_height;
 			if(frametype1 == "frame") {
 				animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
@@ -2635,8 +2664,6 @@
 					mouseY = (touch.clientY - rect.top) * scaleY;
 				}
 				catch(e) {}
-				//console.log(mouseX, mouseY);
-				
 				// menu button has been clicked
 				if(Mode.Mobile && !Mode.Menu && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = true;
@@ -2747,6 +2774,7 @@
 				}
 				//Sign Up button has been clicked
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Profile.LoggedIn && !Mode.LogIn && !Mode.LogIn && mouseInRect(Display.getButton("sign_in_btn.png"))) {
+					drawLoading();
 					if(Forms_loaded == false)
 						loadForms();
 					if(document.getElementById("MenuCanvas"))
@@ -2761,7 +2789,6 @@
 					//Profile.Password = "Password"
 					Profile.Password = "";
 				}
-				//}
 				//Sound button is clicked
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("sound_btn.png"))) {
 					fillRectYellow(Display.getButton("sound_btn.png").x,Display.getButton("sound_btn.png").y, Display.getButton("sound_btn.png").w, Display.getButton("sound_btn.png").h);
@@ -3351,7 +3378,6 @@
 				
 				//exit button has been clicked during song
 				if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
-					console.log(Mode.MusicVideo);
 					Mode.MenuItem = true;
 					Mode.Exercise = false;
 					$("Video").remove();
@@ -3826,7 +3852,6 @@
 			Properties.Letters = data.letters;
 			current = 0;
 			drawLoading();
-			console.log(data);
 			displayMenu();
 		
 		})
