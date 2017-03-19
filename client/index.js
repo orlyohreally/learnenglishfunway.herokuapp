@@ -2764,7 +2764,7 @@
 					Mode.Menu = false;
 					respondCanvas();
 					if(Forms_loaded == false)
-						loadForms()
+						loadForms();
 					drawLoading();
 					if(Profile.storeUserNameLogIn == true)
 						Profile.storeUserNameLogIn = false;
@@ -3804,6 +3804,7 @@
 		loadAnimals();
 		loadAnimalsWords();
 		loadMenuItems();
+		loadForms();
 	}
 	catch(e){}
 	var Properties = {};
