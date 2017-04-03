@@ -2219,7 +2219,7 @@
 					drawLogInCancelButton();
 					ctx.fillStyle='#000000';
 					var div = document.createElement('inputDiv');
-					div.innerHTML = "<input id = 'UserName' name = 'UserName'/><input id = 'Password' name = 'UserName'/>";
+					div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input id = 'Password' name = 'UserName' autofocus/>";
 					document.getElementById("mainDiv").appendChild(div);
 					document.getElementById("UserName").style.top = (Y_ + 57 / 202 * MenuItem.size) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.left = (X_ + 35 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height);
