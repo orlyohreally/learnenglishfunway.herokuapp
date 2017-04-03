@@ -77,26 +77,6 @@
 		
 		
 		function respondCanvas(){ 
-			console.log(document.activeElement);
-			console.log(Screen.height, $(document.activeElement));
-			if($(document.activeElement).prop('type') == 'text'){
-				console.log("not resizing");
-				document.getElementById("MainCanvas").style.height = Screen.height;
-				document.body.style.overflowY = "scroll";
-			}
-			else {
-			
-			var c = $('#MainCanvas');
-			if(document.getElementById("MenuCanvas"))
-				c = $('#MenuCanvas');
-			var ct = c.get(0).getContext('2d');
-			var container = $(c).parent();
-			c.attr('width', $(container).width()); //max width
-			c.attr('height', $(container).height() ); //max height
-			Screen = {};
-			Screen.width = $(container).innerWidth();
-			Screen.height = $(container).innerHeight();
-			}
 			MenuItem.display = 2;
 			MenuItem.itemsCount = 5;
 			MenuItem.size = 100;
@@ -107,7 +87,16 @@
 				$("#Password").remove();
 				$("inputdiv").remove();
 			}
-			console.log(Screen.height);
+			var c = $('#MainCanvas');
+			if(document.getElementById("MenuCanvas"))
+				c = $('#MenuCanvas');
+			var ct = c.get(0).getContext('2d');
+			var container = $(c).parent();
+			c.attr('width', $(container).width()); //max width
+			c.attr('height', $(container).height() ); //max height
+			Screen = {};
+			Screen.width = $(container).width();
+			Screen.height = $(container).height();
 			MenuItem.rwidth = Screen.width;
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
@@ -3578,7 +3567,6 @@
 						if(mouseInRect(Display.getTask(j, i))){
 							
 							try{
-								document.getElementById("Explaining").style.visibility = "hidden";
 								Mode.Exercise = true;
 								clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), MenuItem.ends)
 								Mode.Tasks = false;
