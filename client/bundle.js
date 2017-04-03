@@ -2450,6 +2450,7 @@ module.exports = {
 					document.getElementById("Password").style.border = "2px solid";
 					document.getElementById('Password').style.position = "absolute";
 					document.getElementById('Password').style.backgroundColor = "transparent";
+					console.log("UserName", Profile.UserName);
 					if(Profile.UserName)
 						document.getElementById('UserName').value = Profile.UserName;
 					if(Profile.Password)
@@ -2675,9 +2676,13 @@ module.exports = {
 		}
 		function showSignInForm(){
 				if(Forms_loaded){
-					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
+					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2;
 					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (size_))/2
+					if(Screen.width/ Math.min(Screen.k_width, Screen.k_height) < size_) {
+						size_ = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20;
+						Y_ = (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - size_) / 2
+					}
+					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (size_))/2;
 					document.getElementById("Loading").style.visibility = "hidden";
 					Display.setForm("sign_in_form.png", X_, Y_, size_, size_);
 					Display.setButton("british_flag.png", X_ + 124 / 368 * size_, Y_ + 177 / 368 * size_, 36 / 368 * size_, 23 / 368 * size_);
@@ -2707,6 +2712,7 @@ module.exports = {
 					document.getElementById("Password").style.border = "2px solid";
 					document.getElementById('Password').style.position = "absolute";
 					document.getElementById('Password').style.backgroundColor = "transparent";
+					console.log("UserName", Profile.UserName);
 					if(Profile.UserName)
 						document.getElementById('UserName').value = Profile.UserName;
 					if(Profile.Password)
