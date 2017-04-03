@@ -195,10 +195,10 @@ io.sockets.on('connection', function(socket) {
 			}
 		})
 	}
-	getButtons();
-	getForms();
-	getNumbers();
-	getLetters();
+	//getButtons();
+	//getForms();
+	//getNumbers();
+	//getLetters();
 		
 	
 	function getTaskFrames() {
@@ -222,16 +222,72 @@ io.sockets.on('connection', function(socket) {
 				}
 				
 			}
+			//Buttons
+			db.SpreadSheets.find({"Name": "Buttons"}, function(err, res){
+				res = res[0].Frames;
+				for(i = 0; i < res.length; i++){
+					delete res[i].rotated;
+					delete res[i].trimmed;
+					delete res[i].spriteSourceSize;
+					delete res[i].sourceSize;
+					delete res[i].pivot;
+					//console.log(res);
+					Properties.Buttons[res[i].filename] = res[i].frame;
+					
+				}
+				//Forms
+				db.SpreadSheets.find({"Name": "Forms"}, function(err, res){
+					res = res[0].Frames;
+					for(i = 0; i < res.length; i++){
+						delete res[i].rotated;
+						delete res[i].trimmed;
+						delete res[i].spriteSourceSize;
+						delete res[i].sourceSize;
+						delete res[i].pivot;
+						Properties.Forms[res[i].filename] = res[i].frame;
+						//console.log(Properties.Forms[res[i].filename]);
+					}
+					//Numbers
+					db.SpreadSheets.find({"Name": "Numbers"}, function(err, res){
+						res = res[0].Frames;
+						for(i = 0; i < res.length; i++){
+							delete res[i].rotated;
+							delete res[i].trimmed;
+							delete res[i].spriteSourceSize;
+							delete res[i].sourceSize;
+							delete res[i].pivot;
+							Properties.Numbers[res[i].filename] = res[i].frame;
+							//console.log(Properties.Numbers[res[i].filename]);
+						}
+						//Letters
+						db.SpreadSheets.find({"Name": "Letters"}, function(err, res){
+							res = res[0].Frames;
+							for(i = 0; i < res.length; i++){
+								delete res[i].rotated;
+								delete res[i].trimmed;
+								delete res[i].spriteSourceSize;
+								delete res[i].sourceSize;
+								delete res[i].pivot;
+								Properties.Letters[res[i].filename] = res[i].frame;
+							}
+							console.log("sending");
+							socket.emit('getProperties', {
+								topics:Properties.Topics,
+								tasks:Properties.Tasks,
+								buttons:Properties.Buttons,
+								forms:Properties.Forms,
+								numbers:Properties.Numbers,
+								letters:Properties.Letters
+							})
+							
+						});
+					
+					})
+				})
+			
+			})
 			//console.log(Properties.Topics, Properties.Tasks);
-			console.log("sending");
-			socket.emit('getProperties', {
-					topics:Properties.Topics,
-					tasks:Properties.Tasks,
-					buttons:Properties.Buttons,
-					forms:Properties.Forms,
-					numbers:Properties.Numbers,
-					letters:Properties.Letters
-				});	
+			
 		})	
 	}
 	socket.on('newUser', function(data){
