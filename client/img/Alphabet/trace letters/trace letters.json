@@ -1,0 +1,66 @@
+{"frames": [
+
+{
+	"filename": "eraser.png",
+	"frame": {"x":0,"y":0,"w":121,"h":61},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":121,"h":61},
+	"sourceSize": {"w":121,"h":61},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "letters_btn.png",
+	"frame": {"x":121,"y":0,"w":228,"h":75},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":228,"h":75},
+	"sourceSize": {"w":228,"h":75},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "pencil.png",
+	"frame": {"x":349,"y":0,"w":165,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":26},
+	"sourceSize": {"w":165,"h":26},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "trace_a.png",
+	"frame": {"x":0,"y":75,"w":526,"h":276},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":526,"h":276},
+	"sourceSize": {"w":526,"h":276},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "trace_b.png",
+	"frame": {"x":0,"y":351,"w":526,"h":276},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":526,"h":276},
+	"sourceSize": {"w":526,"h":276},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "whiteboard.png",
+	"frame": {"x":0,"y":627,"w":720,"h":460},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":460},
+	"sourceSize": {"w":720,"h":460},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "trace letters.png",
+	"format": "RGBA8888",
+	"size": {"w":720,"h":1087},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:8bccabe2ca1561c03cdfb19768cb83ad:d9a6a37198639b51276cc32df2f8a027:2f28fb99efe61a61d2f4626944d5bb77$"
+}
+}

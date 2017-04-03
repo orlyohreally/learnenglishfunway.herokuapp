@@ -276,8 +276,8 @@ module.exports = {
 		var frametype1, frametype2;
 		Title.width = 1800;
 		Title.height = 180;
+		var Progress = {};
 		
-
 		var sound_on = true;
 		var playing = false;
 
@@ -299,6 +299,11 @@ module.exports = {
 		
 		
 		function respondCanvas(){ 
+			console.log(document.activeElement);
+			if($(document.activeElement).prop('type') == 'text'){
+				console.log("not resizing");
+			}
+			else {
 			MenuItem.display = 2;
 			MenuItem.itemsCount = 5;
 			MenuItem.size = 100;
@@ -406,7 +411,7 @@ module.exports = {
 			initMenu();
 			
 			ctx.fillStyle="#000000";
-			
+			}
 		}
 		
 		/************************************Resizing ended***********************************************/
@@ -503,12 +508,22 @@ module.exports = {
 		
 		function drawLeftArrow() {
 			var frame = Properties.Buttons["left-arrow.png"];
-			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("left-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));
+			if(!Mode.Progress) {
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("left-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));
+			}
+			else {
+				Progress_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("left-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("left-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));
+			}
 		}
 
 		function drawRightArrow(){
 			var frame = Properties.Buttons["right-arrow.png"];
-			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("right-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));		
+			if(!Mode.Progress) {
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("right-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));		
+			}
+			else{
+				Progress_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("right-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));		
+			}
 		}
 		function drawBottomArrow() {
 			var frame = Properties.Buttons["left-arrow.png"];
@@ -637,9 +652,9 @@ module.exports = {
 			var frame = Properties.Buttons["pause_btn.png"];
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
-		function drawExitButton(x, y, width,height){
+		function drawExitButton(){
 			var frame = Properties.Buttons["exit_btn.png"];
-			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("exit_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("exit_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("exit_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("exit_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawRestartButton(x, y, width,height){
 			var frame = Properties.Buttons["restart_btn.png"];
@@ -668,6 +683,10 @@ module.exports = {
 			var frame = Properties.Forms["result_form.png"];
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("result_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
+		function drawProgressForm() {
+			var frame = Properties.Forms["progress_form.png"];
+			Progress_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("progress_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("progress_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("progress_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("progress_form.png").h * Math.min(Screen.k_width, Screen.k_height))
+		}
 		function drawResultOkayButton(x, y, width, height) {
 			var frame = Properties.Forms["result_form_okay_btn.png"];
 			//ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
@@ -688,7 +707,10 @@ module.exports = {
 			if(type != "")
 				type = type + "-";
 			var frame = Properties.Letters[type + n + ".png"];
-			ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(Mode.Progress)
+				Progress_ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else
+				ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawLogInForm(x, y, width, height) {
 			var frame = Properties.Forms["log_in_form.png"];
@@ -775,13 +797,21 @@ module.exports = {
 				Menu_ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function clearRect(x, y, width, height) {
-			ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(Mode.Progress)
+				Progress_ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else
+				ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function clearRectRect(rect) {
-			if(!Mode.Menu)
-				ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
-			else
+			if(Mode.Menu)
 				Menu_ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
+			else if(Mode.Progress) {
+				console.log("clearing Progress")
+				Progress_ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
+			}
+			else {
+				ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
+			}
 		}
 		function clearRectRectYellow(rect) {
 			if(!Mode.Menu) {
@@ -1190,7 +1220,7 @@ module.exports = {
 					if(Mode.MusicVideo) {
 						drawHeader();
 						var size_btn = 70;
-						drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+						drawExitButton();
 						displayVideo();
 					}
 				}
@@ -1198,6 +1228,10 @@ module.exports = {
 			else {
 				clearScreenRect(0, 0, (Screen.width)/ Math.min(Screen.k_width, Screen.k_height), (Screen.height)/ Math.min(Screen.k_width, Screen.k_height));
 				drawHeader();
+			}
+			if(Mode.Progress) {
+				clearRect(0, 0, (Screen.width)/ Math.min(Screen.k_width, Screen.k_height), (Screen.height)/ Math.min(Screen.k_width, Screen.k_height));
+				showProgressForm();
 			}
 			loadForms();
 			loadNumbers();
@@ -1245,6 +1279,26 @@ module.exports = {
 			var rect = MenuCanvas.getBoundingClientRect(),
 				scaleX = MenuCanvas.width / rect.width;
 				scaleY = MenuCanvas.height / rect.height;
+				mouseX = (mouseEvent.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (mouseEvent.clientY - rect.top) * scaleY;
+				
+			}
+			HoverMenuItem(mouseX, mouseY);
+		}
+		function checkPosProgress(mouseEvent){
+			event.preventDefault();
+			try {
+				var touch = mouseEvent.changedTouches[0];
+				var rect = ProgressCanvas.getBoundingClientRect();
+				var scaleX = ProgressCanvas.width / rect.width;
+				var scaleY = ProgressCanvas.height / rect.height;
+				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (touch.clientY - rect.top) * scaleY;
+			}
+			catch(e) {
+			var rect = ProgressCanvas.getBoundingClientRect(),
+				scaleX = ProgressCanvas.width / rect.width;
+				scaleY = ProgressCanvas.height / rect.height;
 				mouseX = (mouseEvent.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 				mouseY = (mouseEvent.clientY - rect.top) * scaleY;
 				
@@ -1327,30 +1381,30 @@ module.exports = {
 		
 		function HoverMenuItem(mouseX, mouseY){
 			//left arrow has been hovered
-			if(Mode.MenuItem && MenuItem.firstItem > 0) {
+			if((Mode.MenuItem && MenuItem.firstItem > 0) || (Mode.Progress)) {
 				if (!(l_a_ch) && mouseInRect(Display.getButton("left-arrow.png"))) {	
-					clearMenuItemRect(Display.getButton("left-arrow.png").x, Display.getButton("left-arrow.png").y, Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h);
+					clearRectRect(Display.getButton("left-arrow.png"));
 					Display.expandButton("left-arrow.png", 5);
 					drawLeftArrow();
 					l_a_ch = true;
 				}
 				else if ((l_a_ch) && !(mouseInRect(Display.getButton("left-arrow.png")))) {	
-					clearMenuItemRect(Display.getButton("left-arrow.png").x, Display.getButton("left-arrow.png").y, Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h);
+					clearRectRect(Display.getButton("left-arrow.png"));
 					Display.expandButton("left-arrow.png", -5);
 					drawLeftArrow();
 					l_a_ch = false;
 				}
 			}
 			//right arrow is hovered
-			if(Mode.MenuItem && (MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount)){
+			if((Mode.MenuItem && (MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount)) || (Mode.Progress)){
 				if (!(r_a_ch) && (mouseInRect(Display.getButton("right-arrow.png")))) {	
-					clearMenuItemRect(Display.getButton("right-arrow.png").x, Display.getButton("right-arrow.png").y, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").h);
+					clearRectRect(Display.getButton("right-arrow.png"));
 					Display.expandButton("right-arrow.png", 5);
 					drawRightArrow();
 					r_a_ch = true;
 				}
 				else if ((r_a_ch) && !(mouseInRect(Display.getButton("right-arrow.png")))) {
-					clearMenuItemRect(Display.getButton("right-arrow.png").x, Display.getButton("right-arrow.png").y, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").h);
+					clearRectRect(Display.getButton("right-arrow.png"));
 					Display.expandButton("right-arrow.png", -5);
 					drawRightArrow();
 					r_a_ch = false;
@@ -1367,6 +1421,13 @@ module.exports = {
 							drawTask(MenuItem.clicked, Task.firstTask + i, Display.getTask(MenuItem.clicked, Task.firstTask + i).x, Display.getTask(MenuItem.clicked, Task.firstTask + i).y, Display.getTask(MenuItem.clicked, Task.firstTask + i).w, Display.getTask(MenuItem.clicked, Task.firstTask + i).h);
 							k1 = i;
 							task_ch = true;
+							document.getElementById("Explaining").src = "img/" + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Topic_Name + "/right " + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Name + " gif.gif";
+							document.getElementById("Explaining").style.height = Display.getTask(MenuItem.clicked, i + Task.firstTask).h * Math.min(Screen.k_width, Screen.k_height);
+							document.getElementById("Explaining").style.width = Display.getTask(MenuItem.clicked, i + Task.firstTask).h * 612 / 468 * Math.min(Screen.k_width, Screen.k_height);
+							document.getElementById("Explaining").style.top = (Display.getTask(MenuItem.clicked, i + Task.firstTask).y) * Math.min(Screen.k_width, Screen.k_height);
+							document.getElementById("Explaining").style.left = (Display.getTask(MenuItem.clicked, i + Task.firstTask).x - Display.getTask(MenuItem.clicked, i + Task.firstTask).h * 612 / 468) * Math.min(Screen.k_width, Screen.k_height);
+							document.getElementById("Explaining").style.visibility = "visible";
+							
 						}
 						i = Task.display + 1;
 					}
@@ -1380,6 +1441,9 @@ module.exports = {
 					drawTask(MenuItem.clicked, Task.firstTask + k1, Display.getTask(MenuItem.clicked, Task.firstTask + k1).x, Display.getTask(MenuItem.clicked, Task.firstTask + k1).y, Display.getTask(MenuItem.clicked, Task.firstTask + k1).w, Display.getTask(MenuItem.clicked, Task.firstTask + k1).h);
 					k1 = -1;
 					task_ch = false;
+					console.log(document.getElementById("Explaining"));
+					if(document.getElementById("Explaining"))
+						document.getElementById("Explaining").style.visibility = "hidden";
 				}
 			}
 			
@@ -1424,7 +1488,7 @@ module.exports = {
 					
 				}
 			}
-			//Menu items hovered
+			//Menu item hovered
 			var i = 0;
 			while (Mode.MenuItem && (i < MenuItem.display)) {
 				if((k == -1) && mouseInRect(Display.getTopic(i + MenuItem.firstItem))){
@@ -1725,16 +1789,29 @@ module.exports = {
 				drawSignInCancelButton();
 				
 			}
+			//exit button hovered during progress option
+			if (Mode.Progress &&!exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
+				clearRectRect(Display.getButton("exit_btn.png"));
+				Display.expandButton("exit_btn.png", 3);
+				drawExitButton();
+				exit_btn_ch = true;
+			}
+			else if(Mode.Progress && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
+				clearRectRect(Display.getButton("exit_btn.png"));
+				Display.expandButton("exit_btn.png", -3);
+				drawExitButton();
+				exit_btn_ch = false;
+			}
 			//exit button has been hovered during MusicVideo
 			var size_btn = 70;
 			if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn &&!exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
 				clearScreenRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-				drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
+				drawExitButton();
 				exit_btn_ch = true;
 			}
 			else if(Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				clearScreenRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
-				drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+				drawExitButton();
 				exit_btn_ch = false;
 			}
 			
@@ -2519,6 +2596,88 @@ module.exports = {
 					}, 20);
 				}
 		}
+		function setProgressProp() {
+			var frame = Properties.Forms["progress_form.png"];
+			var ResultForm_frame = {};
+			ResultForm_frame.h = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 20;
+			ResultForm_frame.w = ResultForm_frame.h * frame.w / frame.h;
+			if((Screen.width / Math.min(Screen.k_width, Screen.k_height) - ResultForm_frame.w) / 2 < 0) {
+				console.log("too big");
+				ResultForm_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20 - 2 * 10 - 2 * Display.getButton("left-arrow.png").w;
+				ResultForm_frame.h = ResultForm_frame.w * frame.h / frame.w;
+			}
+			ResultForm_frame.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - ResultForm_frame.w) / 2;
+			ResultForm_frame.y = MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - ResultForm_frame.h) / 2;
+			Display.setForm("progress_form.png", ResultForm_frame.x, ResultForm_frame.y, ResultForm_frame.w, ResultForm_frame.h);
+			Display.setButton("right-arrow.png", Display.getButton("right-arrow.png").x, Display.getForm("progress_form.png").y + Display.getForm("progress_form.png").h / 2 - Display.getButton("right-arrow.png").h / 2,Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").h)
+			Display.setButton("left-arrow.png", Display.getButton("left-arrow.png").x, Display.getForm("progress_form.png").y + Display.getForm("progress_form.png").h / 2 - Display.getButton("left-arrow.png").h / 2,Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h)
+			size_btn = 100;
+			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+			
+			showProgressForm();
+			
+		}
+		function showProgressForm() {
+			document.getElementById("Loading").style.visibility = "hidden";
+			drawHeader();
+			ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
+			var ProgressC = document.createElement('canvas');
+			ProgressC.id = 'ProgressCanvas';
+			ProgressC.width = document.getElementById("MainCanvas").width;
+			ProgressC.height = document.getElementById("MainCanvas").height;
+			document.getElementById("mainDiv").appendChild(ProgressC);
+			ProgressCanvas = document.getElementById("ProgressCanvas");
+			
+			ProgressCanvas.addEventListener("touchmove", checkPosProgress, false);
+			ProgressCanvas.addEventListener("mousemove", checkPosProgress);
+			ProgressCanvas.addEventListener("mousedown", MouseDown);
+			ProgressCanvas.addEventListener("touchstart", MouseDown);
+			ProgressCanvas.addEventListener("mouseup", checkClick);
+			ProgressCanvas.addEventListener("touchend", checkClick);
+			Progress_ctx = document.getElementById("ProgressCanvas").getContext("2d");
+			drawProgressForm();
+			drawRightArrow();
+			drawLeftArrow();
+			drawExitButton();
+			console.log(Progress.Array)
+			Progress.index=  2;
+			Answers = Progress.Array[Progress.index].Answers;
+			for(var i = 0; i < Answers.length; i++) {
+				console.log(Answers[i].Word);
+				var word = Answers[i].Word;
+				console.log(word);
+				if(Progress.Array[Progress.index].Topic_Name != "Numbers") {
+					console.log(Display.getForm("progress_form.png"));
+					var letter = {};
+					letter.x = Display.getForm("progress_form.png").x + 230 * Display.getForm("progress_form.png").w / Properties.Forms["progress_form.png"].w;
+					//letter.x = Display.getForm("progress_form.png").x + 470;
+					letter.y = Display.getForm("progress_form.png").y + 100 * Display.getForm("progress_form.png").h / Properties.Forms["progress_form.png"].h;
+					letter.w = 100 * Display.getForm("progress_form.png").w / Properties.Forms["progress_form.png"].w / word.length;
+					letter.h = 25 * Display.getForm("progress_form.png").h / Properties.Forms["progress_form.png"].h;
+					
+					for(var c = 0; c < word.length; c++) {
+						drawLetter(word[c], letter.x + letter.w*(c + 1), 50*i + letter.y, letter.w, letter.h);
+					}
+				}
+				else {
+					var letter = {};
+					console.log(Display.getForm("progress_form.png"));
+					letter.x = Display.getForm("progress_form.png").x + 470 * Display.getForm("progress_form.png").w / Properties.Forms["progress_form.png"].w;
+					letter.y = Display.getForm("progress_form.png").y + 250 * Display.getForm("progress_form.png").h / Properties.Forms["progress_form.png"].h;
+					letter.w = 330 * Display.getForm("progress_form.png").w / Properties.Forms["progress_form.png"].w / word.length;
+					letter.h = 50 * Display.getForm("progress_form.png").h / Properties.Forms["progress_form.png"].h;
+					
+					for(var c = 0; c < word.length; c++) {
+						drawDigit(word[c], letter.w*(c + 1), 55*i, letter.w, letter.h);
+					}
+				}
+				/*var points = 4 - Answers[i].Attempts;
+				for(var d = 0; d < points.length; d++) {
+					drawLetter(word[c], 100*(i + 1), 100, 100, 100);
+				}*/
+			}
+				
+		}
 		function showSignInForm(){
 				if(Forms_loaded){
 					Y_ = (MenuItem.topSpace + MenuItem.starts) / 2
@@ -2732,7 +2891,8 @@ module.exports = {
 		function PlaySong() {
 			var size_btn = 70;
 			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-			drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+			setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+			drawExitButton();
 			displayVideo();
 		}
 		function setWordHeight(){
@@ -2854,8 +3014,7 @@ module.exports = {
 					ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
 				}
 			}
-			//change
-			drawExitButton(Display.getButton("exit_btn.png").x, Display.getButton("exit_btn.png").y, Display.getButton("exit_btn.png").w, Display.getButton("exit_btn.png").h);
+			drawExitButton();
 			
 			if(!Mode.Training) {
 				var frame = Properties.Buttons["red-heart.png"];
@@ -3432,7 +3591,7 @@ module.exports = {
 								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 							}
 							Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							drawExitButton();
 							
 							break;
 						case 'Find the animal':
@@ -3469,7 +3628,8 @@ module.exports = {
 							catch(e) {
 								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 							}
-							drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							drawExitButton();
 							
 							break;
 						case 'Name numbers from 0 to 9':
@@ -3502,7 +3662,8 @@ module.exports = {
 							catch(e) {
 								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 							}
-							drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							drawExitButton();
 							
 							break;
 						case 'Find numbers from 0 to 9':
@@ -3534,7 +3695,8 @@ module.exports = {
 							catch(e) {
 								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 							}
-							drawExitButton(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							drawExitButton();
 							
 							break;
 							
@@ -3632,6 +3794,7 @@ module.exports = {
 						if(mouseInRect(Display.getTask(j, i))){
 							
 							try{
+								document.getElementById("Explaining").style.visibility = "hidden";
 								Mode.Exercise = true;
 								clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), MenuItem.ends)
 								Mode.Tasks = false;
@@ -3942,7 +4105,37 @@ module.exports = {
 				}
 				//progress button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("progress_btn.png"))) {
-					alert("Progress is not available yet:(");
+					if(Profile.LoggedIn) {
+						Mode.Progress = true;
+						Mode.MenuItem = false;
+						Mode.Tasks = false;
+						if(Mode.Menu) {
+							Mode.Menu = false;
+							$("#MenuCanvas").remove();
+						}
+						Progress.index = 0;
+						drawLoading();
+						socket.emit('progress', {
+							UserName: Profile.UserName,
+							filter: 1
+						})
+						socket.on('progress', function(data){
+							Progress.Array = data.progress;
+							console.log(Progress.Array);
+							setProgressProp();
+						})
+						
+						
+					}
+					else {
+						alert("You have to be logged in to get progress");
+					}
+				}
+				if(Mode.Progress && mouseInRect(Display.getButton("exit_btn.png"))) {
+					$("#ProgressCanvas").remove();
+					Mode.MenuItem = true;
+					Mode.Progress = false;
+					respondCanvas();
 				}
 				//phrases button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("phrase_of_the_day_btn.png"))) {

@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Forms/forms.tps</string>
+        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Alphabet/trace letters/trace letters.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -28,7 +28,7 @@
             </struct>
         </array>
         <key>allowRotation</key>
-        <true/>
+        <false/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>forms.json</filename>
+                <filename>trace letters.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -199,119 +199,81 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">log_in_form.png</key>
+            <key type="filename">eraser.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>92,51,184,101</rect>
+                <rect>30,15,61,31</rect>
                 <key>scale9Paddings</key>
-                <rect>92,51,184,101</rect>
+                <rect>30,15,61,31</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">log_in_form_cancel_btn.png</key>
-            <key type="filename">log_in_form_login_btn.png</key>
-            <key type="filename">result_form_okay_btn.png</key>
-            <key type="filename">result_form_try_again_btn.png</key>
-            <key type="filename">sign_in_form_cancel_btn.png</key>
-            <key type="filename">sign_in_form_save_btn.png</key>
-            <key type="filename">sign_in_form_signin_btn.png</key>
+            <key type="filename">letters_btn.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>39,9,78,19</rect>
+                <rect>57,19,114,38</rect>
                 <key>scale9Paddings</key>
-                <rect>39,9,78,19</rect>
+                <rect>57,19,114,38</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">log_out_btn.png</key>
+            <key type="filename">pencil.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>45,9,91,19</rect>
+                <rect>41,7,83,13</rect>
                 <key>scale9Paddings</key>
-                <rect>45,9,91,19</rect>
+                <rect>41,7,83,13</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">progress_form.png</key>
+            <key type="filename">trace_a.png</key>
+            <key type="filename">trace_b.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>184,101,368,202</rect>
+                <rect>132,69,263,138</rect>
                 <key>scale9Paddings</key>
-                <rect>184,101,368,202</rect>
+                <rect>132,69,263,138</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">result_form.png</key>
+            <key type="filename">whiteboard.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>92,40,184,80</rect>
+                <rect>180,115,360,230</rect>
                 <key>scale9Paddings</key>
-                <rect>92,40,184,80</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">setting_form.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>184,209,368,418</rect>
-                <key>scale9Paddings</key>
-                <rect>184,209,368,418</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">sign_in_form.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>92,92,184,184</rect>
-                <key>scale9Paddings</key>
-                <rect>92,92,184,184</rect>
+                <rect>180,115,360,230</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>log_in_form_login_btn.png</filename>
-            <filename>sign_in_form.png</filename>
-            <filename>sign_in_form_cancel_btn.png</filename>
-            <filename>log_in_form_cancel_btn.png</filename>
-            <filename>log_in_form.png</filename>
-            <filename>sign_in_form_signin_btn.png</filename>
-            <filename>sign_in_form_save_btn.png</filename>
-            <filename>result_form.png</filename>
-            <filename>result_form_okay_btn.png</filename>
-            <filename>result_form_try_again_btn.png</filename>
-            <filename>progress_form.png</filename>
-            <filename>log_out_btn.png</filename>
-            <filename>setting_form.png</filename>
+            <filename>letters_btn.png</filename>
+            <filename>pencil.png</filename>
+            <filename>whiteboard.png</filename>
+            <filename>eraser.png</filename>
+            <filename>trace_b.png</filename>
+            <filename>trace_a.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
