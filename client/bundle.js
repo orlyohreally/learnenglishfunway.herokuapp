@@ -300,10 +300,25 @@ module.exports = {
 		
 		function respondCanvas(){ 
 			console.log(document.activeElement);
+			console.log(Screen.height, $(document.activeElement));
 			if($(document.activeElement).prop('type') == 'text'){
 				console.log("not resizing");
+				document.getElementById("MainCanvas").style.height = Screen.height;
+				document.body.style.overflowY = "scroll";
 			}
 			else {
+			
+			var c = $('#MainCanvas');
+			if(document.getElementById("MenuCanvas"))
+				c = $('#MenuCanvas');
+			var ct = c.get(0).getContext('2d');
+			var container = $(c).parent();
+			c.attr('width', $(container).width()); //max width
+			c.attr('height', $(container).height() ); //max height
+			Screen = {};
+			Screen.width = $(container).innerWidth();
+			Screen.height = $(container).innerHeight();
+			}
 			MenuItem.display = 2;
 			MenuItem.itemsCount = 5;
 			MenuItem.size = 100;
@@ -314,16 +329,7 @@ module.exports = {
 				$("#Password").remove();
 				$("inputdiv").remove();
 			}
-			var c = $('#MainCanvas');
-			if(document.getElementById("MenuCanvas"))
-				c = $('#MenuCanvas');
-			var ct = c.get(0).getContext('2d');
-			var container = $(c).parent();
-			c.attr('width', $(container).width()); //max width
-			c.attr('height', $(container).height() ); //max height
-			Screen = {};
-			Screen.width = $(container).width();
-			Screen.height = $(container).height();
+			console.log(Screen.height);
 			MenuItem.rwidth = Screen.width;
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
@@ -411,7 +417,7 @@ module.exports = {
 			initMenu();
 			
 			ctx.fillStyle="#000000";
-			}
+			
 		}
 		
 		/************************************Resizing ended***********************************************/
@@ -2435,7 +2441,7 @@ module.exports = {
 					drawLogInCancelButton();
 					ctx.fillStyle='#000000';
 					var div = document.createElement('inputDiv');
-					div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input id = 'Password' name = 'UserName' autofocus/>";
+					div.innerHTML = "<input id = 'UserName' name = 'UserName'/><input id = 'Password' name = 'UserName'/>";
 					document.getElementById("mainDiv").appendChild(div);
 					document.getElementById("UserName").style.top = (Y_ + 57 / 202 * MenuItem.size) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.left = (X_ + 35 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height);
