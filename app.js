@@ -17,7 +17,6 @@ var session = require('express-session')({
 });
 var sharedsessoion = require('express-socket.io-session');
 app.use(session);
-var cookieParser = require("cookie-parser");
 io.use(sharedsessoion(session, {
 	autoSave: true
 }));
