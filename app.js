@@ -10,6 +10,18 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
+var session = require('express-session')({
+	secret: "my-secret",
+	resave: true,
+	saveUninitialized: true
+});
+var sharedsessoion = require('express-socket.io-session');
+app.use(session);
+var cookieParser = require("cookie-parser");
+io.use(sharedsessoion(session, {
+	autoSave: true
+}));
+
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
@@ -26,26 +38,17 @@ Properties.Letters = {};
 Properties.Forms = {};
 Properties.Buttons = {};
 			
-var session = require('client-sessions');
-app.use(session({
-	cookieName: 'session',
-	secret: 'orlyohreally',
-	duration: 1,
-	activeDuration:1,
-	httpOnly: true,
-	secure: true,
-	ephemeral: true
-	}));	
 
 io.sockets.on('connection', function(socket) {
 	socket.on('disconnect', function(){
 		console.log("socket disconnection");
 	})
-	
-	if(session && session.user) {
-		db.Users.find({"UserName":session.user.UserName}, function(err, res){
+	console.log("cookie", socket.handshake.cookies);
+	console.log(socket.handshake.session);
+	if(socket.handshake.session && socket.handshake.session.user) {
+		db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
 			if(res) {
-				socket.emit('Old session', {user: session.user});
+				socket.emit('Old session', {user: socket.handshake.session.user});
 			}
 		});
 	}
@@ -260,11 +263,13 @@ io.sockets.on('connection', function(socket) {
 								console.log("hash:", User.Password);
 								db.Users.insert({"UserName": User.UserName, "Password": User.Password, "Accent":User.Accent, "Points":0}, function(err, res){
 									if(res) {
-										session.user = User;
+										socket.handshake.session.user = User;
+										socket.handshake.cookies.user = User;
 										socket.emit('newUser', {
 											res:true
 										});
-										delete session.user.Password;
+										delete socket.handshake.session.user.Password;
+										delete socket.handshake.cookies.user.Password;
 										delete User.Password;
 									}
 									else {
@@ -301,10 +306,15 @@ io.sockets.on('connection', function(socket) {
 					var User = res[0];
 					bcrypt.compare(data.User.Password,res[0].Password, function(err, res) {
 						console.log("emitting", res);
-						session.user = User;
+						console.log(socket.handshake.cookies);
+						socket.handshake.session.user = User;
+						socket.handshake.cookies.user = User;
+						console.log(socket.handshake.cookies);
 						socket.emit('auth', {res:res, User: User});
-						delete session.user.Password;
+						delete socket.handshake.session.user.Password;
 						delete User.Password;
+						socket.handshake.session.save();
+						console.log(socket.handshake.session);
 					})
 				}
 			}
@@ -342,8 +352,8 @@ io.sockets.on('connection', function(socket) {
 	})
 	socket.on('Logout', function(data){
 		console.log("logout");
-		delete session.user;
-		delete session;
+		delete socket.handshake.session.user;
+		socket.handshake.session.save();
 		socket.emit('Logout', {
 			res: true
 		})
