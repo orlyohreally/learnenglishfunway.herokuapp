@@ -694,10 +694,15 @@ module.exports = {
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("result_form_try_again_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawDigit(n, x, y, width, height, type = "") {
+			console.log("n:", n);
 			if(type != "")
 				type = type + "-";
 			var frame = Properties.Numbers[type + n + ".png"];
-			ctx.drawImage(atlas.Numbersframe, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(!Mode.Progress)
+				ctx.drawImage(atlas.Numbersframe, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Progress_ctx.drawImage(atlas.Numbersframe, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			
 		}
 		function drawLetter(n, x, y, width, height, type = "") {
 			if(type != "")
@@ -764,11 +769,18 @@ module.exports = {
 		}
 		function drawDarkStar(x, y, width, height) {
 			var frame = Properties.Buttons["dark-star.png"];
-			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(!Mode.Progress)
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Progress_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawStar(x, y, width, height) {
 			var frame = Properties.Buttons["star.png"];
-			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(!Mode.Progress)
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else
+				Progress_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			
 		}
 		function drawTap(x, y, width, height) {
 			var frame = Properties.Buttons["tap.png"];
@@ -789,7 +801,7 @@ module.exports = {
 		function fillRect(x, y, width, height) {
 			if(!Mode.Menu)
 				ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
-			else
+			else if(Mode.Menu)
 				Menu_ctx.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function clearRect(x, y, width, height) {
@@ -1226,8 +1238,8 @@ module.exports = {
 				drawHeader();
 			}
 			if(Mode.Progress) {
-				clearRect(0, 0, (Screen.width)/ Math.min(Screen.k_width, Screen.k_height), (Screen.height)/ Math.min(Screen.k_width, Screen.k_height));
-				showProgressForm();
+				$("#ProgressCanvas").remove();
+				showProgress();
 			}
 			loadForms();
 			loadNumbers();
@@ -1283,6 +1295,7 @@ module.exports = {
 		}
 		function checkPosProgress(mouseEvent){
 			event.preventDefault();
+			var ProgressCanvas = document.getElementById("ProgressCanvas");
 			try {
 				var touch = mouseEvent.changedTouches[0];
 				var rect = ProgressCanvas.getBoundingClientRect();
@@ -1377,7 +1390,7 @@ module.exports = {
 		
 		function HoverMenuItem(mouseX, mouseY){
 			//left arrow has been hovered
-			if((Mode.MenuItem && MenuItem.firstItem > 0) || (Mode.Progress)) {
+			if((Mode.MenuItem && MenuItem.firstItem > 0) || (Mode.Progress && Progress.index)) {
 				if (!(l_a_ch) && mouseInRect(Display.getButton("left-arrow.png"))) {	
 					clearRectRect(Display.getButton("left-arrow.png"));
 					Display.expandButton("left-arrow.png", 5);
@@ -1392,7 +1405,7 @@ module.exports = {
 				}
 			}
 			//right arrow is hovered
-			if((Mode.MenuItem && (MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount)) || (Mode.Progress)){
+			if((Mode.MenuItem && (MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount)) || (Mode.Progress && Progress.Array.length > Progress.index + 1)){
 				if (!(r_a_ch) && (mouseInRect(Display.getButton("right-arrow.png")))) {	
 					clearRectRect(Display.getButton("right-arrow.png"));
 					Display.expandButton("right-arrow.png", 5);
@@ -2618,6 +2631,7 @@ module.exports = {
 			Display.setButton("right-arrow.png", Display.getButton("right-arrow.png").x, Display.getForm("progress_form_" + type + ".png").y + Display.getForm("progress_form_" + type + ".png").h / 2 - Display.getButton("right-arrow.png").h / 2,Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").h)
 			Display.setButton("left-arrow.png", Display.getButton("left-arrow.png").x, Display.getForm("progress_form_" + type + ".png").y + Display.getForm("progress_form_" + type + ".png").h / 2 - Display.getButton("left-arrow.png").h / 2,Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h)
 			
+			
 			//showProgressForm();
 			
 		}
@@ -2657,8 +2671,75 @@ module.exports = {
 				}*/
 			}
 		}
+		function drawTime(minuts, seconds, X, Y, digit) {
+			console.log("drawing time");
+			var i = 0;
+			var j = 0;
+			if(minuts != "0") {
+				for (i; i < minuts.length; i++) {
+					drawDigit(minuts[i], X + i * digit.w, Y - digit.h, digit.w, digit.h, "small-dark");
+				}
+				var min = "min";
+				i++;
+				for(j; j < min.length;j++) {
+					drawLetter(min[j], X + (i + j) * digit.w, Y - digit.h, digit.w, digit.h, "small-dark");
+				}
+				i = i + j + 1;
+				j = 0;
+			}
+			if(seconds != "0") {
+				for (j = 0; j < seconds.length; j++) {
+					drawDigit(seconds[j], X + (i + j) * digit.w, Y - digit.h, digit.w, digit.h, "small-dark");
+				}
+				i = i + j + 1;
+				var sec = "sec";
+				for(j = 0; j < sec.length;j++) {
+					drawLetter(sec[j], X + (i + j) * digit.w, Y - digit.h, digit.w, digit.h, "small-dark");
+				}
+			}
+		}
 		function showProgressVideo() {
 			console.log("Video");
+			var frame = Properties.Forms["progress_form_Video.png"];
+			var digit_frame = Properties.Numbers["small-dark-1.png"];
+			var digit = {};
+			digit.h = 20  * Display.getForm("progress_form_Video.png").h / frame.h;
+			digit.w = digit.h * digit_frame.w / digit_frame.h;
+			var Finish = new Date(Progress.Array[Progress.index].Finish);
+			var Start = new Date(Progress.Array[Progress.index].Start);
+			console.log(Finish.getTime(), Start.getTime(), (Finish.getTime() - Start.getTime()) / 1000 );
+			var minuts = Math.floor((Finish.getTime() - Start.getTime()) / 1000 / 60);
+			var seconds = Math.round((Finish.getTime() - Start.getTime()) / 1000 - 60 * minuts);
+			console.log(minuts, seconds);
+			fillRect(0, Display.getForm("progress_form_Video.png").y + 400 / frame.h * frame.w, 10000, 10);
+			fillRect(Display.getForm("progress_form_Video.png").x + 2000 / frame.w * frame.h, 0 , 10, 10000);
+			minuts = minuts + "";
+			seconds = seconds + "";
+			console.log(minuts, seconds);
+			drawTime(minuts, seconds, Display.getForm("progress_form_Video.png").x + 900 / frame.w * frame.h,  Display.getForm("progress_form_Video.png").y + 255 / frame.h * frame.w, digit);
+			console.log(Progress.Array[Progress.index], Progress.Array[Progress.index].Duration);
+			minuts = Math.floor(Progress.Array[Progress.index].Duration / 60);
+			seconds = Math.round(Progress.Array[Progress.index].Duration - 60 * minuts);
+			minuts = minuts + "";
+			seconds = seconds + "";
+			console.log(minuts, seconds);
+			drawTime(minuts, seconds, Display.getForm("progress_form_Video.png").x + 1900 / frame.w * frame.h,  Display.getForm("progress_form_Video.png").y + 325 / frame.h * frame.w, digit);
+			Points = Progress.Array[Progress.index].Points + "";
+			digit.h = 25  * Display.getForm("progress_form_Video.png").h / frame.h;
+			digit.w = digit.h * digit_frame.w / digit_frame.h;console.log(Points)
+			for(var j = 0; j < Points.length; j++)
+				drawDigit(Points[j], Display.getForm("progress_form_Video.png").x + 1050 / frame.w * frame.h + j * digit.w, Display.getForm("progress_form_Video.png").y + 395 / frame.h * frame.w - digit.h, digit.w, digit.h, "small-dark");
+			//###
+			var stars = Math.round(5 * Progress.Array[Progress.index].Points / Progress.Array[Progress.index].Max_point);
+			var star_frame = Properties.Buttons["star.png"];
+			var star = {}
+			star.h = digit.h;
+			star.w = star.h * star_frame.w / star_frame.h;
+			console.log(stars, star);
+			for(var j = 0; j < stars; j++)
+				drawStar(Display.getForm("progress_form_Video.png").x + 2000 / frame.w * frame.h + j * star.w, Display.getForm("progress_form_Video.png").y + 395 / frame.h * frame.w - star.h, star.w, star.h);
+			for(var j = 0; j < 5 - stars; j++)
+				drawDarkStar(Display.getForm("progress_form_Video.png").x + 2000 / frame.w * frame.h + (stars + j) * star.w, Display.getForm("progress_form_Video.png").y + 395 / frame.h * frame.w - star.h, star.w, star.h);
 			
 		}
 		function showProgressForm() {
@@ -2666,7 +2747,8 @@ module.exports = {
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			if(Progress.index)
 				drawLeftArrow();
-			if(Progress.Array.length > Progress.index)
+			console.log(Progress.Array.length, Progress.index);
+			if(Progress.Array.length > Progress.index + 1)
 				drawRightArrow();
 			console.log("Task type", Progress.Array[Progress.index].Type);
 			console.log("drawing progress form", Progress.Array[Progress.index].Type);
@@ -2682,16 +2764,18 @@ module.exports = {
 			}
 		}
 		function showProgress() {
+			console.log("showProgress");
 			document.getElementById("Loading").style.visibility = "hidden";
 			drawHeader();
 			ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
-			var ProgressC = document.createElement('canvas');
-			ProgressC.id = 'ProgressCanvas';
-			ProgressC.width = document.getElementById("MainCanvas").width;
-			ProgressC.height = document.getElementById("MainCanvas").height;
-			document.getElementById("mainDiv").appendChild(ProgressC);
-			ProgressCanvas = document.getElementById("ProgressCanvas");
-			
+			if(!document.getElementById("ProgressCanvas")) {
+				var ProgressC = document.createElement('canvas');
+				ProgressC.id = 'ProgressCanvas';
+				ProgressC.width = document.getElementById("MainCanvas").width;
+				ProgressC.height = document.getElementById("MainCanvas").height;
+				document.getElementById("mainDiv").appendChild(ProgressC);
+				ProgressCanvas = document.getElementById("ProgressCanvas");
+			}
 			ProgressCanvas.addEventListener("touchmove", checkPosProgress, false);
 			ProgressCanvas.addEventListener("mousemove", checkPosProgress);
 			ProgressCanvas.addEventListener("mousedown", MouseDown);
@@ -2699,11 +2783,10 @@ module.exports = {
 			ProgressCanvas.addEventListener("mouseup", checkClick);
 			ProgressCanvas.addEventListener("touchend", checkClick);
 			Progress_ctx = document.getElementById("ProgressCanvas").getContext("2d");
+			
 			size_btn = 100;
 			Display.setButton("exit_btn.png", Display.getButton("right-arrow.png").x + Display.getButton("right-arrow.png").w - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 			drawExitButton();
-			console.log(Progress.Array);
-			Progress.index =  0;
 			showProgressForm();
 			
 			
@@ -3178,7 +3261,7 @@ module.exports = {
 				}
 				
 				//right arrow clicked during progress mode
-				if(Mode.Progress && Progress.Array.length > Progress.index && mouseInRect(Display.getButton("right-arrow.png"))) {
+				if(Mode.Progress && Progress.Array.length > Progress.index + 1 && mouseInRect(Display.getButton("right-arrow.png"))) {
 					Progress.index++;
 					showProgressForm();
 				}
@@ -3861,6 +3944,8 @@ module.exports = {
 						Task.Result.Finish = new Date();
 						console.log(Task.MaxPoint, Task.Result.Finish, Task.Result.Start, Task.Frames[Task.TaskName].Duration);
 						Points = Math.floor(Task.MaxPoint * (Task.Result.Finish - Task.Result.Start) / 1000 / Task.Frames[Task.TaskName].Duration);
+						Task.Result.Max_point = Task.MaxPoint;
+						Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
 						if(Points < Task.MaxPoint)
 							Task.Result.Points = Points;
 						else
@@ -4214,7 +4299,19 @@ module.exports = {
 							Progress.Array = data.progress;
 							console.log(Progress.Array);
 							//setProgressProp();
-							showProgress();
+							if(Progress.Array.length) {
+								Progress.index =  0;
+								showProgress();
+							}
+							else
+							{
+								document.getElementById("Loading").style.visibility = "hidden";
+								console.log("No exercises have been finished");
+								alert("No exercises have been finished");
+								Mode.Progress = false;
+								Mode.MenuItem = true;
+								
+							}
 						})
 						
 						

@@ -244,8 +244,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">progress_form_video.png</key>
-            <key type="filename">progress_form_word.png</key>
+            <key type="filename">progress_form_Matching.png</key>
+            <key type="filename">progress_form_Video.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -312,8 +312,8 @@
             <filename>result_form_try_again_btn.png</filename>
             <filename>log_out_btn.png</filename>
             <filename>setting_form.png</filename>
-            <filename>progress_form_word.png</filename>
-            <filename>progress_form_video.png</filename>
+            <filename>progress_form_Matching.png</filename>
+            <filename>progress_form_Video.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

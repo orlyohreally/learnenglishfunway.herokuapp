@@ -37,7 +37,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "progress_form_video.png",
+	"filename": "progress_form_Matching.png",
 	"frame": {"x":861,"y":0,"w":736,"h":403},
 	"rotated": false,
 	"trimmed": false,
@@ -46,7 +46,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "progress_form_word.png",
+	"filename": "progress_form_Video.png",
 	"frame": {"x":0,"y":403,"w":736,"h":403},
 	"rotated": false,
 	"trimmed": false,
@@ -133,6 +133,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1597,"h":1642},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:beefb3c4337ed206447cbbb8c0402518:f3b0be911b744c6272798529b2898704:9b03ed0702ee7e82d798cd9ace954c38$"
+	"smartupdate": "$TexturePacker:SmartUpdate:c1f511db62effe1a07189283a4ac397a:399d79c9ee31f950886654102159eb33:9b03ed0702ee7e82d798cd9ace954c38$"
 }
 }

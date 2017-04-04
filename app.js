@@ -417,19 +417,21 @@ io.sockets.on('connection', function(socket) {
 	socket.on('progress', function(data){
 		db.Results.find({"UserName":data.UserName}).sort({Start:-1}, function(err, res){
 			var Progress = [];
-			var f = 0, i = 0;
-			date = res[i].Start.substring(0, 10);
-			//console.log(date, date.substring(0, 10));
-			while(f < data.filter && i < res.length) {
-				console.log("f", f, "i", i, "date", date);
-				if(date == res[i].Start.substring(0, 10))
-					Progress.push(res[i]);
-				else {
-					f = f + 1;
-					date = res[i].Start.substring(0, 10);
-					Progress.push(res[i]);
+			if(res.length) {
+				var f = 0, i = 0;
+				date = res[i].Start.substring(0, 10);
+				//console.log(date, date.substring(0, 10));
+				while(f < data.filter && i < res.length) {
+					console.log("f", f, "i", i, "date", date);
+					if(date == res[i].Start.substring(0, 10))
+						Progress.push(res[i]);
+					else {
+						f = f + 1;
+						date = res[i].Start.substring(0, 10);
+						Progress.push(res[i]);
+					}
+					i = i + 1;
 				}
-				i = i + 1;
 			}
 			socket.emit('progress', {
 				progress: Progress
