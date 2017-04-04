@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.2.2</string>
+        <string>4.4.0</string>
         <key>fileName</key>
-        <string>C:/Users/Orly/Desktop/Learn English Fun Way/client/img/Alphabet/capital_letters.tps</string>
+        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Alphabet/capital_letters.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -47,6 +47,8 @@
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
         <enum type="SettingsBase::Etc1CompressionQuality">ETC1_QUALITY_LOW_PERCEPTUAL</enum>
+        <key>etc2CompressionQuality</key>
+        <enum type="SettingsBase::Etc2CompressionQuality">ETC2_QUALITY_LOW_PERCEPTUAL</enum>
         <key>dxtCompressionMode</key>
         <enum type="SettingsBase::DxtCompressionMode">DXT_PERCEPTUAL</enum>
         <key>jxrColorFormat</key>
@@ -78,6 +80,8 @@
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
+        <string></string>
+        <key>atfFormats</key>
         <string></string>
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
@@ -118,6 +122,11 @@
                 <enum type="AlgorithmBasicSettings::SortBy">Best</enum>
                 <key>order</key>
                 <enum type="AlgorithmBasicSettings::Order">Ascending</enum>
+            </struct>
+            <key>polygon</key>
+            <struct type="AlgorithmPolygonSettings">
+                <key>alignToGrid</key>
+                <uint>1</uint>
             </struct>
         </struct>
         <key>andEngine</key>
@@ -163,6 +172,8 @@
         <false/>
         <key>prependSmartFolderName</key>
         <false/>
+        <key>autodetectAnimations</key>
+        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -188,65 +199,349 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">capital_a.png</key>
-            <key type="filename">capital_b.png</key>
-            <key type="filename">capital_c.png</key>
-            <key type="filename">capital_d.png</key>
-            <key type="filename">capital_e.png</key>
-            <key type="filename">capital_f.png</key>
-            <key type="filename">capital_g.png</key>
-            <key type="filename">capital_h.png</key>
-            <key type="filename">capital_i.png</key>
-            <key type="filename">capital_j.png</key>
-            <key type="filename">capital_k.png</key>
-            <key type="filename">capital_l.png</key>
-            <key type="filename">capital_m.png</key>
-            <key type="filename">capital_n.png</key>
-            <key type="filename">capital_o.png</key>
-            <key type="filename">capital_p.png</key>
-            <key type="filename">capital_q.png</key>
-            <key type="filename">capital_r.png</key>
-            <key type="filename">capital_s.png</key>
-            <key type="filename">capital_t.png</key>
-            <key type="filename">capital_u.png</key>
-            <key type="filename">capital_v.png</key>
-            <key type="filename">capital_w.png</key>
-            <key type="filename">capital_x.png</key>
-            <key type="filename">capital_y.png</key>
-            <key type="filename">capital_z.png</key>
+            <key type="filename">capital-a.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>74,60,148,119</rect>
+                <key>scale9Paddings</key>
+                <rect>74,60,148,119</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-b.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>64,59,129,118</rect>
+                <key>scale9Paddings</key>
+                <rect>64,59,129,118</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-c.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>59,60,118,120</rect>
+                <key>scale9Paddings</key>
+                <rect>59,60,118,120</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-d.png</key>
+            <key type="filename">capital-p.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>63,59,127,118</rect>
+                <key>scale9Paddings</key>
+                <rect>63,59,127,118</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-e.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>67,59,134,119</rect>
+                <key>scale9Paddings</key>
+                <rect>67,59,134,119</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-f.png</key>
+            <key type="filename">capital-o.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>63,59,125,117</rect>
+                <key>scale9Paddings</key>
+                <rect>63,59,125,117</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-g.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>67,60,133,119</rect>
+                <key>scale9Paddings</key>
+                <rect>67,60,133,119</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-h.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>70,59,139,119</rect>
+                <key>scale9Paddings</key>
+                <rect>70,59,139,119</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-i.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>50,64,100,128</rect>
+                <key>scale9Paddings</key>
+                <rect>50,64,100,128</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-j.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>63,59,127,119</rect>
+                <key>scale9Paddings</key>
+                <rect>63,59,127,119</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-k.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>72,60,144,121</rect>
+                <key>scale9Paddings</key>
+                <rect>72,60,144,121</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-l.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>59,59,117,118</rect>
+                <key>scale9Paddings</key>
+                <rect>59,59,117,118</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-m.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>87,60,173,119</rect>
+                <key>scale9Paddings</key>
+                <rect>87,60,173,119</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-n.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>74,59,148,118</rect>
+                <key>scale9Paddings</key>
+                <rect>74,59,148,118</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-q.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>70,70,139,139</rect>
+                <key>scale9Paddings</key>
+                <rect>70,70,139,139</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-r.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>68,62,136,125</rect>
+                <key>scale9Paddings</key>
+                <rect>68,62,136,125</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-s.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>64,60,127,119</rect>
+                <key>scale9Paddings</key>
+                <rect>64,60,127,119</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-t.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>63,59,126,118</rect>
+                <key>scale9Paddings</key>
+                <rect>63,59,126,118</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-u.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>64,60,127,120</rect>
+                <key>scale9Paddings</key>
+                <rect>64,60,127,120</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-v.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>72,59,144,118</rect>
+                <key>scale9Paddings</key>
+                <rect>72,59,144,118</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-w.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>87,60,173,120</rect>
+                <key>scale9Paddings</key>
+                <rect>87,60,173,120</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-x.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>75,60,150,120</rect>
+                <key>scale9Paddings</key>
+                <rect>75,60,150,120</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-y.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>80,60,161,120</rect>
+                <key>scale9Paddings</key>
+                <rect>80,60,161,120</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-z.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>63,62,127,123</rect>
+                <key>scale9Paddings</key>
+                <rect>63,62,127,123</rect>
+                <key>scale9FromFile</key>
+                <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>capital_a.png</filename>
-            <filename>capital_b.png</filename>
-            <filename>capital_c.png</filename>
-            <filename>capital_d.png</filename>
-            <filename>capital_e.png</filename>
-            <filename>capital_f.png</filename>
-            <filename>capital_g.png</filename>
-            <filename>capital_j.png</filename>
-            <filename>capital_i.png</filename>
-            <filename>capital_k.png</filename>
-            <filename>capital_l.png</filename>
-            <filename>capital_m.png</filename>
-            <filename>capital_n.png</filename>
-            <filename>capital_o.png</filename>
-            <filename>capital_p.png</filename>
-            <filename>capital_h.png</filename>
-            <filename>capital_q.png</filename>
-            <filename>capital_r.png</filename>
-            <filename>capital_s.png</filename>
-            <filename>capital_t.png</filename>
-            <filename>capital_u.png</filename>
-            <filename>capital_w.png</filename>
-            <filename>capital_v.png</filename>
-            <filename>capital_z.png</filename>
-            <filename>capital_x.png</filename>
-            <filename>capital_y.png</filename>
+            <filename>capital-n.png</filename>
+            <filename>capital-o.png</filename>
+            <filename>capital-p.png</filename>
+            <filename>capital-q.png</filename>
+            <filename>capital-r.png</filename>
+            <filename>capital-s.png</filename>
+            <filename>capital-t.png</filename>
+            <filename>capital-u.png</filename>
+            <filename>capital-v.png</filename>
+            <filename>capital-w.png</filename>
+            <filename>capital-x.png</filename>
+            <filename>capital-y.png</filename>
+            <filename>capital-z.png</filename>
+            <filename>capital-a.png</filename>
+            <filename>capital-b.png</filename>
+            <filename>capital-c.png</filename>
+            <filename>capital-d.png</filename>
+            <filename>capital-e.png</filename>
+            <filename>capital-f.png</filename>
+            <filename>capital-g.png</filename>
+            <filename>capital-h.png</filename>
+            <filename>capital-i.png</filename>
+            <filename>capital-j.png</filename>
+            <filename>capital-k.png</filename>
+            <filename>capital-l.png</filename>
+            <filename>capital-m.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -268,5 +563,7 @@
         <string></string>
         <key>normalMapSheetFileName</key>
         <filename></filename>
+        <key>exporterProperties</key>
+        <map type="ExporterProperties"/>
     </struct>
 </data>

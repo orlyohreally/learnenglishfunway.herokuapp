@@ -491,6 +491,14 @@ module.exports = {
 				Task.loadedLetters = true;
 			})
 		}
+		var atlasCapitalLetters = new Image();
+		Task.loadedCapitalLetters;
+		function loadCapitalLetters(){
+			atlasCapitalLetters.src = '/img/Alphabet/capital_letters.png';
+			atlasCapitalLetters.addEventListener("load", function() {
+				Task.loadedCapitalLetters = true;
+			})
+		}
 		function clearMenuItemRect(x, y, width, height) {
 			ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height) , width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
 		}
@@ -707,11 +715,21 @@ module.exports = {
 		function drawLetter(n, x, y, width, height, type = "") {
 			if(type != "")
 				type = type + "-";
+			console.log(type + n + ".png");
 			var frame = Properties.Letters[type + n + ".png"];
-			if(Mode.Progress)
-				Progress_ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
-			else
-				ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(type != "capital-"){
+				if(Mode.Progress)
+					Progress_ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+				else
+					ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			}
+			else {
+				console.log(n, frame);
+				if(Mode.Progress)
+					Progress_ctx.drawImage(atlasCapitalLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+				else
+					ctx.drawImage(atlasCapitalLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			}
 		}
 		function drawLogInForm(x, y, width, height) {
 			var frame = Properties.Forms["log_in_form.png"];
@@ -1244,6 +1262,7 @@ module.exports = {
 			loadForms();
 			loadNumbers();
 			loadLetters();
+			loadCapitalLetters();
 			readyToShowForms();
 			loadButtons();
 		}
@@ -2665,10 +2684,7 @@ module.exports = {
 						drawDigit(word[c], letter.w*(c + 1), 55*i, letter.w, letter.h);
 					}
 				}
-				/*var points = 4 - Answers[i].Attempts;
-				for(var d = 0; d < points.length; d++) {
-					drawLetter(word[c], 100*(i + 1), 100, 100, 100);
-				}*/
+				
 			}
 		}
 		function drawTime(minuts, seconds, X, Y, digit) {
@@ -2711,8 +2727,8 @@ module.exports = {
 			var minuts = Math.floor((Finish.getTime() - Start.getTime()) / 1000 / 60);
 			var seconds = Math.round((Finish.getTime() - Start.getTime()) / 1000 - 60 * minuts);
 			console.log(minuts, seconds);
-			fillRect(0, Display.getForm("progress_form_Video.png").y + 400 / frame.h * frame.w, 10000, 10);
-			fillRect(Display.getForm("progress_form_Video.png").x + 2000 / frame.w * frame.h, 0 , 10, 10000);
+			fillRect(0, Display.getForm("progress_form_Video.png").y + 190 / frame.h * frame.w, 10000, 10);
+			fillRect(Display.getForm("progress_form_Video.png").x + 1300 / frame.w * frame.h, 0 , 10, 10000);
 			minuts = minuts + "";
 			seconds = seconds + "";
 			console.log(minuts, seconds);
@@ -2740,6 +2756,16 @@ module.exports = {
 				drawStar(Display.getForm("progress_form_Video.png").x + 2000 / frame.w * frame.h + j * star.w, Display.getForm("progress_form_Video.png").y + 395 / frame.h * frame.w - star.h, star.w, star.h);
 			for(var j = 0; j < 5 - stars; j++)
 				drawDarkStar(Display.getForm("progress_form_Video.png").x + 2000 / frame.w * frame.h + (stars + j) * star.w, Display.getForm("progress_form_Video.png").y + 395 / frame.h * frame.w - star.h, star.w, star.h);
+			console.log("task:", Progress.Array[Progress.index].Exercise);
+			for(var j = 0; j < Progress.Array[Progress.index].Exercise.length; j++) {
+				console.log(Progress.Array[Progress.index].Exercise[j]);
+				if(Progress.Array[Progress.index].Exercise[j] != " ") {
+					var type = "";
+					if(j == 0)
+						type = "capital";
+					drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 1300 / frame.w * frame.h + j * digit.w, Display.getForm("progress_form_Video.png").y + 190 / frame.h * frame.w - digit.h, digit.w, digit.h, type);
+				}
+			}
 			
 		}
 		function showProgressForm() {
@@ -4449,12 +4475,14 @@ module.exports = {
 	}
 	function getProperties() {
 		socket.on('getProperties', function(data){
+			console.log(Properties.Letters);
 			Properties.Topics = data.topics;
 			Properties.Tasks = data.tasks;
 			Properties.Buttons = data.buttons;
 			Properties.Forms = data.forms;
 			Properties.Numbers = data.numbers;
 			Properties.Letters = data.letters;
+			console.log(Properties.Letters);
 			current = 0;
 			drawLoading();
 			displayMenu();

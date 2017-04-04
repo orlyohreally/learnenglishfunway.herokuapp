@@ -193,6 +193,18 @@ io.sockets.on('connection', function(socket) {
 				delete res[i].pivot;
 				Properties.Letters[res[i].filename] = res[i].frame;
 			}
+			db.SpreadSheets.find({"Name": "Capital-letters"}, function(err, res){
+				res = res[0].Frames;
+				console.log(res);
+				for(i = 0; i < res.length; i++){
+					delete res[i].rotated;
+					delete res[i].trimmed;
+					delete res[i].spriteSourceSize;
+					delete res[i].sourceSize;
+					delete res[i].pivot;
+					Properties.Letters[res[i].filename] = res[i].frame;
+				}
+			})
 		})
 	}
 	//getButtons();
@@ -270,16 +282,28 @@ io.sockets.on('connection', function(socket) {
 								delete res[i].pivot;
 								Properties.Letters[res[i].filename] = res[i].frame;
 							}
-							console.log("sending");
-							socket.emit('getProperties', {
-								topics:Properties.Topics,
-								tasks:Properties.Tasks,
-								buttons:Properties.Buttons,
-								forms:Properties.Forms,
-								numbers:Properties.Numbers,
-								letters:Properties.Letters
-							})
+							db.SpreadSheets.find({"Name": "Capital-letters"}, function(err, res){
+								res = res[0].Frames;
+								console.log(res);
+								for(i = 0; i < res.length; i++){
+									delete res[i].rotated;
+									delete res[i].trimmed;
+									delete res[i].spriteSourceSize;
+									delete res[i].sourceSize;
+									delete res[i].pivot;
+									Properties.Letters[res[i].filename] = res[i].frame;
+								}
 							
+								console.log("sending");
+								socket.emit('getProperties', {
+									topics:Properties.Topics,
+									tasks:Properties.Tasks,
+									buttons:Properties.Buttons,
+									forms:Properties.Forms,
+									numbers:Properties.Numbers,
+									letters:Properties.Letters
+								})
+							})
 						});
 					
 					})
