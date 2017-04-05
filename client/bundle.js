@@ -718,12 +718,18 @@ module.exports = {
 			console.log(type + n + ".png");
 			var frame = Properties.Letters[type + n + ".png"];
 			if(type != "capital-"){
+				if(n == "-") {
+					y = y + height / 4;
+					height = height / 2;
+					
+				}
 				if(Mode.Progress)
 					Progress_ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 				else
 					ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 			}
 			else {
+				
 				console.log(n, frame);
 				if(Mode.Progress)
 					Progress_ctx.drawImage(atlasCapitalLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
@@ -757,12 +763,22 @@ module.exports = {
 			var frame = Properties.Forms["sign_in_form_cancel_btn.png"];
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("sign_in_form_cancel_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("sign_in_form_cancel_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("sign_in_form_cancel_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("sign_in_form_cancel_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
+		function drawStarBoard(type) {
+			var frame = Properties.Buttons["star-board.png"];
+			console.log(frame, Display.getButton("star-board" + type + ".png"), "star-board" + type + ".png");
+			if(!Mode.Menu)
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("star-board" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height));
+			else
+				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("star-board" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height));
+			
+		}
 		function drawProfilePicture() {
 			var frame = Properties.Buttons["profile_girl1.png"];
 			if(!Mode.Menu)
 				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("profile_pic.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").h * Math.min(Screen.k_width, Screen.k_height))
 			else
 				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("profile_pic.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").h * Math.min(Screen.k_width, Screen.k_height))
+			
 		}
 		function drawAvatar(name) {
 			var frame = Properties.Buttons[name];
@@ -955,8 +971,12 @@ module.exports = {
 					drawSignInButton();
 				}
 				else {
-					Display.setButton("profile_pic.png", ((Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace) + Profile.size_btn * 1/ 6, 20, Profile.size_btn * 2/3, Profile.size_btn * 2/ 3);
+					Display.setButton("star-boardPoints.png", (Screen.width )/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, 20, Profile.size_btn, Profile.size_btn*75/228);
+					drawStarBoard("Points");
+					Display.setButton("star-boardStars.png", (Screen.width )/ Math.min(Screen.k_width, Screen.k_height) -  Profile.size_btn - Title.leftSpace, (20 + 5) + Profile.size_btn*75/228, Profile.size_btn, Profile.size_btn*75/228);
+					drawStarBoard("Stars");
 				}
+				
 				//Sound button
 				Display.setButton("sound_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
 				drawSoundButton();
@@ -1015,10 +1035,10 @@ module.exports = {
 					var sound_frame = Properties.Buttons["sound_on.png"];
 					var sound_button_frame = {};
 					sound_button_frame.x = sign_in_button_frame.x;
-					if(!Profile.LoggedIn)
+					//if(!Profile.LoggedIn)
 						sound_button_frame.y = sign_in_button_frame.y + sign_in_button_frame.h + 20;
-					else
-						sound_button_frame.y = MenuItem.starts + 20;
+					//else
+					//	sound_button_frame.y = MenuItem.starts + 20;
 					sound_button_frame.w = (sign_in_button_frame.w - 2 * 20) / 3;
 					sound_button_frame.h = sound_frame.h / sound_frame.w * sound_button_frame.w;
 					//help button
@@ -1141,7 +1161,10 @@ module.exports = {
 					quiz_button_frame.h = phrase_button_frame.h;
 				}
 				Display.setButton("login_btn.png", login_button_frame.x, login_button_frame.y, login_button_frame.w, login_button_frame.h);
+				Display.setButton("star-boardPoints.png", login_button_frame.x, login_button_frame.y, login_button_frame.w, login_button_frame.h);
+				console.log(Display.getButton("star-board" + "Points" + ".png"));
 				Display.setButton("sign_in_btn.png", sign_in_button_frame.x, sign_in_button_frame.y, sign_in_button_frame.w, sign_in_button_frame.h);
+				Display.setButton("star-boardStars.png", sign_in_button_frame.x, sign_in_button_frame.y, sign_in_button_frame.w, sign_in_button_frame.h);
 				Display.setButton("sound_btn.png", sound_button_frame.x, sound_button_frame.y, sound_button_frame.w, sound_button_frame.h);
 				Display.setButton("help_btn.png", help_button_frame.x, help_button_frame.y, help_button_frame.w, help_button_frame.h);
 				Display.setButton("info_btn.png", info_button_frame.x, info_button_frame.y, info_button_frame.w, info_button_frame.h);
@@ -1153,6 +1176,11 @@ module.exports = {
 					drawLogInButton();
 					drawSignInButton();
 				}
+				else {
+					drawStarBoard("Points");
+					drawStarBoard("Stars");
+				
+				}
 				drawSoundButton();
 				drawHelpButton();
 				drawInfoButton();
@@ -1161,8 +1189,7 @@ module.exports = {
 				drawPhrasesButton();
 				drawQuizButton();
 			}
-			if(Profile.LoggedIn)
-				drawProfilePicture();
+			
 			drawTitle();
 		}
 		/************************************Starting*******************************************************/
@@ -2618,6 +2645,8 @@ module.exports = {
 							drawLetter(sec[j], Result_form.x + 115 * Result_form.w / frame.w + (i + j) * digit.w, Result_form.y + 120 * Result_form.h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 						}
 					}
+					console.log("result:", Task.Result);
+					Task.Result.Max_point = Task.MaxPoint * Task.N_toTest;
 					if(Profile.LoggedIn)
 						socket.emit("Result", {Result: Task.Result});
 					}
@@ -2655,6 +2684,9 @@ module.exports = {
 			
 		}
 		function showProgressMatching() {
+			var frame = Properties.Forms["progress_form_Video.png"];
+			fillRect(0, Display.getForm("progress_form_Video.png").y + 190 / frame.h * frame.w, 10000, 10);
+			fillRect(Display.getForm("progress_form_Video.png").x + 2700 / frame.w * frame.h, 0 , 10, 10000);
 			
 			Answers = Progress.Array[Progress.index].Answers;
 			for(var i = 0; i < Answers.length; i++) {
@@ -2721,6 +2753,7 @@ module.exports = {
 			var digit = {};
 			digit.h = 20  * Display.getForm("progress_form_Video.png").h / frame.h;
 			digit.w = digit.h * digit_frame.w / digit_frame.h;
+			//time
 			var Finish = new Date(Progress.Array[Progress.index].Finish);
 			var Start = new Date(Progress.Array[Progress.index].Start);
 			console.log(Finish.getTime(), Start.getTime(), (Finish.getTime() - Start.getTime()) / 1000 );
@@ -2728,24 +2761,26 @@ module.exports = {
 			var seconds = Math.round((Finish.getTime() - Start.getTime()) / 1000 - 60 * minuts);
 			console.log(minuts, seconds);
 			fillRect(0, Display.getForm("progress_form_Video.png").y + 190 / frame.h * frame.w, 10000, 10);
-			fillRect(Display.getForm("progress_form_Video.png").x + 1300 / frame.w * frame.h, 0 , 10, 10000);
+			fillRect(Display.getForm("progress_form_Video.png").x + 2700 / frame.w * frame.h, 0 , 10, 10000);
 			minuts = minuts + "";
 			seconds = seconds + "";
 			console.log(minuts, seconds);
 			drawTime(minuts, seconds, Display.getForm("progress_form_Video.png").x + 900 / frame.w * frame.h,  Display.getForm("progress_form_Video.png").y + 255 / frame.h * frame.w, digit);
 			console.log(Progress.Array[Progress.index], Progress.Array[Progress.index].Duration);
+			//duration
 			minuts = Math.floor(Progress.Array[Progress.index].Duration / 60);
 			seconds = Math.round(Progress.Array[Progress.index].Duration - 60 * minuts);
 			minuts = minuts + "";
 			seconds = seconds + "";
 			console.log(minuts, seconds);
 			drawTime(minuts, seconds, Display.getForm("progress_form_Video.png").x + 1900 / frame.w * frame.h,  Display.getForm("progress_form_Video.png").y + 325 / frame.h * frame.w, digit);
+			//points
 			Points = Progress.Array[Progress.index].Points + "";
 			digit.h = 25  * Display.getForm("progress_form_Video.png").h / frame.h;
 			digit.w = digit.h * digit_frame.w / digit_frame.h;console.log(Points)
 			for(var j = 0; j < Points.length; j++)
 				drawDigit(Points[j], Display.getForm("progress_form_Video.png").x + 1050 / frame.w * frame.h + j * digit.w, Display.getForm("progress_form_Video.png").y + 395 / frame.h * frame.w - digit.h, digit.w, digit.h, "small-dark");
-			//###
+			//stars
 			var stars = Math.round(5 * Progress.Array[Progress.index].Points / Progress.Array[Progress.index].Max_point);
 			var star_frame = Properties.Buttons["star.png"];
 			var star = {}
@@ -2756,14 +2791,27 @@ module.exports = {
 				drawStar(Display.getForm("progress_form_Video.png").x + 2000 / frame.w * frame.h + j * star.w, Display.getForm("progress_form_Video.png").y + 395 / frame.h * frame.w - star.h, star.w, star.h);
 			for(var j = 0; j < 5 - stars; j++)
 				drawDarkStar(Display.getForm("progress_form_Video.png").x + 2000 / frame.w * frame.h + (stars + j) * star.w, Display.getForm("progress_form_Video.png").y + 395 / frame.h * frame.w - star.h, star.w, star.h);
+			//exercise name
 			console.log("task:", Progress.Array[Progress.index].Exercise);
+			digit.h = 25  * Display.getForm("progress_form_Video.png").h / frame.h;
+			digit.w = digit.h * digit_frame.w / digit_frame.h;
+			if(1300 / frame.w * frame.h + Progress.Array[Progress.index].Exercise.length * digit.w > 2700 / frame.w * frame.h) {
+				digit.w = (2700 / frame.w * frame.h - 1300 / frame.w * frame.h - 10 / Screen.height / Math.min(Screen.k_width, Screen.k_height)) / Progress.Array[Progress.index].Exercise.length;
+				digit.h = digit.w * digit_frame.h / digit_frame.w;
+			}
 			for(var j = 0; j < Progress.Array[Progress.index].Exercise.length; j++) {
 				console.log(Progress.Array[Progress.index].Exercise[j]);
 				if(Progress.Array[Progress.index].Exercise[j] != " ") {
-					var type = "";
-					if(j == 0)
-						type = "capital";
-					drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 1300 / frame.w * frame.h + j * digit.w, Display.getForm("progress_form_Video.png").y + 190 / frame.h * frame.w - digit.h, digit.w, digit.h, type);
+					var type = "small-dark";
+					if(Progress.Array[Progress.index].Exercise[j] < "0" || Progress.Array[Progress.index].Exercise[j] > "9") {
+						if(j == 0)
+							type = "capital";
+						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 1300 / frame.w * frame.h + j * digit.w, Display.getForm("progress_form_Video.png").y + 190 / frame.h * frame.w - digit.h, digit.w, digit.h, type);
+					}
+					else
+					{
+						drawDigit(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 1300 / frame.w * frame.h + j * digit.w, Display.getForm("progress_form_Video.png").y + 190 / frame.h * frame.w - digit.h, digit.w, digit.h, type);
+					}
 				}
 			}
 			
@@ -3193,6 +3241,9 @@ module.exports = {
 				}
 				catch(e) {}
 				// menu button has been clicked
+				console.log("first", Mode.Mobile, !Mode.Menu, Mode.MenuItem, !Mode.Exercise, !Mode.Results, !Mode.SignIn, !Mode.LogIn, mouseInRect(Display.getButton("menu_btn.png")));
+				console.log("second", Mode.Mobile, Mode.Menu, mouseInRect(Display.getButton("menu_btn.png")))
+				//fillRect(Display.getButton("menu_btn.png").x, Display.getButton("menu_btn.png").y, Display.getButton("menu_btn.png").w, Display.getButton("menu_btn.png").h)
 				if(Mode.Mobile && !Mode.Menu && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = true;
 					Mode.MenuItem = false;
@@ -3214,6 +3265,7 @@ module.exports = {
 					respondCanvas();
 				}
 				else if(Mode.Mobile && Mode.Menu && mouseInRect(Display.getButton("menu_btn.png"))) {
+					console.log("removing canvas");
 					Mode.Menu = false;
 					Mode.MenuItem = true;
 					$("#MenuCanvas").remove();
@@ -3571,6 +3623,7 @@ module.exports = {
 						else {
 							if(Profile.LoggedIn) {
 								Task.Result.Finish = new Date();
+								console.log("result:", Task.Result);
 								socket.emit("Result", {Result: Task.Result});
 							}
 							Quiz.Total = Quiz.Total + Task.Result.Answers.length;
@@ -3677,13 +3730,13 @@ module.exports = {
 								Task.Result.UserName = Profile.UserName;
 								Task.Result.Exercise = TaskName;
 								Task.Result.Topic_Name = Task.TopicName;
-								Task.Result.Type = Type;
+								Task.Result.Type = Task.Type;
 							};
 							setTest(Task.Frames[TaskName].concat(), N);
 						}
 						catch(e) {
 							setTimeout(function() {
-								//checkloaded.Numbers(TaskName, N);
+								checkloaded.Numbers(TaskName, N);
 							}, 200);
 							
 						}
@@ -3736,6 +3789,7 @@ module.exports = {
 							Mode[Task.TaskName.replace(/\s/g,'')] = true;
 							frametype1 = "frame";
 							frametype2 = "Wordsframe";
+							
 							if(!Mode.Quiz)
 								Mode.Training = true;
 							if(!Task.loadedAnimalsWordsframe)
@@ -3806,7 +3860,7 @@ module.exports = {
 							
 							break;
 						case 'Name numbers from 0 to 9':
-							
+							console.log(Task.TaskName);
 							if(!Mode.Quiz)
 									Mode.Training = true;
 							frametype2 = "Wordsframe";
@@ -3822,6 +3876,7 @@ module.exports = {
 								})
 								socket.on('getTask', function(data){
 									Task.Frames[TaskName] = data.Content;
+									console.log(Task.Frames[TaskName]);
 									checkloaded.Numbers(TaskName, N);		
 								})		
 							}
@@ -4036,7 +4091,7 @@ module.exports = {
 					initMenu();
 					delete Task.Result.time;
 					
-					
+					Task.Result.Max_point = Task.MaxPoint * Task.N_toTest;
 					if(Profile.LoggedIn && !Mode.Training){
 						socket.emit("Result", {Result: Task.Result});
 						
@@ -4319,7 +4374,7 @@ module.exports = {
 						drawLoading();
 						socket.emit('progress', {
 							UserName: Profile.UserName,
-							filter: 1
+							filter: 2
 						})
 						socket.on('progress', function(data){
 							Progress.Array = data.progress;
@@ -4445,7 +4500,9 @@ module.exports = {
 		Profile.Password = data.user.Password;
 		Profile.Accent = data.user.Accent;
 		Profile.LoggedIn = true;
+		console.log("loggedIn", Profile.LoggedIn);
 	})
+	
 	function displayMenu() {
 		try{
 			var frame = Properties.Buttons["left-arrow.png"].frame;
@@ -4475,14 +4532,12 @@ module.exports = {
 	}
 	function getProperties() {
 		socket.on('getProperties', function(data){
-			console.log(Properties.Letters);
 			Properties.Topics = data.topics;
 			Properties.Tasks = data.tasks;
 			Properties.Buttons = data.buttons;
 			Properties.Forms = data.forms;
 			Properties.Numbers = data.numbers;
 			Properties.Letters = data.letters;
-			console.log(Properties.Letters);
 			current = 0;
 			drawLoading();
 			displayMenu();

@@ -284,7 +284,7 @@ io.sockets.on('connection', function(socket) {
 							}
 							db.SpreadSheets.find({"Name": "Capital-letters"}, function(err, res){
 								res = res[0].Frames;
-								console.log(res);
+								//console.log(res);
 								for(i = 0; i < res.length; i++){
 									delete res[i].rotated;
 									delete res[i].trimmed;
@@ -340,7 +340,7 @@ io.sockets.on('connection', function(socket) {
 							if(res){
 								User.Password = hash;
 								console.log("hash:", User.Password);
-								db.Users.insert({"UserName": User.UserName, "Password": User.Password, "Accent":User.Accent, "Points":0}, function(err, res){
+								db.Users.insert({"UserName": User.UserName, "Password": User.Password, "Accent":User.Accent, "Points":0, "Max_points": 0}, function(err, res){
 									if(res) {
 										socket.handshake.session.user = User;
 										socket.handshake.cookies.user = User;
@@ -426,7 +426,7 @@ io.sockets.on('connection', function(socket) {
 		console.log("result", data.Result);
 		db.Results.insert(data.Result, function(err, res){
 			if(res) {
-				db.Users.update({"UserName" : data.Result.UserName}, {$inc:{Points:data.Result.Points}}, function(err, res){});
+				db.Users.update({"UserName" : data.Result.UserName}, {$inc:{Points:data.Result.Points, Max_points: data.Result.Max_point}}, function(err, res){});
 			}
 		});
 	})
@@ -444,7 +444,6 @@ io.sockets.on('connection', function(socket) {
 			if(res.length) {
 				var f = 0, i = 0;
 				date = res[i].Start.substring(0, 10);
-				//console.log(date, date.substring(0, 10));
 				while(f < data.filter && i < res.length) {
 					console.log("f", f, "i", i, "date", date);
 					if(date == res[i].Start.substring(0, 10))
