@@ -522,7 +522,8 @@
 			//console.log(type + n + ".png");
 			var frame = Properties.Letters[type + n + ".png"];
 			//use this
-			//height = width / frame.w * frame.h; 
+			//height = width / frame.w * frame.h;
+			console.log("type.substring(0, type.length - 8)", type.substring(0, type.length - 8), type);
 			if(type.substring(0, type.length - 8) != "capital-"){
 				if(n == "-") {
 					y = y + height / 4;
