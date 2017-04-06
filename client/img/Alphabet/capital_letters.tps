@@ -422,6 +422,32 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">capital-small-dark-q.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,14,28,28</rect>
+                <key>scale9Paddings</key>
+                <rect>14,14,28,28</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">capital-small-dark-s.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,12,26,24</rect>
+                <key>scale9Paddings</key>
+                <rect>13,12,26,24</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">capital-t.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -542,6 +568,8 @@
             <filename>capital-k.png</filename>
             <filename>capital-l.png</filename>
             <filename>capital-m.png</filename>
+            <filename>capital-small-dark-q.png</filename>
+            <filename>capital-small-dark-s.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
