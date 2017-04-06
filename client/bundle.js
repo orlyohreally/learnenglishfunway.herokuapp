@@ -745,8 +745,8 @@ module.exports = {
 			var frame = Properties.Letters[type + n + ".png"];
 			//use this
 			//height = width / frame.w * frame.h;
-			console.log("type.substring(0, type.length - 8)", type.substring(0, type.length - 8), type);
-			if(type.substring(0, type.length - 8) != "capital-"){
+			console.log("type.substring(0, type.length - 8)", type.substring(0, 8), type);
+			if(type.substring(0, 8) != "capital-"){
 				if(n == "-") {
 					y = y + height / 4;
 					height = height / 2;
