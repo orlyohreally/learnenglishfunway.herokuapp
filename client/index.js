@@ -537,6 +537,7 @@
 			else {
 				if(n == "s")
 					type = type + "small-dark-";
+				var frame = Properties.Letters[type + n + ".png"];
 				//console.log(n, frame);
 				if(Mode.Progress)
 					Progress_ctx.drawImage(atlasCapitalLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
