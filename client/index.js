@@ -523,7 +523,7 @@
 			var frame = Properties.Letters[type + n + ".png"];
 			//use this
 			//height = width / frame.w * frame.h; 
-			if(type != "capital-"){
+			if(type.substring(0, type.length - 8) != "capital-"){
 				if(n == "-") {
 					y = y + height / 4;
 					height = height / 2;
@@ -535,9 +535,6 @@
 					ctx.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 			}
 			else {
-				if(n == "s")
-					type = type + "small-dark-";
-				var frame = Properties.Letters[type + n + ".png"];
 				//console.log(n, frame);
 				if(Mode.Progress)
 					Progress_ctx.drawImage(atlasCapitalLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
@@ -2539,7 +2536,7 @@
 					var type = "small-dark";
 					if(Progress.Array[Progress.index].Exercise[j] < "0" || Progress.Array[Progress.index].Exercise[j] > "9") {
 						if(j == 0)
-							type = "capital";
+							type = "capital-" + type;
 						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 220 * Display.getForm("progress_form_Matching.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Matching.png").y +  75 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 					else
@@ -2561,7 +2558,7 @@
 					var type = "small-dark";
 					if(Progress.Array[Progress.index].Topic_Name[j] < "0" || Progress.Array[Progress.index].Topic_Name[j] > "9") {
 						if(j == 0)
-							type = "capital";
+							type = "capital-" + type;
 						drawLetter(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 170 * Display.getForm("progress_form_Matching.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Matching.png").y + 100 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 					else
@@ -2745,7 +2742,7 @@
 					var type = "small-dark";
 					if(Progress.Array[Progress.index].Exercise[j] < "0" || Progress.Array[Progress.index].Exercise[j] > "9") {
 						if(j == 0)
-							type = "capital";
+							type = "capital-" + type;
 						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 330 * Display.getForm("progress_form_Video.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Video.png").y + 160 * Display.getForm("progress_form_Video.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 					else
