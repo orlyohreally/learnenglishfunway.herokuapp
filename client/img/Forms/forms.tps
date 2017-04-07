@@ -200,6 +200,11 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">log_in_form.png</key>
+            <key type="filename">../Messages/enter-all-data.png</key>
+            <key type="filename">../Messages/incorrect-data.png</key>
+            <key type="filename">../Messages/need_to_do_exerciseProgress.png</key>
+            <key type="filename">../Messages/need_to_do_exerciseQuiz.png</key>
+            <key type="filename">../Messages/need_to_loginProgress.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -314,6 +319,11 @@
             <filename>setting_form.png</filename>
             <filename>progress_form_Matching.png</filename>
             <filename>progress_form_Video.png</filename>
+            <filename>../Messages/enter-all-data.png</filename>
+            <filename>../Messages/incorrect-data.png</filename>
+            <filename>../Messages/need_to_do_exerciseProgress.png</filename>
+            <filename>../Messages/need_to_do_exerciseQuiz.png</filename>
+            <filename>../Messages/need_to_loginProgress.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

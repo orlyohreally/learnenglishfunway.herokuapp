@@ -1,0 +1,57 @@
+{"frames": [
+
+{
+	"filename": "ReaderAnimals.png",
+	"frame": {"x":0,"y":0,"w":294,"h":294},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":294,"h":294},
+	"sourceSize": {"w":294,"h":294},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "ReaderNumbers.png",
+	"frame": {"x":294,"y":0,"w":294,"h":294},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":294,"h":294},
+	"sourceSize": {"w":294,"h":294},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "SpeedsterAlphabet.png",
+	"frame": {"x":0,"y":294,"w":736,"h":736},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":736},
+	"sourceSize": {"w":736,"h":736},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "SpeedsterAnimals.png",
+	"frame": {"x":588,"y":0,"w":294,"h":294},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":294,"h":294},
+	"sourceSize": {"w":294,"h":294},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "SpeedsterNumbers.png",
+	"frame": {"x":0,"y":1030,"w":736,"h":736},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":736},
+	"sourceSize": {"w":736,"h":736},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "rewards.png",
+	"format": "RGBA8888",
+	"size": {"w":882,"h":1766},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:eedc90e95a049f1e88de86fcaf44d19a:fbc72a7197c595909838d4097c286ace:4e549fd5f25429ef5063a975f7080ca0$"
+}
+}
