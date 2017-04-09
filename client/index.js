@@ -43,7 +43,7 @@
 		MenuItem.ItemList = {};
 		MenuItem.clicked = -1;
 		MenuItem.chosen = MenuItem.clicked;
-
+		Error = {};
 		Task.display = 4;
 		Task.firstTask = 0;
 		Task.test = [];
@@ -94,6 +94,8 @@
 				c = $('#ProgressCanvas');
 			else if(document.getElementById("SettingsCanvas"))
 				c = $('#SettingsCanvas');
+			else if(document.getElementById("MessageCanvas"))
+				c = $('#MessageCanvas');
 			var ct = c.get(0).getContext('2d');
 			var container = $(c).parent();
 			c.attr('width', $(container).width()); //max width
@@ -266,6 +268,7 @@
 		}
 		MenuItem.loadedMenuItems;
 		function loadMenuItems(){
+			console.log("loadedMenuItems");
 			atlasMenuItem.src = '/img/Menu-Items/menu-items.png';
 			atlasMenuItem.addEventListener("load", function() {
 				MenuItem.loadedMenuItems = true;
@@ -385,6 +388,8 @@
 				context = Menu_ctx;
 			else if(Mode.Progress)
 				context = Progress_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
 			else if(Mode.Settings)
 				context = Settings_ctx;
 			else
@@ -448,6 +453,8 @@
 			var frame = Properties.Buttons["login_btn.png"];
 			if(Mode.Settings)
 				context = Settings_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
 			else if(Mode.Menu)
 				context = Menu_ctx;
 			else
@@ -459,6 +466,8 @@
 			var frame = Properties.Buttons["sign_up_btn.png"];
 			if(Mode.Settings)
 				context = Settings_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
 			else if(Mode.Menu)
 				context = Menu_ctx;
 			else
@@ -468,13 +477,16 @@
 		function drawSettingsButton(){
 			var frame = Properties.Buttons["settings_btn.png"];
 			if(Mode.Progress)
-				Progress_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("setting_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
+				context = Progress_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
 			else if(Mode.Settings)
-				Settings_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("setting_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
-			else if(!Mode.Menu)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("setting_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
+				context = Settings_ctx;
+			else if(Mode.Menu)
+				context = Menu_ctx;
 			else
-				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("setting_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
+				context = ctx;
+			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("setting_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 			
 		}
 		
@@ -508,6 +520,8 @@
 				context = Progress_ctx;
 			else if(Mode.Settings)
 				context = Settings_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -528,6 +542,8 @@
 				context = Progress_ctx;
 			else if(Mode.Settings)
 				context = Settings_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -546,6 +562,12 @@
 			console.log(frame.x, frame.y, frame.w, frame.h, Display.getForm("setting_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").h * Math.min(Screen.k_width, Screen.k_height));
 			Settings_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("setting_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
+		function drawMessageForm(name) {
+			var frame = Properties.Forms[name];
+			console.log(frame);
+			console.log(frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
+			Message_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
+		}
 		function drawResultForm() {
 			var frame = Properties.Forms["result_form.png"];
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("result_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("result_form.png").h * Math.min(Screen.k_width, Screen.k_height))
@@ -554,10 +576,14 @@
 			var frame = Properties.Forms["progress_form_" + type + ".png"];
 			Progress_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("progress_form_" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("progress_form_" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("progress_form_" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("progress_form_" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
-		function drawResultOkayButton(x, y, width, height) {
+		function drawOkayButton(x, y, width, height) {
 			var frame = Properties.Forms["result_form_okay_btn.png"];
 			//ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
-			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("result_form_okay_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
+			if(Mode.Message)
+				context = Message_ctx;
+			else
+				context = ctx;
+			context.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("result_form_okay_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_okay_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawResultTryAgainButton(x, y, width, height) {
 			var frame = Properties.Forms["result_form_try_again_btn.png"];
@@ -565,15 +591,31 @@
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("result_form_try_again_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawDigit(n, x, y, width, height, type = "") {
-			//console.log("n:", n);
+			console.log("n :", n, n!="/");
 			if(type != "")
 				type = type + "-";
-			var frame = Properties.Numbers[type + n + ".png"];
-			if(!Mode.Progress)
-				ctx.drawImage(atlas.Numbersframe, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			var frame;
+			if(n != "/")
+				frame = Properties.Numbers[type + n + ".png"];
 			else
-				Progress_ctx.drawImage(atlas.Numbersframe, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
-			
+				frame = Properties.Letters[type + "slash.png"];
+			console.log("frame", frame);
+			if(Mode.Menu)
+				context = Menu_ctx;
+			else if(Mode.Progress)
+				context = Progress_ctx;
+			else if(Mode.Settings)
+				context = Settings_ctx;
+			else
+				context = ctx;
+			console.log(context);
+			console.log(frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(n != "/")
+				context.drawImage(atlas.Numbersframe, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			else {
+				console.log("slash");
+				context.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			}
 		}
 		function drawLetter(n, x, y, width, height, type = "") {
 			if(type != "")
@@ -582,7 +624,7 @@
 			var frame = Properties.Letters[type + n + ".png"];
 			//use this
 			//height = width / frame.w * frame.h;
-			console.log("type.substring(0, type.length - 8)", type.substring(0, 8), type);
+			//console.log("type.substring(0, type.length - 8)", type.substring(0, 8), type);
 			if(type.substring(0, 8) != "capital-"){
 				if(n == "-") {
 					y = y + height / 4;
@@ -636,24 +678,66 @@
 		}
 		function drawStarBoard(type) {
 			var frame = Properties.Buttons["star-board.png"];
-			if(Mode.Progress) {
-				Progress_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("star-board" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height));
-			}
+			if(Mode.Menu)
+				context = Menu_ctx;
+			else if(Mode.Progress)
+				context = Progress_ctx;
 			else if(Mode.Settings)
-				Settings_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("star-board" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height));
-			else if(!Mode.Menu)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("star-board" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height));
+				context = Settings_ctx;
 			else
-				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("star-board" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height));
-			
-		}
-		function drawProfilePicture() {
-			var frame = Properties.Buttons["profile_girl1.png"];
-			if(!Mode.Menu)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("profile_pic.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").h * Math.min(Screen.k_width, Screen.k_height))
-			else
-				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("profile_pic.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("profile_pic.png").h * Math.min(Screen.k_width, Screen.k_height))
-			
+				context = ctx;
+			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("star-board" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height));
+			console.log(Profile, Profile.Points, Profile.Max_points);
+			ctx.fillStyle = "#000000";
+			if(type == "Stars"){
+				//fillRect(Display.getButton("star-board" + type + ".png").x, Display.getButton("star-board" + type + ".png").y + 25 / frame.h * Display.getButton("star-board" + type + ".png").h, 1000, 10);
+				//fillRect(Display.getButton("star-board" + type + ".png").x, Display.getButton("star-board" + type + ".png").y + Display.getButton("star-board" + type + ".png").h - 25 / frame.h * Display.getButton("star-board" + type + ".png").h, 1000, 10);
+				//fillRect(Display.getButton("star-board" + type + ".png").x + 25 / frame.w * Display.getButton("star-board" + type + ".png").w, 0, 10, 1000);
+				//fillRect(Display.getButton("star-board" + type + ".png").x + Display.getButton("star-board" + type + ".png").w - 25 / frame.w * Display.getButton("star-board" + type + ".png").w, 0, 10, 1000);
+				//#####
+				
+				//stars
+				var stars = Math.round(5 * Profile.Points / Profile.Max_points);
+				if(!Profile.Max_points)
+					stars = 0;
+				var star_frame = Properties.Buttons["star.png"];
+				console.log(stars);
+				var star = {}
+				star.h = Display.getButton("star-board" + type + ".png").h - 50 / frame.h * Display.getButton("star-board" + type + ".png").h;
+				star.w = star.h * star_frame.w / star_frame.h;
+				console.log(5 * star.w , Display.getButton("star-board" + type + ".png").w - 50 / frame.w * Display.getButton("star-board" + type + ".png").w);
+				if(5 * star.w > Display.getButton("star-board" + type + ".png").w - 50 / frame.w * Display.getButton("star-board" + type + ".png").w) {
+					console.log("does not fit");
+					star.w = (Display.getButton("star-board" + type + ".png").w  - 50 / frame.w * Display.getButton("star-board" + type + ".png").w )/ 5;
+					star.h = star.w * star_frame.h / star_frame.w;
+				}
+				star.y = Display.getButton("star-board" + type + ".png").y + (Display.getButton("star-board" + type + ".png").h - star.h) / 2;
+				for(var j = 0; j < stars; j++)
+					drawStar(Display.getButton("star-board" + type + ".png").x + 25 / frame.w * Display.getButton("star-board" + type + ".png").w + j * star.w,star.y, star.w, star.h);
+				for(var j = 0; j < 5 - stars; j++)
+					drawDarkStar(Display.getButton("star-board" + type + ".png").x + 25 / frame.w * Display.getButton("star-board" + type + ".png").w + (stars + j) * star.w, star.y, star.w, star.h);
+				
+			}
+			else {
+				//fillRect(Display.getButton("star-board" + type + ".png").x, Display.getButton("star-board" + type + ".png").y + Display.getButton("star-board" + type + ".png").h - 25 / frame.h * Display.getButton("star-board" + type + ".png").h, 1000, 10);
+				//fillRect(Display.getButton("star-board" + type + ".png").x + 25 / frame.w * Display.getButton("star-board" + type + ".png").w, 0, 10, 1000);
+				//fillRect(Display.getButton("star-board" + type + ".png").x + Display.getButton("star-board" + type + ".png").w - 25 / frame.w * Display.getButton("star-board" + type + ".png").w, 0, 10, 1000);
+				var digit_frame = Properties.Numbers["small-dark-5.png"];
+				//points
+				Points = Profile.Points + "/" + Profile.Max_points;
+				digit = {};
+				digit.h = Display.getButton("star-board" + type + ".png").h - 50 / frame.h * Display.getButton("star-board" + type + ".png").h;
+				digit.w = digit.h * digit_frame.w / digit_frame.h;
+				if(Points.length * digit.w > Display.getButton("star-board" + type + ".png").w - 50 / frame.w * Display.getButton("star-board" + type + ".png").w) {
+					console.log("does not fit");
+					digit.w = (Display.getButton("star-board" + type + ".png").w  - 50 / frame.w * Display.getButton("star-board" + type + ".png").w )/ Points.length;
+					digit.h = digit.w * digit_frame.h / digit_frame.w;
+				}
+				digit.y = Display.getButton("star-board" + type + ".png").y + (Display.getButton("star-board" + type + ".png").h - digit.h) / 2;
+				console.log(digit, Points);
+				for(var j = 0; j < Points.length; j++)
+					drawDigit(Points[j], Display.getButton("star-board" + type + ".png").x + 25 / frame.w * Display.getButton("star-board" + type + ".png").w + j * digit.w, digit.y, digit.w, digit.h, "small-dark");
+			}
 		}
 		function drawAvatar(name) {
 			var frame = Properties.Buttons[name];
@@ -678,17 +762,27 @@
 		}
 		function drawDarkStar(x, y, width, height) {
 			var frame = Properties.Buttons["dark-star.png"];
-			if(!Mode.Progress)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(Mode.Menu)
+				context = Menu_ctx;
+			else if(Mode.Progress)
+				context = Progress_ctx;
+			else if(Mode.Settings)
+				context = Settings_ctx;
 			else
-				Progress_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+				context = ctx;
+			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawStar(x, y, width, height) {
 			var frame = Properties.Buttons["star.png"];
-			if(!Mode.Progress)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+			if(Mode.Menu)
+				context = Menu_ctx;
+			else if(Mode.Progress)
+				context = Progress_ctx;
+			else if(Mode.Settings)
+				context = Settings_ctx;
 			else
-				Progress_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+				context = ctx;
+			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 			
 		}
 		function drawTap(x, y, width, height) {
@@ -719,32 +813,47 @@
 		}
 		function clearRect(x, y, width, height) {
 			if(Mode.Progress)
-				Progress_ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
+				context = Progress_ctx;
 			else if(Mode.Settings)
-				Settings_ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
+				context = Settings_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
+			else if(Mode.Menu)
+				context = Menu_ctx;
 			else
-				ctx.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
+				context = ctx;
+			context.clearRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function clearRectRect(rect) {
-			if(Mode.Menu)
-				Menu_ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
-			else if(Mode.Progress) {
-				Progress_ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
-			}
+			if(Mode.Progress)
+				context = Progress_ctx;
 			else if(Mode.Settings)
-				Settings_ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
-			else {
-				ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
-			}
+				context = Settings_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
+			else if(Mode.Menu)
+				context = Menu_ctx;
+			else
+				context = ctx;
+			context.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
+			
 		}
 		function clearRectRectYellow(rect) {
+			if(Mode.Progress)
+				context = Progress_ctx;
+			else if(Mode.Settings)
+				context = Settings_ctx;
+			else if(Mode.Message)
+				context = Message_ctx;
+			else if(Mode.Menu)
+				context = Menu_ctx;
+			else
+				context = ctx;
 			if(!Mode.Menu) {
 				ctx.fillStyle="#F7FE2E";
-				ctx.fillRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
 			}
-			else {
-				Menu_ctx.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
-			}
+			context.clearRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
+			
 		}
 		function fillRectYellow(x, y, width, height) {
 			ctx.fillStyle="#F7FE2E";
@@ -782,7 +891,7 @@
 		function speak(Word) {
 			try {
 				responsiveVoice.speak(Word, Profile.Accent);
-				console.log(Profile.Accent);
+				//console.log(Profile.Accent);
 			}
 			catch(e){};
 		}
@@ -830,7 +939,7 @@
 			if(!Mode.Mobile) {
 				//title
 				Display.setButton("title.png", Title.leftSpace, 20, Title.size, Title.size*130/470);
-				if(!Mode.Exercise && !Mode.Progress && !Mode.Settings) {
+				if(!Mode.Exercise && !Mode.Progress && !Mode.Settings && !Mode.Message) {
 					//Rewards
 					Display.setButton("rewards_btn.png",Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawRewardsButton(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
@@ -880,7 +989,6 @@
 				MenuFrame.w = frame.w / frame.h * MenuFrame.h;
 				Display.setButton("menu_btn.png", MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
 				drawMenuButton();
-				Display.setButton("profile_pic.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Display.getButton("menu_btn.png").w - 20,Display.getButton("menu_btn.png").y,Display.getButton("menu_btn.png").w, Display.getButton("menu_btn.png").h);
 				var frame = Properties.Buttons["title_in_line.png"];
 				Titleframe = {};
 				Titleframe.x = Display.getButton("menu_btn.png").x + Display.getButton("menu_btn.png").w + 20;
@@ -1119,8 +1227,9 @@
 			
 			if(document.getElementById("MenuCanvas"))
 				Menu_ctx.fillStyle="#F7FE2E";
+			//yellow stripes
 			fillRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), MenuItem.starts);
-			if(!Mode.Exercise && !Mode.Mobile && !Mode.Progress && !Mode.Settings)
+			if(!Mode.Exercise && !Mode.Mobile && !Mode.Progress && !Mode.Settings && !Mode.Message)
 				fillRect(0, MenuItem.ends, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.ends);
 			
 			
@@ -1150,9 +1259,10 @@
 		}
 		function initMenu() {
 			if(!Mode.Menu) {
+				console.log("look");
 				if(!Mode.Exercise) {
 					drawHeader();
-					if(!Mode.Settings) {
+					if(!Mode.Settings && !Mode.Message) {
 						if(MenuItem.loadedMenuItems) {
 							drawMenuItems();
 						}
@@ -1189,7 +1299,7 @@
 				clearScreenRect(0, 0, (Screen.width)/ Math.min(Screen.k_width, Screen.k_height), (Screen.height)/ Math.min(Screen.k_width, Screen.k_height));
 				drawHeader();
 			}
-			console.log("here");
+			
 			if(Mode.Progress) {
 				showProgress();
 			}
@@ -1198,6 +1308,10 @@
 				$("#oldPassword").remove();
 				$("#newPassword").remove();
 				showSettingsForm();
+			}
+			else if(Mode.Message) {
+				console.log("here", Error);
+				showMessageForm(Error.Name + ".png");
 			}
 			loadForms();
 			loadNumbers();
@@ -1267,6 +1381,27 @@
 			var rect = ProgressCanvas.getBoundingClientRect(),
 				scaleX = ProgressCanvas.width / rect.width;
 				scaleY = ProgressCanvas.height / rect.height;
+				mouseX = (mouseEvent.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (mouseEvent.clientY - rect.top) * scaleY;
+				
+			}
+			HoverMenuItem(mouseX, mouseY);
+		}
+		function checkPosMessage(mouseEvent){
+			event.preventDefault();
+			var MessageCanvas = document.getElementById("MessageCanvas");
+			try {
+				var touch = mouseEvent.changedTouches[0];
+				var rect = MessageCanvas.getBoundingClientRect();
+				var scaleX = MessageCanvas.width / rect.width;
+				var scaleY = MessageCanvas.height / rect.height;
+				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (touch.clientY - rect.top) * scaleY;
+			}
+			catch(e) {
+			var rect = MessageCanvas.getBoundingClientRect(),
+				scaleX = MessageCanvas.width / rect.width;
+				scaleY = MessageCanvas.height / rect.height;
 				mouseX = (mouseEvent.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 				mouseY = (mouseEvent.clientY - rect.top) * scaleY;
 				
@@ -1366,7 +1501,6 @@
 		var okay_ch = false;
 		var skip_ch = false;
 		var menu_btn_ch = false;
-		var profile_pic_ch = false;
 		
 		function HoverMenuItem(mouseX, mouseY){
 			//left arrow has been hovered
@@ -1551,18 +1685,6 @@
 				drawSignInButton();
 				signin_ch = false;
 			}
-			if (!Mode.Exercise && Profile.LoggedIn && !profile_pic_ch && mouseInRect(Display.getButton("profile_pic.png"))) {
-				clearRectRectYellow(Display.getButton("profile_pic.png"));
-				Display.expandButton("profile_pic.png", 3);
-				drawProfilePicture();
-				profile_pic_ch = true;
-			}
-			else if(!Mode.Exercise && Profile.LoggedIn && profile_pic_ch && !(mouseInRect(Display.getButton("profile_pic.png")))) {
-				clearRectRectYellow(Display.getButton("profile_pic.png"));
-				Display.expandButton("profile_pic.png", -3);
-				drawProfilePicture();
-				profile_pic_ch = false;
-			}
 			//rewards button
 			if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!rewards_ch && mouseInRect(Display.getButton("rewards_btn.png"))) {
 				clearRectRectYellow(Display.getButton("rewards_btn.png"));
@@ -1663,7 +1785,7 @@
 				settings_ch = false;
 			}
 			//help button has been hovered
-			if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings)) &&!help_ch && mouseInRect(Display.getButton("help_btn.png"))) {
+			if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings)) &&!help_ch && mouseInRect(Display.getButton("help_btn.png"))) {
 				clearRectRectYellow(Display.getButton("help_btn.png"));
 				var n = 2;
 				if(Mode.Menu)
@@ -1672,7 +1794,7 @@
 				drawHelpButton();
 				help_ch = true;
 			}
-			else if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings)) && help_ch && !(mouseInRect(Display.getButton("help_btn.png")))) {
+			else if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings)) && help_ch && !(mouseInRect(Display.getButton("help_btn.png")))) {
 				clearRectRectYellow(Display.getButton("help_btn.png"));
 				var n = 2;
 				if(Mode.Menu)
@@ -1893,7 +2015,7 @@
 				drawResultForm();
 				Display.expandButton("result_form_try_again_btn.png", -3);
 				drawResultTryAgainButton();
-				drawResultOkayButton();
+				drawOkayButton();
 					
 				var Correct = countCorrect(Task.Result.Answers);
 				var Answers = Task.Result.Answers;
@@ -2004,17 +2126,17 @@
 				var btn_height = btn_width * btn.h / btn.w;
 				
 				
-				//okay hovered in show results
+				//okay button hovered in show results
 				if (Mode.Results && !Mode.SignIn && !Mode.LogIn &&!okay_ch && mouseInRect(Display.getButton("result_form_okay_btn.png"))) {
 					Display.expandButton("result_form_okay_btn.png", 3);
-					drawResultOkayButton();
+					drawOkayButton();
 					okay_ch = true;
 				}
 				else if(Mode.Results && !Mode.SignIn && !Mode.LogIn && okay_ch && !(mouseInRect(Display.getButton("result_form_okay_btn.png")))) {
 					clearScreenRect(Display.getButton("result_form_okay_btn.png"));
 					drawResultForm();
 					Display.expandButton("result_form_okay_btn.png", -3);
-					drawResultOkayButton();
+					drawOkayButton();
 					if(!Mode.Quiz)
 						drawResultTryAgainButton();
 					var Correct = 0;
@@ -2147,6 +2269,18 @@
 				Display.expandButton("log_out_btn.png", -5);
 				showSettingsForm();
 				log_out_btn_ch = false;
+			}
+			//okay button hovered during message
+			if (Mode.Message && !okay_ch && mouseInRect(Display.getButton("result_form_okay_btn.png"))) {
+				Display.expandButton("result_form_okay_btn.png", 5);
+				drawOkayButton();
+				okay_ch = true;
+			}
+			else if (Mode.Message && okay_ch && !(mouseInRect(Display.getButton("result_form_okay_btn.png")))) {
+				Display.expandButton("result_form_okay_btn.png", -5);
+				console.log("Error", Error);
+				showMessageForm(Error.Name + ".png");
+				okay_ch = false;
 			}
 		}
 		function leftArrowClicked() {
@@ -2452,7 +2586,8 @@
 		function showLogInForm(){
 				var iter = 0;
 				if(Forms_loaded){
-					$("#MenuCanvas").remove();
+					if(document.getElementById("MenuCanvas"))
+						$("#MenuCanvas").remove();
 					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
 					Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
 					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
@@ -2544,7 +2679,7 @@
 					Display.setButton("result_form_okay_btn.png", Result_form.x + 20 * Result_form.w / frame.w + 20 + btn_width, Result_form.y + Result_form.h - btn_height / 2 -  10 * Result_form.w / frame.w, btn_width, btn_height);
 					if(!Mode.Quiz)
 						drawResultTryAgainButton();
-					drawResultOkayButton();
+					drawOkayButton();
 					
 					
 					var digit_frame = Properties.Numbers["small-dark-1.png"];
@@ -2910,6 +3045,7 @@
 				drawRightArrow();
 			drawProgressForm(Progress.Array[Progress.index].Type);
 			drawHeader();
+			console.log(Progress.Array[Progress.index]);
 			switch(Progress.Array[Progress.index].Type) {
 				case "Video":
 					showProgressVideo();
@@ -2956,9 +3092,8 @@
 			SettingsForm_frame.h = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 40;
 			SettingsForm_frame.w = SettingsForm_frame.h * frame.w / frame.h;
 			
-			if(SettingsForm_frame.w > Screen.width / Math.min(Screen.k_width, Screen.k_height)- 2 * 20 - 2 * MenuItem.leftSpace) {
-				
-				SettingsForm_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * MenuItem.leftSpace - 2 * 20;
+			if(SettingsForm_frame.w > Screen.width / Math.min(Screen.k_width, Screen.k_height)- 2 * 20) {
+				SettingsForm_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20;
 				SettingsForm_frame.h = SettingsForm_frame.w * frame.h / frame.w;
 			}
 			SettingsForm_frame.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - SettingsForm_frame.w) / 2;
@@ -3036,6 +3171,39 @@
 			fillRect(Display.getForm("setting_form.png").x + 140 * Display.getForm("setting_form.png").w / frame.w, 0, 10, 1000);
 			fillRect(Display.getForm("setting_form.png").x + 160 * Display.getForm("setting_form.png").w / frame.w, 0, 10, 1000);
 		}
+		function setPropMessage(name) {
+			console.log("message", name);
+			var frame = Properties.Forms[name];
+			console.log(frame);
+			var MessageForm_frame = {};
+			
+			MessageForm_frame.h = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 40 - 100;
+			MessageForm_frame.w = MessageForm_frame.h * frame.w / frame.h;
+			
+			if(MessageForm_frame.w > Screen.width / Math.min(Screen.k_width, Screen.k_height)- 2 * 20 - 100) {
+				MessageForm_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20 - 100;
+				MessageForm_frame.h = MessageForm_frame.w * frame.h / frame.w;
+			}
+			MessageForm_frame.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MessageForm_frame.w) / 2;
+			MessageForm_frame.y = MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - MessageForm_frame.h) / 2;
+			Display.setForm(name, MessageForm_frame.x, MessageForm_frame.y, MessageForm_frame.w, MessageForm_frame.h);
+			var okay_btn = {};
+			okay_btn.y = Display.getForm(name).y + Display.getForm(name).h -  20 * Display.getForm(name).h / frame.h;
+			okay_btn.w = Display.getForm(name).w / 3;
+			okay_btn.x = Display.getForm(name).x + (Display.getForm(name).w - okay_btn.w) / 2;
+			okay_btn.h = okay_btn.w * Properties.Forms["result_form_okay_btn.png"].h / Properties.Forms["result_form_okay_btn.png"].w;
+			Display.setButton("result_form_okay_btn.png", okay_btn.x, okay_btn.y, okay_btn.w, okay_btn.h);
+			
+			
+		}
+		function showMessageForm(name) {
+			console.log("showing message form", name);
+			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
+			drawHeader();
+			setPropMessage(name);
+			drawMessageForm(name);
+			drawOkayButton();
+		}
 		function showSettings() {
 			if(Forms_loaded){
 				document.getElementById("Loading").style.visibility = "hidden";
@@ -3055,11 +3223,40 @@
 				SettingsCanvas.addEventListener("mouseup", checkClick);
 				SettingsCanvas.addEventListener("touchend", checkClick);
 				Settings_ctx = document.getElementById("SettingsCanvas").getContext("2d");
-				showSettingsForm();
+				showSettingsForm(name);
 			}
 			else {
 				setTimeout(function(){
 					showSettings();
+				}, 10);
+			}
+		}
+		function showMessage(name) {
+			if(Forms_loaded){
+				document.getElementById("Loading").style.visibility = "hidden";
+				ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
+				if(!document.getElementById("MessageCanvas")) {
+					var MessageC = document.createElement('canvas');
+					MessageC.id = 'MessageCanvas';
+					MessageC.width = document.getElementById("MainCanvas").width;
+					MessageC.height = document.getElementById("MainCanvas").height;
+					document.getElementById("mainDiv").appendChild(MessageC);
+					ProgressCanvas = document.getElementById("MessageCanvas");
+				}
+				MessageCanvas.addEventListener("touchmove", checkPosMessage, false);
+				MessageCanvas.addEventListener("mousemove", checkPosMessage);
+				MessageCanvas.addEventListener("mousedown", MouseDown);
+				MessageCanvas.addEventListener("touchstart", MouseDown);
+				MessageCanvas.addEventListener("mouseup", checkClick);
+				MessageCanvas.addEventListener("touchend", checkClick);
+				Message_ctx = document.getElementById("MessageCanvas").getContext("2d");
+				
+				
+				showMessageForm(name);
+			}
+			else {
+				setTimeout(function(){
+					showMessage(name);
 				}, 10);
 			}
 		}
@@ -3603,10 +3800,13 @@
 					Mode.Menu = false;
 					Mode.Settings = true;
 					flag = "";
+					if(document.getElementById("MenuCanvas"))
+						$("#MenuCanvas").remove();
 					showSettings();
 				}
 				//cancel button clicked during Settings
 				if (Mode.Settings && mouseInRect(Display.getButton("sign_in_form_cancel_btn_ch.png"))) {
+					setTimeout(function(){
 					$("#SettingsCanvas").remove();
 					$("inputdiv").remove();
 					$("#oldPassword").remove();
@@ -3615,28 +3815,54 @@
 					Mode.Settings = false;
 					
 					respondCanvas();
+					}, 100);
 				}
 				//save button clicked during Settings
 				if (Mode.Settings && mouseInRect(Display.getButton("save_btn.png"))) {
 					console.log("old accent", Profile.Accent);
 					Profile.Accent = setAccent();
+					setTimeout(function() {
+					Mode.MenuItem = true;
+					Mode.Settings = false;
 					//update accent in database!!!!!
 					$("#SettingsCanvas").remove();
 					$("inputdiv").remove();
 					$("#oldPassword").remove();
 					$("#newPassword").remove();
-					Mode.MenuItem = true;
-					Mode.Settings = false;
+					console.log("menuitem", Mode.MenuItem);
 					
 					respondCanvas();
+					}, 100);
 					console.log("new accent", Profile.Accent);
 				}
-				
+				//okay button has been clicked during message
+				if (Mode.Message && mouseInRect(Display.getButton("result_form_okay_btn.png"))) {
+					$("#MessageCanvas").remove;
+					
+					if(Error.Mode == "sign_in_form") {
+						$("#MessageCanvas").remove();
+						Mode.Message = false;
+						Mode.SignIn = true;
+						respondCanvas();
+						showSignInForm();
+					}
+					else if(Error.Mode == "log_in_form") {
+						$("#MessageCanvas").remove();
+						Mode.Message = false;
+						Mode.Login = true;
+						respondCanvas();
+						showLogInForm();
+					}
+					delete Error.Name;
+					delete Error.Mode;
+					
+				}
 				//log out btton clicked during Settings
 				if (Mode.Settings && Profile.LoggedIn && mouseInRect(Display.getButton("log_out_btn.png"))){
 					socket.emit("Logout", {});
 					socket.on("Logout", function(data){
 						if(data.res) {
+							setTimeout(function(){
 							$("#SettingsCanvas").remove();
 							$("inputdiv").remove();
 							$("#oldPassword").remove();
@@ -3645,10 +3871,10 @@
 							Mode.Settings = false;
 							Profile.LoggedIn = false;
 							respondCanvas();
+							}, 100);
 						}
 					})
 				}
-				console.log("look!!!!!!!!")
 				if(Mode.Settings) {
 					var i = 0;
 					if(flag == "")
@@ -3738,11 +3964,11 @@
 								if(data.res) {
 									ok = true;
 									Profile.Accent = data.User.Accent;
+									Profile.Points = data.User.Points;
+									Profile.Max_points = data.User.Max_points;
 									Profile.LoggedIn = true;
 									Mode.LogIn = false;
 									Mode.MenuItem = true;
-									Profile.storeUserNameLogIn = false;
-									Profile.storePasswordLogIn = false;
 									clearScreenRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
 									$("#UserName").remove();
 									$("#Password").remove();
@@ -3755,8 +3981,15 @@
 								else if(data.res == false) {
 									if(ok == undefined) {
 										ok = false;
-										alert("Wrong data");
-										document.getElementById("Loading").style.visibility = "hidden";
+										console.log("Wrong data");
+										Mode.Message = true;
+										Mode.LogIn = false;
+										$("inputdiv").remove();
+										$("#UserName").remove();
+										$("#Password").remove();
+										Error.Name = "incorrect-data";
+										Error.Mode = "log_in_form";
+										showMessage("incorrect-data.png");
 										
 									}
 								}
@@ -3764,10 +3997,16 @@
 							});
 						}
 						else {
-							alert("fill all the information");
-							document.getElementById("Loading").style.visibility = "hidden";
-							Mode.LogIn = false;			
 							console.log("fill all the information");
+							Mode.Message = true;
+							Mode.LogIn = false;
+							console.log("Mode.MenuItem", Mode.MenuItem);
+							Error.Name = "enter-all-data";
+							Error.Mode = "log_in_form";
+							$("inputdiv").remove();
+							$("#UserName").remove();
+							$("#Password").remove();
+							showMessage("enter-all-data.png");
 						}
 					}
 					//background has been clicked during LogIn Mode
@@ -3847,14 +4086,15 @@
 									Mode.SignIn = false;
 									Mode.MenuItem = true;
 									Mode.Menu = false;
-									Profile.storeUserNameSignIn = false;
-									Profile.storePasswordSignIn = false;
 									Profile.Accent = NewAccent;
+									Profile.Points = 0;
+									Profile.Max_points = 0;
+									
 									clearScreenRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
 									$("#UserName").remove();
 									$("#Password").remove();
 									$("inputdiv").remove();
-									Profile.Password = "";
+									
 									respondCanvas();
 								}
 								else if(!data.res) {
@@ -3869,8 +4109,15 @@
 							
 						}
 						else {
-							document.getElementById("Loading").style.visibility = "hidden";
-							alert("Fill all information");
+							console.log("Fill all information");
+							Mode.Message = true;
+							Mode.SignIn = false;
+							$("inputdiv").remove();
+							$("#UserName").remove();
+							$("#Password").remove();
+							Error.Name = "enter-all-data";
+							Error.Mode = "sign_in_form";
+							showMessage("enter-all-data.png");
 						}
 					}
 				}}
@@ -3917,6 +4164,9 @@
 							Quiz.Correct = Quiz.Correct + countCorrect(Task.Result.Answers);
 							Quiz.Points = Quiz.Points + countPoints(Task.Result.Answers, Task.Result.Answers.length, Quiz.Content[Exercise_num].Max_point);
 							Quiz.TotalMax = Quiz.TotalMax + Task.Result.Answers.length * Quiz.Content[Exercise_num].Max_point;
+							console.log("adding points up", Quiz.Points,  Task.Result.Answers.length * Quiz.Content[Exercise_num].Max_point);
+							Profile.Points = Profile.Points + Quiz.Points;
+							Profile.Max_points = Profile.Max_points +  Task.Result.Answers.length * Quiz.Content[Exercise_num].Max_point;
 							Mode.Results = false;
 							Task.Result = {};
 							delete Task.Frames[Task.TaskName];
@@ -4310,6 +4560,9 @@
 						Points = Math.floor(Task.MaxPoint * (Task.Result.Finish - Task.Result.Start) / 1000 / Task.Frames[Task.TaskName].Duration);
 						Task.Result.Max_point = Task.MaxPoint;
 						Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
+						console.log("adding points up", Task.Result.Points, Task.Result.Max_points);
+						Profile.Points = Profile.Points + Task.Result.Points;
+						Profile.Max_points = Profile.Max_points + Task.Result.Max_points;
 						if(Points < Task.MaxPoint)
 							Task.Result.Points = Points;
 						else
@@ -4375,6 +4628,9 @@
 					delete Task.Result.time;
 					
 					Task.Result.Max_point = Task.MaxPoint * Task.N_toTest;
+					console.log("adding points up", Task.Result.Points, Task.Result.Max_points);
+					Profile.Points = Profile.Points + Task.Result.Points;
+					Profile.Max_points = Profile.Max_points + Task.Result.Max_points;
 					if(Profile.LoggedIn && !Mode.Training){
 						socket.emit("Result", {Result: Task.Result});
 						
@@ -4527,7 +4783,7 @@
 					var btn_height = btn_width * btn.h / btn.w;
 					
 					
-					//okay has been clicked in show results
+					//okay button has been clicked in show results
 					if (Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("result_form_okay_btn.png"))) {
 						
 						Mode.Quiz = false;
@@ -4585,19 +4841,9 @@
 							},1000)
 					}
 				}
-				//Profile picture has been clicked
-				if((Mode.MenuItem || Mode.Tasks) && Profile.LoggedIn && mouseInRect(Display.getButton("profile_pic.png"))) {
-					socket.emit("Logout", {});
-					socket.on("Logout", function(data){
-						if(data.res) {
-							Profile.LoggedIn = false;
-							Profile.Accent = "UK English Male";
-							respondCanvas();
-						}
-					})
-				}
+				
 				//Quiz has been clicked
-				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Results&& !Mode.Exercise && mouseInRect(Display.getButton("quiz_btn.png"))) {
+				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Results && !Mode.Settings && !Mode.Exercise && mouseInRect(Display.getButton("quiz_btn.png"))) {
 					if(Profile.LoggedIn) {
 						drawLoading();
 						socket.emit('getQuiz', {
@@ -4640,11 +4886,11 @@
 					}
 				}
 				//rewards button has been clicked
-				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("rewards_btn.png"))) {
+				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Settings && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("rewards_btn.png"))) {
 					alert("Rewards are not available yet:(");
 				}
 				//progress button has been clicked
-				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("progress_btn.png"))) {
+				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) &&  !Mode.Settings && !Mode.Exercise  &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("progress_btn.png"))) {
 					if(Profile.LoggedIn) {
 						Progress.Array = [];
 						Mode.Progress = true;
@@ -4693,7 +4939,7 @@
 					respondCanvas();
 				}
 				//phrases button has been clicked
-				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("phrase_of_the_day_btn.png"))) {
+				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Settings && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("phrase_of_the_day_btn.png"))) {
 					alert("Phrases are not available yet:(");
 				}
 				//help button has been clicked
@@ -4771,8 +5017,7 @@
 	loadLoading();
 	try {
 		loadButtons();
-		loadAnimals();
-		loadAnimalsWords();
+		loadNumbers();
 		loadMenuItems();
 		loadForms();
 	}
@@ -4782,14 +5027,19 @@
 	Profile.LoggedIn = false;
 	socket.on('Old session', function(data) {
 		Profile.UserName = data.user.UserName;
-		Profile.Password = data.user.Password;
 		Profile.Accent = data.user.Accent;
+		Profile.Points = data.user.Points;
+		Profile.Max_points = data.user.Max_points;
 		Profile.LoggedIn = true;
 	})
 	
 	function displayMenu() {
 		try{
+			console.log(Properties);
 			var frame = Properties.Buttons["left-arrow.png"].frame;
+			frame = Properties.Numbers["small-dark-9.png"].frame;
+			
+			
 			if(Properties.Tasks.length && Properties.Topics.length) {
 				respondCanvas();
 				MenuItem.ItemList = [];
@@ -4811,7 +5061,7 @@
 		catch(e) {
 				setTimeout(function(){
 					displayMenu();
-				})
+				}, 10)
 			}
 	}
 	function getProperties() {

@@ -47,7 +47,9 @@ io.sockets.on('connection', function(socket) {
 	if(socket.handshake.session && socket.handshake.session.user) {
 		db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
 			if(res) {
-				socket.emit('Old session', {user: socket.handshake.session.user});
+				console.log("res1", res);
+				//socket.emit('Old session', {user: socket.handshake.session.user});
+				socket.emit('Old session', {user: res[0]});
 			}
 		});
 	}
@@ -340,7 +342,7 @@ io.sockets.on('connection', function(socket) {
 							if(res){
 								User.Password = hash;
 								console.log("hash:", User.Password);
-								db.Users.insert({"UserName": User.UserName, "Password": User.Password, "Accent":User.Accent, "Points":0, "Max_points": 0}, function(err, res){
+								db.Users.insert({"UserName": User.UserName, "Password": User.Password, "Accent":User.Accent, "Points":0, "Max_points": 0, "Rewards":[]}, function(err, res){
 									if(res) {
 										socket.handshake.session.user = User;
 										socket.handshake.cookies.user = User;
