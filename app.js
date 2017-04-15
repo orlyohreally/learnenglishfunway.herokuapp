@@ -1,7 +1,7 @@
 var mongojs = require("mongojs");
 var bcrypt = require("bcryptjs"), SALT_WORK_FACTOR = 10;
 //var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
-var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
+var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Badges', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
 
 
 var express = require('express');
@@ -126,6 +126,23 @@ io.sockets.on('connection', function(socket) {
 			//console.log("look!", res);
 			//console.log(res[i].frame);
 			db.Topics.update({"Name": res[i].filename}, {$set:{"Frame":res[i].frame}}, function(err, res){
+				console.log("result:", res);
+			})			
+		}
+	})*/
+	/*db.SpreadSheets.find({"Name":"Badges"}, function(err, res){
+		res = res[0].Frames;
+		var i = 0;
+		for(i = 0; i < res.length; i++){
+			res[i].filename = res[i].filename.substring(0, res[i].filename.length - ".png".length);
+			delete res[i].rotated;
+			delete res[i].trimmed;
+			delete res[i].spriteSourceSize;
+			delete res[i].sourceSize;
+			delete res[i].pivot;
+			//console.log("look!", res);
+			//console.log(res[i].frame);
+			db.Badges.update({"Name": res[i].filename}, {$set:{"Frame":res[i].frame}}, function(err, res){
 				console.log("result:", res);
 			})			
 		}
@@ -375,28 +392,36 @@ io.sockets.on('connection', function(socket) {
 				socket.emit('newUser', {res: err});
 		})		
 	});
+	
 	socket.on('auth', function(data){
+		console.log("auth");
 		db.Users.find({"UserName":data.User.UserName}, function(err, res){
 			if(res) {
-				console.log(res);
 				if(!res.length) {
-					console.log("emitting false");
+					console.log("emitting false", "no user");
 					socket.emit('auth', {res: false});
 				}
 				else {
+					console.log(res, "found user");
 					console.log("res", res[0].Password);
 					var User = res[0];
 					bcrypt.compare(data.User.Password,res[0].Password, function(err, res) {
 						console.log("emitting", res);
 						console.log(socket.handshake.cookies);
-						socket.handshake.session.user = User;
-						socket.handshake.cookies.user = User;
-						console.log(socket.handshake.cookies);
-						socket.emit('auth', {res:res, User: User});
-						delete socket.handshake.session.user.Password;
-						delete User.Password;
-						socket.handshake.session.save();
-						console.log(socket.handshake.session);
+						if(res == true) {
+							socket.handshake.session.user = User;
+							socket.handshake.cookies.user = User;
+							console.log(socket.handshake.cookies);
+							socket.emit('auth', {res:res, User: User});
+							delete socket.handshake.session.user.Password;
+							delete User.Password;
+							socket.handshake.session.save();
+							console.log(socket.handshake.session);
+						}
+						else {
+							console.log("wrong password");
+							socket.emit("auth", {res: false});
+						}
 					})
 				}
 			}
@@ -406,6 +431,76 @@ io.sockets.on('connection', function(socket) {
 			}
 		})
 	});
+	socket.on("resetPassword", function(data) {
+		db.Users.find({"UserName":data.user.UserName}, function(err, res){
+			if(res) {
+				console.log(res);
+				if(!res.length) {
+					console.log("emitting false");
+					socket.emit('resetPassword', {res: "wrong username"});
+				}
+				else {
+					console.log("res", res[0].Password);
+					var User = res[0];
+					console.log(res[0].Password, data.user.oldPassword);
+					bcrypt.compare(data.user.oldPassword, res[0].Password, function(err, res) {
+						console.log("emitting", res);
+						if(res == false) {
+							socket.emit("resetPassword", {res: "wrong password"})
+						}
+						else {
+							console.log("correct old password");
+							bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+								bcrypt.hash(data.user.newPassword, salt, function(err, hash){
+									if(res){
+										console.log("hash:", hash, data.user.UserName);
+										db.Users.update({"UserName": data.user.UserName}, {$set:{"Password": hash}}, function(err, res) {
+											if(!res) {
+												socket.emit("resetPassword", {res: "something went wrong"});
+											}
+											else
+												socket.emit("resetPassword", {res: "everything is okay, password has been reset"});
+										})
+									}
+									else {
+										socket.emit("resetPassword", {res: "something went wrong"});
+									}
+								})
+							
+							});
+							
+						}
+					})
+				}
+			}
+			
+		})
+		
+	})
+	socket.on("updateAccent", function(data) {
+		db.Users.find({"UserName":data.UserName}, function(err, res){
+			if(res.length == 1) {
+				db.Users.update({"UserName": data.UserName}, {$set:{"Accent": data.Accent}}, function(err, res) {
+					if(res) {
+						socket.emit("updateAccent", {res: true});
+					}
+					else
+						socket.emit("updateAccent", {res: false});
+				})
+			}
+			else
+			{
+				socket.emit("updateAccent", {res: false});
+			}
+		});
+	})
+	socket.on("Badges", function(data){
+		db.Badges.find({}, function(err, res) {
+			socket.emit("Badges", {
+				res: res
+			})
+		})
+	})
 	socket.on('getTask', function(data){
 		//console.log("TaskName", data.TaskName);
 		db.Exercise.find({"Name":data.TaskName}, function(err, res){
@@ -443,7 +538,7 @@ io.sockets.on('connection', function(socket) {
 	socket.on('progress', function(data){
 		db.Results.find({"UserName":data.UserName}).sort({Start:-1}, function(err, res){
 			var Progress = [];
-			if(res.length) {
+			if(res && res.length) {
 				var f = 0, i = 0;
 				date = res[i].Start.substring(0, 10);
 				while(f < data.filter && i < res.length) {
