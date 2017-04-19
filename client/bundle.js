@@ -277,6 +277,7 @@ module.exports = {
 		Mode.Menu = false;
 		Mode.CountDown = false;
 		Mode.Mobile = false;
+		Mode.Smartphone = false;
 		MenuItem.height = 600;
 		MenuItem.width = 1800;
 		MenuItem.display = 2;
@@ -319,9 +320,6 @@ module.exports = {
 		
 		function respondCanvas(){ 
 			ctx.clearRect(0,0,100000,10000);
-			MenuItem.display = 2;
-			MenuItem.itemsCount = 5;
-			MenuItem.size = 100;
 			if(document.getElementById("UserName")) {
 				Profile.UserName = document.getElementById('UserName').value;
 				Profile.Password = document.getElementById('Password').value;
@@ -329,7 +327,6 @@ module.exports = {
 				$("#Password").remove();
 				$("inputdiv").remove();
 			}
-			var c = $('#MainCanvas');
 			if(document.getElementById("MenuCanvas"))
 				c = $('#MenuCanvas');
 			else if(document.getElementById("ProgressCanvas"))
@@ -340,6 +337,10 @@ module.exports = {
 				c = $('#BadgesCanvas');
 			else if(document.getElementById("MessageCanvas"))
 				c = $('#MessageCanvas');
+			else
+				c = $('#MainCanvas');
+			
+			console.log(c);
 			var ct = c.get(0).getContext('2d');
 			var container = $(c).parent();
 			c.attr('width', $(container).width()); //max width
@@ -347,7 +348,7 @@ module.exports = {
 			Screen = {};
 			Screen.width = $(container).width();
 			Screen.height = $(container).height();
-			
+			console.log(Screen.width,Screen.height);
 			MenuItem.rwidth = Screen.width;
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
@@ -1116,6 +1117,7 @@ module.exports = {
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("skip.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function fillRect(x, y, width, height) {
+			//console.log("fillRect");
 			if(Mode.Progress)
 				context = Progress_ctx;
 			else if(Mode.Settings)
@@ -1128,6 +1130,7 @@ module.exports = {
 				context = Menu_ctx;
 			else
 				context = ctx;
+			
 			context.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function clearRect(x, y, width, height) {
@@ -1212,19 +1215,22 @@ module.exports = {
 				return true
 			return false;
 		}
-		function mouseInRect(x, y, width, height) {
-			try{
-				if(mouseX >= x.x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x.x + x.w)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= x.y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (x.y + x.h)* Math.min(Screen.k_width, Screen.k_height)){
+		function mouseInRect(x) {
+			/*if(Mode.Smartphone) {
+				x.x = x.x + 20;
+				x.y = x.y + 20;
+				x.w = x.w + 20;
+				x.h = x.h + 20;
+			}*/
+			
+			//fillRect(mouseX/Math.min(Screen.k_width, Screen.k_height), mouseY/Math.min(Screen.k_width, Screen.k_height), 10, 10);
+				
+			if(mouseX >= x.x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x.x + x.w)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= x.y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (x.y + x.h)* Math.min(Screen.k_width, Screen.k_height)){
 					return true;
 				}
-				return false;
-			}
-			catch(e) {
-				if(mouseX >= x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x + width)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (y + height)* Math.min(Screen.k_width, Screen.k_height)) {
-					return true;
-				}
-				return false;
-			}
+			//clearRectRectYellow(Display.getButton("right-arrow.png"));
+			//clearRectRectYellow(Display.getButton("left-arrow.png"));
+			return false;
 		}
 		function speak(Word) {
 			console.log(Profile.Accent, Word);
@@ -1597,6 +1603,7 @@ module.exports = {
 			
 		}
 		function initMenu() {
+			console.log("Mode.Badges", Mode.Badges);
 			if(!Mode.Menu) {
 				if(!Mode.Exercise) {
 					drawHeader();
@@ -1668,6 +1675,7 @@ module.exports = {
 		MainCanvas.addEventListener("mousemove", checkPosMenuItem);
 		
 		function checkPosMenuItem(mouseEvent){
+			console.log("menuitempos");
 			event.preventDefault();
 			try {
 				var touch = mouseEvent.changedTouches[0];
@@ -1676,8 +1684,10 @@ module.exports = {
 				var scaleY = MainCanvas.height / rect.height;
 				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 				mouseY = (touch.clientY - rect.top) * scaleY;
+				Mode.Smartphone = true;
 			}
 			catch(e) {
+				Mode.Smartphone = false;
 			var rect = MainCanvas.getBoundingClientRect(),
 				scaleX = MainCanvas.width / rect.width;
 				scaleY = MainCanvas.height / rect.height;
@@ -1688,6 +1698,7 @@ module.exports = {
 			HoverMenuItem(mouseX, mouseY);
 		}
 		function checkPosMenu(mouseEvent){
+			console.log("menu");
 			event.preventDefault();
 			try {
 				var touch = mouseEvent.changedTouches[0];
@@ -1696,8 +1707,10 @@ module.exports = {
 				var scaleY = MenuCanvas.height / rect.height;
 				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 				mouseY = (touch.clientY - rect.top) * scaleY;
+				Mode.Smartphone = true;
 			}
 			catch(e) {
+				Mode.Smartphone = false;
 			var rect = MenuCanvas.getBoundingClientRect(),
 				scaleX = MenuCanvas.width / rect.width;
 				scaleY = MenuCanvas.height / rect.height;
@@ -1708,6 +1721,7 @@ module.exports = {
 			HoverMenuItem(mouseX, mouseY);
 		}
 		function checkPosProgress(mouseEvent){
+			console.log("progress");
 			event.preventDefault();
 			var ProgressCanvas = document.getElementById("ProgressCanvas");
 			try {
@@ -1717,8 +1731,10 @@ module.exports = {
 				var scaleY = ProgressCanvas.height / rect.height;
 				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 				mouseY = (touch.clientY - rect.top) * scaleY;
+				Mode.Smartphone = true;
 			}
 			catch(e) {
+				Mode.Smartphone = false;
 			var rect = ProgressCanvas.getBoundingClientRect(),
 				scaleX = ProgressCanvas.width / rect.width;
 				scaleY = ProgressCanvas.height / rect.height;
@@ -1731,6 +1747,7 @@ module.exports = {
 		function checkPosBadges(mouseEvent){
 			event.preventDefault();
 			var BadgesCanvas = document.getElementById("BadgesCanvas");
+			console.log("badges");
 			try {
 				var touch = mouseEvent.changedTouches[0];
 				var rect = BadgesCanvas.getBoundingClientRect();
@@ -1738,8 +1755,10 @@ module.exports = {
 				var scaleY = BadgesCanvas.height / rect.height;
 				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 				mouseY = (touch.clientY - rect.top) * scaleY;
+				Mode.Smartphone = true;
 			}
 			catch(e) {
+				Mode.Smartphone = false;
 			var rect = BadgesCanvas.getBoundingClientRect(),
 				scaleX = BadgesCanvas.width / rect.width;
 				scaleY = BadgesCanvas.height / rect.height;
@@ -1750,6 +1769,7 @@ module.exports = {
 			HoverMenuItem(mouseX, mouseY);
 		}
 		function checkPosMessage(mouseEvent){
+			console.log("message");
 			event.preventDefault();
 			var MessageCanvas = document.getElementById("MessageCanvas");
 			try {
@@ -1759,8 +1779,10 @@ module.exports = {
 				var scaleY = MessageCanvas.height / rect.height;
 				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 				mouseY = (touch.clientY - rect.top) * scaleY;
+				Mode.Smartphone = true;
 			}
 			catch(e) {
+				Mode.Smartphone = false;
 			var rect = MessageCanvas.getBoundingClientRect(),
 				scaleX = MessageCanvas.width / rect.width;
 				scaleY = MessageCanvas.height / rect.height;
@@ -1771,6 +1793,7 @@ module.exports = {
 			HoverMenuItem(mouseX, mouseY);
 		}
 		function checkPosSettings(mouseEvent){
+			console.log("setting");
 			event.preventDefault();
 			var SettingsCanvas = document.getElementById("SettingsCanvas");
 			try {
@@ -1780,8 +1803,10 @@ module.exports = {
 				var scaleY = SettingsCanvas.height / rect.height;
 				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 				mouseY = (touch.clientY - rect.top) * scaleY;
+				Mode.Smartphone = true;
 			}
 			catch(e) {
+				Mode.Smartphone = false;
 			var rect = SettingsCanvas.getBoundingClientRect(),
 				scaleX = SettingsCanvas.width / rect.width;
 				scaleY = SettingsCanvas.height / rect.height;
@@ -3191,7 +3216,6 @@ module.exports = {
 			Badges.height = document.getElementById("MainCanvas").height;
 			document.getElementById("mainDiv").appendChild(Badges);
 			}
-			drawLoading();
 			BadgesCanvas = document.getElementById("BadgesCanvas");
 			
 			BadgesCanvas.addEventListener("touchmove", checkPosBadges, false);
@@ -3201,6 +3225,7 @@ module.exports = {
 			BadgesCanvas.addEventListener("mouseup", checkClick);
 			BadgesCanvas.addEventListener("touchend", checkClick);
 			Badges_ctx = document.getElementById("BadgesCanvas").getContext("2d");
+			drawLoading();
 			setBadgesFormProp();
 			
 				
@@ -3479,6 +3504,8 @@ module.exports = {
 		}
 		function setBadgesProp(){
 			console.log("first Badge", Badges.firstItem);
+			if(Badges.All.length < Badges.firstItem + Badges.display)
+				Badges.firstItem = Badges.All.length - Badges.display;
 			for (var i = Badges.firstItem; i < Badges.display + Badges.firstItem && i < Badges.All.length; i++) {
 				console.log(Badges.All[i]);
 				Display.setBadge(Badges.All[i].Name, Display.getButton("left-arrow.png").x + Display.getButton("left-arrow.png").w + 20 + Badges.width * (i - Badges.firstItem) + 30 * (i - Badges.firstItem), Display.getButton("left-arrow.png").y + Display.getButton("left-arrow.png").h / 2 - Badges.height / 2, Badges.width, Badges.height);
@@ -3486,7 +3513,7 @@ module.exports = {
 			showBadgesForm();
 		}
 		function setBadgesFormProp() {
-			//Badges.display = 1;
+			console.log("setBadgesFormProp");
 			var frame = Badges.All[0].Frame;
 			if(Display.getButton("right-arrow.png").w < 30 / Math.min(Screen.k_width, Screen.k_height)){
 				console.log("too small");
@@ -4143,17 +4170,31 @@ module.exports = {
 		MainCanvas.addEventListener("mouseup", checkClick);
 		MainCanvas.addEventListener("touchend", checkClick);
 		function checkClick(mouseEvent){
+			console.log(Mode.Menu, Mode);
 			event.preventDefault();
 			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {
 				try {
+					if(Mode.Progress)
+						Canvas = ProgressCanvas;
+					else if(Mode.Settings)
+						Canvas = SettingsCanvas;
+					else if(Mode.Message)
+						Canvas = MessageCanvas;
+					else if(Mode.Badges)
+						Canvas = BadgesCanvas;
+					else if(Mode.Menu)
+						Canvas = MenuCanvas;
+					else
+						Canvas = MainCanvas;
 					var touch = mouseEvent.changedTouches[0];
-					var rect = MainCanvas.getBoundingClientRect();
-					var scaleX = MainCanvas.width / rect.width;
-					var scaleY = MainCanvas.height / rect.height;
+					var rect = Canvas.getBoundingClientRect();
+					var scaleX = Canvas.width / rect.width;
+					var scaleY = Canvas.height / rect.height;
 					mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 					mouseY = (touch.clientY - rect.top) * scaleY;
+					Mode.Smartphone = true;
 				}
-				catch(e) {}
+				catch(e) {Mode.Smartphone = false;}
 				//remove all helping gifs
 				if(document.getElementById("Help")) {
 					console.log(document.getElementsByTagName("HelpDiv"));
@@ -4168,8 +4209,9 @@ module.exports = {
 				
 			
 				// menu button has been clicked
-				if(!document.getElementById("MenuCanvas") && Mode.Mobile && !Mode.Menu && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
+				if(!document.getElementById("MenuCanvas") && Mode.Mobile && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = true;
+					Mode.Tasks = false;
 					Mode.MenuItem = false;
 					var Menu = document.createElement('canvas');
 					Menu.id = 'MenuCanvas';
@@ -4188,7 +4230,7 @@ module.exports = {
 					
 					respondCanvas();
 				}
-				else if(document.getElementById("MenuCanvas") && Mode.Mobile && Mode.Menu && mouseInRect(Display.getButton("menu_btn.png"))) {
+				else if(document.getElementById("MenuCanvas") && Mode.Mobile && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = false;
 					Mode.MenuItem = true;
 					$("#MenuCanvas").remove();
@@ -4219,7 +4261,7 @@ module.exports = {
 					//check background click
 					//not top & bottom arrows have been clicked
 					//top arrow has been clicked
-					if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked)) && !mouseInRect(Display.getButton("setting_btn.png"))){
+					if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked))){
 						MenuItem.chosen = MenuItem.clicked;
 						DrawMenuItem(MenuItem.clicked);
 						MenuItem.clicked = -1;
@@ -4279,6 +4321,7 @@ module.exports = {
 					setBadgesProp();
 				}
 				//left arrow clicked during badges mode
+				console.log("clicking", Mode.Badges, Badges.firstItem, mouseX, mouseY, mouseInRect(Display.getButton("left-arrow.png")), mouseInRect(Display.getButton("right-arrow.png")));
 				if(Mode.Badges && Badges.firstItem && mouseInRect(Display.getButton("left-arrow.png"))) {
 					clearRect(0, MenuItem.starts, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 					Badges.firstItem--;
@@ -4358,24 +4401,7 @@ module.exports = {
 							i++;
 					}
 				}
-				//help clicked during badge mode
-				if(Mode.Badges && mouseInRect(Display.getButton("help_btn.png"))) {
-					console.log("help has been clicked");
-					if(!document.getElementById("Help")) {
-							var div = document.createElement('HelpDiv');
-							div.innerHTML = '<image id = "Help"></image>';
-							document.getElementById("mainDiv").appendChild(div);
-						}
-					var Help = document.getElementById("Help");
-					Help.src = "/img/Menu-Items/mouse_up.gif";
-					Help.style.position = "absolute";
-					Help.style.height = Display.getBadge(Badges.All[0].Name).h / 4 * Math.min(Screen.k_width, Screen.k_height);
-					Help.style.width = "auto";
-					Help.style.top = (Display.getBadge(Badges.All[0].Name).y + Display.getBadge(Badges.All[0].Name).h / 2) * Math.min(Screen.k_width, Screen.k_height);
-					Help.style.left = (Display.getBadge(Badges.All[0].Name).x + Display.getBadge(Badges.All[0].Name).w / 2) * Math.min(Screen.k_width, Screen.k_height);
-					Help.style.visibility = "visible";
-					
-				}
+				
 				
 				//save button clicked during Settings
 				if (Mode.Settings && mouseInRect(Display.getButton("save_btn.png"))) {
@@ -5281,6 +5307,7 @@ module.exports = {
 					Task.Result = {};
 				}
 				//exit button has been clicked during Badges Mode
+				
 				if(Mode.Badges && mouseInRect(Display.getButton("exit_btn.png"))) {
 					if(document.getElementById("BadgesCanvas")){
 						Mode.Badges = false;
@@ -5292,14 +5319,11 @@ module.exports = {
 				}
 				
 				//task has been clicked
-				if(Mode.Tasks) {
+				if(Mode.Tasks && !Mode.Exercise && !Mode.Settings && !Mode.Badges) {
+					console.log("task has been clicked");
 					var j = MenuItem.clicked;
 					var i = 0;
 					while (i < Task.display)  {
-						var pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
-						var pY =  MenuItem.topSpace;
-						var t_a_width = 100*0.5;
-						var t_a_height = 0.5*100*226/152;
 						if(mouseInRect(Display.getTask(j, i))){
 							
 							try{
@@ -5622,6 +5646,8 @@ module.exports = {
 								if(!Badges.loadedRewards)
 									loadBadges();
 								Mode.MenuItem = false;
+								Mode.Tasks = false;
+								console.log("Mode.Tasks",Mode.Tasks);
 								Mode.Menu = false;
 								Mode.Badges = true;
 								Badges.firstItem = 0;
@@ -5703,7 +5729,26 @@ module.exports = {
 				}
 				//help button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("help_btn.png"))) {
-					alert("Help is not available yet:(");
+					//help clicked during badge mode
+					if(Mode.Badges && mouseInRect(Display.getButton("help_btn.png"))) {
+						console.log("help has been clicked");
+						if(!document.getElementById("Help")) {
+							var div = document.createElement('HelpDiv');
+							div.innerHTML = '<image id = "Help"></image>';
+							document.getElementById("mainDiv").appendChild(div);
+						}
+						var Help = document.getElementById("Help");
+						Help.src = "/img/Menu-Items/mouse_up.gif";
+						Help.style.position = "absolute";
+						Help.style.height = Display.getBadge(Badges.All[0].Name).h / 4 * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.width = "auto";
+						Help.style.top = (Display.getBadge(Badges.All[0].Name).y + Display.getBadge(Badges.All[0].Name).h / 2) * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.left = (Display.getBadge(Badges.All[0].Name).x + Display.getBadge(Badges.All[0].Name).w / 2) * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.visibility = "visible";
+						
+					}
+					else
+						alert("Help is not available yet:(");
 				}
 				//info button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
@@ -5717,15 +5762,29 @@ module.exports = {
 			event.preventDefault();
 			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {
 				try {
+					if(Mode.Progress)
+						Canvas = ProgressCanvas;
+					else if(Mode.Settings)
+						Canvas = SettingsCanvas;
+					else if(Mode.Message)
+						Canvas = MessageCanvas;
+					else if(Mode.Badges)
+						Canvas = BadgesCanvas;
+					else if(Mode.Menu)
+						Canvas = MenuCanvas;
+					else
+						Canvas = MainCanvas;
 					var touch = mouseEvent.changedTouches[0];
-					var rect = MainCanvas.getBoundingClientRect();
-					var scaleX = MainCanvas.width / rect.width;
-					var scaleY = MainCanvas.height / rect.height;
-					mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+					var rect = Canvas.getBoundingClientRect();
+					var scaleX = Canvas.width / rect.width;
+					var scaleY = Canvas.height / rect.height;mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 					mouseY = (touch.clientY - rect.top) * scaleY;
+					console.log("down");
+					//fillRect(mouseX / Math.min(Screen.k_width, Screen.k_height), mouseY / Math.min(Screen.k_width, Screen.k_height), 50, 50);
+					Mode.Smartphone = true;
 				}
 				catch(e) {
-					
+					Mode.Smartphone = false;
 				}
 				try {
 					if ((!Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
@@ -5740,8 +5799,11 @@ module.exports = {
 								var scaleY = MainCanvas.height / rect.height;
 								mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
 								mouseY = (touch.clientY - rect.top) * scaleY;
+								Mode.Smartphone = true;
 							}
-							catch(e) {}
+							catch(e) {
+								Mode.Smartphone = false;
+							}
 							Pressed.x = mouseX;
 							Pressed.y = mouseY;
 							if(Mode.Training) {
