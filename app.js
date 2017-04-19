@@ -503,7 +503,7 @@ io.sockets.on('connection', function(socket) {
 			var Badges = {};
 			Badges.Recieved = res[0].Badges;
 			db.Badges.find({}).sort({Topic_Name:1, Name: 1}, function(err, res){
-			//db.Badges.find({}, function(err, res){
+			if(res && res.length) {
 				Badges.All = res;
 				for (var i = 0; i < Badges.Recieved.length; i++){
 					console.log(underscorejs.pluck(Badges.Recieved[i].Name, Badges.All, "Name"));
@@ -515,6 +515,7 @@ io.sockets.on('connection', function(socket) {
 				socket.emit("Badges", {
 					Badges: Badges
 				})
+			}
 			})
 			
 		})
