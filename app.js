@@ -9,6 +9,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
+var underscorejs = require("underscore");
 
 var session = require('express-session')({
 	secret: "my-secret",
@@ -44,8 +45,9 @@ io.sockets.on('connection', function(socket) {
 	})
 	console.log("cookie", socket.handshake.cookies);
 	console.log(socket.handshake.session);
-	if(socket.handshake.session && socket.handshake.session.user) {
-		db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
+	if(true || (socket.handshake.session && socket.handshake.session.user)) {
+		//db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
+		db.Users.find({"UserName":"Orly"}, function(err, res){
 			if(res) {
 				console.log("res1", res);
 				//socket.emit('Old session', {user: socket.handshake.session.user});
@@ -312,7 +314,7 @@ io.sockets.on('connection', function(socket) {
 									delete res[i].pivot;
 									Properties.Letters[res[i].filename] = res[i].frame;
 								}
-							
+								
 								console.log("sending");
 								socket.emit('getProperties', {
 									topics:Properties.Topics,
@@ -320,7 +322,9 @@ io.sockets.on('connection', function(socket) {
 									buttons:Properties.Buttons,
 									forms:Properties.Forms,
 									numbers:Properties.Numbers,
-									letters:Properties.Letters
+									letters:Properties.Letters,
+									
+								
 								})
 							})
 						});
@@ -495,10 +499,23 @@ io.sockets.on('connection', function(socket) {
 		});
 	})
 	socket.on("Badges", function(data){
-		db.Badges.find({}, function(err, res) {
-			socket.emit("Badges", {
-				res: res
+		db.Users.find({"UserName": data.username}, function(err, res) {
+			var Badges = {};
+			Badges.Recieved = res[0].Badges;
+			db.Badges.find({}).sort({Topic_Name:1, Name: 1}, function(err, res){
+			//db.Badges.find({}, function(err, res){
+				Badges.All = res;
+				for (var i = 0; i < Badges.Recieved.length; i++){
+					var ind = underscorejs.find(Badges.Recieved[i].Name, underscorejs.pluck(Badges.All, "Name"));
+					console.log(Badges.Recieved[i].Name, ind);
+					if(ind != undefined)
+						Badges.All[ind].Recieved = true;
+				}
+				socket.emit("Badges", {
+					Badges: Badges
+				})
 			})
+			
 		})
 	})
 	socket.on('getTask', function(data){
@@ -521,9 +538,54 @@ io.sockets.on('connection', function(socket) {
 	})						
 	socket.on('Result', function(data){
 		console.log("result", data.Result);
+		var User = {};
 		db.Results.insert(data.Result, function(err, res){
 			if(res) {
 				db.Users.update({"UserName" : data.Result.UserName}, {$inc:{Points:data.Result.Points, Max_points: data.Result.Max_point}}, function(err, res){});
+				console.log("Topic_Name", data.Result.Topic_Name);
+				db.Users.find({"UserName": data.Result.UserName}, function(err, res){
+					User = res[0];
+				
+					db.Exercise.find({"Name":data.Result.Exercise}, function(err, res){
+						//console.log("res", res[0]);
+						db.Badges.find({"Topic_Name": data.Result.Topic_Name, "Quiz": res[0].Quiz}, function(err, res){
+							var Badges = res;
+							var pBadges = underscorejs.pluck(res, "Name");
+							if(!underscorejs.isEmpty(User.Badges)){
+								pBadges = underscorejs.difference(User.Badges, underscorejs.pluck(res, "Name"));
+							}
+							console.log("Badges", res, User.Badges, pBadges);
+							for(var i = 0; i < pBadges.length; i++)
+							{
+								console.log(pBadges[i]);
+								Badge = underscorejs.findWhere(Badges, {"Name": pBadges[i]});
+								console.log("Badge", Badge);
+								if(Badge && Badge.Reason && Badge.Reason.Time) {
+									var Finish = new Date(data.Result.Finish);
+									var Start = new Date(data.Result.Start);
+									console.log(data.Result.Finish, Finish);
+									console.log((Finish.getTime() - Start.getTime()) / 1000, Badge.Reason.Time, (Finish.getTime() - Start.getTime()) / 1000 <= Badge.Reason.Time);
+									if((Finish.getTime() - Start.getTime()) / 1000 <= Badge.Reason.Time) {
+										console.log("got a new badge");
+										var time = new Date();
+										db.Users.update({"UserName":User.UserName}, {$push:{Badges:{"Name":Badge.Name, "Date": time, "Topic_Name": Badge.Topic_Name}}}, function(err, res){
+											console.log(res);
+											/*User.Badges.append({"Name":Badge.Name, "Date": time});
+											console.log("User.Bages", User.Badges);*/
+										})
+									}
+									else {
+										console.log("too slow");
+									}
+								}
+								else if(Badge && Badge.Reason && Badge.Reason.Times){
+									console.log("badge on times");
+								}
+							}
+							
+						});
+					});
+				});
 			}
 		});
 	})

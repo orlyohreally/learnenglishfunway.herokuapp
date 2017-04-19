@@ -100,6 +100,17 @@ function setForm(name, x, y, w, h) {
 function getForm(name) {
 	return Display.Forms[name];
 }
+Display.Badges = [];
+function setBadge(name, x, y, w, h) {
+	Display.Badges[name] = {};
+	Display.Badges[name].x = x;
+	Display.Badges[name].y = y;
+	Display.Badges[name].w = w;
+	Display.Badges[name].h = h;
+}
+function getBadge(name) {
+	return Display.Badges[name];
+}
 module.exports= {
 	getButton: getButton,
 	setButton: setButton,
@@ -115,6 +126,8 @@ module.exports= {
 	setTestItem: setTestItem,
 	getTestItem: getTestItem,
 	getTestItems: getTestItems,
-	expandTestItem: expandTestItem
+	expandTestItem: expandTestItem,
+	setBadge: setBadge,
+	getBadge: getBadge,
 	
 }
