@@ -754,7 +754,6 @@
 				context = Menu_ctx;
 			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("star-board" + type + ".png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("star-board" + type + ".png").h * Math.min(Screen.k_width, Screen.k_height));
 			//console.log(Profile, Profile.Points, Profile.Max_points);
-			ctx.fillStyle = "#000000";
 			if(type == "Stars"){
 				//fillRect(Display.getButton("star-board" + type + ".png").x, Display.getButton("star-board" + type + ".png").y + 25 / frame.h * Display.getButton("star-board" + type + ".png").h, 1000, 10);
 				//fillRect(Display.getButton("star-board" + type + ".png").x, Display.getButton("star-board" + type + ".png").y + Display.getButton("star-board" + type + ".png").h - 25 / frame.h * Display.getButton("star-board" + type + ".png").h, 1000, 10);
@@ -1085,7 +1084,6 @@
 				MenuFrame.x = Title.leftSpace;
 				MenuFrame.y = 20;
 				MenuFrame.h = MenuItem.starts - 2 * 20;
-				ctx.fillStyle = "#000000";
 				MenuFrame.w = frame.w / frame.h * MenuFrame.h;
 				Display.setButton("menu_btn.png", MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
 				drawMenuButton();
