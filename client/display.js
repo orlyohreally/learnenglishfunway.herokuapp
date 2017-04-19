@@ -111,6 +111,12 @@ function setBadge(name, x, y, w, h) {
 function getBadge(name) {
 	return Display.Badges[name];
 }
+function expandBadge(name, n) {
+	Display.Badges[name].x = Display.Badges[name].x - n;
+	Display.Badges[name].y = Display.Badges[name].y - n;
+	Display.Badges[name].w = Display.Badges[name].w + 2 * n;
+	Display.Badges[name].h = Display.Badges[name].h + 2 * n;
+}
 module.exports= {
 	getButton: getButton,
 	setButton: setButton,
@@ -129,5 +135,6 @@ module.exports= {
 	expandTestItem: expandTestItem,
 	setBadge: setBadge,
 	getBadge: getBadge,
+	expandBadge: expandBadge
 	
 }

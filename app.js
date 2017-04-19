@@ -506,9 +506,10 @@ io.sockets.on('connection', function(socket) {
 			//db.Badges.find({}, function(err, res){
 				Badges.All = res;
 				for (var i = 0; i < Badges.Recieved.length; i++){
-					var ind = underscorejs.find(Badges.Recieved[i].Name, underscorejs.pluck(Badges.All, "Name"));
+					console.log(underscorejs.pluck(Badges.Recieved[i].Name, Badges.All, "Name"));
+					var ind = underscorejs.indexOf( underscorejs.pluck(Badges.All, "Name"), Badges.Recieved[i].Name);
 					console.log(Badges.Recieved[i].Name, ind);
-					if(ind != undefined)
+					if(ind != -1)
 						Badges.All[ind].Recieved = true;
 				}
 				socket.emit("Badges", {
