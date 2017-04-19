@@ -45,7 +45,7 @@ io.sockets.on('connection', function(socket) {
 	})
 	console.log("cookie", socket.handshake.cookies);
 	console.log(socket.handshake.session);
-	if(true || (socket.handshake.session && socket.handshake.session.user)) {
+	if((socket.handshake.session && socket.handshake.session.user)) {
 		db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
 		//db.Users.find({"UserName":"Orly"}, function(err, res){
 			if(res) {
