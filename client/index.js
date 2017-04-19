@@ -1323,6 +1323,8 @@
 				Settings_ctx.fillStyle="#F7FE2E";
 			else if(Mode.Badges)
 				Badges_ctx.fillStyle="#F7FE2E";
+			else if(Mode.Message)
+				Message_ctx.fillStyle="#F7FE2E";
 			else if(Mode.Menu)
 				Menu_ctx.fillStyle="#F7FE2E";
 			

@@ -501,10 +501,12 @@ io.sockets.on('connection', function(socket) {
 	socket.on("Badges", function(data){
 		db.Users.find({"UserName": data.username}, function(err, res) {
 			var Badges = {};
-			Badges.Recieved = res[0].Badges;
-			db.Badges.find({}).sort({Topic_Name:1, Name: 1}, function(err, res){
+			Badges.Recieved = [];
 			if(res && res.length) {
-				Badges.All = res;
+				Badges.Recieved = res[0].Badges;
+			}
+			db.Badges.find({}).sort({Topic_Name:1, Name: 1}, function(err, res){
+			Badges.All = res;
 				for (var i = 0; i < Badges.Recieved.length; i++){
 					console.log(underscorejs.pluck(Badges.Recieved[i].Name, Badges.All, "Name"));
 					var ind = underscorejs.indexOf( underscorejs.pluck(Badges.All, "Name"), Badges.Recieved[i].Name);
@@ -515,7 +517,7 @@ io.sockets.on('connection', function(socket) {
 				socket.emit("Badges", {
 					Badges: Badges
 				})
-			}
+			
 			})
 			
 		})
