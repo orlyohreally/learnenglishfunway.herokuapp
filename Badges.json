@@ -1,0 +1,64 @@
+{
+	"_id" : ObjectId("58f292f79d4eb63f9641029f"),
+	"Name" : "Reader numbers",
+	"Topic_Name" : "Numbers",
+	"Frame" : {
+		"x" : 294,
+		"y" : 0,
+		"w" : 294,
+		"h" : 294
+	},
+	"Reason" : {
+		"Times" : 5,
+		"Reason" : "Got maximum points five times for finding numbers"
+	},
+	"Quiz" : true
+}
+{
+	"_id" : ObjectId("58f293529d4eb63f964102a0"),
+	"Name" : "Speedster animals",
+	"Topic_Name" : "Animals",
+	"Frame" : {
+		"x" : 588,
+		"y" : 0,
+		"w" : 294,
+		"h" : 294
+	},
+	"Reason" : {
+		"Reason" : "Finished Exercise from topic Animals in 20 seconds and got maximum points",
+		"Time" : 20
+	},
+	"Quiz" : true
+}
+{
+	"_id" : ObjectId("58f292659d4eb63f9641029e"),
+	"Name" : "Reader animals",
+	"Topic_Name" : "Animals",
+	"Frame" : {
+		"x" : 0,
+		"y" : 0,
+		"w" : 294,
+		"h" : 294
+	},
+	"Reason" : {
+		"Reason" : "Got maximum points five times for finding animals",
+		"Times" : 5
+	},
+	"Quiz" : true
+}
+{
+	"_id" : ObjectId("58f293699d4eb63f964102a1"),
+	"Name" : "Speedster numbers",
+	"Topic_Name" : "Numbers",
+	"Frame" : {
+		"x" : 0,
+		"y" : 1030,
+		"w" : 736,
+		"h" : 736
+	},
+	"Reason" : {
+		"Reason" : "Finished Exercise from topic Numbers in 20 seconds and got maximum points",
+		"Time" : 20
+	},
+	"Quiz" : true
+}
