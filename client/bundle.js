@@ -918,11 +918,11 @@ module.exports = {
 		function drawLetter(n, x, y, width, height, type = "") {
 			if(type != "")
 				type = type + "-";
-			//console.log(type + n + ".png");
+			console.log(type + n + ".png");
 			var frame = Properties.Letters[type + n + ".png"];
 			//use this
 			//height = width / frame.w * frame.h;
-			//console.log("type.substring(0, type.length - 8)", type.substring(0, 8), type);
+			console.log(frame, n, "type.substring(0, type.length - 8)", type.substring(0, 8), type);
 			if(Mode.Progress)
 				context = Progress_ctx;
 			else if(Mode.Settings)
@@ -944,8 +944,8 @@ module.exports = {
 				context.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 			}
 			else {
-				//console.log(n, frame);
 				context.drawImage(atlasCapitalLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+				
 			}
 		}
 		function drawLogInForm(x, y, width, height) {
@@ -5836,6 +5836,7 @@ module.exports = {
 		loadNumbers();
 		loadLetters();
 		loadForms();
+		loadCapitalLetters();
 	//}
 	//catch(e){}
 	var Properties = {};
