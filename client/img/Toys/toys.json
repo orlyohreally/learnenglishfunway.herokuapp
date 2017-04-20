@@ -1,0 +1,48 @@
+{"frames": [
+
+{
+	"filename": "ball-word.png",
+	"frame": {"x":0,"y":0,"w":138,"h":73},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":138,"h":73},
+	"sourceSize": {"w":138,"h":73},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "ball.png",
+	"frame": {"x":138,"y":0,"w":298,"h":297},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":298,"h":297},
+	"sourceSize": {"w":298,"h":297},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "doll-word.png",
+	"frame": {"x":0,"y":297,"w":142,"h":73},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":142,"h":73},
+	"sourceSize": {"w":142,"h":73},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "doll.png",
+	"frame": {"x":0,"y":370,"w":481,"h":550},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":481,"h":550},
+	"sourceSize": {"w":481,"h":550},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "toys.png",
+	"format": "RGBA8888",
+	"size": {"w":481,"h":920},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6d2c40e55e4e323ee7eb8777a21d1e23:a8ab34d97e930874278d9d316e2fa5f2:df6680729986fb6a3b4bb2b6c4b3cb88$"
+}
+}

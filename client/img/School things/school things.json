@@ -1,0 +1,129 @@
+{"frames": [
+
+{
+	"filename": "bag-word.png",
+	"frame": {"x":0,"y":151,"w":133,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":133,"h":89},
+	"sourceSize": {"w":133,"h":89},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "bag.png",
+	"frame": {"x":0,"y":641,"w":223,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":223,"h":222},
+	"sourceSize": {"w":223,"h":222},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "book-word.png",
+	"frame": {"x":180,"y":73,"w":179,"h":78},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":179,"h":78},
+	"sourceSize": {"w":179,"h":78},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "book.png",
+	"frame": {"x":223,"y":641,"w":233,"h":251},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":233,"h":251},
+	"sourceSize": {"w":233,"h":251},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "eraser-word.png",
+	"frame": {"x":0,"y":0,"w":235,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":235,"h":56},
+	"sourceSize": {"w":235,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "pen.png",
+	"frame": {"x":0,"y":245,"w":248,"h":127},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":127},
+	"sourceSize": {"w":248,"h":127},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "pencil-case.png",
+	"frame": {"x":0,"y":441,"w":293,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":293,"h":200},
+	"sourceSize": {"w":293,"h":200},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "pencil-word.png",
+	"frame": {"x":133,"y":151,"w":222,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":222,"h":89},
+	"sourceSize": {"w":222,"h":89},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "pencil.png",
+	"frame": {"x":359,"y":245,"w":76,"h":196},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":76,"h":196},
+	"sourceSize": {"w":76,"h":196},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "rubber-word.png",
+	"frame": {"x":235,"y":0,"w":246,"h":73},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":246,"h":73},
+	"sourceSize": {"w":246,"h":73},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "rubber.png",
+	"frame": {"x":355,"y":151,"w":87,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":87,"h":94},
+	"sourceSize": {"w":87,"h":94},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "ruler-word.png",
+	"frame": {"x":0,"y":73,"w":180,"h":73},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":73},
+	"sourceSize": {"w":180,"h":73},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "ruler.png",
+	"frame": {"x":248,"y":245,"w":111,"h":185},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":185},
+	"sourceSize": {"w":111,"h":185},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "School things.png",
+	"format": "RGBA8888",
+	"size": {"w":481,"h":892},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:5e18bb452971539ed9c7cbacc5b60302:5c37c23cb4cc394978da1b8e83e1449f:2ff3148e37bc6286034579ef8fc3c431$"
+}
+}

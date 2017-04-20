@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.2.2</string>
+        <string>4.4.0</string>
         <key>fileName</key>
         <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Menu-Items/tasks.tps</string>
         <key>autoSDSettings</key>
@@ -47,6 +47,8 @@
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
         <enum type="SettingsBase::Etc1CompressionQuality">ETC1_QUALITY_LOW_PERCEPTUAL</enum>
+        <key>etc2CompressionQuality</key>
+        <enum type="SettingsBase::Etc2CompressionQuality">ETC2_QUALITY_LOW_PERCEPTUAL</enum>
         <key>dxtCompressionMode</key>
         <enum type="SettingsBase::DxtCompressionMode">DXT_PERCEPTUAL</enum>
         <key>jxrColorFormat</key>
@@ -78,6 +80,8 @@
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
+        <string></string>
+        <key>atfFormats</key>
         <string></string>
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
@@ -118,6 +122,11 @@
                 <enum type="AlgorithmBasicSettings::SortBy">Best</enum>
                 <key>order</key>
                 <enum type="AlgorithmBasicSettings::Order">Ascending</enum>
+            </struct>
+            <key>polygon</key>
+            <struct type="AlgorithmPolygonSettings">
+                <key>alignToGrid</key>
+                <uint>1</uint>
             </struct>
         </struct>
         <key>andEngine</key>
@@ -163,6 +172,8 @@
         <false/>
         <key>prependSmartFolderName</key>
         <false/>
+        <key>autodetectAnimations</key>
+        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -203,15 +214,29 @@
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/TellingTime.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/Unscramble-animal-names.png</key>
             <key type="filename">Animals-Song.png</key>
+            <key type="filename">Find-the-supply.png</key>
+            <key type="filename">Find-the-toy.png</key>
+            <key type="filename">Is-it-yours-or-mine.png</key>
             <key type="filename">LearningLetterSounds.png</key>
             <key type="filename">Name-animals.png</key>
             <key type="filename">Name-letters.png</key>
+            <key type="filename">Name-supplies.png</key>
+            <key type="filename">Name-toys.png</key>
             <key type="filename">NumbersSong(1-10).png</key>
             <key type="filename">NumbersSong(1-20).png</key>
             <key type="filename">TracingLetters.png</key>
+            <key type="filename">What-is-it.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>92,14,184,28</rect>
+                <key>scale9Paddings</key>
+                <rect>92,14,184,28</rect>
+                <key>scale9FromFile</key>
+                <false/>
             </struct>
         </map>
         <key>fileList</key>
@@ -237,6 +262,12 @@
             <filename>NumbersSong(1-10).png</filename>
             <filename>Animals-Song.png</filename>
             <filename>Name-animals.png</filename>
+            <filename>Find-the-supply.png</filename>
+            <filename>Find-the-toy.png</filename>
+            <filename>Name-toys.png</filename>
+            <filename>What-is-it.png</filename>
+            <filename>Name-supplies.png</filename>
+            <filename>Is-it-yours-or-mine.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -258,5 +289,7 @@
         <string></string>
         <key>normalMapSheetFileName</key>
         <filename></filename>
+        <key>exporterProperties</key>
+        <map type="ExporterProperties"/>
     </struct>
 </data>

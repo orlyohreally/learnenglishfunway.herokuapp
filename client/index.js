@@ -299,6 +299,15 @@
 			})
 		}
 		var atlas = {};
+		atlas["School thingsframe"] = new Image();
+		
+		Task["loadedSchool thingsframe"] = false;
+		function loadSchoolThings(){
+			atlas["School thingsframe"].src = '/img/School things/school things.png';
+			atlas["School thingsframe"].addEventListener("load", function() {
+				Task["loadedSchool thingsframe"] = true;
+			})
+		}
 		atlas.Animalsframe = new Image();
 		Task.loadedAnimalsframe;
 		function loadAnimals(){
@@ -1677,8 +1686,10 @@
 				}
 			}
 			// menu tasks has been hovered
+			try{
 			if(Mode.Tasks && (MenuItem.clicked > -1)) {
 				i = 0;
+				//console.log("menu task is being hovered");
 				while (i < Task.display) {
 					if(k1 == -1 && !(task_ch) && mouseInRect(Display.getTask(MenuItem.clicked, Task.firstTask + i))){
 						if(Properties.Tasks[MenuItem.clicked][Task.firstTask + i].Content) {
@@ -1708,6 +1719,8 @@
 						i = i + 1;
 					}
 				}
+			
+				console.log(Display.getTask(MenuItem.clicked, Task.firstTask + k1));
 				if((Mode.Tasks && (MenuItem.clicked > -1) && k1 > -1 && !(mouseInRect(Display.getTask(MenuItem.clicked, Task.firstTask + k1))))){
 					document.getElementById("Explaining").style.visibility = "hidden";
 					clearRectRect(Display.getTask(MenuItem.clicked, Task.firstTask + k1));
@@ -1718,7 +1731,7 @@
 					
 				}
 			}
-			
+			}catch(e){};
 			//top arrow has been hovered
 			if(Mode.Tasks && (Task.firstTask > 0)) {
 				if(MenuItem.clicked > -1) {
@@ -2696,6 +2709,7 @@
 
 		function drawTask(j, i, x, y, width, height) {
 			try{
+				console.log("drawing task");
 				var frame = Properties.Tasks[j][i].Frame;
 				Display.setTask(j, i, x, y, width, height);
 				ctx.drawImage(atlasMenuItemTask, frame.x, frame.y, frame.w, frame.h, x*Math.min(Screen.k_width, Screen.k_height), y*Math.min(Screen.k_width, Screen.k_height) , width*Math.min(Screen.k_width, Screen.k_height), height*Math.min(Screen.k_width, Screen.k_height))
@@ -4736,6 +4750,30 @@
 						}, 200)
 					}
 				}
+				checkloaded["School things"] = function (TaskName, N) {
+					if(Task["loadedSchool thingsframe"]) {
+						try {
+							/*if(Profile.LoggedIn) {
+								Task.Result.UserName = Profile.UserName;
+								Task.Result.Exercise = TaskName;
+								Task.Result.Topic_Name = Task.TopicName;
+								Task.Result.Type = Task.Type;
+							};*/
+							
+							setTest(Task.Frames[TaskName].concat(), N);
+						}
+						catch(e) {
+							setTimeout(function() {
+								checkloaded["School things"](TaskName, N);
+							}, 200);
+							
+						}
+					}
+					else {setTimeout(function(){
+							checkloaded["School things"](TaskName, N);
+						}, 200)
+					}
+				}
 				checkloaded.Numbers = function (TaskName, N) {
 					if(Task.loadedNumbersWordsframe && Task.loadedNumbersframe) {
 						try {
@@ -4760,6 +4798,7 @@
 					}
 				}
 				function showTask(TaskName, TopicName, Type, Points, N, j = -1, QuizArray = []) {
+					console.log(TaskName,TopicName);
 					Task.Result = {};
 					Mode.CountDown = false;
 					Task.TaskName = TaskName;
@@ -5003,6 +5042,41 @@
 								})
 								drawLoading();
 							break;
+							case 'Name supplies':
+								console.log("Name supplies", TopicName, Task);
+								Mode[Task.TaskName.replace(/\s/g,'')] = true;
+								frametype1 = "frame";
+								frametype2 = "Wordsframe";
+								
+								if(!Mode.Quiz)
+									Mode.Training = true;
+								if(!Task["loaded" + TopicName + "frame"])
+									loadSchoolThings();
+								
+								drawLoading();
+								if(!Mode.Quiz) {
+								socket.emit('getTask', {
+									TaskName: TaskName
+								})
+								socket.on('getTask', function(data){
+									Task.Frames[TaskName] = data.Content;
+									checkloaded[TopicName](TaskName, N);
+									})
+								}
+								else
+									checkloaded[TopicName](TaskName, N);
+								try{
+									size_btn = setWordHeight();
+									if(frametype1 == "Wordsframe" && frametype2 == "frame")
+										size_btn = 70;
+								}
+								catch(e) {
+									size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
+								}
+								Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+								drawExitButton();
+								
+								break;
 							default: 
 									delete Task.TaskName;
 									delete Task.TopicName;
@@ -5070,13 +5144,13 @@
 				}
 				
 				//task has been clicked
+				console.log(Mode.Tasks,!Mode.Exercise, !Mode.Settings, !Mode.Badges);
 				if(Mode.Tasks && !Mode.Exercise && !Mode.Settings && !Mode.Badges) {
 					console.log("task has been clicked");
 					var j = MenuItem.clicked;
 					var i = 0;
 					while (i < Task.display)  {
 						if(mouseInRect(Display.getTask(j, i))){
-							
 							try{
 								Mode.Exercise = true;
 								clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), MenuItem.ends)

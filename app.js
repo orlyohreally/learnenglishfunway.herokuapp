@@ -1,7 +1,7 @@
 var mongojs = require("mongojs");
 var bcrypt = require("bcryptjs"), SALT_WORK_FACTOR = 10;
-var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Badges','Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
-//var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Badges', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
+//var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Badges','Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
+var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Badges', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
 
 
 var express = require('express');
@@ -75,9 +75,9 @@ io.sockets.on('connection', function(socket) {
 			delete res[i].sourceSize;
 			delete res[i].pivot;
 			//db.test.update({"Content.Word": "bee"}, {$set:{"Content.$.frame":{"x":50, "y":50}}})
-			db.Exercise.update({"Name": "Find numbers from 10 to 100", "Content.Word":res[i].filename}, {$set:{'Content.$.frame':res[i].frame}}, function(err, res){
+			db.Exercise.update({"Name": "Find the supply", "Content.Word":res[i].filename}, {$set:{'Content.$.frame':res[i].frame}}, function(err, res){
 				//console.log("result:", res);
-				db.SpreadSheets.find({"Name":"Numbers-words"}, function(err, res){
+				db.SpreadSheets.find({"Name":"School things"}, function(err, res){
 					res = res[0].Frames;
 					for(var i = 0; i < res.length; i++){
 						res[i].filename = res[i].filename.substring(0, res[i].filename.length - "-word.png".length);
@@ -87,7 +87,7 @@ io.sockets.on('connection', function(socket) {
 						delete res[i].sourceSize;
 						delete res[i].pivot;
 						//db.test.update({"Content.Word": "bee"}, {$set:{"Content.$.frame":{"x":50, "y":50}}})
-						db.Exercise.update({"Name": "Find numbers from 10 to 100", "Content.Word":res[i].filename}, {$set:{'Content.$.Wordsframe':res[i].frame}}, function(err, res){
+						db.Exercise.update({"Name": "Find the supply", "Content.Word":res[i].filename}, {$set:{'Content.$.Wordsframe':res[i].frame}}, function(err, res){
 							console.log("result:", res);
 						})
 					}
@@ -108,10 +108,10 @@ io.sockets.on('connection', function(socket) {
 			delete res[i].spriteSourceSize;
 			delete res[i].sourceSize;
 			delete res[i].pivot;
-			//console.log("look!", res);
+			console.log("look!", res);
 			console.log(res[i].frame);
 			db.Exercise.update({"Name": res[i].filename}, {$set:{"Frame":res[i].frame}}, function(err, res){
-				//console.log("result:", res);
+				console.log("result:", res);
 			})			
 		}
 	})*/
@@ -125,7 +125,7 @@ io.sockets.on('connection', function(socket) {
 			delete res[i].spriteSourceSize;
 			delete res[i].sourceSize;
 			delete res[i].pivot;
-			//console.log("look!", res);
+			console.log("look!", res);
 			//console.log(res[i].frame);
 			db.Topics.update({"Name": res[i].filename}, {$set:{"Frame":res[i].frame}}, function(err, res){
 				console.log("result:", res);
@@ -150,7 +150,7 @@ io.sockets.on('connection', function(socket) {
 		}
 	})*/
 	console.log('socket connection');
-	db.Topics.find({}, function(err, res){
+	db.Topics.find({}).sort({"T_index":1}, function(err, res){
 		if(res) {
 			//console.log("msg:", res);
 			Properties.Topics = res;

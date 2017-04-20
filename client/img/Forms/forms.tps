@@ -204,7 +204,10 @@
             <key type="filename">../Messages/incorrect-data.png</key>
             <key type="filename">../Messages/need_to_do_exerciseProgress.png</key>
             <key type="filename">../Messages/need_to_do_exerciseQuiz.png</key>
+            <key type="filename">../Messages/need_to_loginPhrases.png</key>
             <key type="filename">../Messages/need_to_loginProgress.png</key>
+            <key type="filename">../Messages/need_to_loginQuiz.png</key>
+            <key type="filename">../Messages/need_to_loginRewards.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -324,6 +327,9 @@
             <filename>../Messages/need_to_do_exerciseProgress.png</filename>
             <filename>../Messages/need_to_do_exerciseQuiz.png</filename>
             <filename>../Messages/need_to_loginProgress.png</filename>
+            <filename>../Messages/need_to_loginQuiz.png</filename>
+            <filename>../Messages/need_to_loginPhrases.png</filename>
+            <filename>../Messages/need_to_loginRewards.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

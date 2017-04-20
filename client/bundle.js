@@ -63,187 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-var Display = {};
-
-Display.Topics = [];
-function setTopic(j, x, y, w, h) {
-	Display.Topics[j] = {};
-	Display.Topics[j].x = x;
-	Display.Topics[j].y = y;
-	Display.Topics[j].w = w;
-	Display.Topics[j].h = h;
-}
-function getTopic(j) {
-	return Display.Topics[j];
-}
-function expandTopic(j, n) {
-	//console.log(j, Display.Topics[j], Display.Topics[j]);
-	//console.log("expanding", j);
-	Display.Topics[j].x = Display.Topics[j].x - n;
-	Display.Topics[j].y = Display.Topics[j].y - n;
-	Display.Topics[j].w = Display.Topics[j].w + 2 * n;
-	Display.Topics[j].h = Display.Topics[j].h + 2 * n;
-}
-Display.TestItems = [];
-function setTestItem(j, x, y, w, h) {
-	Display.TestItems[j] = {};
-	Display.TestItems[j].x = x;
-	Display.TestItems[j].y = y;
-	Display.TestItems[j].w = w;
-	Display.TestItems[j].h = h;
-}
-function getTestItem(j) {
-	return Display.TestItems[j];
-}
-function getTestItems() {
-	return Display.TestItems;
-}
-function expandTestItem(j, n) {
-	Display.TestItems[j].x = Display.TestItems[j].x - n;
-	Display.TestItems[j].y = Display.TestItems[j].y - n;
-	Display.TestItems[j].w = Display.TestItems[j].w + 2 * n;
-	Display.TestItems[j].h = Display.TestItems[j].h + 2 * n;
-}
-Display.Tasks = [];
-function setTask(j, i, x, y, w, h) {
-	try{		
-		Display.Tasks[j][i] = {};
-	}
-	catch(e) {
-		Display.Tasks[j] = [];
-		Display.Tasks[j][i] = {};
-	}
-	Display.Tasks[j][i].x = x;
-	Display.Tasks[j][i].y = y;
-	Display.Tasks[j][i].w = w;
-	Display.Tasks[j][i].h = h;
-}
-function getTask(j, i) {
-	try {
-		return Display.Tasks[j][i];
-	}
-	catch(e){
-		return false;
-	}
-}
-function expandTask(j, i, n) {
-	//console.log(Display.Tasks[j][i]);
-	Display.Tasks[j][i].x = Display.Tasks[j][i].x - n;
-	Display.Tasks[j][i].y = Display.Tasks[j][i].y - n;
-	Display.Tasks[j][i].w = Display.Tasks[j][i].w + 2 * n;
-	Display.Tasks[j][i].h = Display.Tasks[j][i].h + 2 * n;
-}
-
-Display.Buttons = {};
-
-function setButton(name, x, y, w, h) {
-	//console.log(name, x, y, w, h);
-	Display.Buttons[name] = {};
-	Display.Buttons[name].x = x;
-	Display.Buttons[name].y = y;
-	Display.Buttons[name].w = w;
-	Display.Buttons[name].h = h;
-}
-function getButton(name) {
-	return Display.Buttons[name];
-}
-function expandButton(name, n) {
-	Display.Buttons[name].x = Display.Buttons[name].x - n;
-	Display.Buttons[name].y = Display.Buttons[name].y - n;
-	Display.Buttons[name].w = Display.Buttons[name].w + 2 * n;
-	Display.Buttons[name].h = Display.Buttons[name].h + 2 * n;
-}
-Display.Forms = {};
-function setForm(name, x, y, w, h) {
-	//console.log(name, x, y, w, h);
-	Display.Forms[name] = {};
-	Display.Forms[name].x = x;
-	Display.Forms[name].y = y;
-	Display.Forms[name].w = w;
-	Display.Forms[name].h = h;
-}
-function getForm(name) {
-	return Display.Forms[name];
-}
-Display.Badges = [];
-function setBadge(name, x, y, w, h) {
-	Display.Badges[name] = {};
-	Display.Badges[name].x = x;
-	Display.Badges[name].y = y;
-	Display.Badges[name].w = w;
-	Display.Badges[name].h = h;
-}
-function getBadge(name) {
-	return Display.Badges[name];
-}
-function expandBadge(name, n) {
-	Display.Badges[name].x = Display.Badges[name].x - n;
-	Display.Badges[name].y = Display.Badges[name].y - n;
-	Display.Badges[name].w = Display.Badges[name].w + 2 * n;
-	Display.Badges[name].h = Display.Badges[name].h + 2 * n;
-}
-module.exports= {
-	getButton: getButton,
-	setButton: setButton,
-	getForm: getForm,
-	setForm: setForm,	
-	expandButton: expandButton,
-	setTask: setTask,
-	getTask: getTask,
-	expandTask: expandTask,
-	setTopic: setTopic,
-	getTopic: getTopic,
-	expandTopic: expandTopic,
-	setTestItem: setTestItem,
-	getTestItem: getTestItem,
-	getTestItems: getTestItems,
-	expandTestItem: expandTestItem,
-	setBadge: setBadge,
-	getBadge: getBadge,
-	expandBadge: expandBadge
-	
-}
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-function randomInteger(min, max) {
-	return Math.floor(Math.random() * (max - min) + min);
-}
-function getRandomArray(array, arrayB, size) {
-	//console.log("array", array);
-	var arrayA = array.slice(0);
-	//console.log(arrayA);
-	for(var i = 0; i < size; i++){
-		var j = randomInteger(0, arrayA.length);
-		arrayB[i] = arrayA[j];
-		arrayA.splice(j, 1);
-		//console.log("splicing in function");
-	}
-	return arrayB;
-}
-
-module.exports = {
-	randomInteger: randomInteger,
-	getRandomArray: getRandomArray,
-}
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function(){
 	$(document).ready(function(){
-		var functions = __webpack_require__(1);
-		var Display = __webpack_require__(0);
+		var functions = __webpack_require__(2);
+		var Display = __webpack_require__(1);
 		var ctx = document.getElementById("MainCanvas").getContext("2d");
 		var video;
 		
@@ -541,6 +371,15 @@ module.exports = {
 			})
 		}
 		var atlas = {};
+		atlas["School thingsframe"] = new Image();
+		
+		Task["loadedSchool thingsframe"] = false;
+		function loadSchoolThings(){
+			atlas["School thingsframe"].src = '/img/School things/school things.png';
+			atlas["School thingsframe"].addEventListener("load", function() {
+				Task["loadedSchool thingsframe"] = true;
+			})
+		}
 		atlas.Animalsframe = new Image();
 		Task.loadedAnimalsframe;
 		function loadAnimals(){
@@ -1919,8 +1758,10 @@ module.exports = {
 				}
 			}
 			// menu tasks has been hovered
+			try{
 			if(Mode.Tasks && (MenuItem.clicked > -1)) {
 				i = 0;
+				//console.log("menu task is being hovered");
 				while (i < Task.display) {
 					if(k1 == -1 && !(task_ch) && mouseInRect(Display.getTask(MenuItem.clicked, Task.firstTask + i))){
 						if(Properties.Tasks[MenuItem.clicked][Task.firstTask + i].Content) {
@@ -1950,6 +1791,8 @@ module.exports = {
 						i = i + 1;
 					}
 				}
+			
+				console.log(Display.getTask(MenuItem.clicked, Task.firstTask + k1));
 				if((Mode.Tasks && (MenuItem.clicked > -1) && k1 > -1 && !(mouseInRect(Display.getTask(MenuItem.clicked, Task.firstTask + k1))))){
 					document.getElementById("Explaining").style.visibility = "hidden";
 					clearRectRect(Display.getTask(MenuItem.clicked, Task.firstTask + k1));
@@ -1960,7 +1803,7 @@ module.exports = {
 					
 				}
 			}
-			
+			}catch(e){};
 			//top arrow has been hovered
 			if(Mode.Tasks && (Task.firstTask > 0)) {
 				if(MenuItem.clicked > -1) {
@@ -2938,6 +2781,7 @@ module.exports = {
 
 		function drawTask(j, i, x, y, width, height) {
 			try{
+				console.log("drawing task");
 				var frame = Properties.Tasks[j][i].Frame;
 				Display.setTask(j, i, x, y, width, height);
 				ctx.drawImage(atlasMenuItemTask, frame.x, frame.y, frame.w, frame.h, x*Math.min(Screen.k_width, Screen.k_height), y*Math.min(Screen.k_width, Screen.k_height) , width*Math.min(Screen.k_width, Screen.k_height), height*Math.min(Screen.k_width, Screen.k_height))
@@ -4978,6 +4822,30 @@ module.exports = {
 						}, 200)
 					}
 				}
+				checkloaded["School things"] = function (TaskName, N) {
+					if(Task["loadedSchool thingsframe"]) {
+						try {
+							/*if(Profile.LoggedIn) {
+								Task.Result.UserName = Profile.UserName;
+								Task.Result.Exercise = TaskName;
+								Task.Result.Topic_Name = Task.TopicName;
+								Task.Result.Type = Task.Type;
+							};*/
+							
+							setTest(Task.Frames[TaskName].concat(), N);
+						}
+						catch(e) {
+							setTimeout(function() {
+								checkloaded["School things"](TaskName, N);
+							}, 200);
+							
+						}
+					}
+					else {setTimeout(function(){
+							checkloaded["School things"](TaskName, N);
+						}, 200)
+					}
+				}
 				checkloaded.Numbers = function (TaskName, N) {
 					if(Task.loadedNumbersWordsframe && Task.loadedNumbersframe) {
 						try {
@@ -5002,6 +4870,7 @@ module.exports = {
 					}
 				}
 				function showTask(TaskName, TopicName, Type, Points, N, j = -1, QuizArray = []) {
+					console.log(TaskName,TopicName);
 					Task.Result = {};
 					Mode.CountDown = false;
 					Task.TaskName = TaskName;
@@ -5245,6 +5114,41 @@ module.exports = {
 								})
 								drawLoading();
 							break;
+							case 'Name supplies':
+								console.log("Name supplies", TopicName, Task);
+								Mode[Task.TaskName.replace(/\s/g,'')] = true;
+								frametype1 = "frame";
+								frametype2 = "Wordsframe";
+								
+								if(!Mode.Quiz)
+									Mode.Training = true;
+								if(!Task["loaded" + TopicName + "frame"])
+									loadSchoolThings();
+								
+								drawLoading();
+								if(!Mode.Quiz) {
+								socket.emit('getTask', {
+									TaskName: TaskName
+								})
+								socket.on('getTask', function(data){
+									Task.Frames[TaskName] = data.Content;
+									checkloaded[TopicName](TaskName, N);
+									})
+								}
+								else
+									checkloaded[TopicName](TaskName, N);
+								try{
+									size_btn = setWordHeight();
+									if(frametype1 == "Wordsframe" && frametype2 == "frame")
+										size_btn = 70;
+								}
+								catch(e) {
+									size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
+								}
+								Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+								drawExitButton();
+								
+								break;
 							default: 
 									delete Task.TaskName;
 									delete Task.TopicName;
@@ -5312,13 +5216,13 @@ module.exports = {
 				}
 				
 				//task has been clicked
+				console.log(Mode.Tasks,!Mode.Exercise, !Mode.Settings, !Mode.Badges);
 				if(Mode.Tasks && !Mode.Exercise && !Mode.Settings && !Mode.Badges) {
 					console.log("task has been clicked");
 					var j = MenuItem.clicked;
 					var i = 0;
 					while (i < Task.display)  {
 						if(mouseInRect(Display.getTask(j, i))){
-							
 							try{
 								Mode.Exercise = true;
 								clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), MenuItem.ends)
@@ -5939,6 +5843,176 @@ module.exports = {
 })();
 
 
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+var Display = {};
+
+Display.Topics = [];
+function setTopic(j, x, y, w, h) {
+	Display.Topics[j] = {};
+	Display.Topics[j].x = x;
+	Display.Topics[j].y = y;
+	Display.Topics[j].w = w;
+	Display.Topics[j].h = h;
+}
+function getTopic(j) {
+	return Display.Topics[j];
+}
+function expandTopic(j, n) {
+	//console.log(j, Display.Topics[j], Display.Topics[j]);
+	//console.log("expanding", j);
+	Display.Topics[j].x = Display.Topics[j].x - n;
+	Display.Topics[j].y = Display.Topics[j].y - n;
+	Display.Topics[j].w = Display.Topics[j].w + 2 * n;
+	Display.Topics[j].h = Display.Topics[j].h + 2 * n;
+}
+Display.TestItems = [];
+function setTestItem(j, x, y, w, h) {
+	Display.TestItems[j] = {};
+	Display.TestItems[j].x = x;
+	Display.TestItems[j].y = y;
+	Display.TestItems[j].w = w;
+	Display.TestItems[j].h = h;
+}
+function getTestItem(j) {
+	return Display.TestItems[j];
+}
+function getTestItems() {
+	return Display.TestItems;
+}
+function expandTestItem(j, n) {
+	Display.TestItems[j].x = Display.TestItems[j].x - n;
+	Display.TestItems[j].y = Display.TestItems[j].y - n;
+	Display.TestItems[j].w = Display.TestItems[j].w + 2 * n;
+	Display.TestItems[j].h = Display.TestItems[j].h + 2 * n;
+}
+Display.Tasks = [];
+function setTask(j, i, x, y, w, h) {
+	try{		
+		Display.Tasks[j][i] = {};
+	}
+	catch(e) {
+		Display.Tasks[j] = [];
+		Display.Tasks[j][i] = {};
+	}
+	Display.Tasks[j][i].x = x;
+	Display.Tasks[j][i].y = y;
+	Display.Tasks[j][i].w = w;
+	Display.Tasks[j][i].h = h;
+}
+function getTask(j, i) {
+	try {
+		return Display.Tasks[j][i];
+	}
+	catch(e){
+		return false;
+	}
+}
+function expandTask(j, i, n) {
+	//console.log(Display.Tasks[j][i]);
+	Display.Tasks[j][i].x = Display.Tasks[j][i].x - n;
+	Display.Tasks[j][i].y = Display.Tasks[j][i].y - n;
+	Display.Tasks[j][i].w = Display.Tasks[j][i].w + 2 * n;
+	Display.Tasks[j][i].h = Display.Tasks[j][i].h + 2 * n;
+}
+
+Display.Buttons = {};
+
+function setButton(name, x, y, w, h) {
+	//console.log(name, x, y, w, h);
+	Display.Buttons[name] = {};
+	Display.Buttons[name].x = x;
+	Display.Buttons[name].y = y;
+	Display.Buttons[name].w = w;
+	Display.Buttons[name].h = h;
+}
+function getButton(name) {
+	return Display.Buttons[name];
+}
+function expandButton(name, n) {
+	Display.Buttons[name].x = Display.Buttons[name].x - n;
+	Display.Buttons[name].y = Display.Buttons[name].y - n;
+	Display.Buttons[name].w = Display.Buttons[name].w + 2 * n;
+	Display.Buttons[name].h = Display.Buttons[name].h + 2 * n;
+}
+Display.Forms = {};
+function setForm(name, x, y, w, h) {
+	//console.log(name, x, y, w, h);
+	Display.Forms[name] = {};
+	Display.Forms[name].x = x;
+	Display.Forms[name].y = y;
+	Display.Forms[name].w = w;
+	Display.Forms[name].h = h;
+}
+function getForm(name) {
+	return Display.Forms[name];
+}
+Display.Badges = [];
+function setBadge(name, x, y, w, h) {
+	Display.Badges[name] = {};
+	Display.Badges[name].x = x;
+	Display.Badges[name].y = y;
+	Display.Badges[name].w = w;
+	Display.Badges[name].h = h;
+}
+function getBadge(name) {
+	return Display.Badges[name];
+}
+function expandBadge(name, n) {
+	Display.Badges[name].x = Display.Badges[name].x - n;
+	Display.Badges[name].y = Display.Badges[name].y - n;
+	Display.Badges[name].w = Display.Badges[name].w + 2 * n;
+	Display.Badges[name].h = Display.Badges[name].h + 2 * n;
+}
+module.exports= {
+	getButton: getButton,
+	setButton: setButton,
+	getForm: getForm,
+	setForm: setForm,	
+	expandButton: expandButton,
+	setTask: setTask,
+	getTask: getTask,
+	expandTask: expandTask,
+	setTopic: setTopic,
+	getTopic: getTopic,
+	expandTopic: expandTopic,
+	setTestItem: setTestItem,
+	getTestItem: getTestItem,
+	getTestItems: getTestItems,
+	expandTestItem: expandTestItem,
+	setBadge: setBadge,
+	getBadge: getBadge,
+	expandBadge: expandBadge
+	
+}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+function randomInteger(min, max) {
+	return Math.floor(Math.random() * (max - min) + min);
+}
+function getRandomArray(array, arrayB, size) {
+	//console.log("array", array);
+	var arrayA = array.slice(0);
+	//console.log(arrayA);
+	for(var i = 0; i < size; i++){
+		var j = randomInteger(0, arrayA.length);
+		arrayB[i] = arrayA[j];
+		arrayA.splice(j, 1);
+		//console.log("splicing in function");
+	}
+	return arrayB;
+}
+
+module.exports = {
+	randomInteger: randomInteger,
+	getRandomArray: getRandomArray,
+}
 
 /***/ })
 /******/ ]);

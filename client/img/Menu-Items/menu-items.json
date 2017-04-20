@@ -20,7 +20,16 @@
 },
 {
 	"filename": "numbers.png",
-	"frame": {"x":736,"y":0,"w":368,"h":368},
+	"frame": {"x":0,"y":368,"w":368,"h":368},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
+	"sourceSize": {"w":368,"h":368},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "school things.png",
+	"frame": {"x":368,"y":368,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
@@ -29,7 +38,7 @@
 },
 {
 	"filename": "sport.png",
-	"frame": {"x":1104,"y":0,"w":368,"h":368},
+	"frame": {"x":0,"y":736,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
@@ -38,7 +47,7 @@
 },
 {
 	"filename": "toys.png",
-	"frame": {"x":1472,"y":0,"w":368,"h":368},
+	"frame": {"x":368,"y":736,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
@@ -50,8 +59,8 @@
 	"version": "1.0",
 	"image": "menu-items.png",
 	"format": "RGBA8888",
-	"size": {"w":1840,"h":368},
+	"size": {"w":736,"h":1104},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:57361233607ade19efc8d3b5fbfaf823:02634ad3f03adc481d7b33700afa8aee:1ee5878538d51eee0a445cc75a93476f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:8b650eb15ff04a698a7df59245e28693:6080a3938cc40e8adb3ca816d88375ef:1ee5878538d51eee0a445cc75a93476f$"
 }
 }
