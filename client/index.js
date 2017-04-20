@@ -1371,6 +1371,7 @@
 							drawMenuItems();
 						}
 						else {
+							loadMenuItems();
 							drawMenuItems();
 						}
 						if(MenuItem.clicked > -1) {
@@ -1419,6 +1420,7 @@
 				console.log("here", Error);
 				showMessageForm(Error.Name + ".png");
 			}
+			readyToShowForms();
 			
 		}
 
@@ -4085,6 +4087,7 @@
 					Mode.Menu = false;
 					respondCanvas();
 					drawLoading();
+					
 					showLogInForm();
 				}
 				//Sign Up button has been clicked
@@ -4107,6 +4110,7 @@
 					console.log("clicked settings button");
 					clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 					drawLoading();
+					
 					Mode.MenuItem = false;
 					Mode.Exercise = false;
 					Mode.Tasks = false;
@@ -4627,6 +4631,7 @@
 						delete Task.Result.time;
 						Mode[Task.TaskName.replace(/\s/g,'')] = false;
 						if(!Mode.Quiz) {
+							
 							drawLoading();
 							
 							showResultForm(Task.Result.Answers, Task.Total, Task.MaxPoint);
@@ -4650,6 +4655,7 @@
 							else {
 								if(Mode.Quiz)
 									Quiz.Finish = new Date;
+								
 								drawLoading();
 								showResultForm();
 							}
