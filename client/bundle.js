@@ -655,18 +655,18 @@ module.exports = {
 				frame = Properties.Buttons["title.png"];
 			else
 				var frame = Properties.Buttons["title_in_line.png"];
-			if(Mode.Progress)
+			if(document.getElementById("ProgressCanvas") || Mode.Progress)
 				context = Progress_ctx;
-			else if(Mode.Settings)
+			else if(document.getElementById("SettingsCanvas") ||Mode.Settings)
 				context = Settings_ctx;
-			else if(Mode.Message)
+			else if(document.getElementById("MessageCanvas") ||Mode.Message)
 				context = Message_ctx;
-			else if(Mode.Badges)
+			else if(document.getElementById("BadgesCanvas") ||Mode.Badges)
 				context = Badges_ctx;
-			else if(!Mode.Menu)
-				context = ctx;
-			else
+			else if(document.getElementById("MenuCanvas") ||Mode.Menu)
 				context = Menu_ctx;
+			else
+				context = ctx;
 			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("title.png").x * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").y * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").w * Math.min(Screen.k_width, Screen.k_height) , Display.getButton("title.png").h * Math.min(Screen.k_width, Screen.k_height) );			
 			
 		}
@@ -1328,11 +1328,11 @@ module.exports = {
 				MenuFrame.h = MenuItem.starts - 2 * 20;
 				MenuFrame.w = frame.w / frame.h * MenuFrame.h;
 				Display.setButton("menu_btn.png", MenuFrame.x, MenuFrame.y, MenuFrame.w, MenuFrame.h);
-				drawMenuButton();
+				
 				var frame = Properties.Buttons["title_in_line.png"];
 				Titleframe = {};
 				Titleframe.x = Display.getButton("menu_btn.png").x + Display.getButton("menu_btn.png").w + 20;
-				Titleframe.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * Display.getButton("menu_btn.png").w - 5 * 20;
+				Titleframe.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - Display.getButton("menu_btn.png").w - 2 * Display.getButton("menu_btn.png").x;
 				Titleframe.h = Titleframe.w * frame.h / frame.w;
 				if(Titleframe.h > MenuItem.starts) {
 					Titleframe.h = Display.getButton("menu_btn.png").h;
@@ -1522,7 +1522,8 @@ module.exports = {
 				drawQuizButton();
 				
 			}
-			
+			if(Mode.Mobile)
+				drawMenuButton();
 			drawTitle();
 		}
 		/************************************Starting*******************************************************/
@@ -4590,6 +4591,9 @@ module.exports = {
 					socket.emit("Logout", {});
 					socket.on("Logout", function(data){
 						if(data.res) {
+							var name = "";
+							name = Profile.UserName;
+							responsiveVoice.speak("Good bye, " + name, Profile.Accent);
 							setTimeout(function(){
 							$("#SettingsCanvas").remove();
 							$("inputdiv").remove();
