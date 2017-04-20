@@ -522,13 +522,13 @@ module.exports = {
 			//clearRectRect(Display.getButton("left-arrow.png"));
 			//clearRectRect(Display.getButton("right-arrow.png"));
 		}
-		MenuItem.loadedMenuItems;
+		var loadedMenuItems = false;
 		function loadMenuItems(){
 			console.log("loadedMenuItems");
 			atlasMenuItem.src = '/img/Menu-Items/menu-items.png';
 			atlasMenuItem.addEventListener("load", function() {
-				MenuItem.loadedMenuItems = true;
-				//drawMenuItems();
+				loadedMenuItems = true;
+				drawMenuItems();
 			})
 		}
 		var atlasRewards = new Image();
@@ -1252,7 +1252,7 @@ module.exports = {
 		}
 		var atlasButtons = new Image();
 
-		var loadedButtons;
+		var loadedButtons = false;
 		function loadButtons(/*l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height*/){
 			atlasButtons.src = '/img/Menu-Items/buttons.png';
 			atlasButtons.addEventListener("load", function() {
@@ -1537,7 +1537,7 @@ module.exports = {
 			}
 		}
 		function readyToShowForms() {
-			if(MenuItem.loadedMenuItems && loadedButtons) {
+			if(loadedMenuItems && loadedButtons) {
 				showForms()
 			}
 			else
@@ -1609,7 +1609,7 @@ module.exports = {
 				if(!Mode.Exercise) {
 					drawHeader();
 					if(!Mode.Settings && !Mode.Message && !Mode.Badges) {
-						if(MenuItem.loadedMenuItems) {
+						if(loadedMenuItems) {
 							drawMenuItems();
 						}
 						else {
@@ -1662,12 +1662,7 @@ module.exports = {
 				console.log("here", Error);
 				showMessageForm(Error.Name + ".png");
 			}
-			loadForms();
-			loadNumbers();
-			loadLetters();
-			loadCapitalLetters();
-			readyToShowForms();
-			loadButtons();
+			
 		}
 
 		var mouseX;
@@ -4212,7 +4207,6 @@ module.exports = {
 				// menu button has been clicked
 				if(!document.getElementById("MenuCanvas") && Mode.Mobile && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = true;
-					Mode.Tasks = false;
 					Mode.MenuItem = false;
 					var Menu = document.createElement('canvas');
 					Menu.id = 'MenuCanvas';
