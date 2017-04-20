@@ -363,7 +363,7 @@ io.sockets.on('connection', function(socket) {
 							if(res){
 								User.Password = hash;
 								console.log("hash:", User.Password);
-								db.Users.insert({"UserName": User.UserName, "Password": User.Password, "Accent":User.Accent, "Points":0, "Max_points": 0, "Rewards":[]}, function(err, res){
+								db.Users.insert({"UserName": User.UserName, "Password": User.Password, "Accent":User.Accent, "Points":0, "Max_points": 0, "Badges":[]}, function(err, res){
 									if(res) {
 										socket.handshake.session.user = User;
 										socket.handshake.cookies.user = User;
@@ -502,6 +502,7 @@ io.sockets.on('connection', function(socket) {
 		db.Users.find({"UserName": data.username}, function(err, res) {
 			var Badges = {};
 			Badges.Recieved = [];
+			console.log(res, res[0]);
 			if(res && res.length) {
 				Badges.Recieved = res[0].Badges;
 			}

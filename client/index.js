@@ -642,7 +642,7 @@
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getButton("result_form_try_again_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("result_form_try_again_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
 		}
 		function drawDigit(n, x, y, width, height, type = "") {
-			try {console.log("n :", n, n!="/");
+			try {//console.log("n :", n, n!="/");
 			if(type != "")
 				type = type + "-";
 			var frame;
@@ -676,7 +676,7 @@
 		function drawLetter(n, x, y, width, height, type = "") {
 			if(type != "")
 				type = type + "-";
-			console.log(type + n + ".png");
+			//console.log(type + n + ".png");
 			var frame = Properties.Letters[type + n + ".png"];
 			//use this
 			//height = width / frame.w * frame.h;
@@ -2943,7 +2943,7 @@
 						if(Profile.LoggedIn) {
 							Task.Result.Finish = new Date();
 							console.log("result:", Task.Result);
-							Task.Result.Type = Task.Type;
+							//Task.Result.Type = Task.Type;
 							Task.Result.Points = countPoints(Answers, Total, Max);
 							//Task.Result.Max_point = Total * Max;
 							Profile.Points = Profile.Points + Task.Result.Points;
@@ -4722,12 +4722,12 @@
 				checkloaded.Animals = function (TaskName, N) {
 					if(Task.loadedAnimalsWordsframe && Task.loadedAnimalsframe) {
 						try {
-							if(Profile.LoggedIn) {
+							/*if(Profile.LoggedIn) {
 								Task.Result.UserName = Profile.UserName;
 								Task.Result.Exercise = TaskName;
 								Task.Result.Topic_Name = Task.TopicName;
 								Task.Result.Type = Task.Type;
-							};
+							};*/
 							
 							setTest(Task.Frames[TaskName].concat(), N);
 						}
@@ -4746,12 +4746,12 @@
 				checkloaded.Numbers = function (TaskName, N) {
 					if(Task.loadedNumbersWordsframe && Task.loadedNumbersframe) {
 						try {
-							if(Profile.LoggedIn) {
+							/*if(Profile.LoggedIn) {
 								Task.Result.UserName = Profile.UserName;
 								Task.Result.Exercise = TaskName;
 								Task.Result.Topic_Name = Task.TopicName;
 								Task.Result.Type = Task.Type;
-							};
+							};*/
 							setTest(Task.Frames[TaskName].concat(), N);
 						}
 						catch(e) {
@@ -4790,12 +4790,12 @@
 					word_ch = false;
 					switch(TaskName) {
 						case 'Alphabet song':
-							if(Profile.LoggedIn) {
+							/*if(Profile.LoggedIn) {
 								Task.Result.UserName = Profile.UserName;
 								Task.Result.Exercise = TaskName;
 								Task.Result.Topic_Name = Task.TopicName;
 								Task.Result.Type = Type;
-							};
+							};*/
 							Mode.MusicVideo = true;
 							Mode[Task.TaskName.replace(/\s/g,'')] = true;
 							socket.emit('getVideoID', {
@@ -4805,7 +4805,7 @@
 							socket.on('getVideoID', function(data){
 								Task.Frames[Task.TaskName] = data.Content;
 								Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
-								Task.Result.Type = Type;
+								//Task.Result.Type = Type;
 								PlaySong();
 							})
 							
@@ -4954,12 +4954,12 @@
 							break;
 							
 							case 'Animals song':
-								if(Profile.LoggedIn) {
+								/*if(Profile.LoggedIn) {
 									Task.Result.UserName = Profile.UserName;
 									Task.Result.Exercise = TaskName;
 									Task.Result.Topic_Name = Task.TopicName;
 									Task.Result.Type = Type;
-								};
+								};*/
 								Mode.MusicVideo = true;
 								Mode[Task.TaskName.replace(/\s/g,'')] = true;
 								socket.emit('getVideoID', {
@@ -4973,12 +4973,12 @@
 								drawLoading();
 							break;
 							case 'Numbers song (1 - 10)':
-								if(Profile.LoggedIn) {
+								/*if(Profile.LoggedIn) {
 									Task.Result.UserName = Profile.UserName;
 									Task.Result.Exercise = TaskName;
 									Task.Result.Topic_Name = Task.TopicName;
 									Task.Result.Type = Type;
-								};
+								};*/
 								Mode.MusicVideo = true;
 								Mode[Task.TaskName.replace(/\s/g,'')] = true;
 								socket.emit('getVideoID', {
@@ -4992,12 +4992,12 @@
 								drawLoading();
 							break;
 							case 'Numbers song (1 - 20)':
-								if(Profile.LoggedIn) {
+								/*if(Profile.LoggedIn) {
 									Task.Result.UserName = Profile.UserName;
 									Task.Result.Exercise = TaskName;
 									Task.Result.Topic_Name = Task.TopicName;
 									Task.Result.Type = Type;
-								};
+								};*/
 								Mode.MusicVideo = true;
 								Mode[Task.TaskName.replace(/\s/g,'')] = true;
 								socket.emit('getVideoID', {
@@ -5263,12 +5263,12 @@
 						Mode[Task.TaskName.replace(/\s/g,'')] = true;
 						Mode.Results = false;
 						Task.Result = {};
-						if(Profile.LoggedIn) {
+						/*if(Profile.LoggedIn) {
 							Task.Result.UserName = Profile.UserName;
 							Task.Result.Exercise = Task.TaskName;
 							Task.Result.Topic_Name = Task.TopicName;
 							Task.Result.Type = Task.Type;
-						};
+						};*/
 						
 						showTask(Task.TaskName, Task.TopicName, Task.Type, Task.MaxPoint, Task.N_toTest);
 						
@@ -5647,10 +5647,19 @@
 					var Help = document.getElementById("Help");
 					Help.src = "/img/Menu-Items/mouse_up.gif";
 					Help.style.position = "absolute";
-					Help.style.height = 2 * Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
-					Help.style.width = "auto";
-					Help.style.top = Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height);
-					Help.style.left = Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height);
+					if(!Mode.Mobile) {
+						Help.style.height = 2 * Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.width = "auto";
+						Help.style.top = Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.left = Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height);
+					}
+					else
+					{
+						Help.style.height = 2 * Display.getButton("menu_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.width = "auto";
+						Help.style.top = (Display.getButton("menu_btn.png").y + Display.getButton("menu_btn.png").h / 2)* Math.min(Screen.k_width, Screen.k_height);
+						Help.style.left = Display.getButton("menu_btn.png").x * Math.min(Screen.k_width, Screen.k_height);
+					}
 					Help.style.visibility = "visible";
 				}
 			}
