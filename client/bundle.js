@@ -1613,7 +1613,6 @@ module.exports = {
 							drawMenuItems();
 						}
 						else {
-							loadMenuItems();
 							drawMenuItems();
 						}
 						if(MenuItem.clicked > -1) {
@@ -3192,8 +3191,6 @@ module.exports = {
 					catch(e) {showResultForm(Answers, Total, Max);}
 				}
 				else {
-					if(Forms_loaded == false)
-						loadForms();
 					setTimeout(function(){
 						showResultForm(Answers, Total, Max);
 					}, 20);
@@ -4330,15 +4327,11 @@ module.exports = {
 					Mode.Menu = false;
 					respondCanvas();
 					drawLoading();
-					if(Forms_loaded == false)
-						loadForms();
 					showLogInForm();
 				}
 				//Sign Up button has been clicked
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Profile.LoggedIn && !Mode.LogIn && !Mode.LogIn && mouseInRect(Display.getButton("sign_in_btn.png"))) {
 					drawLoading();
-					if(Forms_loaded == false)
-						loadForms();
 					if(document.getElementById("MenuCanvas"))
 						$("#MenuCanvas").remove();
 					Mode.Menu = false;
@@ -4356,8 +4349,6 @@ module.exports = {
 					console.log("clicked settings button");
 					clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 					drawLoading();
-					if(Forms_loaded == false)
-						loadForms();
 					Mode.MenuItem = false;
 					Mode.Exercise = false;
 					Mode.Tasks = false;
@@ -4878,7 +4869,6 @@ module.exports = {
 						delete Task.Result.time;
 						Mode[Task.TaskName.replace(/\s/g,'')] = false;
 						if(!Mode.Quiz) {
-							loadForms();
 							drawLoading();
 							
 							showResultForm(Task.Result.Answers, Task.Total, Task.MaxPoint);
@@ -4902,7 +4892,6 @@ module.exports = {
 							else {
 								if(Mode.Quiz)
 									Quiz.Finish = new Date;
-								loadForms();
 								drawLoading();
 								showResultForm();
 							}
