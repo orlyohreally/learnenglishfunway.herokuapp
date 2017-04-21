@@ -2,7 +2,7 @@
 
 {
 	"filename": "enter-all-data.png",
-	"frame": {"x":0,"y":0,"w":368,"h":202},
+	"frame": {"x":0,"y":159,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -11,7 +11,16 @@
 },
 {
 	"filename": "incorrect-data.png",
-	"frame": {"x":368,"y":0,"w":368,"h":202},
+	"frame": {"x":0,"y":361,"w":368,"h":202},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
+	"sourceSize": {"w":368,"h":202},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "incorrect-password.png",
+	"frame": {"x":368,"y":361,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -20,7 +29,7 @@
 },
 {
 	"filename": "log_in_form.png",
-	"frame": {"x":736,"y":0,"w":368,"h":202},
+	"frame": {"x":736,"y":361,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -29,7 +38,7 @@
 },
 {
 	"filename": "log_in_form_cancel_btn.png",
-	"frame": {"x":1104,"y":0,"w":156,"h":37},
+	"frame": {"x":0,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -38,7 +47,7 @@
 },
 {
 	"filename": "log_in_form_login_btn.png",
-	"frame": {"x":1260,"y":0,"w":156,"h":37},
+	"frame": {"x":649,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -47,7 +56,7 @@
 },
 {
 	"filename": "log_out_btn.png",
-	"frame": {"x":1416,"y":0,"w":181,"h":37},
+	"frame": {"x":156,"y":0,"w":181,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":181,"h":37},
@@ -56,7 +65,7 @@
 },
 {
 	"filename": "need_to_do_exerciseProgress.png",
-	"frame": {"x":1597,"y":0,"w":368,"h":202},
+	"frame": {"x":1104,"y":159,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -65,7 +74,7 @@
 },
 {
 	"filename": "need_to_do_exerciseQuiz.png",
-	"frame": {"x":0,"y":202,"w":368,"h":202},
+	"frame": {"x":1472,"y":361,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -74,7 +83,7 @@
 },
 {
 	"filename": "need_to_loginPhrases.png",
-	"frame": {"x":368,"y":202,"w":368,"h":202},
+	"frame": {"x":0,"y":563,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -83,7 +92,7 @@
 },
 {
 	"filename": "need_to_loginProgress.png",
-	"frame": {"x":736,"y":202,"w":368,"h":202},
+	"frame": {"x":1104,"y":361,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -92,7 +101,7 @@
 },
 {
 	"filename": "need_to_loginQuiz.png",
-	"frame": {"x":1104,"y":202,"w":368,"h":202},
+	"frame": {"x":1472,"y":159,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -101,7 +110,7 @@
 },
 {
 	"filename": "need_to_loginRewards.png",
-	"frame": {"x":1472,"y":202,"w":368,"h":202},
+	"frame": {"x":736,"y":159,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -110,7 +119,7 @@
 },
 {
 	"filename": "progress_form_Matching.png",
-	"frame": {"x":0,"y":404,"w":736,"h":438},
+	"frame": {"x":0,"y":966,"w":736,"h":438},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":438},
@@ -119,7 +128,7 @@
 },
 {
 	"filename": "progress_form_Video.png",
-	"frame": {"x":736,"y":404,"w":736,"h":403},
+	"frame": {"x":736,"y":563,"w":736,"h":403},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":403},
@@ -128,7 +137,7 @@
 },
 {
 	"filename": "result_form.png",
-	"frame": {"x":1472,"y":404,"w":368,"h":159},
+	"frame": {"x":1273,"y":0,"w":368,"h":159},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":159},
@@ -137,7 +146,7 @@
 },
 {
 	"filename": "result_form_okay_btn.png",
-	"frame": {"x":0,"y":842,"w":156,"h":37},
+	"frame": {"x":337,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -146,7 +155,7 @@
 },
 {
 	"filename": "result_form_try_again_btn.png",
-	"frame": {"x":156,"y":842,"w":156,"h":37},
+	"frame": {"x":493,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -154,8 +163,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "same-passwords.png",
+	"frame": {"x":368,"y":159,"w":368,"h":202},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
+	"sourceSize": {"w":368,"h":202},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "setting_form.png",
-	"frame": {"x":312,"y":842,"w":736,"h":836},
+	"frame": {"x":736,"y":966,"w":736,"h":836},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":836},
@@ -164,7 +182,7 @@
 },
 {
 	"filename": "sign_in_form.png",
-	"frame": {"x":1048,"y":842,"w":368,"h":368},
+	"frame": {"x":368,"y":563,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
@@ -173,7 +191,7 @@
 },
 {
 	"filename": "sign_in_form_cancel_btn.png",
-	"frame": {"x":1416,"y":842,"w":156,"h":37},
+	"frame": {"x":805,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -182,7 +200,7 @@
 },
 {
 	"filename": "sign_in_form_save_btn.png",
-	"frame": {"x":1572,"y":842,"w":156,"h":37},
+	"frame": {"x":961,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -191,7 +209,7 @@
 },
 {
 	"filename": "sign_in_form_signin_btn.png",
-	"frame": {"x":1728,"y":842,"w":156,"h":37},
+	"frame": {"x":1117,"y":0,"w":156,"h":37},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":156,"h":37},
@@ -203,8 +221,8 @@
 	"version": "1.0",
 	"image": "forms.png",
 	"format": "RGBA8888",
-	"size": {"w":1965,"h":1678},
+	"size": {"w":1840,"h":1802},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:61c906fd89ebb6fe1322ece1103f5dfb:ccacb75df67eb4a55daeb364345c65d7:9b03ed0702ee7e82d798cd9ace954c38$"
+	"smartupdate": "$TexturePacker:SmartUpdate:81f759bb4c92ca48d158ec9cfd107fbc:28e07d0a61a2677f703a933c65f9fd29:9b03ed0702ee7e82d798cd9ace954c38$"
 }
 }

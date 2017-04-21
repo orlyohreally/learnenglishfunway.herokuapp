@@ -327,7 +327,7 @@ module.exports = {
 				$("#Password").remove();
 				$("inputdiv").remove();
 			}
-			//if($(document.activeElement).prop('type') != 'text'){
+			if($(document.activeElement).prop('type') != 'text'){
 			if(document.getElementById("MenuCanvas"))
 				c = $('#MenuCanvas');
 			else if(document.getElementById("ProgressCanvas"))
@@ -354,7 +354,7 @@ module.exports = {
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
 			Screen.k_height =  MenuItem.rheight / MenuItem.height;
-			//}
+			}
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
 			if(Mode.Menu)
 				Menu_ctx.clearRect(0, 0, Screen.width, Screen.height);
@@ -1689,7 +1689,6 @@ module.exports = {
 		MainCanvas.addEventListener("mousemove", checkPosMenuItem);
 		
 		function checkPosMenuItem(mouseEvent){
-			console.log("menuitempos");
 			event.preventDefault();
 			try {
 				var touch = mouseEvent.changedTouches[0];
@@ -1970,7 +1969,6 @@ module.exports = {
 					}
 				}
 			
-				console.log(Display.getTask(MenuItem.clicked, Task.firstTask + k1));
 				if((Mode.Tasks && (MenuItem.clicked > -1) && k1 > -1 && !(mouseInRect(Display.getTask(MenuItem.clicked, Task.firstTask + k1))))){
 					document.getElementById("Explaining").style.visibility = "hidden";
 					clearRectRect(Display.getTask(MenuItem.clicked, Task.firstTask + k1));
@@ -3772,6 +3770,7 @@ module.exports = {
 		}
 		function showSettings() {
 			if(Forms_loaded){
+				console.log("showing settings");
 				document.getElementById("Loading").style.visibility = "hidden";
 				ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
 				if(!document.getElementById("SettingsCanvas")) {
@@ -3818,6 +3817,7 @@ module.exports = {
 				MessageCanvas.addEventListener("touchend", checkClick);
 				Message_ctx = document.getElementById("MessageCanvas").getContext("2d");
 				
+				drawHeader();
 				
 				showMessageForm(name);
 			}
@@ -4165,6 +4165,28 @@ module.exports = {
 				ctx.drawImage(atlas[Task.TopicName + frametype1],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
 			else
 				ctx.drawImage(atlas[Task.TopicName + "frame"],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
+			if(Mode.Training && (k3 != -1)) {
+				console.log("k3", k3);
+				if(document.getElementById("Help")) {
+					$("#Help").remove();
+					$("HelpDiv").remove();
+				}
+				var div = document.createElement('HelpDiv');
+				div.innerHTML = '<image id = "Help"></image>';
+				document.getElementById("mainDiv").appendChild(div);
+				var Help = document.getElementById("Help");
+				Help.src = "/img/Menu-Items/mouse_up.gif";
+				Help.style.position = "absolute";
+				if(frametype1 == "frame")
+					Help.style.height = Display.getButton("itemImage").h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
+				else
+					Help.style.height = Display.getTestItem(Task.toTest.indexOf(Task.asked)).h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
+				Help.style.width = "auto";
+				Help.style.top = (Display.getButton("itemImage").y + Display.getButton("itemImage").h / 3) * Math.min(Screen.k_width, Screen.k_height);
+				Help.style.left = (Display.getButton("itemImage").x + Display.getButton("itemImage").w / 2) * Math.min(Screen.k_width, Screen.k_height);
+				
+			}
+			
 			for(var i = 0; i < Task.test.length; i++) {
 				var wordFrame = (Task.test.concat())[i][frametype2];
 				if(k3 != i) {
@@ -4172,8 +4194,30 @@ module.exports = {
 						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
 					else
 						ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
+					
 				}
 			}
+			if(Mode.Training && (k3 == -1 || Task.test[k3].Word != Task.asked.Word)) {
+				if(document.getElementById("Help")) {
+					$("#Help").remove();
+					$("HelpDiv").remove();
+				}
+				var div = document.createElement('HelpDiv');
+				div.innerHTML = '<image id = "Help"></image>';
+				document.getElementById("mainDiv").appendChild(div);
+				var Help = document.getElementById("Help");
+				Help.src = "/img/Menu-Items/mouse_up.gif";
+				Help.style.position = "absolute";
+				if(frametype2 == "frame")
+					Help.style.height = Display.getTestItem(Task.test.indexOf(Task.asked)).h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
+				else
+					Help.style.height = Display.getButton("itemImage").h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
+				Help.style.width = "auto";
+				Help.style.top = (Display.getTestItem(Task.test.indexOf(Task.asked)).y + Display.getTestItem(Task.test.indexOf(Task.asked)).h / 3) * Math.min(Screen.k_width, Screen.k_height);
+				Help.style.left = (Display.getTestItem(Task.test.indexOf(Task.asked)).x + Display.getTestItem(Task.test.indexOf(Task.asked)).w / 2) * Math.min(Screen.k_width, Screen.k_height);
+				
+			}
+			
 			drawExitButton();
 			
 			if(!Mode.Training) {
@@ -4208,7 +4252,6 @@ module.exports = {
 		MainCanvas.addEventListener("mouseup", checkClick);
 		MainCanvas.addEventListener("touchend", checkClick);
 		function checkClick(mouseEvent){
-			console.log(Mode.Menu, Mode);
 			event.preventDefault();
 			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {
 				try {
@@ -4460,17 +4503,63 @@ module.exports = {
 											$("inputdiv").remove();
 											$("#oldPassword").remove();
 											$("#newPassword").remove();
-											console.log("menuitem", Mode.MenuItem);
+											
 											respondCanvas();
 										}, 100);
 										console.log("new accent", Profile.Accent);
+									}
+									else if(data.res == "wrong password") {
+										setTimeout(function(){console.log("wrong password");
+										Mode.Message = true;
+										Mode.Settings = false;
+										$("#OldPassword").remove();
+										$("#NewPassword").remove();
+										$("inputdiv").remove();
+										$("#SettingsCanvas").remove();
+							
+											
+										Error.Name = "incorrect-password";
+										Error.Mode = "settings_form";
+										showMessage(Error.Name + ".png");
+										}, 100);
 									}
 								})
 								
 							}
 							else {
-								console.log("new password should be the same as current one");
+								console.log("new password should not be the same as current one");
+								setTimeout(function(){
+										
+								Mode.Message = true;
+								Mode.Settings = false;
+								$("#OldPassword").remove();
+								$("#NewPassword").remove();
+								$("inputdiv").remove();
+								$("#SettingsCanvas").remove();
+							
+									
+								Error.Name = "same-passwords";
+								Error.Mode = "settings_form";
+								showMessage("same-passwords.png");
+								}, 100);
 							}
+						}
+						else if((document.getElementById("oldPassword").value != document.getElementById("newPassword").value) && (document.getElementById("oldPassword").value != "" || document.getElementById("newPassword").value != "")) {
+							console.log("fill all the information (passwords)");
+							/*setTimeout(function(){
+										
+								Mode.Message = true;
+								Mode.Settings = false;
+								$("#OldPassword").remove();
+								$("#NewPassword").remove();
+								$("inputdiv").remove();
+								$("#SettingsCanvas").remove();
+							
+									
+								Error.Name = "same-passwords";
+								Error.Mode = "settings_form";
+								showMessage("same-passwords.png");
+							}, 100);*/
 						}
 						else {
 							console.log("empty gaps");
@@ -4483,8 +4572,7 @@ module.exports = {
 							$("inputdiv").remove();
 							$("#oldPassword").remove();
 							$("#newPassword").remove();
-							console.log("menuitem", Mode.MenuItem);
-							
+								
 							respondCanvas();
 							}, 100);
 							
@@ -4501,8 +4589,7 @@ module.exports = {
 						$("inputdiv").remove();
 						$("#oldPassword").remove();
 						$("#newPassword").remove();
-						console.log("menuitem", Mode.MenuItem);
-						
+									
 						respondCanvas();
 						}, 100);
 					
@@ -4513,11 +4600,11 @@ module.exports = {
 				}
 				//okay button has been clicked during message
 				if (Mode.Message && mouseInRect(Display.getButton("result_form_okay_btn.png"))) {
-					$("#MessageCanvas").remove;
-					
+					$("#MessageCanvas").remove();
+					console.log("mode:", Error.Mode);
 					if(Error.Mode == "sign_in_form") {
 						setTimeout(function(){
-							$("#MessageCanvas").remove();
+							
 							Mode.Message = false;
 							Mode.SignIn = true;
 							respondCanvas();
@@ -4554,7 +4641,7 @@ module.exports = {
 					}
 					else if(Error.Mode == "log_in_form") {
 						setTimeout(function(){
-							$("#MessageCanvas").remove();
+							
 						Mode.Message = false;
 						Mode.LogIn = true;
 						respondCanvas();
@@ -4589,9 +4676,8 @@ module.exports = {
 						
 						}, 100)
 					}
-					else if(Error.Mode = "progress_form") {
+					else if(Error.Mode == "progress_form") {
 						setTimeout(function(){
-							$("#MessageCanvas").remove();
 							Mode.Message = false;
 							Mode.MenuItem = true;
 							respondCanvas();
@@ -4613,6 +4699,14 @@ module.exports = {
 								}
 							}
 						}, 100)
+					}
+					else if(Error.Mode == "settings_form") {
+						console.log("Error settings_form");
+						setTimeout(function(){
+							Mode.Message = false;
+							Mode.Settings = true;
+							showSettings();
+						}, 100);
 					}
 					delete Error.Name;
 					delete Error.Mode;
@@ -4947,6 +5041,8 @@ module.exports = {
 						}
 					}
 					else {
+						Mode.CountDown = true;
+						Mode.Training = false;
 						Mode[Task.TaskName.replace(/\s/g,'')] = false;
 						clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 						drawHeader();
@@ -4954,24 +5050,37 @@ module.exports = {
 						var digit = {};
 						digit.h = (MenuItem.ends - MenuItem.starts) / 2;
 						digit.w = digit.h * digit_frame.w / digit_frame.h;
-						drawDigit(3, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
-						setTimeout(function(){
+						var div = document.createElement('CountDown');
+						div.innerHTML = '<image id = "CountDowngif"></image>';
+						document.getElementById("mainDiv").appendChild(div);
+						var CountDowngif = document.getElementById("CountDowngif");
+						CountDowngif.src = "/img/Menu-Items/countdown.gif";
+						CountDowngif.style.position = "absolute";
+						CountDowngif.style.visibility = "visible";
+						CountDowngif.style.width = 300 * Math.min(Screen.k_width, Screen.k_height);
+							CountDowngif.style.height = 300 * 330 / 306 * Math.min(Screen.k_width, Screen.k_height);
+							CountDowngif.style.top = Screen.height/2 - 300 * 330 / 306 * Math.min(Screen.k_width, Screen.k_height)/2; 
+							CountDowngif.style.left = Screen.width/2 - 300 * Math.min(Screen.k_width, Screen.k_height)/2; 
+						//drawDigit(3, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
+						//setTimeout(function(){
 							clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 							drawHeader();
-							drawDigit(2, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
-							setTimeout(function(){
-								clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
-								drawHeader();
-								drawDigit(1, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
+							//drawDigit(2, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
+							//setTimeout(function(){
+								//clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
+								//drawHeader();
+								//drawDigit(1, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
 									setTimeout(function(){
-										Mode[Task.TaskName.replace(/\s/g,'')] = true;
-										Mode.Training = false;
+										k3 = -1;
+										$("#CountDowngif").remove();
+										$("CountDown").remove();
+										Mode.CountDown = false;
 										clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 										drawHeader();
 										setTest((Task.Frames[Task.TaskName]).concat(), Task.Total);
-								}, 1000)
-							}, 1000)
-						},1000)
+								}, 3*1000)
+							//}, 1000)
+						//},1000)
 					}
 				}
 				
@@ -5525,6 +5634,10 @@ module.exports = {
 								Task.tries--;
 								var correct = checkAnswer(k3);
 								if(correct){
+									if(document.getElementById("Help")) {
+										$("#Help").remove();
+										$("HelpDiv").remove();
+									}
 									if(Task.TopicName != "Numbers")
 										speak("It is a " + Task.test[k3].Word);
 									else
@@ -5699,24 +5812,39 @@ module.exports = {
 							var digit = {};
 							digit.h = (MenuItem.ends - MenuItem.starts) / 2;
 							digit.w = digit.h * digit_frame.w / digit_frame.h;
-							drawDigit(3, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
-							setTimeout(function(){
-								clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
-								drawHeader();
-								drawDigit(2, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
-								setTimeout(function(){
-									clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
-									drawHeader();
-									drawDigit(1, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
+							clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
+							var div = document.createElement('CountDown');
+							div.innerHTML = '<image id = "CountDowngif"></image>';
+							document.getElementById("mainDiv").appendChild(div);
+							var CountDowngif = document.getElementById("CountDowngif");
+							CountDowngif.src = "/img/Menu-Items/countdown.gif";
+							CountDowngif.style.position = "absolute";
+							CountDowngif.style.visibility = "visible";
+							drawHeader();
+							CountDowngif.style.width = 300 * Math.min(Screen.k_width, Screen.k_height);
+							CountDowngif.style.height = 300 * 330 / 306 * Math.min(Screen.k_width, Screen.k_height);
+							CountDowngif.style.top = Screen.height/2 - 300 * 330 / 306 * Math.min(Screen.k_width, Screen.k_height)/2; 
+							CountDowngif.style.left = Screen.width/2 - 300 * Math.min(Screen.k_width, Screen.k_height)/2; 
+							//drawDigit(3, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
+							//setTimeout(function(){
+								//drawHeader();
+								//drawDigit(2, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
+								//setTimeout(function(){
+									//clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
+									//drawHeader();
+									//drawDigit(1, (Screen.width / Math.min(Screen.k_width, Screen.k_height) - digit.w) / 2, (Screen.height  / Math.min(Screen.k_width, Screen.k_height) - digit.h)/2, digit.w, digit.h);
 										setTimeout(function(){
+											k3 = -1;
+											$("#CountDowngif").remove();
+											$("CountDown").remove();
 											Mode[Task.TaskName.replace(/\s/g,'')] = true;
 											Mode.Training = false;
 											clearRect(0,0,Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 											drawHeader();
 											setTest((Task.Frames[Task.TaskName]).concat(), Task.Total);
-									}, 1000)
-								}, 1000)
-							},1000)
+									}, 3 * 1000)
+								//}, 1000)
+							//},1000)
 					}
 				}
 				
@@ -5759,8 +5887,18 @@ module.exports = {
 					}
 					else {
 						document.getElementById("Loading").style.visibility = "hidden";
-						alert("You must be logged in to get a quiz");
-						
+						console.log("You must be logged in to get a quiz");
+						Mode.Message = true;
+						Mode.MenuItem = false;
+						if(document.getElementById("MenuCanvas")){
+							Mode.Menu = false;
+							var child = document.getElementById("MenuCanvas");
+							document.getElementById("mainDiv").removeChild(child);
+						}
+							
+						Error.Name = "need_to_loginQuiz";
+						Error.Mode = "quiz_form";
+						showMessage("need_to_loginQuiz.png");
 						
 					}
 				}
@@ -5788,7 +5926,18 @@ module.exports = {
 						})
 					}
 					else {
-						alert("need to login");
+						console.log("need to login");
+						Mode.Message = true;
+						Mode.MenuItem = false;
+						if(document.getElementById("MenuCanvas")){
+							Mode.Menu = false;
+							var child = document.getElementById("MenuCanvas");
+							document.getElementById("mainDiv").removeChild(child);
+						}
+							
+						Error.Name = "need_to_loginRewards";
+						Error.Mode = "badges_form";
+						showMessage("need_to_loginRewards.png");
 					}
 					console.log("Rewards are not available yet:(");
 				}
