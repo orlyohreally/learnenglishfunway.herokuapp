@@ -310,7 +310,7 @@
 		
 		Task["loadedSchool thingsframe"] = false;
 		function loadSchoolThings(){
-			atlas["School thingsframe"].src = '/img/School things/school things.png';
+			atlas["School thingsframe"].src = '/img/School things/School things.png';
 			atlas["School thingsframe"].addEventListener("load", function() {
 				Task["loadedSchool thingsframe"] = true;
 			})
