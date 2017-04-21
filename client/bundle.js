@@ -63,17 +63,187 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+var Display = {};
+
+Display.Topics = [];
+function setTopic(j, x, y, w, h) {
+	Display.Topics[j] = {};
+	Display.Topics[j].x = x;
+	Display.Topics[j].y = y;
+	Display.Topics[j].w = w;
+	Display.Topics[j].h = h;
+}
+function getTopic(j) {
+	return Display.Topics[j];
+}
+function expandTopic(j, n) {
+	//console.log(j, Display.Topics[j], Display.Topics[j]);
+	//console.log("expanding", j);
+	Display.Topics[j].x = Display.Topics[j].x - n;
+	Display.Topics[j].y = Display.Topics[j].y - n;
+	Display.Topics[j].w = Display.Topics[j].w + 2 * n;
+	Display.Topics[j].h = Display.Topics[j].h + 2 * n;
+}
+Display.TestItems = [];
+function setTestItem(j, x, y, w, h) {
+	Display.TestItems[j] = {};
+	Display.TestItems[j].x = x;
+	Display.TestItems[j].y = y;
+	Display.TestItems[j].w = w;
+	Display.TestItems[j].h = h;
+}
+function getTestItem(j) {
+	return Display.TestItems[j];
+}
+function getTestItems() {
+	return Display.TestItems;
+}
+function expandTestItem(j, n) {
+	Display.TestItems[j].x = Display.TestItems[j].x - n;
+	Display.TestItems[j].y = Display.TestItems[j].y - n;
+	Display.TestItems[j].w = Display.TestItems[j].w + 2 * n;
+	Display.TestItems[j].h = Display.TestItems[j].h + 2 * n;
+}
+Display.Tasks = [];
+function setTask(j, i, x, y, w, h) {
+	try{		
+		Display.Tasks[j][i] = {};
+	}
+	catch(e) {
+		Display.Tasks[j] = [];
+		Display.Tasks[j][i] = {};
+	}
+	Display.Tasks[j][i].x = x;
+	Display.Tasks[j][i].y = y;
+	Display.Tasks[j][i].w = w;
+	Display.Tasks[j][i].h = h;
+}
+function getTask(j, i) {
+	try {
+		return Display.Tasks[j][i];
+	}
+	catch(e){
+		return false;
+	}
+}
+function expandTask(j, i, n) {
+	//console.log(Display.Tasks[j][i]);
+	Display.Tasks[j][i].x = Display.Tasks[j][i].x - n;
+	Display.Tasks[j][i].y = Display.Tasks[j][i].y - n;
+	Display.Tasks[j][i].w = Display.Tasks[j][i].w + 2 * n;
+	Display.Tasks[j][i].h = Display.Tasks[j][i].h + 2 * n;
+}
+
+Display.Buttons = {};
+
+function setButton(name, x, y, w, h) {
+	//console.log(name, x, y, w, h);
+	Display.Buttons[name] = {};
+	Display.Buttons[name].x = x;
+	Display.Buttons[name].y = y;
+	Display.Buttons[name].w = w;
+	Display.Buttons[name].h = h;
+}
+function getButton(name) {
+	return Display.Buttons[name];
+}
+function expandButton(name, n) {
+	Display.Buttons[name].x = Display.Buttons[name].x - n;
+	Display.Buttons[name].y = Display.Buttons[name].y - n;
+	Display.Buttons[name].w = Display.Buttons[name].w + 2 * n;
+	Display.Buttons[name].h = Display.Buttons[name].h + 2 * n;
+}
+Display.Forms = {};
+function setForm(name, x, y, w, h) {
+	//console.log(name, x, y, w, h);
+	Display.Forms[name] = {};
+	Display.Forms[name].x = x;
+	Display.Forms[name].y = y;
+	Display.Forms[name].w = w;
+	Display.Forms[name].h = h;
+}
+function getForm(name) {
+	return Display.Forms[name];
+}
+Display.Badges = [];
+function setBadge(name, x, y, w, h) {
+	Display.Badges[name] = {};
+	Display.Badges[name].x = x;
+	Display.Badges[name].y = y;
+	Display.Badges[name].w = w;
+	Display.Badges[name].h = h;
+}
+function getBadge(name) {
+	return Display.Badges[name];
+}
+function expandBadge(name, n) {
+	Display.Badges[name].x = Display.Badges[name].x - n;
+	Display.Badges[name].y = Display.Badges[name].y - n;
+	Display.Badges[name].w = Display.Badges[name].w + 2 * n;
+	Display.Badges[name].h = Display.Badges[name].h + 2 * n;
+}
+module.exports= {
+	getButton: getButton,
+	setButton: setButton,
+	getForm: getForm,
+	setForm: setForm,	
+	expandButton: expandButton,
+	setTask: setTask,
+	getTask: getTask,
+	expandTask: expandTask,
+	setTopic: setTopic,
+	getTopic: getTopic,
+	expandTopic: expandTopic,
+	setTestItem: setTestItem,
+	getTestItem: getTestItem,
+	getTestItems: getTestItems,
+	expandTestItem: expandTestItem,
+	setBadge: setBadge,
+	getBadge: getBadge,
+	expandBadge: expandBadge
+	
+}
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+function randomInteger(min, max) {
+	return Math.floor(Math.random() * (max - min) + min);
+}
+function getRandomArray(array, arrayB, size) {
+	//console.log("array", array);
+	var arrayA = array.slice(0);
+	//console.log(arrayA);
+	for(var i = 0; i < size; i++){
+		var j = randomInteger(0, arrayA.length);
+		arrayB[i] = arrayA[j];
+		arrayA.splice(j, 1);
+		//console.log("splicing in function");
+	}
+	return arrayB;
+}
+
+module.exports = {
+	randomInteger: randomInteger,
+	getRandomArray: getRandomArray,
+}
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function(){
 	$(document).ready(function(){
-		var functions = __webpack_require__(2);
-		var Display = __webpack_require__(1);
+		var functions = __webpack_require__(1);
+		var Display = __webpack_require__(0);
 		var ctx = document.getElementById("MainCanvas").getContext("2d");
 		var video;
 		
@@ -210,10 +380,10 @@
 			var A = 0, B = 0;
 			MenuItem.rheight = MenuItem.ends - MenuItem.starts;
 			//if(Screen.width >= Screen.height || !Mode.Mobile) {
-			//выравнивание по вертикали
+			//������������ �� ���������
 				koef = 0.75;
 				B = (MenuItem.ends - MenuItem.starts) - 2 * 40;
-				//выравнивание по горизонтали 
+				//������������ �� ����������� 
 				A = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 40 - 2 * koef*100 - (MenuItem.display - 1) * 68) / (MenuItem.display);
 				console.log(Screen.width, ">=", Screen.height, "1111");
 				
@@ -222,7 +392,7 @@
 				
 				koef = 1.25;
 				A = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20)/ (MenuItem.display);
-				//выравнивание по горизонтали 
+				//������������ �� ����������� 
 				B = (MenuItem.ends - MenuItem.starts - 2 * 20 - 2 * koef*100 - (MenuItem.display - 1) * 40) / (MenuItem.display);
 				console.log(Screen.width, "<", Screen.height);				
 			}*/
@@ -317,7 +487,7 @@
 		function drawMenuItems(){
 			console.log("drawing menu items");
 			try{
-				var j = 0; //порядок в спрайте
+				var j = 0; //������� � �������
 				if(MenuItem.firstItem != undefined)
 					j = MenuItem.firstItem;
 				clearRect(Display.getButton("left-arrow.png").x + Display.getButton("left-arrow.png").w, MenuItem.starts, Display.getButton("right-arrow.png").x - Display.getButton("left-arrow.png").w - Display.getButton("left-arrow.png").x, MenuItem.ends - MenuItem.starts);
@@ -1054,20 +1224,12 @@
 			return false;
 		}
 		function mouseInRect(x) {
-			/*if(Mode.Smartphone) {
-				x.x = x.x + 20;
-				x.y = x.y + 20;
-				x.w = x.w + 20;
-				x.h = x.h + 20;
-			}*/
-			
-			//fillRect(mouseX/Math.min(Screen.k_width, Screen.k_height), mouseY/Math.min(Screen.k_width, Screen.k_height), 10, 10);
-				
+			try{
 			if(mouseX >= x.x* Math.min(Screen.k_width, Screen.k_height) && mouseX <= (x.x + x.w)* Math.min(Screen.k_width, Screen.k_height) && mouseY >= x.y* Math.min(Screen.k_width, Screen.k_height) && mouseY <= (x.y + x.h)* Math.min(Screen.k_width, Screen.k_height)){
 					return true;
 				}
-			//clearRectRectYellow(Display.getButton("right-arrow.png"));
-			//clearRectRectYellow(Display.getButton("left-arrow.png"));
+			}
+			catch(e){};
 			return false;
 		}
 		function speak(Word) {
@@ -2234,7 +2396,10 @@
 						wordFrame = (Task.test.concat())[k2][frametype2];
 						clearRectRect(Display.getTestItem(k2));
 						Display.expandTestItem(i, 3);
-						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k2).x)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).h)*Math.min(Screen.k_width, Screen.k_height));
+						if(Task.TopicName != "School things")
+							ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k2).x)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).h)*Math.min(Screen.k_width, Screen.k_height));
+						else
+							ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k2).x)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).h)*Math.min(Screen.k_width, Screen.k_height));
 						word_ch = true;
 					}
 				}
@@ -2245,7 +2410,10 @@
 						wordFrame = Task.test[i][frametype2];
 						clearRectRect(Display.getTestItem(i));
 						Display.expandTestItem(i, -3);
-						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(i)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).h)*Math.min(Screen.k_width, Screen.k_height));
+						if(Task.TopicName != "School things")
+							ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(i)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).h)*Math.min(Screen.k_width, Screen.k_height));
+						else
+							ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(i)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).h)*Math.min(Screen.k_width, Screen.k_height));
 						word_ch = false;
 						k2 = -1;
 					}
@@ -2256,7 +2424,10 @@
 						Item.x = Display.getTestItem(k3).x + mouseX/Math.min(Screen.k_width, Screen.k_height) - Pressed.x/Math.min(Screen.k_width, Screen.k_height);
 						Item.y = Display.getTestItem(k3).y + mouseY/Math.min(Screen.k_width, Screen.k_height) - Pressed.y/Math.min(Screen.k_width, Screen.k_height);
 						drawTest();
-						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Item.x)*Math.min(Screen.k_width, Screen.k_height), (Item.y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
+						if(Task.TopicName != "School things")
+							ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Item.x)*Math.min(Screen.k_width, Screen.k_height), (Item.y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
+						else
+							ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Item.x)*Math.min(Screen.k_width, Screen.k_height), (Item.y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
 						
 					}
 				}
@@ -3968,11 +4139,17 @@
 				top = MenuItem.starts + 40 + animal_height + 40;
 			}
 			var word_height = setWordHeight();
-			ctx.drawImage(atlas[Task.TopicName + frametype1],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
+			if(Task.TopicName != "School things")
+				ctx.drawImage(atlas[Task.TopicName + frametype1],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
+			else
+				ctx.drawImage(atlas[Task.TopicName + "frame"],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
 			for(var i = 0; i < Task.test.length; i++) {
 				var wordFrame = (Task.test.concat())[i][frametype2];
 				if(k3 != i) {
-					ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
+					if(Task.TopicName != "School things")
+						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
+					else
+						ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
 				}
 			}
 			drawExitButton();
@@ -5128,7 +5305,8 @@
 								drawLoading();
 								if(!Mode.Quiz) {
 								socket.emit('getTask', {
-									TaskName: TaskName
+									TaskName: TaskName,
+									Accent: Profile.Accent
 								})
 								socket.on('getTask', function(data){
 									Task.Frames[TaskName] = data.Content;
@@ -5148,7 +5326,43 @@
 								Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 								drawExitButton();
 								
-								break;
+							break;
+							case 'Find the supply':
+								console.log("Name supplies", TopicName, Task);
+								Mode[Task.TaskName.replace(/\s/g,'')] = true;
+								frametype2 = "frame";
+								frametype1 = "Wordsframe";
+								
+								if(!Mode.Quiz)
+									Mode.Training = true;
+								if(!Task["loaded" + TopicName + "frame"])
+									loadSchoolThings();
+								
+								drawLoading();
+								if(!Mode.Quiz) {
+								socket.emit('getTask', {
+									TaskName: TaskName,
+									Accent: Profile.Accent
+								})
+								socket.on('getTask', function(data){
+									Task.Frames[TaskName] = data.Content;
+									checkloaded[TopicName](TaskName, N);
+									})
+								}
+								else
+									checkloaded[TopicName](TaskName, N);
+								try{
+									size_btn = setWordHeight();
+									if(frametype1 == "Wordsframe" && frametype2 == "frame")
+										size_btn = 70;
+								}
+								catch(e) {
+									size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
+								}
+								Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+								drawExitButton();
+								
+							break;
 							default: 
 									delete Task.TaskName;
 									delete Task.TopicName;
@@ -5625,7 +5839,7 @@
 					alert("Phrases are not available yet:(");
 				}
 				//help button has been clicked
-				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("help_btn.png"))) {
+				if (((!Mode.Mobile) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("help_btn.png"))) {
 					//help clicked during badge mode
 					if(Mode.Badges && mouseInRect(Display.getButton("help_btn.png"))) {
 						console.log("help has been clicked");
@@ -5706,7 +5920,10 @@
 							if(Mode.Training) {
 								drawTest();
 								var wordFrame = (Task.test.concat())[k3][frametype2];
-								ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
+								if(Task.TopicName != "School things")
+									ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
+								else
+									ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
 							}
 						}
 						else {
@@ -5841,178 +6058,6 @@
 	
 });
 })();
-
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-var Display = {};
-
-Display.Topics = [];
-function setTopic(j, x, y, w, h) {
-	Display.Topics[j] = {};
-	Display.Topics[j].x = x;
-	Display.Topics[j].y = y;
-	Display.Topics[j].w = w;
-	Display.Topics[j].h = h;
-}
-function getTopic(j) {
-	return Display.Topics[j];
-}
-function expandTopic(j, n) {
-	//console.log(j, Display.Topics[j], Display.Topics[j]);
-	//console.log("expanding", j);
-	Display.Topics[j].x = Display.Topics[j].x - n;
-	Display.Topics[j].y = Display.Topics[j].y - n;
-	Display.Topics[j].w = Display.Topics[j].w + 2 * n;
-	Display.Topics[j].h = Display.Topics[j].h + 2 * n;
-}
-Display.TestItems = [];
-function setTestItem(j, x, y, w, h) {
-	Display.TestItems[j] = {};
-	Display.TestItems[j].x = x;
-	Display.TestItems[j].y = y;
-	Display.TestItems[j].w = w;
-	Display.TestItems[j].h = h;
-}
-function getTestItem(j) {
-	return Display.TestItems[j];
-}
-function getTestItems() {
-	return Display.TestItems;
-}
-function expandTestItem(j, n) {
-	Display.TestItems[j].x = Display.TestItems[j].x - n;
-	Display.TestItems[j].y = Display.TestItems[j].y - n;
-	Display.TestItems[j].w = Display.TestItems[j].w + 2 * n;
-	Display.TestItems[j].h = Display.TestItems[j].h + 2 * n;
-}
-Display.Tasks = [];
-function setTask(j, i, x, y, w, h) {
-	try{		
-		Display.Tasks[j][i] = {};
-	}
-	catch(e) {
-		Display.Tasks[j] = [];
-		Display.Tasks[j][i] = {};
-	}
-	Display.Tasks[j][i].x = x;
-	Display.Tasks[j][i].y = y;
-	Display.Tasks[j][i].w = w;
-	Display.Tasks[j][i].h = h;
-}
-function getTask(j, i) {
-	try {
-		return Display.Tasks[j][i];
-	}
-	catch(e){
-		return false;
-	}
-}
-function expandTask(j, i, n) {
-	//console.log(Display.Tasks[j][i]);
-	Display.Tasks[j][i].x = Display.Tasks[j][i].x - n;
-	Display.Tasks[j][i].y = Display.Tasks[j][i].y - n;
-	Display.Tasks[j][i].w = Display.Tasks[j][i].w + 2 * n;
-	Display.Tasks[j][i].h = Display.Tasks[j][i].h + 2 * n;
-}
-
-Display.Buttons = {};
-
-function setButton(name, x, y, w, h) {
-	//console.log(name, x, y, w, h);
-	Display.Buttons[name] = {};
-	Display.Buttons[name].x = x;
-	Display.Buttons[name].y = y;
-	Display.Buttons[name].w = w;
-	Display.Buttons[name].h = h;
-}
-function getButton(name) {
-	return Display.Buttons[name];
-}
-function expandButton(name, n) {
-	Display.Buttons[name].x = Display.Buttons[name].x - n;
-	Display.Buttons[name].y = Display.Buttons[name].y - n;
-	Display.Buttons[name].w = Display.Buttons[name].w + 2 * n;
-	Display.Buttons[name].h = Display.Buttons[name].h + 2 * n;
-}
-Display.Forms = {};
-function setForm(name, x, y, w, h) {
-	//console.log(name, x, y, w, h);
-	Display.Forms[name] = {};
-	Display.Forms[name].x = x;
-	Display.Forms[name].y = y;
-	Display.Forms[name].w = w;
-	Display.Forms[name].h = h;
-}
-function getForm(name) {
-	return Display.Forms[name];
-}
-Display.Badges = [];
-function setBadge(name, x, y, w, h) {
-	Display.Badges[name] = {};
-	Display.Badges[name].x = x;
-	Display.Badges[name].y = y;
-	Display.Badges[name].w = w;
-	Display.Badges[name].h = h;
-}
-function getBadge(name) {
-	return Display.Badges[name];
-}
-function expandBadge(name, n) {
-	Display.Badges[name].x = Display.Badges[name].x - n;
-	Display.Badges[name].y = Display.Badges[name].y - n;
-	Display.Badges[name].w = Display.Badges[name].w + 2 * n;
-	Display.Badges[name].h = Display.Badges[name].h + 2 * n;
-}
-module.exports= {
-	getButton: getButton,
-	setButton: setButton,
-	getForm: getForm,
-	setForm: setForm,	
-	expandButton: expandButton,
-	setTask: setTask,
-	getTask: getTask,
-	expandTask: expandTask,
-	setTopic: setTopic,
-	getTopic: getTopic,
-	expandTopic: expandTopic,
-	setTestItem: setTestItem,
-	getTestItem: getTestItem,
-	getTestItems: getTestItems,
-	expandTestItem: expandTestItem,
-	setBadge: setBadge,
-	getBadge: getBadge,
-	expandBadge: expandBadge
-	
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-function randomInteger(min, max) {
-	return Math.floor(Math.random() * (max - min) + min);
-}
-function getRandomArray(array, arrayB, size) {
-	//console.log("array", array);
-	var arrayA = array.slice(0);
-	//console.log(arrayA);
-	for(var i = 0; i < size; i++){
-		var j = randomInteger(0, arrayA.length);
-		arrayB[i] = arrayA[j];
-		arrayA.splice(j, 1);
-		//console.log("splicing in function");
-	}
-	return arrayB;
-}
-
-module.exports = {
-	randomInteger: randomInteger,
-	getRandomArray: getRandomArray,
-}
 
 /***/ })
 /******/ ]);

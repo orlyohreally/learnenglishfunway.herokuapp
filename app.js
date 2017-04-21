@@ -526,6 +526,13 @@ io.sockets.on('connection', function(socket) {
 	socket.on('getTask', function(data){
 		//console.log("TaskName", data.TaskName);
 		db.Exercise.find({"Name":data.TaskName}, function(err, res){
+			if(data.Accent) {
+				var Accents = underscorejs.pluck(res[0].Content, "Accent");
+				for (var i = 0; i < Accents.length; i++) {
+					if(underscorejs.indexOf(Accents[i], data.Accent) == -1)
+						res[0].Content.splice(i, 1);
+				}
+			}
 			//console.log("emitting Animals", res[0].Content);
 			socket.emit('getTask', {
 				Content: res[0].Content
