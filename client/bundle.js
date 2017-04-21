@@ -327,6 +327,7 @@ module.exports = {
 				$("#Password").remove();
 				$("inputdiv").remove();
 			}
+			//if($(document.activeElement).prop('type') != 'text'){
 			if(document.getElementById("MenuCanvas"))
 				c = $('#MenuCanvas');
 			else if(document.getElementById("ProgressCanvas"))
@@ -353,6 +354,7 @@ module.exports = {
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
 			Screen.k_height =  MenuItem.rheight / MenuItem.height;
+			//}
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
 			if(Mode.Menu)
 				Menu_ctx.clearRect(0, 0, Screen.width, Screen.height);
@@ -382,9 +384,14 @@ module.exports = {
 			//if(Screen.width >= Screen.height || !Mode.Mobile) {
 			//������������ �� ���������
 				koef = 0.75;
+				var l_a_width = 100*koef;
+				if(l_a_width < 30 / Math.min(Screen.k_width, Screen.k_height)) {
+					l_a_width = 30 / Math.min(Screen.k_width, Screen.k_height);
+				}
+				
 				B = (MenuItem.ends - MenuItem.starts) - 2 * 40;
 				//������������ �� ����������� 
-				A = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 40 - 2 * koef*100 - (MenuItem.display - 1) * 68) / (MenuItem.display);
+				A = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 40 - 2 * l_a_width - (MenuItem.display - 1) * 68) / (MenuItem.display);
 				console.log(Screen.width, ">=", Screen.height, "1111");
 				
 			//}
@@ -411,14 +418,14 @@ module.exports = {
 			//menu items start
 			//if(Screen.width >= Screen.height || !Mode.Mobile) {
 			MenuItem.topSpace = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
-			MenuItem.leftSpace = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.display * MenuItem.size - (MenuItem.display - 1) * 68 - 2 * 100*koef - 10) / 4;
+			MenuItem.leftSpace = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.display * MenuItem.size - (MenuItem.display - 1) * 68 - 2 * l_a_width - 10) / 4;
 			
 			if(!Math.floor(2 * MenuItem.topSpace / MenuItem.size) > 0 && Math.floor(2 * MenuItem.leftSpace / MenuItem.size) > 0) {
 				MenuItem.display = MenuItem.display + Math.floor( 2 * MenuItem.leftSpace / MenuItem.size);
 				if(MenuItem.display > MenuItem.itemsCount) {
 					MenuItem.display = MenuItem.itemsCount;
 				}
-				MenuItem.leftSpace = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.display * MenuItem.size - (MenuItem.display - 1) * 68 - 2 * 100*koef - 10) / 4;
+				MenuItem.leftSpace = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.display * MenuItem.size - (MenuItem.display - 1) * 68 - 2 *l_a_width - 10) / 4;
 			
 			}
 			//}
@@ -494,7 +501,7 @@ module.exports = {
 				while(j < MenuItem.firstItem + MenuItem.display){
 						var pX, pY;
 						//if(Screen.width >= Screen.height || !Mode.Mobile) {
-							pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+							pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 							pY =  MenuItem.topSpace;
 							
 						//}
@@ -1581,9 +1588,14 @@ module.exports = {
 			
 			
 			var l_a_width = 100*koef;
-			var l_a_height = koef*100*226/152;
-			var r_a_height = koef*100*226/152;
 			var r_a_width = koef*100;
+			if(l_a_width < 30 / Math.min(Screen.k_width, Screen.k_height)) {
+				l_a_width = 30 / Math.min(Screen.k_width, Screen.k_height);
+				r_a_width = 30 / Math.min(Screen.k_width, Screen.k_height);
+			}
+			frame = Properties.Buttons["left-arrow.png"];
+			var l_a_height = l_a_width * frame.h/ frame.w;
+			var r_a_height = r_a_width * frame.h/ frame.w;
 			var l_a_x, l_a_y,r_a_y, r_a_x;
 			//if(Screen.width >= Screen.height || !Mode.Mobile) {
 				l_a_x = MenuItem.leftSpace;
@@ -1601,6 +1613,7 @@ module.exports = {
 				r_a_x = (Screen.width / Math.min(Screen.k_width, Screen.k_height)- l_a_width ) / 2;
 				
 			}*/
+			
 			checkLoadButtons(l_a_x, l_a_y, l_a_width, l_a_height, r_a_x, r_a_y, r_a_width, r_a_height);
 			
 		}
@@ -1636,9 +1649,12 @@ module.exports = {
 					
 					if(Mode.MusicVideo) {
 						drawHeader();
-						var size_btn = 70;
-						//drawExitButton();
-						//displayVideo();
+						var l_a_width = 100*koef;
+						if(l_a_width < 30 / Math.min(Screen.k_width, Screen.k_height)) {
+							l_a_width = 30 / Math.min(Screen.k_width, Screen.k_height);
+						}
+						Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - l_a_width, MenuItem.starts + 20, l_a_width, l_a_width);
+						drawExitButton();
 						PlaySong();
 					}
 				}
@@ -2966,7 +2982,7 @@ module.exports = {
 		
 		function drawMenuItemsTasks(j){
 			
-			pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+			pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 			pY =  MenuItem.topSpace;
 			t_a_width = 100*0.5;
 			t_a_height = 0.5*100*226/152;
@@ -3248,10 +3264,15 @@ module.exports = {
 			ResultForm_frame.h = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 20;
 			ResultForm_frame.w = ResultForm_frame.h * frame.w / frame.h;
 			
-			var r_a_height = koef*100*226/152;
-			var r_a_y =  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2;
 			var r_a_width = koef*100;
-			var r_a_x = MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;
+			var arrowframe = Properties.Buttons["right-arrow.png"];
+			if(r_a_width < 30 / Math.min(Screen.k_width, Screen.k_height)) {
+				console.log("too small button");
+				r_a_width = 30 /  Math.min(Screen.k_width, Screen.k_height);
+			}
+			var r_a_height = r_a_width * arrowframe.h / arrowframe.w;
+			var r_a_y =  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2;
+			var r_a_x = Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;
 			
 			if(ResultForm_frame.w > Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * r_a_width - 2 * 20 - 2 * MenuItem.leftSpace) {
 				
@@ -3261,10 +3282,10 @@ module.exports = {
 			ResultForm_frame.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - ResultForm_frame.w) / 2;
 			ResultForm_frame.y = MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - ResultForm_frame.h) / 2;
 			Display.setForm("progress_form_" + type + ".png", ResultForm_frame.x, ResultForm_frame.y, ResultForm_frame.w, ResultForm_frame.h);
-			var r_a_height = koef*100*226/152;
+			/*var r_a_height = koef*100*226/152;
 			var r_a_y =  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2;
 			var r_a_width = koef*100;
-			var r_a_x = MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;
+			var r_a_x = MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;*/
 			//Display.setButton("right-arrow.png", Display.getButton("right-arrow.png").x, Display.getForm("progress_form_" + type + ".png").y + Display.getForm("progress_form_" + type + ".png").h / 2 - Display.getButton("right-arrow.png").h / 2,Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").h)
 			Display.setButton("right-arrow.png", r_a_x, Display.getForm("progress_form_" + type + ".png").y + Display.getForm("progress_form_" + type + ".png").h / 2 - r_a_height / 2, r_a_width, r_a_height);
 			Display.setButton("left-arrow.png", MenuItem.leftSpace, Display.getForm("progress_form_" + type + ".png").y + Display.getForm("progress_form_" + type + ".png").h / 2 - r_a_height / 2, r_a_width, r_a_height);
@@ -3609,12 +3630,17 @@ module.exports = {
 			ProgressCanvas.addEventListener("touchend", checkClick);
 			Progress_ctx = document.getElementById("ProgressCanvas").getContext("2d");
 			
-			var r_a_height = koef*100*226/152;
-			var r_a_y =  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2;
 			var r_a_width = koef*100;
+			var frame = Properties.Buttons["right-arrow.png"];
+			if(r_a_width < 30 / Math.min(Screen.k_width, Screen.k_height)) {
+				console.log("too small button");
+				r_a_width = 30 /  Math.min(Screen.k_width, Screen.k_height);
+			}
+			var r_a_height = r_a_width * frame.h / frame.w;
+			var r_a_y =  MenuItem.topSpace + MenuItem.size / 2 - r_a_height / 2;
 			var r_a_x = MenuItem.rwidth / Math.min(Screen.k_width, Screen.k_height) - MenuItem.leftSpace - r_a_width;
 			
-			size_btn = r_a_width;
+			var size_btn = r_a_width;
 			Display.setButton("exit_btn.png", r_a_x + r_a_width - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 			
 			showProgressForm();
@@ -4002,17 +4028,16 @@ module.exports = {
 				video.style.position = "absolute";
 				video.src = url_;
 			}
-			var size_btn = 70;
 			var VideoFrame = {};
-			VideoFrame.height = MenuItem.ends - 40;
+			VideoFrame.height = Screen.height/Math.min(Screen.k_width, Screen.k_height) - Display.getButton("exit_btn.png").y - Display.getButton("exit_btn.png").h - 2 * 10;
 			
 			VideoFrame.width = 1280/720*VideoFrame.height;
-			if(VideoFrame.width + 2 * Title.leftSpace + size_btn > Screen.width / Math.min(Screen.k_width, Screen.k_height)) {
-				VideoFrame.width = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * Title.leftSpace - size_btn;
+			if(VideoFrame.width > Screen.width/Math.min(Screen.k_width, Screen.k_height) - 2 * 10) {
+				VideoFrame.width = Screen.width/Math.min(Screen.k_width, Screen.k_height) - 2 * 10;
 				VideoFrame.height = 720 / 1280 * VideoFrame.width;
 			}
-			VideoFrame.x = (Screen.width /  Math.min(Screen.k_width, Screen.k_height) - VideoFrame.width - 2 * Title.leftSpace) / 2;
-			VideoFrame.y = (MenuItem.starts + 20);
+			VideoFrame.x = (Screen.width/Math.min(Screen.k_width, Screen.k_height) - VideoFrame.width) / 2;
+			VideoFrame.y = Display.getButton("exit_btn.png").h + Display.getButton("exit_btn.png").y + 10;
 			
 
 			
@@ -4022,9 +4047,6 @@ module.exports = {
 			video.style.height = VideoFrame.height * Math.min(Screen.k_width, Screen.k_height);
 		}
 		function PlaySong() {
-			var size_btn = 70;
-			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-			drawExitButton();
 			displayVideo();
 		}
 		function setWordHeight(){
@@ -4113,9 +4135,9 @@ module.exports = {
 			if(frametype1 == "Wordsframe" && frametype2 == "frame") {
 				size_btn = 70;
 			}
-			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			var frame = Properties.Buttons["skip.png"];
-			Display.setButton("skip.png", Title.leftSpace + 20, MenuItem.starts + 20, size_btn * frame.w / frame.h, size_btn);
+			Display.setButton("skip.png", Title.leftSpace + 20, MenuItem.starts + 20, Display.getButton("exit_btn.png").w / frame.h * frame.w, Display.getButton("exit_btn.png").w);
 			drawTest();
 		}
 		function drawTest() {
@@ -5055,7 +5077,9 @@ module.exports = {
 					Task.MaxPoint = Points;
 					Task.N_toTest = N;
 					Task.Type = Type;
-					
+					Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+					drawExitButton();
+							
 					if(Profile.LoggedIn) {
 						Task.Result.UserName = Profile.UserName;
 						Task.Result.Exercise = TaskName;
@@ -5124,8 +5148,6 @@ module.exports = {
 							catch(e) {
 								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 							}
-							Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							drawExitButton();
 							
 							break;
 						case 'Find the animal':
@@ -5162,8 +5184,8 @@ module.exports = {
 							catch(e) {
 								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 							}
-							Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							drawExitButton();
+							//Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							//drawExitButton();
 							
 							break;
 						case 'Name numbers from 0 to 9':
@@ -5196,8 +5218,8 @@ module.exports = {
 							catch(e) {
 								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 							}
-							Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							drawExitButton();
+							//Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							//drawExitButton();
 							
 							break;
 						case 'Find numbers from 0 to 9':
@@ -5229,8 +5251,8 @@ module.exports = {
 							catch(e) {
 								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 							}
-							Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							drawExitButton();
+							//Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							//drawExitButton();
 							
 							break;
 							
@@ -5323,8 +5345,8 @@ module.exports = {
 								catch(e) {
 									size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 								}
-								Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-								drawExitButton();
+							//	Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+							//	drawExitButton();
 								
 							break;
 							case 'Find the supply':
@@ -5359,8 +5381,8 @@ module.exports = {
 								catch(e) {
 									size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
 								}
-								Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-								drawExitButton();
+								//Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
+								//drawExitButton();
 								
 							break;
 							default: 
