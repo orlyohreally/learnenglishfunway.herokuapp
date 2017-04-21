@@ -319,6 +319,10 @@ module.exports = {
 		
 		
 		function respondCanvas(){ 
+			if($(document.activeElement).prop('type') == 'text'){
+				
+			}
+			else {
 			ctx.clearRect(0,0,100000,10000);
 			if(document.getElementById("UserName")) {
 				Profile.UserName = document.getElementById('UserName').value;
@@ -327,7 +331,6 @@ module.exports = {
 				$("#Password").remove();
 				$("inputdiv").remove();
 			}
-			if($(document.activeElement).prop('type') != 'text'){
 			if(document.getElementById("MenuCanvas"))
 				c = $('#MenuCanvas');
 			else if(document.getElementById("ProgressCanvas"))
@@ -354,7 +357,7 @@ module.exports = {
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
 			Screen.k_height =  MenuItem.rheight / MenuItem.height;
-			}
+			
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
 			if(Mode.Menu)
 				Menu_ctx.clearRect(0, 0, Screen.width, Screen.height);
@@ -465,6 +468,7 @@ module.exports = {
 			
 			ctx.fillStyle="#000000";
 			
+		}
 		}
 		
 		/************************************Resizing ended***********************************************/
