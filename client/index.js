@@ -404,7 +404,7 @@
 		}
 		function drawBottomArrow() {
 			var frame = Properties.Buttons["left-arrow.png"];
-			pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
+			pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68;
 			pY =  MenuItem.topSpace + MenuItem.size;
 			b_a_width = 100*0.5;
 			b_a_height = 0.5*100*226/152;
@@ -417,7 +417,7 @@
 
 		function drawTopArrow(){
 			var frame = Properties.Buttons["left-arrow.png"];
-			pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+			pX = 2 * MenuItem.leftSpace +  + Display.getButton("left-arrow.png").w + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 			pY =  MenuItem.topSpace;
 			t_a_width = 100*0.5;
 			t_a_height = 0.5*100*226/152;
@@ -1591,15 +1591,7 @@
 			}
 			HoverMenuItem(mouseX, mouseY);
 		}
-		function SignInNewUser(Profile) {
-			socket.emit('newUser', {
-				User: Profile
-			})
-			socket.on('newUser', function(data){
-				return data.res;
-			})
-			return false;
-		}
+		
 		function checkProfileData(UserName, Password) {
 			
 			if(Password != "" && UserName != "")
@@ -2530,7 +2522,7 @@
 
 		function bottomArrowClicked() {
 				j = MenuItem.clicked;
-				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+				pX = 2 * MenuItem.leftSpace +  + Display.getButton("left-arrow.png").w + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 				pY =  MenuItem.topSpace;
 				t_a_width = 100*0.5;
 				t_a_height = 0.5*100*226/152;
@@ -2550,7 +2542,7 @@
 
 		function topArrowClicked() {
 				j = MenuItem.clicked;
-				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+				pX = 2 * MenuItem.leftSpace +  + Display.getButton("left-arrow.png").w + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 				pY =  MenuItem.topSpace;
 				t_a_width = 100*0.5;
 				t_a_height = 0.5*100*226/152;
@@ -2759,18 +2751,18 @@
 			}
 			if(Task.firstTask + Task.display < Task.itemsCount[MenuItem.clicked]) {
 				//bottom arrow
-				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+				pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
 				pY =  MenuItem.topSpace + MenuItem.size;
 				b_a_height = 100*0.5;
 				b_a_width = 0.5*100*226/152;
-				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
+				pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - b_a_width / 2;
 				pY = MenuItem.topSpace + MenuItem.size - b_a_height;
 				Display.setButton("bottom-arrow.png", 0, 0, t_a_width, t_a_height);
 				Display.setButton("bottom-arrow", pX, pY, b_a_width, b_a_height);
 				drawBottomArrow();
 				t_a_height = 100*0.5;
 				t_a_width = 0.5*100*226/152;
-				pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
+				pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
 				pY =  MenuItem.topSpace;
 				Display.setButton("top-arrow", pX, pY,t_a_width, t_a_height);		
 			}
@@ -3330,6 +3322,25 @@
 			setBadgesProp();
 			
 		}
+		function showMenu() {
+			Mode.Tasks = false;
+			var Menu = document.createElement('canvas');
+			Menu.id = 'MenuCanvas';
+			Menu.width = document.getElementById("MainCanvas").width;
+			Menu.height = document.getElementById("MainCanvas").height;
+			document.getElementById("mainDiv").appendChild(Menu);
+			MenuCanvas = document.getElementById("MenuCanvas");
+			
+			MenuCanvas.addEventListener("touchmove", checkPosMenu, false);
+			MenuCanvas.addEventListener("mousemove", checkPosMenu);
+			MenuCanvas.addEventListener("mousedown", MouseDown);
+			MenuCanvas.addEventListener("touchstart", MouseDown);
+			MenuCanvas.addEventListener("mouseup", checkClick);
+			MenuCanvas.addEventListener("touchend", checkClick);
+			Menu_ctx = document.getElementById("MenuCanvas").getContext("2d");
+			
+			respondCanvas();
+		}
 		function showBadgesForm(){
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			drawHeader();
@@ -3561,6 +3572,7 @@
 		}
 		function showMessage(name) {
 			if(Forms_loaded){
+				Mode.Tasks = false;
 				document.getElementById("Loading").style.visibility = "hidden";
 				ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
 				if(!document.getElementById("MessageCanvas")) {
@@ -4055,22 +4067,8 @@
 				if(!document.getElementById("MenuCanvas") && Mode.Mobile && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = true;
 					Mode.MenuItem = false;
-					var Menu = document.createElement('canvas');
-					Menu.id = 'MenuCanvas';
-					Menu.width = document.getElementById("MainCanvas").width;
-					Menu.height = document.getElementById("MainCanvas").height;
-					document.getElementById("mainDiv").appendChild(Menu);
-					MenuCanvas = document.getElementById("MenuCanvas");
-					
-					MenuCanvas.addEventListener("touchmove", checkPosMenu, false);
-					MenuCanvas.addEventListener("mousemove", checkPosMenu);
-					MenuCanvas.addEventListener("mousedown", MouseDown);
-					MenuCanvas.addEventListener("touchstart", MouseDown);
-					MenuCanvas.addEventListener("mouseup", checkClick);
-					MenuCanvas.addEventListener("touchend", checkClick);
-					Menu_ctx = document.getElementById("MenuCanvas").getContext("2d");
-					
-					respondCanvas();
+					Mode.Tasks = false;
+					showMenu();
 				}
 				else if(document.getElementById("MenuCanvas") && Mode.Mobile && mouseInRect(Display.getButton("menu_btn.png"))) {
 					Mode.Menu = false;
@@ -4082,7 +4080,7 @@
 					//top arrow has been clicked
 					t_a_height = 100*0.5;
 					t_a_width = 0.5*100*226/152;
-					pX = 2 * MenuItem.leftSpace + 100*koef + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
+					pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
 					pY =  MenuItem.topSpace;
 					if(mouseInRect(Display.getButton("top-arrow"))){	
 						Task.a_clicked = true;
@@ -4438,15 +4436,14 @@
 						
 						}, 100)
 					}
-					else if(Error.Mode == "progress_form") {
+					else if(Error.Mode == "progress_form" || Error.Mode == "badges_form" || Error.Mode == "quiz_form") {
 						setTimeout(function(){
 							Mode.Message = false;
 							Mode.MenuItem = true;
 							respondCanvas();
 							//showing hand to login
 							//######
-							if(Error.Name == "need_to_loginProgress") {
-								if(!Mode.Mobile) {
+							if(!Mode.Mobile) {
 									var div = document.createElement('HelpDiv');
 									div.innerHTML = '<image id = "Help"></image>';
 									document.getElementById("mainDiv").appendChild(div);
@@ -4458,8 +4455,23 @@
 									Help.style.top = Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height);
 									Help.style.left = Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height);
 									Help.style.visibility = "visible";
-								}
 							}
+							else{
+								Mode.Menu = true;
+								showMenu();
+								var div = document.createElement('HelpDiv');
+								div.innerHTML = '<image id = "Help"></image>';
+								document.getElementById("mainDiv").appendChild(div);
+								var Help = document.getElementById("Help");
+								Help.src = "/img/Menu-Items/mouse_up.gif";
+								Help.style.position = "absolute";
+								Help.style.height = 2 * Display.getButton("menu_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
+								Help.style.width = "auto";
+								Help.style.top = (Display.getButton("login_btn.png").y + Display.getButton("login_btn.png").h / 2) * Math.min(Screen.k_width, Screen.k_height);
+								Help.style.left = (Display.getButton("login_btn.png").x + Display.getButton("login_btn.png").w / 2) * Math.min(Screen.k_width, Screen.k_height);
+								Help.style.visibility = "visible";
+							}
+							
 						}, 100)
 					}
 					else if(Error.Mode == "settings_form") {
@@ -4576,6 +4588,8 @@
 							var User = {};
 							User.UserName = Profile.UserName;
 							User.Password = Profile.Password;
+							document.getElementById("Password").disabled = true;
+							document.getElementById("UserName").disabled = true;
 							socket.emit('auth', {
 								User: User
 							})
@@ -4694,6 +4708,9 @@
 							var ok;
 							Profile.UserName = document.getElementById("UserName").value;
 							Profile.Password = document.getElementById("Password").value;
+							document.getElementById("Password").disabled = true;
+							document.getElementById("UserName").disabled = true;
+							
 							var User = {};
 							User.UserName = Profile.UserName;
 							User.Password = Profile.Password;
