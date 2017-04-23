@@ -224,6 +224,8 @@
             <key type="filename">Name-toys.png</key>
             <key type="filename">NumbersSong(1-10).png</key>
             <key type="filename">NumbersSong(1-20).png</key>
+            <key type="filename">Reading-school-things.png</key>
+            <key type="filename">School-supplies-song.png</key>
             <key type="filename">TracingLetters.png</key>
             <key type="filename">What-is-it.png</key>
             <struct type="IndividualSpriteSettings">
@@ -268,6 +270,8 @@
             <filename>What-is-it.png</filename>
             <filename>Name-supplies.png</filename>
             <filename>Is-it-yours-or-mine.png</filename>
+            <filename>Reading-school-things.png</filename>
+            <filename>School-supplies-song.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

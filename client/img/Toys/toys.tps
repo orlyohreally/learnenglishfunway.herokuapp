@@ -225,6 +225,58 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">bike-word.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>39,18,79,37</rect>
+                <key>scale9Paddings</key>
+                <rect>39,18,79,37</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">bike.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>48,48,96,96</rect>
+                <key>scale9Paddings</key>
+                <rect>48,48,96,96</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">car-word.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>31,14,62,28</rect>
+                <key>scale9Paddings</key>
+                <rect>31,14,62,28</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">car.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>34,23,68,46</rect>
+                <key>scale9Paddings</key>
+                <rect>34,23,68,46</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">doll-word.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -251,6 +303,110 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">kite-word.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>36,18,73,37</rect>
+                <key>scale9Paddings</key>
+                <rect>36,18,73,37</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">kite.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>39,41,77,82</rect>
+                <key>scale9Paddings</key>
+                <rect>39,41,77,82</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">puzzle-word.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>59,22,119,45</rect>
+                <key>scale9Paddings</key>
+                <rect>59,22,119,45</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">puzzle.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>26,22,53,44</rect>
+                <key>scale9Paddings</key>
+                <rect>26,22,53,44</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">teddy-word.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>54,22,107,45</rect>
+                <key>scale9Paddings</key>
+                <rect>54,22,107,45</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">teddy.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>36,38,72,76</rect>
+                <key>scale9Paddings</key>
+                <rect>36,38,72,76</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">train-word.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>44,18,88,36</rect>
+                <key>scale9Paddings</key>
+                <rect>44,18,88,36</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">train.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>37,13,74,27</rect>
+                <key>scale9Paddings</key>
+                <rect>37,13,74,27</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -258,6 +414,18 @@
             <filename>ball-word.png</filename>
             <filename>doll.png</filename>
             <filename>doll-word.png</filename>
+            <filename>car.png</filename>
+            <filename>car-word.png</filename>
+            <filename>teddy.png</filename>
+            <filename>teddy-word.png</filename>
+            <filename>puzzle-word.png</filename>
+            <filename>puzzle.png</filename>
+            <filename>train-word.png</filename>
+            <filename>train.png</filename>
+            <filename>kite-word.png</filename>
+            <filename>kite.png</filename>
+            <filename>bike-word.png</filename>
+            <filename>bike.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

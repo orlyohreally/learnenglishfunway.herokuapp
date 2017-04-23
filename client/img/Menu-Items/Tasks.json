@@ -190,7 +190,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Reading.png",
+	"filename": "Reading-school-things.png",
 	"frame": {"x":0,"y":1155,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -199,7 +199,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Spell animal names.png",
+	"filename": "Reading.png",
 	"frame": {"x":0,"y":1210,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -208,7 +208,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "TellingTime.png",
+	"filename": "School-supplies-song.png",
 	"frame": {"x":0,"y":1265,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -217,7 +217,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "TracingLetters.png",
+	"filename": "Spell animal names.png",
 	"frame": {"x":0,"y":1320,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -226,7 +226,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Unscramble-animal-names.png",
+	"filename": "TellingTime.png",
 	"frame": {"x":0,"y":1375,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -235,8 +235,26 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "What-is-it.png",
+	"filename": "TracingLetters.png",
 	"frame": {"x":0,"y":1430,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "Unscramble-animal-names.png",
+	"frame": {"x":0,"y":1485,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "What-is-it.png",
+	"frame": {"x":0,"y":1540,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -248,8 +266,8 @@
 	"version": "1.0",
 	"image": "Tasks.png",
 	"format": "RGBA8888",
-	"size": {"w":368,"h":1485},
+	"size": {"w":368,"h":1595},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:7dd25c2c9d12d8d30632e3f663135cb1:66f15edbf56215eac61f04754ebbc01b:fd425d55c4b6d9fc9e003564d75a2541$"
+	"smartupdate": "$TexturePacker:SmartUpdate:dd265860dffebb77750bd16c8a433c6a:6d047709b58329b47a319765d6662fed:fd425d55c4b6d9fc9e003564d75a2541$"
 }
 }

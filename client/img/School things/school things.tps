@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/School things/scool things.tps</string>
+        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/School things/school things.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -199,6 +199,45 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">What-is-it.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>44,7,88,15</rect>
+                <key>scale9Paddings</key>
+                <rect>44,7,88,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">a.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>12,14,25,28</rect>
+                <key>scale9Paddings</key>
+                <rect>12,14,25,28</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">an.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>23,14,46,28</rect>
+                <key>scale9Paddings</key>
+                <rect>23,14,46,28</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">bag-word.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -264,6 +303,32 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">it's.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>29,18,57,37</rect>
+                <key>scale9Paddings</key>
+                <rect>29,18,57,37</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">pen-word.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>34,18,68,36</rect>
+                <key>scale9Paddings</key>
+                <rect>34,18,68,36</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">pen.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -274,6 +339,19 @@
                 <rect>62,32,124,64</rect>
                 <key>scale9Paddings</key>
                 <rect>62,32,124,64</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">pencil-case-word.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>101,22,203,45</rect>
+                <key>scale9Paddings</key>
+                <rect>101,22,203,45</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -313,6 +391,19 @@
                 <rect>19,49,38,98</rect>
                 <key>scale9Paddings</key>
                 <rect>19,49,38,98</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">reading-school-things.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>45,157,90,315</rect>
+                <key>scale9Paddings</key>
+                <rect>45,157,90,315</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -384,6 +475,13 @@
             <filename>rubber.png</filename>
             <filename>book.png</filename>
             <filename>book-word.png</filename>
+            <filename>pencil-case-word.png</filename>
+            <filename>pen-word.png</filename>
+            <filename>What-is-it.png</filename>
+            <filename>it's.png</filename>
+            <filename>an.png</filename>
+            <filename>a.png</filename>
+            <filename>reading-school-things.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

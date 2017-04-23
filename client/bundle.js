@@ -4265,8 +4265,8 @@ module.exports = {
 				return "Australian Female";
 			return "UK English Male";
 		}
-		MainCanvas.addEventListener("mouseup", checkClick);
-		MainCanvas.addEventListener("touchend", checkClick);
+		document.addEventListener("mouseup", checkClick);
+		document.addEventListener("touchend", checkClick);
 		function checkClick(mouseEvent){
 			event.preventDefault();
 			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {
@@ -6051,7 +6051,13 @@ module.exports = {
 						
 					}
 					else
-						alert("Help is not available yet:(");
+						console.log("Help is not available yet:(");
+					
+					/********speech recognition*************/
+					startConverting();
+					/********speech recognition*************/
+					
+					
 				}
 				//info button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
@@ -6059,8 +6065,42 @@ module.exports = {
 				}
 			
 		}
-		MainCanvas.addEventListener("mousedown", MouseDown);
-		MainCanvas.addEventListener("touchstart", MouseDown);
+		function startConverting () {
+			if('webkitSpeechRecognition' in window){
+				var speechRecognizer = new webkitSpeechRecognition();
+				speechRecognizer.continuous = true;
+				speechRecognizer.interimResults = true;
+				speechRecognizer.lang = 'en-US';
+				//speechRecognizer.lang = 'ru-Ru';
+				speechRecognizer.start();
+				console.log("recording", speechRecognizer);
+				var finalTranscripts = '';
+				var r = document.getElementById('result');
+				speechRecognizer.onresult = function(event){
+					console.log("on result");
+					var interimTranscripts = '';
+					for(var i = event.resultIndex; i < event.results.length; i++){
+						var transcript = event.results[i][0].transcript;
+						transcript.replace("\n", "<br>");
+						if(event.results[i].isFinal){
+							finalTranscripts += transcript;
+						}else{
+							interimTranscripts += transcript;
+						}
+					}
+					r.value = finalTranscripts + '<span style="color:#999">' + interimTranscripts + '</span>';
+					console.log(finalTranscripts , interimTranscripts);
+				};
+				speechRecognizer.onspeechend = function(event){
+					console.log("stopped listening");
+				}
+				
+			}else{
+				r.innerHTML = 'Your browser is not supported. If google chrome, please upgrade!';
+			}
+		}
+		document.addEventListener("mousedown", MouseDown);
+		document.addEventListener("touchstart", MouseDown);
 		function MouseDown(mouseEvent){
 			event.preventDefault();
 			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {

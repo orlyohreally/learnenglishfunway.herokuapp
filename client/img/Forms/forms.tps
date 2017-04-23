@@ -90,9 +90,9 @@
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>2048</int>
+            <int>4096</int>
             <key>height</key>
-            <int>2048</int>
+            <int>4096</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -201,6 +201,7 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">log_in_form.png</key>
             <key type="filename">../Messages/enter-all-data.png</key>
+            <key type="filename">../Messages/enter-all-passwords.png</key>
             <key type="filename">../Messages/incorrect-data.png</key>
             <key type="filename">../Messages/incorrect-password.png</key>
             <key type="filename">../Messages/need_to_do_exerciseProgress.png</key>
@@ -209,7 +210,9 @@
             <key type="filename">../Messages/need_to_loginProgress.png</key>
             <key type="filename">../Messages/need_to_loginQuiz.png</key>
             <key type="filename">../Messages/need_to_loginRewards.png</key>
+            <key type="filename">../Messages/passwrod_is_too_short.png</key>
             <key type="filename">../Messages/same-passwords.png</key>
+            <key type="filename">../Messages/username_is_taken.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -334,6 +337,9 @@
             <filename>../Messages/need_to_loginRewards.png</filename>
             <filename>../Messages/same-passwords.png</filename>
             <filename>../Messages/incorrect-password.png</filename>
+            <filename>../Messages/enter-all-passwords.png</filename>
+            <filename>../Messages/passwrod_is_too_short.png</filename>
+            <filename>../Messages/username_is_taken.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

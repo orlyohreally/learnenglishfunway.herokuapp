@@ -569,6 +569,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">small-dark-coma.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,15,16,29</rect>
+                <key>scale9Paddings</key>
+                <rect>8,15,16,29</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">small-dark-d.png</key>
             <key type="filename">small-dark-h.png</key>
             <struct type="IndividualSpriteSettings">
@@ -868,6 +881,7 @@
             <filename>small-dark-).png</filename>
             <filename>small-dark--.png</filename>
             <filename>small-dark-slash.png</filename>
+            <filename>small-dark-coma.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -1,8 +1,26 @@
 {"frames": [
 
 {
+	"filename": "a.png",
+	"frame": {"x":0,"y":0,"w":49,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":56},
+	"sourceSize": {"w":49,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "an.png",
+	"frame": {"x":49,"y":0,"w":91,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":91,"h":56},
+	"sourceSize": {"w":91,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "bag-word.png",
-	"frame": {"x":0,"y":151,"w":133,"h":89},
+	"frame": {"x":0,"y":94,"w":133,"h":89},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":133,"h":89},
@@ -11,7 +29,7 @@
 },
 {
 	"filename": "bag.png",
-	"frame": {"x":0,"y":641,"w":223,"h":222},
+	"frame": {"x":0,"y":815,"w":223,"h":222},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":223,"h":222},
@@ -20,7 +38,7 @@
 },
 {
 	"filename": "book-word.png",
-	"frame": {"x":180,"y":73,"w":179,"h":78},
+	"frame": {"x":235,"y":183,"w":179,"h":78},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":179,"h":78},
@@ -29,7 +47,7 @@
 },
 {
 	"filename": "book.png",
-	"frame": {"x":223,"y":641,"w":233,"h":251},
+	"frame": {"x":223,"y":815,"w":233,"h":251},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":233,"h":251},
@@ -38,7 +56,7 @@
 },
 {
 	"filename": "eraser-word.png",
-	"frame": {"x":0,"y":0,"w":235,"h":56},
+	"frame": {"x":0,"y":183,"w":235,"h":56},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":235,"h":56},
@@ -46,8 +64,26 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "it's.png",
+	"frame": {"x":227,"y":0,"w":114,"h":73},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":114,"h":73},
+	"sourceSize": {"w":114,"h":73},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "pen-word.png",
+	"frame": {"x":341,"y":0,"w":135,"h":72},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":135,"h":72},
+	"sourceSize": {"w":135,"h":72},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "pen.png",
-	"frame": {"x":0,"y":245,"w":248,"h":127},
+	"frame": {"x":111,"y":468,"w":248,"h":127},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":248,"h":127},
@@ -55,8 +91,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "pencil-case-word.png",
+	"frame": {"x":0,"y":726,"w":405,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":405,"h":89},
+	"sourceSize": {"w":405,"h":89},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "pencil-case.png",
-	"frame": {"x":0,"y":441,"w":293,"h":200},
+	"frame": {"x":0,"y":1066,"w":293,"h":200},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":293,"h":200},
@@ -65,7 +110,7 @@
 },
 {
 	"filename": "pencil-word.png",
-	"frame": {"x":133,"y":151,"w":222,"h":89},
+	"frame": {"x":246,"y":379,"w":222,"h":89},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":222,"h":89},
@@ -74,7 +119,7 @@
 },
 {
 	"filename": "pencil.png",
-	"frame": {"x":359,"y":245,"w":76,"h":196},
+	"frame": {"x":414,"y":183,"w":76,"h":196},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":76,"h":196},
@@ -82,8 +127,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "reading-school-things.png",
+	"frame": {"x":293,"y":1066,"w":179,"h":629},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":179,"h":629},
+	"sourceSize": {"w":179,"h":629},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "rubber-word.png",
-	"frame": {"x":235,"y":0,"w":246,"h":73},
+	"frame": {"x":0,"y":379,"w":246,"h":73},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":246,"h":73},
@@ -92,7 +146,7 @@
 },
 {
 	"filename": "rubber.png",
-	"frame": {"x":355,"y":151,"w":87,"h":94},
+	"frame": {"x":140,"y":0,"w":87,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":87,"h":94},
@@ -101,7 +155,7 @@
 },
 {
 	"filename": "ruler-word.png",
-	"frame": {"x":0,"y":73,"w":180,"h":73},
+	"frame": {"x":133,"y":94,"w":180,"h":73},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":73},
@@ -110,11 +164,20 @@
 },
 {
 	"filename": "ruler.png",
-	"frame": {"x":248,"y":245,"w":111,"h":185},
+	"frame": {"x":0,"y":468,"w":111,"h":185},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":185},
 	"sourceSize": {"w":111,"h":185},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "What-is-it.png",
+	"frame": {"x":0,"y":653,"w":437,"h":73},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":437,"h":73},
+	"sourceSize": {"w":437,"h":73},
 	"pivot": {"x":0.5,"y":0.5}
 }],
 "meta": {
@@ -122,8 +185,8 @@
 	"version": "1.0",
 	"image": "School things.png",
 	"format": "RGBA8888",
-	"size": {"w":481,"h":892},
+	"size": {"w":490,"h":1695},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5e18bb452971539ed9c7cbacc5b60302:5c37c23cb4cc394978da1b8e83e1449f:2ff3148e37bc6286034579ef8fc3c431$"
+	"smartupdate": "$TexturePacker:SmartUpdate:0d236d41db3da04229d59a4a19b6ec78:941556603697c9425ab16e5da069f6d6:2ff3148e37bc6286034579ef8fc3c431$"
 }
 }
