@@ -264,11 +264,11 @@
             </struct>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/login_btn.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/phrase_of_the_day_btn.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/quiz_btn.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sign_up_btn.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/skip.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/progress_btn.png</key>
-            <key type="filename">../Rewards/rewards_btn.png</key>
+            <key type="filename">quiz_btn.png</key>
+            <key type="filename">rewards_btn.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -454,7 +454,6 @@
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/drag-flick.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/flick-up.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/login_btn.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/quiz_btn.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl2.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl1.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy1.png</filename>
@@ -467,9 +466,10 @@
             <filename>title_in_line.png</filename>
             <filename>../Rewards/correct.png</filename>
             <filename>../Rewards/dark-star.png</filename>
-            <filename>../Rewards/rewards_btn.png</filename>
             <filename>../Rewards/star.png</filename>
             <filename>../Rewards/wrong.png</filename>
+            <filename>rewards_btn.png</filename>
+            <filename>quiz_btn.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

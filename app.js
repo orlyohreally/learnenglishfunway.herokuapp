@@ -1,7 +1,7 @@
 var mongojs = require("mongojs");
 var bcrypt = require("bcryptjs"), SALT_WORK_FACTOR = 10;
-var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Badges','Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
-//var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Badges', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
+//var db = mongojs('mongodb://orlyohreally:92Prod92Prod@ds117189.mlab.com:17189/heroku_r3fhp6xc', ['SpreadSheets', 'Badges','Results', 'test', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users"]);
+var db = mongojs('localhost:27017/LEFWdb', ['SpreadSheets', 'Results', 'test', 'Badges', 'Exercise', 'Topics', 'Exercise', 'Topics', "Users", "Results"]);
 
 
 var express = require('express');
@@ -44,10 +44,11 @@ io.sockets.on('connection', function(socket) {
 		console.log("socket disconnection");
 	})
 	console.log("cookie", socket.handshake.cookies);
+	console.log("hello hello ");
 	console.log(socket.handshake.session);
-	if((socket.handshake.session && socket.handshake.session.user)) {
-		db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
-		//db.Users.find({"UserName":"Orly"}, function(err, res){
+	if((true || (socket.handshake.session && socket.handshake.session.user))) {
+		//db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
+		db.Users.find({"UserName":"Orly"}, function(err, res){
 			if(res) {
 				console.log("res1", res);
 				//socket.emit('Old session', {user: socket.handshake.session.user});
@@ -98,7 +99,7 @@ io.sockets.on('connection', function(socket) {
 		
 	})*/
 	
-	/*db.SpreadSheets.find({"Name":"Tasks"}, function(err, res){
+	db.SpreadSheets.find({"Name":"Tasks"}, function(err, res){
 		res = res[0].Frames;
 		var i = 0;
 		for(i = 0; i < res.length; i++){
@@ -114,8 +115,8 @@ io.sockets.on('connection', function(socket) {
 				console.log("result:", res);
 			})			
 		}
-	})*/
-	/*db.SpreadSheets.find({"Name":"Topics"}, function(err, res){
+	})
+	db.SpreadSheets.find({"Name":"Topics"}, function(err, res){
 		res = res[0].Frames;
 		var i = 0;
 		for(i = 0; i < res.length; i++){
@@ -131,8 +132,8 @@ io.sockets.on('connection', function(socket) {
 				console.log("result:", res);
 			})			
 		}
-	})*/
-	/*db.SpreadSheets.find({"Name":"Badges"}, function(err, res){
+	})
+	db.SpreadSheets.find({"Name":"Badges"}, function(err, res){
 		res = res[0].Frames;
 		var i = 0;
 		for(i = 0; i < res.length; i++){
@@ -148,7 +149,7 @@ io.sockets.on('connection', function(socket) {
 				console.log("result:", res);
 			})			
 		}
-	})*/
+	})
 	console.log('socket connection');
 	db.Topics.find({}).sort({"T_index":1}, function(err, res){
 		if(res) {
@@ -314,19 +315,31 @@ io.sockets.on('connection', function(socket) {
 									delete res[i].pivot;
 									Properties.Letters[res[i].filename] = res[i].frame;
 								}
-								
-								console.log("sending");
-								socket.emit('getProperties', {
-									topics:Properties.Topics,
-									tasks:Properties.Tasks,
-									buttons:Properties.Buttons,
-									forms:Properties.Forms,
-									numbers:Properties.Numbers,
-									letters:Properties.Letters,
+								db.SpreadSheets.find({"Name": "Info"}, function(err, res){
+									res = res[0].Frames;
+									for(i = 0; i < res.length; i++){
+										delete res[i].rotated;
+										delete res[i].trimmed;
+										delete res[i].spriteSourceSize;
+										delete res[i].sourceSize;
+										delete res[i].pivot;
+										Properties.Forms[res[i].filename] = res[i].frame;
+										//console.log(Properties.Forms[res[i].filename]);
+									}
+									console.log("sending");
+									socket.emit('getProperties', {
+										topics:Properties.Topics,
+										tasks:Properties.Tasks,
+										buttons:Properties.Buttons,
+										forms:Properties.Forms,
+										numbers:Properties.Numbers,
+										letters:Properties.Letters,
+										
 									
-								
+									})
 								})
 							})
+							
 						});
 					
 					})
@@ -559,18 +572,21 @@ io.sockets.on('connection', function(socket) {
 					User = res[0];
 				
 					db.Exercise.find({"Name":data.Result.Exercise}, function(err, res){
-						//console.log("res", res[0]);
+						//console.log("res", res);
+						console.log(data.Result.Topic_Name, res[0].Quiz);
 						db.Badges.find({"Topic_Name": data.Result.Topic_Name, "Quiz": res[0].Quiz}, function(err, res){
 							var Badges = res;
 							var pBadges = underscorejs.pluck(res, "Name");
+							console.log("all badges", data.Result.Topic_Name, pBadges, User.Badges, underscorejs.findWhere(User.Badges, {"Topic_Name": data.Result.Topic_Name}), underscorejs.pluck(underscorejs.findWhere(User.Badges, {"Topic_Name": data.Result.Topic_Name}), "Name"));
+							
 							if(!underscorejs.isEmpty(User.Badges)){
-								pBadges = underscorejs.difference(User.Badges, underscorejs.pluck(res, "Name"));
+								pBadges = underscorejs.difference(underscorejs.pluck(underscorejs.findWhere(User.Badges, {"Topic_Name": data.Result.Topic_Name}), "Name"), underscorejs.pluck(res, "Name"));
 							}
-							console.log("Badges", res, User.Badges, pBadges);
+							//console.log("Badges", res, User.Badges, pBadges);
 							for(var i = 0; i < pBadges.length; i++)
 							{
-								console.log(pBadges[i]);
-								Badge = underscorejs.findWhere(Badges, {"Name": pBadges[i]});
+								console.log("current badge", pBadges[i].Name, underscorejs.pluck(Badges, "Name"));
+								Badge = underscorejs.findWhere(Badges, {"Name": pBadges[i].Name});
 								console.log("Badge", Badge);
 								if(Badge && Badge.Reason && Badge.Reason.Time) {
 									var Finish = new Date(data.Result.Finish);
@@ -580,10 +596,8 @@ io.sockets.on('connection', function(socket) {
 									if((Finish.getTime() - Start.getTime()) / 1000 <= Badge.Reason.Time) {
 										console.log("got a new badge");
 										var time = new Date();
-										db.Users.update({"UserName":User.UserName}, {$push:{Badges:{"Name":Badge.Name, "Date": time, "Topic_Name": Badge.Topic_Name}}}, function(err, res){
+										db.Users.update({"UserName":User.UserName}, {$push:{"Badges":{"Name":Badge.Name, "Date": time, "Topic_Name": Badge.Topic_Name}}}, function(err, res){
 											console.log(res);
-											/*User.Badges.append({"Name":Badge.Name, "Date": time});
-											console.log("User.Bages", User.Badges);*/
 										})
 									}
 									else {
@@ -591,6 +605,9 @@ io.sockets.on('connection', function(socket) {
 									}
 								}
 								else if(Badge && Badge.Reason && Badge.Reason.Times){
+									db.Result.find({"Topic_Name": data.Result.Topic_Name}, function(err, res){
+										console.log("all results on", data.Result.Topic_Name, res);
+									})
 									console.log("badge on times");
 								}
 							}

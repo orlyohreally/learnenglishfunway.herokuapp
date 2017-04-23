@@ -19,7 +19,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "numbers.png",
+	"filename": "my-body.png",
 	"frame": {"x":0,"y":368,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
@@ -28,7 +28,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "school things.png",
+	"filename": "numbers.png",
 	"frame": {"x":368,"y":368,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
@@ -37,7 +37,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "sport.png",
+	"filename": "school things.png",
 	"frame": {"x":0,"y":736,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
@@ -46,8 +46,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "toys.png",
+	"filename": "sport.png",
 	"frame": {"x":368,"y":736,"w":368,"h":368},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
+	"sourceSize": {"w":368,"h":368},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "toys.png",
+	"frame": {"x":0,"y":1104,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
@@ -59,8 +68,8 @@
 	"version": "1.0",
 	"image": "menu-items.png",
 	"format": "RGBA8888",
-	"size": {"w":736,"h":1104},
+	"size": {"w":736,"h":1472},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:6219a275f29d0bdc3de62eb14958ac1b:d2002f6171b2906dd7ebbf0f89fdc36f:1ee5878538d51eee0a445cc75a93476f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:3bb0a96a555bc37a515710f7558870a3:518a7e8da28ba74e3d69a5d5c6858849:1ee5878538d51eee0a445cc75a93476f$"
 }
 }

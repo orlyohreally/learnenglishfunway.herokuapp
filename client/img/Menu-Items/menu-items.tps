@@ -201,6 +201,7 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">alphabet.png</key>
             <key type="filename">animals.png</key>
+            <key type="filename">my-body.png</key>
             <key type="filename">numbers.png</key>
             <key type="filename">school things.png</key>
             <key type="filename">sport.png</key>
@@ -226,6 +227,7 @@
             <filename>toys.png</filename>
             <filename>sport.png</filename>
             <filename>school things.png</filename>
+            <filename>my-body.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

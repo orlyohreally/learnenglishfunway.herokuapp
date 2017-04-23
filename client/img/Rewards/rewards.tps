@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Reward/rewards.tps</string>
+        <string>C:/Users/Orly/Documents/GitHub/LEFWHeroku/learnenglishfunway.herokuapp/client/img/Rewards/rewards.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -201,8 +201,10 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">ReaderAnimals.png</key>
             <key type="filename">ReaderNumbers.png</key>
+            <key type="filename">ReaderSchool-things.png</key>
             <key type="filename">SpeedsterAnimals.png</key>
             <key type="filename">SpeedsterNumbers.png</key>
+            <key type="filename">SpeedsterSchool-things.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -236,6 +238,8 @@
             <filename>SpeedsterAnimals.png</filename>
             <filename>SpeedsterNumbers.png</filename>
             <filename>SpeedsterAlphabet.png</filename>
+            <filename>ReaderSchool-things.png</filename>
+            <filename>SpeedsterSchool-things.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -77,8 +77,9 @@
 		
 		
 		function respondCanvas(){ 
-			if($(document.activeElement).prop('type') == 'text'){
-				
+			//if($(document.activeElement).prop('type') == 'text'){
+			if(false) {
+				console.log("text");
 			}
 			else {
 			ctx.clearRect(0,0,100000,10000);
@@ -103,6 +104,11 @@
 				c = $('#MainCanvas');
 			
 			console.log(c);
+			var ct = c.get(0).getContext('2d');
+			var container = $(c).parent();
+			c.attr('width', $(container).width()); //max width
+			c.attr('height', $(container).height() ); //max height
+			c = $('#MainCanvas');
 			var ct = c.get(0).getContext('2d');
 			var container = $(c).parent();
 			c.attr('width', $(container).width()); //max width
@@ -309,16 +315,13 @@
 				Badges.loadedRewards = true;
 			})
 		}
+		
+		var loaded = {};
+		
 		var atlas = {};
 		atlas["School thingsframe"] = new Image();
 		
 		Task["loadedSchool thingsframe"] = false;
-		function loadSchoolThings(){
-			atlas["School thingsframe"].src = '/img/School things/School things.png';
-			atlas["School thingsframe"].addEventListener("load", function() {
-				Task["loadedSchool thingsframe"] = true;
-			})
-		}
 		atlas.Animalsframe = new Image();
 		Task.loadedAnimalsframe;
 		function loadAnimals(){
@@ -637,7 +640,10 @@
 			var frame = Properties.Forms[name];
 			console.log(frame);
 			console.log(frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
-			Message_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
+			if(name.substring(name.length - "info.png".length, name.length) == "info.png")
+				Message_ctx.drawImage(atlasInfo, frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
+			else
+				Message_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function drawResultForm() {
 			var frame = Properties.Forms["result_form.png"];
@@ -1018,6 +1024,14 @@
 			atlasForms.src = '/img/Forms/forms.png';
 			atlasForms.addEventListener("load", function() {
 				Forms_loaded = true;
+			}, false);	
+		}
+		var Info_loaded = false;
+		var atlasInfo = new Image();
+		function loadInfo(){
+			atlasInfo.src = '/img/Menu-Items/info.png';
+			atlasForms.addEventListener("load", function() {
+				Info_loaded = true;
 			}, false);	
 		}
 		var atlasButtons = new Image();
@@ -2567,7 +2581,7 @@
 			atlasMenuItemTask.src = '/img/Menu-Items/Tasks.png';
 			atlasMenuItemTask.addEventListener("load", function() {
 				MenuItem.loadMenuItemsTasks = true;
-				drawMenuItemsTasks(j);
+				
 			}, false);	
 		}
 		function getUserNameLogIn(str, x, y){
@@ -2787,7 +2801,9 @@
 				
 			}
 			if(!MenuItem.loadMenuItemsTasks) {
-				loadMenuItemsTasks(j);
+				setTimeout(function() {
+					MenuItemClicked(j);
+				}, 100);
 			}
 			else {
 				drawMenuItemsTasks(j);
@@ -2813,7 +2829,7 @@
 					drawLogInCancelButton();
 					ctx.fillStyle='#000000';
 					var div = document.createElement('inputDiv');
-					div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input id = 'Password' name = 'UserName' autofocus/>";
+					div.innerHTML = "<input id = 'UserName' name = 'UserName'/><input id = 'Password' name = 'UserName' />";
 					document.getElementById("mainDiv").appendChild(div);
 					document.getElementById("UserName").style.top = (Y_ + 57 / 202 * MenuItem.size) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.left = (X_ + 35 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height);
@@ -2823,6 +2839,8 @@
 					document.getElementById("UserName").style.height = 35 / 202 * MenuItem.size * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.border = "2px solid";
 					document.getElementById('UserName').style.position = "absolute";
+					document.getElementById('UserName').autofocus = false;
+					
 					document.getElementById('UserName').style.backgroundColor = "transparent";
 					document.getElementById("Password").style.top = (Y_ + 115 / 202 * MenuItem.size) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("Password").style.left = (X_ + 35 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height);
@@ -2833,7 +2851,7 @@
 					document.getElementById("Password").style.border = "2px solid";
 					document.getElementById('Password').style.position = "absolute";
 					document.getElementById('Password').style.backgroundColor = "transparent";
-					
+					document.getElementById('Password').autofocus = false;
 					if(Profile.UserName)
 						document.getElementById('UserName').value = Profile.UserName;
 					if(Profile.Password)
@@ -3460,6 +3478,7 @@
 			document.getElementById("oldPassword").style.height = 45 * Display.getForm("setting_form.png").h / frame.h * Math.min(Screen.k_width, Screen.k_height);
 			document.getElementById("oldPassword").style.border = "2px solid";
 			document.getElementById('oldPassword').style.position = "absolute";
+			document.getElementById('oldPassword').autofocus = false;
 			document.getElementById('oldPassword').style.backgroundColor = "transparent";
 			document.getElementById("newPassword").style.top = (Display.getForm("setting_form.png").y +  242 * Display.getForm("setting_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
 			document.getElementById("newPassword").style.left = (Display.getForm("setting_form.png").x + 90 * Display.getForm("setting_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
@@ -3469,6 +3488,7 @@
 			document.getElementById("newPassword").style.height = 45 * Display.getForm("setting_form.png").h / frame.h * Math.min(Screen.k_width, Screen.k_height);
 			document.getElementById("newPassword").style.border = "2px solid";
 			document.getElementById('newPassword').style.position = "absolute";
+			document.getElementById('newPassword').autofocus = false;
 			document.getElementById('newPassword').style.backgroundColor = "transparent";
 			if(!Profile.LoggedIn) {
 				document.getElementById('newPassword').disabled = true;
@@ -3629,6 +3649,7 @@
 				document.getElementById("UserName").style.height = 36 / 368 * size_ * Math.min(Screen.k_width, Screen.k_height);
 				document.getElementById("UserName").style.border = "2px solid";
 				document.getElementById('UserName').style.position = "absolute";
+				document.getElementById('UserName').autofocus = false;
 				document.getElementById('UserName').style.backgroundColor = "transparent";
 				document.getElementById("Password").style.top = (Y_ + 115 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
 				document.getElementById("Password").style.left = (X_ + 35 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
@@ -3639,6 +3660,7 @@
 				document.getElementById("Password").style.border = "2px solid";
 				document.getElementById('Password').style.position = "absolute";
 				document.getElementById('Password').style.backgroundColor = "transparent";
+				document.getElementById('Password').autofocus = false;
 				if(Profile.UserName)
 					document.getElementById('UserName').value = Profile.UserName;
 				if(Profile.Password)
@@ -3787,6 +3809,7 @@
 		}
 		
 		function displayVideo() {
+			console.log("displayVideo");
 			Task.Result.Start = new Date;
 			
 			video = document.getElementById("Video");
@@ -3821,7 +3844,61 @@
 			video.style.height = VideoFrame.height * Math.min(Screen.k_width, Screen.k_height);
 		}
 		function PlaySong() {
+			console.log("play song");
 			displayVideo();
+		}
+		function showVideo() {
+			console.log("showvideo");
+			Mode.MusicVideo = true;
+			console.log(Task.TaskName.replace(/\s/g,''));
+			Mode[Task.TaskName.replace(/\s/g,'')] = true;
+			socket.emit('getVideoID', {
+				TaskName: Task.TaskName,
+				Accent: Profile.Accent,
+			})
+			socket.on('getVideoID', function(data){
+				Task.Frames[Task.TaskName] = data.Content;
+				Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
+				//Task.Result.Type = Type;
+				PlaySong();
+			})
+			
+			drawLoading();
+		}
+		function showMatching() {
+			drawLoading();
+			Mode[Task.TaskName.replace(/\s/g,'')] = true;
+			if(Task.TaskName.substring(0, "Name".length) == "Name") {
+				frametype1 = "frame";
+				frametype2 = "Wordsframe";
+			}
+			else if(Task.TaskName.substring(0, "Find".length) == "Find") {
+				frametype2 = "frame";
+				frametype1 = "Wordsframe";
+			}
+			console.log(frametype1, frametype2);
+			if(!Mode.Quiz)
+				Mode.Training = true;
+			console.log(!Task["loaded" + Task.TaskName + "frame"]);
+			if(!Task["loaded" + Task.TaskName + "frame"]) {
+				console.log("not loaded");
+				atlas["School thingsframe"] = new Image();
+				atlas["School thingsframe"].src = '/img/School things/School things.png';
+					atlas["School thingsframe"].addEventListener("load", function() {
+						Task["loadedSchool thingsframe"] = true;
+					})				
+			}
+			if(!Mode.Quiz) {
+			socket.emit('getTask', {
+				TaskName: TaskName
+			})
+			socket.on('getTask', function(data){
+				Task.Frames[TaskName] = data.Content;
+				checkloaded[Task.TaskName](TaskName, N);
+				})
+			}	
+			else
+				checkloaded[Task.TaskName](TaskName, N);
 		}
 		function setWordHeight(){
 			try {
@@ -4023,8 +4100,8 @@
 				return "Australian Female";
 			return "UK English Male";
 		}
-		document.addEventListener("mouseup", checkClick);
-		document.addEventListener("touchend", checkClick);
+		MainCanvas.addEventListener("mouseup", checkClick);
+		MainCanvas.addEventListener("touchend", checkClick);
 		function checkClick(mouseEvent){
 			event.preventDefault();
 			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {
@@ -4270,17 +4347,17 @@
 									}
 									else if(data.res == "wrong password") {
 										setTimeout(function(){console.log("wrong password");
-										Mode.Message = true;
-										Mode.Settings = false;
-										$("#OldPassword").remove();
-										$("#NewPassword").remove();
-										$("inputdiv").remove();
-										$("#SettingsCanvas").remove();
-							
-											
-										Error.Name = "incorrect-password";
-										Error.Mode = "settings_form";
-										showMessage(Error.Name + ".png");
+											Mode.Message = true;
+											Mode.Settings = false;
+											$("#OldPassword").remove();
+											$("#NewPassword").remove();
+											$("inputdiv").remove();
+											$("#SettingsCanvas").remove();
+								
+												
+											Error.Name = "incorrect-password";
+											Error.Mode = "settings_form";
+											showMessage(Error.Name + ".png");
 										}, 100);
 									}
 								})
@@ -4306,20 +4383,20 @@
 						}
 						else if((document.getElementById("oldPassword").value != document.getElementById("newPassword").value) && (document.getElementById("oldPassword").value != "" || document.getElementById("newPassword").value != "")) {
 							console.log("fill all the information (passwords)");
-							/*setTimeout(function(){
-										
+							setTimeout(function(){
+											
 								Mode.Message = true;
 								Mode.Settings = false;
 								$("#OldPassword").remove();
 								$("#NewPassword").remove();
 								$("inputdiv").remove();
 								$("#SettingsCanvas").remove();
-							
+					
 									
-								Error.Name = "same-passwords";
+								Error.Name = "enter-all-passwords";
 								Error.Mode = "settings_form";
-								showMessage("same-passwords.png");
-							}, 100);*/
+								showMessage(Error.Name + ".png");
+							}, 100);
 						}
 						else {
 							console.log("empty gaps");
@@ -4361,8 +4438,13 @@
 				//okay button has been clicked during message
 				if (Mode.Message && mouseInRect(Display.getButton("result_form_okay_btn.png"))) {
 					$("#MessageCanvas").remove();
+					Mode.Message = false;
 					console.log("mode:", Error.Mode);
-					if(Error.Mode == "sign_in_form") {
+					if(Error.Mode == "menuitem_form") {
+						Mode.MenuItem = true;
+						respondCanvas();
+					}
+					else if(Error.Mode == "sign_in_form") {
 						setTimeout(function(){
 							
 							Mode.Message = false;
@@ -4885,6 +4967,30 @@
 					selectAnimal();
 				}
 				var checkloaded = {};
+				checkloaded[name] = function (TaskName, N) {
+					if(name == "School things" && Task["loadedSchool thingsframe"]) {
+						try {
+							/*if(Profile.LoggedIn) {
+								Task.Result.UserName = Profile.UserName;
+								Task.Result.Exercise = TaskName;
+								Task.Result.Topic_Name = Task.TopicName;
+								Task.Result.Type = Task.Type;
+							};*/
+							
+							setTest(Task.Frames[TaskName].concat(), N);
+						}
+						catch(e) {
+							setTimeout(function() {
+								checkloaded["School things"](TaskName, N);
+							}, 200);
+							
+						}
+					}
+					else {setTimeout(function(){
+							checkloaded["School things"](TaskName, N);
+						}, 200)
+					}
+				}
 				checkloaded.Animals = function (TaskName, N) {
 					if(Task.loadedAnimalsWordsframe && Task.loadedAnimalsframe) {
 						try {
@@ -4909,30 +5015,8 @@
 						}, 200)
 					}
 				}
-				checkloaded["School things"] = function (TaskName, N) {
-					if(Task["loadedSchool thingsframe"]) {
-						try {
-							/*if(Profile.LoggedIn) {
-								Task.Result.UserName = Profile.UserName;
-								Task.Result.Exercise = TaskName;
-								Task.Result.Topic_Name = Task.TopicName;
-								Task.Result.Type = Task.Type;
-							};*/
-							
-							setTest(Task.Frames[TaskName].concat(), N);
-						}
-						catch(e) {
-							setTimeout(function() {
-								checkloaded["School things"](TaskName, N);
-							}, 200);
-							
-						}
-					}
-					else {setTimeout(function(){
-							checkloaded["School things"](TaskName, N);
-						}, 200)
-					}
-				}
+				//checkloaded["School things"] = function (TaskName, N) {
+				
 				checkloaded.Numbers = function (TaskName, N) {
 					if(Task.loadedNumbersWordsframe && Task.loadedNumbersframe) {
 						try {
@@ -4956,6 +5040,7 @@
 						}, 200)
 					}
 				}
+				
 				function showTask(TaskName, TopicName, Type, Points, N, j = -1, QuizArray = []) {
 					console.log(TaskName,TopicName);
 					Task.Result = {};
@@ -4981,29 +5066,10 @@
 					k2 = -1;
 					k3 = -1;
 					word_ch = false;
+					if(Task.Type == "Video")
+						showVideo();
+					else {
 					switch(TaskName) {
-						case 'Alphabet song':
-							/*if(Profile.LoggedIn) {
-								Task.Result.UserName = Profile.UserName;
-								Task.Result.Exercise = TaskName;
-								Task.Result.Topic_Name = Task.TopicName;
-								Task.Result.Type = Type;
-							};*/
-							Mode.MusicVideo = true;
-							Mode[Task.TaskName.replace(/\s/g,'')] = true;
-							socket.emit('getVideoID', {
-								TaskName: TaskName,
-								Accent: Profile.Accent,
-							})
-							socket.on('getVideoID', function(data){
-								Task.Frames[Task.TaskName] = data.Content;
-								Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
-								//Task.Result.Type = Type;
-								PlaySong();
-							})
-							
-							drawLoading();
-							break;
 						case 'Name animals':
 							Mode[Task.TaskName.replace(/\s/g,'')] = true;
 							frametype1 = "frame";
@@ -5144,65 +5210,8 @@
 							
 							break;
 							
-							case 'Animals song':
-								/*if(Profile.LoggedIn) {
-									Task.Result.UserName = Profile.UserName;
-									Task.Result.Exercise = TaskName;
-									Task.Result.Topic_Name = Task.TopicName;
-									Task.Result.Type = Type;
-								};*/
-								Mode.MusicVideo = true;
-								Mode[Task.TaskName.replace(/\s/g,'')] = true;
-								socket.emit('getVideoID', {
-									TaskName: TaskName,
-									Accent: Profile.Accent
-								})
-								socket.on('getVideoID', function(data){
-									Task.Frames[Task.TaskName] = data.Content;
-									PlaySong();
-								})
-								drawLoading();
-							break;
-							case 'Numbers song (1 - 10)':
-								/*if(Profile.LoggedIn) {
-									Task.Result.UserName = Profile.UserName;
-									Task.Result.Exercise = TaskName;
-									Task.Result.Topic_Name = Task.TopicName;
-									Task.Result.Type = Type;
-								};*/
-								Mode.MusicVideo = true;
-								Mode[Task.TaskName.replace(/\s/g,'')] = true;
-								socket.emit('getVideoID', {
-									TaskName: TaskName,
-									Accent: Profile.Accent
-								})
-								socket.on('getVideoID', function(data){
-									Task.Frames[Task.TaskName] = data.Content;
-									PlaySong();
-								})
-								drawLoading();
-							break;
-							case 'Numbers song (1 - 20)':
-								/*if(Profile.LoggedIn) {
-									Task.Result.UserName = Profile.UserName;
-									Task.Result.Exercise = TaskName;
-									Task.Result.Topic_Name = Task.TopicName;
-									Task.Result.Type = Type;
-								};*/
-								Mode.MusicVideo = true;
-								Mode[Task.TaskName.replace(/\s/g,'')] = true;
-								socket.emit('getVideoID', {
-									TaskName: TaskName,
-									Accent: Profile.Accent
-								})
-								socket.on('getVideoID', function(data){
-									Task.Frames[Task.TaskName] = data.Content;
-									PlaySong();
-								})
-								drawLoading();
-							break;
 							case 'Name supplies':
-								console.log("Name supplies", TopicName, Task);
+								/*console.log("Name supplies", TopicName, Task);
 								Mode[Task.TaskName.replace(/\s/g,'')] = true;
 								frametype1 = "frame";
 								frametype2 = "Wordsframe";
@@ -5235,7 +5244,8 @@
 								}
 							//	Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 							//	drawExitButton();
-								
+								*/
+								showMatching();
 							break;
 							case 'Find the supply':
 								console.log("Name supplies", TopicName, Task);
@@ -5290,6 +5300,7 @@
 									
 									respondCanvas();
 									//alert(TaskName + " is not available yet:(");
+					}
 					}
 				}
 				
@@ -5658,13 +5669,26 @@
 								}
 							}
 							else {
-								document.getElementById("Loading").style.visibility = "hidden";
-								alert("You have not finished any exercises to get a Quiz");
-								
+								setTimeout(function(){
+									console.log("You have not finished any exercises to get a Quiz");
+									document.getElementById("Loading").style.visibility = "hidden";
+									Mode.Message = true;
+									Mode.MenuItem = false;
+									if(document.getElementById("MenuCanvas")){
+										Mode.Menu = false;
+										var child = document.getElementById("MenuCanvas");
+										document.getElementById("mainDiv").removeChild(child);
+									}
+										
+									Error.Name = "need_to_do_exerciseQuiz";
+									Error.Mode = "quiz_form";
+									showMessage(Error.Name + ".png");
+								}, 100);
 							}
 						})
 					}
 					else {
+						setTimeout(function(){
 						document.getElementById("Loading").style.visibility = "hidden";
 						console.log("You must be logged in to get a quiz");
 						Mode.Message = true;
@@ -5678,7 +5702,7 @@
 						Error.Name = "need_to_loginQuiz";
 						Error.Mode = "quiz_form";
 						showMessage("need_to_loginQuiz.png");
-						
+						}, 100);
 					}
 				}
 				//rewards button has been clicked
@@ -5819,7 +5843,34 @@
 				}
 				//info button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
-					alert("Information is not available yet:(");
+					if(Mode.Exercise && Task.Type == "Video") {
+						console.log("info on videos");
+						setTimeout(function(){
+							Mode.Message = true;
+							Mode.Exercise = false;
+							
+							Error.Name = "videos_help";
+							Error.Mode = "exercise_form";
+							showMessage(Error.Name + ".png");
+						}, 100);
+					}
+					else if(Mode.MenuItem || Mode.Menu) {
+						setTimeout(function(){
+							Mode.Message = true;
+							Mode.MenuItem = false;
+							
+							if(document.getElementById("MenuCanvas")) {
+								$("#MenuCanvas").remove();
+								Mode.Menu = false;
+							}
+							
+							Error.Name = "topics_info";
+							Error.Mode = "menuitem_form";
+							showMessage(Error.Name + ".png");
+						}, 100);
+					}
+					else 
+						alert("Information is not available yet:(");
 				}
 			
 		}
@@ -5857,8 +5908,8 @@
 				r.innerHTML = 'Your browser is not supported. If google chrome, please upgrade!';
 			}
 		}
-		document.addEventListener("mousedown", MouseDown);
-		document.addEventListener("touchstart", MouseDown);
+		MainCanvas.addEventListener("mousedown", MouseDown);
+		MainCanvas.addEventListener("touchstart", MouseDown);
 		function MouseDown(mouseEvent){
 			event.preventDefault();
 			if(mouseEvent.which == 1 || mouseEvent.changedTouches) {
@@ -5947,6 +5998,8 @@
 		loadNumbers();
 		loadLetters();
 		loadForms();
+		loadMenuItemsTasks();
+		loadInfo();
 		loadCapitalLetters();
 	//}
 	//catch(e){}
@@ -5966,7 +6019,7 @@
 			console.log(Properties);
 			var frame = Properties.Buttons["left-arrow.png"].frame;
 			frame = Properties.Numbers["small-dark-9.png"].frame;
-			if(Properties.Tasks.length && Properties.Topics.length) {
+			if(Properties.Tasks.length && Properties.Topics.length && loadedMenuItems) {
 				document.getElementById("Loading").style.visibility = "hidden";
 				
 				MenuItem.ItemList = [];

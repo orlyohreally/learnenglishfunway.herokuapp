@@ -19,6 +19,15 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "ReaderSchool-things.png",
+	"frame": {"x":588,"y":0,"w":294,"h":294},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":294,"h":294},
+	"sourceSize": {"w":294,"h":294},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "SpeedsterAlphabet.png",
 	"frame": {"x":0,"y":294,"w":736,"h":736},
 	"rotated": false,
@@ -29,7 +38,7 @@
 },
 {
 	"filename": "SpeedsterAnimals.png",
-	"frame": {"x":588,"y":0,"w":294,"h":294},
+	"frame": {"x":0,"y":1030,"w":294,"h":294},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":294,"h":294},
@@ -38,11 +47,20 @@
 },
 {
 	"filename": "SpeedsterNumbers.png",
-	"frame": {"x":0,"y":1030,"w":736,"h":736},
+	"frame": {"x":294,"y":1030,"w":294,"h":294},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":736},
-	"sourceSize": {"w":736,"h":736},
+	"spriteSourceSize": {"x":0,"y":0,"w":294,"h":294},
+	"sourceSize": {"w":294,"h":294},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "SpeedsterSchool-things.png",
+	"frame": {"x":588,"y":1030,"w":294,"h":294},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":294,"h":294},
+	"sourceSize": {"w":294,"h":294},
 	"pivot": {"x":0.5,"y":0.5}
 }],
 "meta": {
@@ -50,8 +68,8 @@
 	"version": "1.0",
 	"image": "rewards.png",
 	"format": "RGBA8888",
-	"size": {"w":882,"h":1766},
+	"size": {"w":882,"h":1324},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:eedc90e95a049f1e88de86fcaf44d19a:fbc72a7197c595909838d4097c286ace:4e549fd5f25429ef5063a975f7080ca0$"
+	"smartupdate": "$TexturePacker:SmartUpdate:f7911b92432b57fa96d0780daf5613a5:980ce63c193da98640310a553e2bca6e:4e549fd5f25429ef5063a975f7080ca0$"
 }
 }
