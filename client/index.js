@@ -69,6 +69,7 @@
 		Title.height = 180;
 		var Progress = {};
 		var Badges = {};
+		var Info = {};
 		var playing = false;
 
 		Rewards.width = MenuItem.width;
@@ -112,6 +113,8 @@
 				c = $('#BadgesCanvas');
 			else if(document.getElementById("MessageCanvas"))
 				c = $('#MessageCanvas');
+			else if(document.getElementById("InfoCanvas"))
+				c = $('#InfoCanvas');
 			else
 				c = $('#MainCanvas');
 			
@@ -586,74 +589,45 @@
 			var frame = Properties.Buttons["pause_btn.png"];
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
-		function drawExitButton(){
-			var frame = Properties.Buttons["exit_btn.png"];
-			if(Mode.Progress)
-				context = Progress_ctx;
-			else if(Mode.Settings)
-				context = Settings_ctx;
-			else if(Mode.Message)
-				context = Message_ctx;
-			else if(Mode.Badges)
-				context = Badges_ctx;
-			else if(!Mode.Menu)
-				context = ctx;
-			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("exit_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("exit_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("exit_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("exit_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
-		}
 		function drawRestartButton(x, y, width,height){
 			var frame = Properties.Buttons["restart_btn.png"];
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
 		}
-		function drawHelpButton(){
-			var frame = Properties.Buttons["help_btn.png"];
+		
+		var Button = {};
+		Button.Draw = function(name) {
+			var frame = Properties.Buttons[name];
 			if(Mode.Progress)
 				context = Progress_ctx;
 			else if(Mode.Settings)
 				context = Settings_ctx;
 			else if(Mode.Message)
 				context = Message_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
 				context = Menu_ctx;
-			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("help_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("help_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("help_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("help_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
+			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).h * Math.min(Screen.k_width, Screen.k_height));
 		}
-		function drawInfoButton(){
-			var frame = Properties.Buttons["info_btn.png"];
-			if(Mode.Progress)
-				context = Progress_ctx;
-			else if(Mode.Settings)
-				context = Settings_ctx;
-			else if(Mode.Message)
-				context = Message_ctx;
-			else if(Mode.Badges)
-				context = Badges_ctx;
-			else if(!Mode.Menu)
-				context = ctx;
-			else
-				context = Menu_ctx;
-			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("info_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("info_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("info_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("info_btn.png").h * Math.min(Screen.k_width, Screen.k_height))
-		}
+		
 		function drawSignInForm() {
-			console.log("drawing signin form");
 			drawMenuItems();
 			var frame = Properties.Forms["sign_in_form.png"];
 			ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("sign_in_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("sign_in_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("sign_in_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("sign_in_form.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function drawSettingsForm() {
 			var frame = Properties.Forms["setting_form.png"];
-			console.log(frame);
-			console.log(frame.x, frame.y, frame.w, frame.h, Display.getForm("setting_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").h * Math.min(Screen.k_width, Screen.k_height));
 			Settings_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm("setting_form.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getForm("setting_form.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function drawMessageForm(name) {
+			console.log(name);
 			var frame = Properties.Forms[name];
-			console.log(frame);
-			console.log(frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
 			if(name.substring(name.length - "info.png".length, name.length) == "info.png")
-				Message_ctx.drawImage(atlasInfo, frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
+				Info_ctx.drawImage(atlasInfo, frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
 			else
 				Message_ctx.drawImage(atlasForms, frame.x, frame.y, frame.w, frame.h, Display.getForm(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getForm(name).h * Math.min(Screen.k_width, Screen.k_height));
 		}
@@ -681,33 +655,32 @@
 		}
 		function drawDigit(n, x, y, width, height, type = "") {
 			try {//console.log("n :", n, n!="/");
-			if(type != "")
-				type = type + "-";
-			var frame;
-			if(n != "/")
-				frame = Properties.Numbers[type + n + ".png"];
-			else
-				frame = Properties.Letters[type + "slash.png"];
-			//console.log("frame", frame);
-			if(Mode.Progress)
-				context = Progress_ctx;
-			else if(Mode.Settings)
-				context = Settings_ctx;
-			else if(Mode.Message)
-				context = Message_ctx;
-			else if(Mode.Badges)
-				context = Badges_ctx;
-			else if(!Mode.Menu)
-				context = ctx;
-			else
-				context = Menu_ctx;
-			if(n != "/")
-				context.drawImage(atlas.Numbersframe, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
-			else {
-				//console.log("slash");
-				console.log(Task.loadedLetters);
-				context.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
-			}
+				if(type != "")
+					type = type + "-";
+				var frame;
+				if(n != "/")
+					frame = Properties.Numbers[type + n + ".png"];
+				else
+					frame = Properties.Letters[type + "slash.png"];
+				//console.log("frame", frame);
+				if(Mode.Progress)
+					context = Progress_ctx;
+				else if(Mode.Settings)
+					context = Settings_ctx;
+				else if(Mode.Message)
+					context = Message_ctx;
+				else if(Mode.Badges)
+					context = Badges_ctx;
+				else if(!Mode.Menu)
+					context = ctx;
+				else
+					context = Menu_ctx;
+				if(n != "/")
+					context.drawImage(atlas.Numbersframe, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+				else {
+					//console.log("slash");
+					context.drawImage(atlasLetters, frame.x, frame.y, frame.w, frame.h, x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height))
+				}
 			}
 			catch(e){}
 		}
@@ -921,6 +894,8 @@
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(Mode.Menu)
 				context = Menu_ctx;
 			else
@@ -937,6 +912,8 @@
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(Mode.Menu)
 				context = Menu_ctx;
 			else
@@ -1076,7 +1053,7 @@
 			if(!Mode.Mobile) {
 				//title
 				Display.setButton("title.png", Title.leftSpace, 20, Title.size, Title.size*130/470);
-				if(!Mode.Exercise && !Mode.Progress && !Mode.Settings && !Mode.Message && !Mode.Badges) {
+				if(!Mode.Exercise && !Mode.Progress && !Mode.Settings && !Mode.Message && !Mode.Badges && !Mode.Info) {
 					//Rewards
 					Display.setButton("rewards_btn.png",Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawRewardsButton(Rewards.leftSpace, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
@@ -1111,10 +1088,10 @@
 				drawSettingsButton();
 				//Help button
 				Display.setButton("help_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + (Profile.size_btn - 2 * 5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2 * 5) / 3, (Profile.size_btn - 2 * 5) / 3);
-				drawHelpButton();
+				Button.Draw("help_btn.png");;
 				//Info button
 				Display.setButton("info_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + 5 + (Profile.size_btn - 2 * 5)/3 + (Profile.size_btn - 2 * 5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
-				drawInfoButton();
+				Button.Draw("info_btn.png");("info_btn.png");;
 			}
 			else {
 				var frame = Properties.Buttons["menu_btn.png"];
@@ -1310,8 +1287,8 @@
 				
 				}
 				drawSettingsButton();
-				drawHelpButton();
-				drawInfoButton();
+				Button.Draw("help_btn.png");;
+				Button.Draw("info_btn.png");("info_btn.png");;
 				drawRewardsButton();
 				drawProgressButton();
 				drawPhrasesButton();
@@ -1364,6 +1341,8 @@
 				Badges_ctx.fillStyle="#F7FE2E";
 			else if(Mode.Message)
 				Message_ctx.fillStyle="#F7FE2E";
+			else if(Mode.Info)
+				Info_ctx.fillStyle="#F7FE2E";
 			else if(Mode.Menu)
 				Menu_ctx.fillStyle="#F7FE2E";
 			
@@ -1371,7 +1350,7 @@
 				Menu_ctx.fillStyle="#F7FE2E";
 			//yellow stripes
 			fillRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), MenuItem.starts);
-			if(!Mode.Exercise && !Mode.Mobile && !Mode.Progress && !Mode.Settings && !Mode.Message && !Mode.Badges)
+			if(!Mode.Exercise && !Mode.Mobile && !Mode.Progress && !Mode.Settings && !Mode.Message && !Mode.Badges && !Mode.Info)
 				fillRect(0, MenuItem.ends, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.ends);
 			
 			
@@ -1406,7 +1385,6 @@
 			
 		}
 		function initMenu() {
-			console.log("Mode.Badges", Mode.Badges);
 			if(!Mode.Menu) {
 				if(!Mode.Exercise) {
 					drawHeader();
@@ -1442,7 +1420,7 @@
 							l_a_width = 30 / Math.min(Screen.k_width, Screen.k_height);
 						}
 						Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - l_a_width, MenuItem.starts + 20, l_a_width, l_a_width);
-						drawExitButton();
+						Button.Draw("exit_btn.png");;
 						PlaySong();
 					}
 				}
@@ -1464,8 +1442,10 @@
 				showSettingsForm();
 			}
 			else if(Mode.Message) {
-				console.log("here", Error);
 				showMessageForm(Error.Name + ".png");
+			}
+			else if(Mode.Info) {
+				setInfoFormProp(Info.List[Info.index]);
 			}
 			readyToShowForms();
 			
@@ -1499,7 +1479,6 @@
 			HoverMenuItem(mouseX, mouseY);
 		}
 		function checkPosMenu(mouseEvent){
-			console.log("menu");
 			event.preventDefault();
 			try {
 				var touch = mouseEvent.changedTouches[0];
@@ -1522,7 +1501,6 @@
 			HoverMenuItem(mouseX, mouseY);
 		}
 		function checkPosProgress(mouseEvent){
-			console.log("progress");
 			event.preventDefault();
 			var ProgressCanvas = document.getElementById("ProgressCanvas");
 			try {
@@ -1548,7 +1526,7 @@
 		function checkPosBadges(mouseEvent){
 			event.preventDefault();
 			var BadgesCanvas = document.getElementById("BadgesCanvas");
-			console.log("badges");
+			
 			try {
 				var touch = mouseEvent.changedTouches[0];
 				var rect = BadgesCanvas.getBoundingClientRect();
@@ -1569,8 +1547,31 @@
 			}
 			HoverMenuItem(mouseX, mouseY);
 		}
+		function checkPosInfo(mouseEvent){
+			event.preventDefault();
+			var InfoCanvas = document.getElementById("InfoCanvas");
+			
+			try {
+				var touch = mouseEvent.changedTouches[0];
+				var rect = InfoCanvas.getBoundingClientRect();
+				var scaleX = InfoCanvas.width / rect.width;
+				var scaleY = InfoCanvas.height / rect.height;
+				mouseX = (touch.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (touch.clientY - rect.top) * scaleY;
+				Mode.Smartphone = true;
+			}
+			catch(e) {
+				Mode.Smartphone = false;
+			var rect = InfoCanvas.getBoundingClientRect(),
+				scaleX = InfoCanvas.width / rect.width;
+				scaleY = InfoCanvas.height / rect.height;
+				mouseX = (mouseEvent.clientX - rect.left) * scaleX;   // scale mouse coordinates after they have
+				mouseY = (mouseEvent.clientY - rect.top) * scaleY;
+				
+			}
+			HoverMenuItem(mouseX, mouseY);
+		}
 		function checkPosMessage(mouseEvent){
-			console.log("message");
 			event.preventDefault();
 			var MessageCanvas = document.getElementById("MessageCanvas");
 			try {
@@ -1594,7 +1595,6 @@
 			HoverMenuItem(mouseX, mouseY);
 		}
 		function checkPosSettings(mouseEvent){
-			console.log("setting");
 			event.preventDefault();
 			var SettingsCanvas = document.getElementById("SettingsCanvas");
 			try {
@@ -1685,7 +1685,7 @@
 		
 		function HoverMenuItem(mouseX, mouseY){
 			//left arrow has been hovered
-			if((Mode.MenuItem && MenuItem.firstItem > 0) || (Mode.Progress && Progress.index) || (Mode.Badges && Badges.firstItem)) {
+			if((Mode.MenuItem && MenuItem.firstItem > 0) || (Mode.Progress && Progress.index) || (Mode.Badges && Badges.firstItem) || (Mode.Info && Info.index)) {
 				if (!(l_a_ch) && mouseInRect(Display.getButton("left-arrow.png"))) {	
 					clearRectRect(Display.getButton("left-arrow.png"));
 					Display.expandButton("left-arrow.png", 5);
@@ -1700,7 +1700,7 @@
 				}
 			}
 			//right arrow is hovered
-			if((Mode.MenuItem && (MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount)) || (Mode.Progress && Progress.Array.length > Progress.index + 1) || (Mode.Badges && Badges.All.length >= Badges.firstItem + Badges.display + 1)){
+			if((Mode.MenuItem && (MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount)) || (Mode.Progress && Progress.Array.length > Progress.index + 1) || (Mode.Badges && Badges.All.length >= Badges.firstItem + Badges.display + 1) || (Mode.Info && Info.index + 1 < Info.List.length)){
 				if (!(r_a_ch) && (mouseInRect(Display.getButton("right-arrow.png")))) {	
 					clearRectRect(Display.getButton("right-arrow.png"));
 					Display.expandButton("right-arrow.png", 5);
@@ -1997,7 +1997,7 @@
 				if(Mode.Menu)
 					n = 10;
 				Display.expandButton("help_btn.png", n);
-				drawHelpButton();
+				Button.Draw("help_btn.png");;
 				help_ch = true;
 			}
 			else if(((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && help_ch && !(mouseInRect(Display.getButton("help_btn.png")))) {
@@ -2006,7 +2006,7 @@
 				if(Mode.Menu)
 					n = 10;
 				Display.expandButton("help_btn.png", -n);
-				drawHelpButton();
+				Button.Draw("help_btn.png");;
 				help_ch = false;
 			}
 			//Info button has been hovered
@@ -2017,7 +2017,7 @@
 					n = 10;
 				Display.expandButton("info_btn.png", n);
 				info_ch = true;
-				drawInfoButton();
+				Button.Draw("info_btn.png");("info_btn.png");;
 				
 			}
 			else if(((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn &&info_ch && !(mouseInRect(Display.getButton("info_btn.png")))) {
@@ -2027,7 +2027,7 @@
 					n = 10;
 				Display.expandButton("info_btn.png", -n);
 				info_ch = false;
-				drawInfoButton();
+				Button.Draw("info_btn.png");("info_btn.png");;
 			}
 				
 			X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
@@ -2114,29 +2114,29 @@
 				
 			}
 			//exit button hovered during progress option
-			if (Mode.Progress &&!exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
+			if ((Mode.Progress || Mode.Info) && !exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", 3);
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				exit_btn_ch = true;
 			}
-			else if(Mode.Progress && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
+			else if((Mode.Progress || Mode.Info) && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", -3);
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				exit_btn_ch = false;
 			}
 			//exit button hovered during badges mode
 			if (Mode.Badges &&!exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", 3);
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				exit_btn_ch = true;
 			}
 			else if(Mode.Badges && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", -3);
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				exit_btn_ch = false;
 			}
 			//exit button has been hovered during MusicVideo
@@ -2145,14 +2145,14 @@
 				//clearScreenRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", 3);
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				exit_btn_ch = true;
 			}
 			else if(Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				//clearScreenRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", -3);
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				exit_btn_ch = false;
 			}
 			
@@ -2171,14 +2171,14 @@
 				//clearRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", 3);
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				exit_btn_ch = true;
 			}
 			else if((Mode.Exercise && !Mode.MusicVideo && !Mode.Results) && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				//clearRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", -3);
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				exit_btn_ch = false;
 			}
 			//Matching word has been hovered
@@ -2515,7 +2515,6 @@
 			}
 			else if (Mode.Message && okay_ch && !(mouseInRect(Display.getButton("result_form_okay_btn.png")))) {
 				Display.expandButton("result_form_okay_btn.png", -5);
-				console.log("Error", Error);
 				showMessageForm(Error.Name + ".png");
 				okay_ch = false;
 			}
@@ -2747,7 +2746,6 @@
 
 		function drawTask(j, i, x, y, width, height) {
 			try{
-				console.log("drawing task");
 				var frame = Properties.Tasks[j][i].Frame;
 				Display.setTask(j, i, x, y, width, height);
 				ctx.drawImage(atlasMenuItemTask, frame.x, frame.y, frame.w, frame.h, x*Math.min(Screen.k_width, Screen.k_height), y*Math.min(Screen.k_width, Screen.k_height) , width*Math.min(Screen.k_width, Screen.k_height), height*Math.min(Screen.k_width, Screen.k_height))
@@ -2806,7 +2804,6 @@
 			k = -1;
 			k1 = -1;
 			task_ch = false;
-			console.log(j, MenuItem.ItemList);
 			if(!Mode.Exercise) {
 				if(MenuItem.chosen != j)
 					speak(MenuItem.ItemList[j]);
@@ -2992,7 +2989,6 @@
 						
 						Task.Result.Max_point = Task.MaxPoint * Task.N_toTest;
 						
-						//######
 						if(Profile.LoggedIn) {
 							Task.Result.Finish = new Date();
 							console.log("result:", Task.Result);
@@ -3015,7 +3011,6 @@
 		function showBadges() {
 			document.getElementById("Loading").style.visibility = "hidden";
 			ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
-			//$$$$$
 			if(document.getElementById("MenuCanvas"))
 				document.getElementById("mainDiv").removeChild(document.getElementById("MenuCanvas"));
 			if(!document.getElementById("BadgesCanvas")) {
@@ -3037,6 +3032,32 @@
 			drawLoading();
 			setBadgesFormProp();
 			
+				
+		}
+		function showInfo(name) {
+			console.log("name" , name);
+			document.getElementById("Loading").style.visibility = "hidden";
+			ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
+			if(document.getElementById("MenuCanvas"))
+				document.getElementById("mainDiv").removeChild(document.getElementById("MenuCanvas"));
+			if(!document.getElementById("InfoCanvas")) {
+			var Info = document.createElement('canvas');
+				Info.id = 'InfoCanvas';
+				Info.width = document.getElementById("MainCanvas").width;
+				Info.height = document.getElementById("MainCanvas").height;
+				document.getElementById("mainDiv").appendChild(Info);
+			}
+			InfoCanvas = document.getElementById("InfoCanvas");
+			
+			InfoCanvas.addEventListener("touchmove", checkPosInfo, false);
+			InfoCanvas.addEventListener("mousemove", checkPosInfo);
+			InfoCanvas.addEventListener("mousedown", MouseDown);
+			InfoCanvas.addEventListener("touchstart", MouseDown);
+			InfoCanvas.addEventListener("mouseup", checkClick);
+			InfoCanvas.addEventListener("touchend", checkClick);
+			Info_ctx = document.getElementById("InfoCanvas").getContext("2d");
+			drawLoading();
+			setInfoFormProp(name);
 				
 		}
 		function setProgressProp(type) {
@@ -3353,6 +3374,36 @@
 			setBadgesProp();
 			
 		}
+		function setInfoFormProp(name) {
+			console.log("setInfoFormProp", name);
+			var frame = Properties.Forms[name];
+			console.log(Properties.Forms, frame);
+			if(Display.getButton("right-arrow.png").w < 30 / Math.min(Screen.k_width, Screen.k_height)){
+				console.log("too small");
+				var width =  30 / Math.min(Screen.k_width, Screen.k_height);
+				var height = width * Display.getButton("right-arrow.png").h / Display.getButton("right-arrow.png").w;
+				Display.setButton("left-arrow.png", 20, MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts) / 2 - height / 2, width, height);
+				Display.setButton("right-arrow.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - 20 - width, MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts) / 2 - height / 2, width, height);
+			}
+			else {
+				console.log("normal size");
+				Display.setButton("left-arrow.png", 20, MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts) / 2 - Display.getButton("left-arrow.png").h / 2, Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h);
+				Display.setButton("right-arrow.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - 20 - Display.getButton("left-arrow.png").w, MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts) / 2 - Display.getButton("left-arrow.png").h / 2, Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h);
+			}
+			var Form = {};
+			Form.width = Display.getButton("right-arrow.png").x - Display.getButton("left-arrow.png").x - Display.getButton("left-arrow.png").w - 2 * 30;
+			Form.height = Form.width * Properties.Forms[name].h / Properties.Forms[name].w;
+			if(Form.height + MenuItem.starts > Screen.height / Math.min(Screen.k_width, Screen.k_height)) {
+				Form.height = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 30;
+				Form.width = Form.height * Properties.Forms[name].w / Properties.Forms[name].h;
+			}
+			Form.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Form.width) / 2;
+			Form.y = MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - Form.height) / 2;
+			Display.setForm(name, Form.x, Form.y, Form.width, Form.height);
+			Display.setButton("exit_btn.png", Display.getButton("right-arrow.png").x, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+			showInfoForm();
+			
+		}
 		function showMenu() {
 			Mode.Tasks = false;
 			var Menu = document.createElement('canvas');
@@ -3376,7 +3427,7 @@
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			drawHeader();
 			if(Badges.loadedRewards) {
-				drawExitButton();
+				Button.Draw("exit_btn.png");;
 				console.log("recieved", Profile.Badges, Badges.All);
 				for (var i = Badges.firstItem; i < Badges.display + Badges.firstItem && i < Badges.All.length; i++) {
 					console.log(Badges.All[i]);
@@ -3393,11 +3444,23 @@
 				}, 100)
 			}
 		}
+		function showInfoForm(){
+			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
+			document.getElementById("Loading").style.visibility = "hidden";
+			drawHeader();
+			Button.Draw("exit_btn.png");;
+			drawMessageForm(Info.List[Info.index])
+			if(Info.index + 1 < Info.List.length)
+				drawRightArrow();
+			if(Info.index)
+				drawLeftArrow();
+		
+		}
 		function showProgressForm() {
 			console.log(Progress.Array)
 			setProgressProp(Progress.Array[Progress.index].Type);
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
-			drawExitButton();
+			Button.Draw("exit_btn.png");;
 			if(Progress.index)
 				drawLeftArrow();
 			if(Progress.Array.length > Progress.index + 1)
@@ -3567,6 +3630,7 @@
 			
 		}
 		function showMessageForm(name) {
+			console.log(name, name.length);
 			console.log("showing message form", name);
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			drawHeader();
@@ -4223,7 +4287,7 @@
 				
 			}
 			
-			drawExitButton();
+			Button.Draw("exit_btn.png");;
 			
 			if(!Mode.Training) {
 				var frame = Properties.Buttons["red-heart.png"];
@@ -4392,7 +4456,6 @@
 					setBadgesProp();
 				}
 				//left arrow clicked during badges mode
-				console.log("clicking", Mode.Badges, Badges.firstItem, mouseX, mouseY, mouseInRect(Display.getButton("left-arrow.png")), mouseInRect(Display.getButton("right-arrow.png")));
 				if(Mode.Badges && Badges.firstItem && mouseInRect(Display.getButton("left-arrow.png"))) {
 					clearRect(0, MenuItem.starts, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 					Badges.firstItem--;
@@ -5058,7 +5121,7 @@
 					Task.N_toTest = N;
 					Task.Type = Type;
 					Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
-					drawExitButton();
+					Button.Draw("exit_btn.png");;
 							
 					if(Profile.LoggedIn) {
 						Task.Result.UserName = Profile.UserName;
@@ -5133,7 +5196,6 @@
 					Task.Result = {};
 				}
 				//exit button has been clicked during Badges Mode
-				
 				if(Mode.Badges && mouseInRect(Display.getButton("exit_btn.png"))) {
 					if(document.getElementById("BadgesCanvas")){
 						Mode.Badges = false;
@@ -5143,7 +5205,26 @@
 					Mode.MenuItem = true;
 					respondCanvas();
 				}
-				
+				//exit button has been clicked during Info Mode
+				if(Mode.Info && mouseInRect(Display.getButton("exit_btn.png"))) {
+					if(document.getElementById("InfoCanvas")){
+						Mode.Info = false;
+						var child = document.getElementById("InfoCanvas");
+						document.getElementById("mainDiv").removeChild(child);
+					}
+					Mode.MenuItem = true;
+					respondCanvas();
+				}
+				//left arrow clicked Info Mode
+				if(Mode.Info && Info.index && mouseInRect(Display.getButton("left-arrow.png"))) {
+					Info.index--;
+					setInfoFormProp(Info.List[Info.index]);
+				}
+				//right arrow clicked Info Mode
+				if(Mode.Info && Info.index + 1 < Info.List.length && mouseInRect(Display.getButton("right-arrow.png"))) {
+					Info.index++;
+					setInfoFormProp(Info.List[Info.index]);
+				}
 				//task has been clicked
 				console.log(Mode.Tasks,!Mode.Exercise, !Mode.Settings, !Mode.Badges);
 				if(Mode.Tasks && !Mode.Exercise && !Mode.Settings && !Mode.Badges) {
@@ -5636,31 +5717,34 @@
 					
 				}
 				//info button has been clicked
-				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
+				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu) || Mode.Exercise) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
+					console.log("info button clicked");
 					if(Mode.Exercise && Task.Type == "Video") {
 						console.log("info on videos");
 						setTimeout(function(){
-							Mode.Message = true;
+							Mode.Info = true;
 							Mode.Exercise = false;
+							Info.List = ["videos_info.png"];
 							
-							Error.Name = "videos_help";
-							Error.Mode = "exercise_form";
-							showMessage(Error.Name + ".png");
+							Info.index = 0;
+							console.log("show info", Info.List[Info.index]);
+							showInfo(Info.List[Info.index]);
 						}, 100);
 					}
 					else if(Mode.MenuItem || Mode.Menu) {
 						setTimeout(function(){
-							Mode.Message = true;
+							Mode.Info = true;
 							Mode.MenuItem = false;
-							
 							if(document.getElementById("MenuCanvas")) {
 								$("#MenuCanvas").remove();
 								Mode.Menu = false;
 							}
+							Info.List = ["topics_info.png", "exercises_info.png", "videos_info.png", "task_info.png","help_info.png","rewards_info.png","progress_info.png","quiz_info.png"];
 							
-							Error.Name = "topics_info";
-							Error.Mode = "menuitem_form";
-							showMessage(Error.Name + ".png");
+							//Info.List = "topics_info.png";
+							Info.index = 0;
+							console.log("show info", Info.List[Info.index]);
+							showInfo(Info.List[Info.index]);
 						}, 100);
 					}
 					else 
@@ -5768,20 +5852,32 @@
 				catch(e){}
 			}
 		}
-	var loading = new Image();
+	/*var loading = new Image();
 	loading.loadedLoading;
 	function loadLoading(){
-		loading.src = '/img/Loading/loading.png';
+		loading.src = '/img/Loading/loading.gif';
 		loading.addEventListener("load", function() {
 			loading.loadedLoading = true;
 		})
-	}
+	}*/
+	/*var Exp = new Image();
+	Exp.src = '/img/Alphabet/left Alphabet song gif.gif';
+	Exp.src = '/img/Alphabet/right Alphabet song gif.gif';
+	
+	Exp.src = '/img/School things/right Name supplies gif.gif';
+	Exp.src = '/img/School thingst/right right Name supplies gif.gif';
+	Exp.src = '/img/School things/right Find supply gif.gif';
+	Exp.src = '/img/School things/right Find supply gif.gif';
+	
+	Exp.src = '/img/Numbers/right Find numbers from 0 to 9 gif.gif';
+	Exp.src = '/img/Numbers/left Find numbers from 0 to 9 gif.gif';
+	Exp.src = '/img/Numbers/right Name numbers from 0 to 9 gif.gif';
+	Exp.src = '/img/Numbers/left Name numbers from 0 to 9 gif.gif';*/
+	
 	function drawLoading(){
 		console.log("drawing loading gif");
 		document.getElementById("Loading").style.visibility = "visible";
 	}
-	var current = 0;
-	loadLoading();
 	//try {
 		loadButtons();
 		loadMenuItems();
@@ -5853,12 +5949,14 @@
 				}
 			}
 			else
-				displayMenu();
+				setTimeout(function(){
+					displayMenu();
+				}, 100)
 		}
 		catch(e) {
 				setTimeout(function(){
 					displayMenu();
-				}, 1000)
+				}, 100)
 			}
 	}
 	function getProperties() {
