@@ -643,6 +643,8 @@ module.exports = {
 				context = Progress_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else
 				context = ctx;
 			
@@ -657,6 +659,8 @@ module.exports = {
 				context = Progress_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else
 				context = ctx;
 			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("right-arrow.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("right-arrow.png").h * Math.min(Screen.k_width, Screen.k_height));		
@@ -701,6 +705,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(document.getElementById("BadgesCanvas") ||Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info || document.getElementById("InfoCanvas"))
+				context = Info_ctx;
 			else if(document.getElementById("MenuCanvas") ||Mode.Menu)
 				context = Menu_ctx;
 			else
@@ -725,6 +731,8 @@ module.exports = {
 				context = Settings_ctx;
 			else if(Mode.Message)
 				context = Message_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
 			else if(Mode.Menu)
@@ -779,6 +787,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -797,6 +807,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -813,6 +825,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("setting_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("setting_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
@@ -913,6 +927,8 @@ module.exports = {
 					context = Message_ctx;
 				else if(Mode.Badges)
 					context = Badges_ctx;
+				else if(Mode.Info)
+					context = Info_ctx;
 				else if(!Mode.Menu)
 					context = ctx;
 				else
@@ -942,6 +958,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -1001,6 +1019,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -1087,6 +1107,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -1103,6 +1125,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -1171,6 +1195,8 @@ module.exports = {
 				context = Badges_ctx;
 			else if(Mode.Message)
 				context = Message_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(Mode.Menu)
 				context = Menu_ctx;
 			else
@@ -1187,6 +1213,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -1211,6 +1239,8 @@ module.exports = {
 				context = Message_ctx;
 			else if(Mode.Badges)
 				context = Badges_ctx;
+			else if(Mode.Info)
+				context = Info_ctx;
 			else if(!Mode.Menu)
 				context = ctx;
 			else
@@ -1288,10 +1318,7 @@ module.exports = {
 					drawRightArrow();
 				}
 			}
-			//title
-				if(!Mode.Mobile) {
-					
-				}
+			
 			if(!Mode.Mobile) {
 				//title
 				Display.setButton("title.png", Title.leftSpace, 20, Title.size, Title.size*130/470);
@@ -1330,10 +1357,10 @@ module.exports = {
 				drawSettingsButton();
 				//Help button
 				Display.setButton("help_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + (Profile.size_btn - 2 * 5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2 * 5) / 3, (Profile.size_btn - 2 * 5) / 3);
-				Button.Draw("help_btn.png");;
+				Button.Draw("help_btn.png");
 				//Info button
 				Display.setButton("info_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + 5 + (Profile.size_btn - 2 * 5)/3 + (Profile.size_btn - 2 * 5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
-				Button.Draw("info_btn.png");("info_btn.png");;
+				Button.Draw("info_btn.png");
 			}
 			else {
 				var frame = Properties.Buttons["menu_btn.png"];
@@ -1529,8 +1556,8 @@ module.exports = {
 				
 				}
 				drawSettingsButton();
-				Button.Draw("help_btn.png");;
-				Button.Draw("info_btn.png");("info_btn.png");;
+				Button.Draw("help_btn.png");
+				Button.Draw("info_btn.png");
 				drawRewardsButton();
 				drawProgressButton();
 				drawPhrasesButton();
@@ -1630,7 +1657,7 @@ module.exports = {
 			if(!Mode.Menu) {
 				if(!Mode.Exercise) {
 					drawHeader();
-					if(!Mode.Settings && !Mode.Message && !Mode.Badges) {
+					if(!Mode.Settings && !Mode.Message && !Mode.Badges && !Mode.Info) {
 						if(loadedMenuItems) {
 							drawMenuItems();
 						}
@@ -1662,7 +1689,7 @@ module.exports = {
 							l_a_width = 30 / Math.min(Screen.k_width, Screen.k_height);
 						}
 						Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - l_a_width, MenuItem.starts + 20, l_a_width, l_a_width);
-						Button.Draw("exit_btn.png");;
+						Button.Draw("exit_btn.png");
 						PlaySong();
 					}
 				}
@@ -2239,7 +2266,7 @@ module.exports = {
 				if(Mode.Menu)
 					n = 10;
 				Display.expandButton("help_btn.png", n);
-				Button.Draw("help_btn.png");;
+				Button.Draw("help_btn.png");
 				help_ch = true;
 			}
 			else if(((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && help_ch && !(mouseInRect(Display.getButton("help_btn.png")))) {
@@ -2248,7 +2275,7 @@ module.exports = {
 				if(Mode.Menu)
 					n = 10;
 				Display.expandButton("help_btn.png", -n);
-				Button.Draw("help_btn.png");;
+				Button.Draw("help_btn.png");
 				help_ch = false;
 			}
 			//Info button has been hovered
@@ -2259,7 +2286,7 @@ module.exports = {
 					n = 10;
 				Display.expandButton("info_btn.png", n);
 				info_ch = true;
-				Button.Draw("info_btn.png");("info_btn.png");;
+				Button.Draw("info_btn.png");
 				
 			}
 			else if(((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn &&info_ch && !(mouseInRect(Display.getButton("info_btn.png")))) {
@@ -2269,7 +2296,7 @@ module.exports = {
 					n = 10;
 				Display.expandButton("info_btn.png", -n);
 				info_ch = false;
-				Button.Draw("info_btn.png");("info_btn.png");;
+				Button.Draw("info_btn.png");
 			}
 				
 			X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
@@ -2359,26 +2386,26 @@ module.exports = {
 			if ((Mode.Progress || Mode.Info) && !exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", 3);
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				exit_btn_ch = true;
 			}
 			else if((Mode.Progress || Mode.Info) && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", -3);
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				exit_btn_ch = false;
 			}
 			//exit button hovered during badges mode
 			if (Mode.Badges &&!exit_btn_ch && mouseInRect(Display.getButton("exit_btn.png"))) {
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", 3);
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				exit_btn_ch = true;
 			}
 			else if(Mode.Badges && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", -3);
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				exit_btn_ch = false;
 			}
 			//exit button has been hovered during MusicVideo
@@ -2387,14 +2414,14 @@ module.exports = {
 				//clearScreenRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", 3);
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				exit_btn_ch = true;
 			}
 			else if(Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				//clearScreenRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", -3);
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				exit_btn_ch = false;
 			}
 			
@@ -2413,14 +2440,14 @@ module.exports = {
 				//clearRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", 3);
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				exit_btn_ch = true;
 			}
 			else if((Mode.Exercise && !Mode.MusicVideo && !Mode.Results) && !Mode.SignIn && !Mode.LogIn && exit_btn_ch && !(mouseInRect(Display.getButton("exit_btn.png")))) {
 				//clearRect(Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn - 3, MenuItem.starts + 20 - 3, size_btn + 6, size_btn + 6);
 				clearRectRect(Display.getButton("exit_btn.png"));
 				Display.expandButton("exit_btn.png", -3);
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				exit_btn_ch = false;
 			}
 			//Matching word has been hovered
@@ -3620,6 +3647,7 @@ module.exports = {
 			console.log("setInfoFormProp", name);
 			var frame = Properties.Forms[name];
 			console.log(Properties.Forms, frame);
+			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			if(Display.getButton("right-arrow.png").w < 30 / Math.min(Screen.k_width, Screen.k_height)){
 				console.log("too small");
 				var width =  30 / Math.min(Screen.k_width, Screen.k_height);
@@ -3669,7 +3697,7 @@ module.exports = {
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			drawHeader();
 			if(Badges.loadedRewards) {
-				Button.Draw("exit_btn.png");;
+				Button.Draw("exit_btn.png");
 				console.log("recieved", Profile.Badges, Badges.All);
 				for (var i = Badges.firstItem; i < Badges.display + Badges.firstItem && i < Badges.All.length; i++) {
 					console.log(Badges.All[i]);
@@ -3690,7 +3718,7 @@ module.exports = {
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			document.getElementById("Loading").style.visibility = "hidden";
 			drawHeader();
-			Button.Draw("exit_btn.png");;
+			Button.Draw("exit_btn.png");
 			drawMessageForm(Info.List[Info.index])
 			if(Info.index + 1 < Info.List.length)
 				drawRightArrow();
@@ -3702,7 +3730,7 @@ module.exports = {
 			console.log(Progress.Array)
 			setProgressProp(Progress.Array[Progress.index].Type);
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
-			Button.Draw("exit_btn.png");;
+			Button.Draw("exit_btn.png");
 			if(Progress.index)
 				drawLeftArrow();
 			if(Progress.Array.length > Progress.index + 1)
@@ -4529,7 +4557,7 @@ module.exports = {
 				
 			}
 			
-			Button.Draw("exit_btn.png");;
+			Button.Draw("exit_btn.png");
 			
 			if(!Mode.Training) {
 				var frame = Properties.Buttons["red-heart.png"];
@@ -5363,7 +5391,7 @@ module.exports = {
 					Task.N_toTest = N;
 					Task.Type = Type;
 					Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
-					Button.Draw("exit_btn.png");;
+					Button.Draw("exit_btn.png");
 							
 					if(Profile.LoggedIn) {
 						Task.Result.UserName = Profile.UserName;
@@ -5449,12 +5477,20 @@ module.exports = {
 				}
 				//exit button has been clicked during Info Mode
 				if(Mode.Info && mouseInRect(Display.getButton("exit_btn.png"))) {
+					
 					if(document.getElementById("InfoCanvas")){
 						Mode.Info = false;
 						var child = document.getElementById("InfoCanvas");
 						document.getElementById("mainDiv").removeChild(child);
 					}
-					Mode.MenuItem = true;
+					if(Info.List.length == 1) {
+						if(Info.List[Info.index].substring(Info.List[Info.index].length - "_help.png".length, Info.List[Info.index].length) == "videos")
+							Mode.Exercise = true;
+					}
+					else {
+						Mode.MenuItem = true;
+					}						
+					
 					respondCanvas();
 				}
 				//left arrow clicked Info Mode
@@ -5961,19 +5997,12 @@ module.exports = {
 				//info button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu) || Mode.Exercise) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
 					console.log("info button clicked");
-					if(Mode.Exercise && Task.Type == "Video") {
-						console.log("info on videos");
-						setTimeout(function(){
-							Mode.Info = true;
-							Mode.Exercise = false;
-							Info.List = ["videos_info.png"];
-							
-							Info.index = 0;
-							console.log("show info", Info.List[Info.index]);
-							showInfo(Info.List[Info.index]);
-						}, 100);
-					}
-					else if(Mode.MenuItem || Mode.Menu) {
+					var n = 2;
+					if(Mode.Menu)
+						n = 10;
+					Display.expandButton("info_btn.png", -n);
+					info_ch = false;
+					if(Mode.MenuItem || Mode.Menu) {
 						setTimeout(function(){
 							Mode.Info = true;
 							Mode.MenuItem = false;
@@ -5986,11 +6015,11 @@ module.exports = {
 							//Info.List = "topics_info.png";
 							Info.index = 0;
 							console.log("show info", Info.List[Info.index]);
+							
 							showInfo(Info.List[Info.index]);
+							
 						}, 100);
 					}
-					else 
-						alert("Information is not available yet:(");
 				}
 			
 		}
