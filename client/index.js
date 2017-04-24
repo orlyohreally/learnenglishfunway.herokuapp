@@ -1448,6 +1448,12 @@
 						}
 						Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - l_a_width, MenuItem.starts + 20, l_a_width, l_a_width);
 						Button.Draw("exit_btn.png");
+						if(Mode.Mobile) {
+							Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * l_a_width - 20, MenuItem.starts + 20, l_a_width, l_a_width);
+							Button.Draw("info_btn.png");
+							Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 3 * l_a_width - 2*20, MenuItem.starts + 20, l_a_width, l_a_width);
+							Button.Draw("help_btn.png");
+						}
 						PlaySong();
 					}
 				}
@@ -3065,6 +3071,9 @@
 			console.log("name" , name);
 			document.getElementById("Loading").style.visibility = "hidden";
 			ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
+			if(document.getElementById("Video")) {
+				document.getElementById("Video").style.visibility = "hidden";
+			}
 			if(document.getElementById("MenuCanvas"))
 				document.getElementById("mainDiv").removeChild(document.getElementById("MenuCanvas"));
 			if(!document.getElementById("InfoCanvas")) {
@@ -3954,20 +3963,23 @@
 		}
 		function showVideo() {
 			console.log("showvideo");
-			Mode.MusicVideo = true;
 			console.log(Task.TaskName.replace(/\s/g,''));
 			Mode[Task.TaskName.replace(/\s/g,'')] = true;
 			socket.emit('getVideoID', {
 				TaskName: Task.TaskName,
 				Accent: Profile.Accent,
 			})
-			socket.on('getVideoID', function(data){
-				Task.Frames[Task.TaskName] = data.Content;
-				Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
-				//Task.Result.Type = Type;
-				PlaySong();
-			})
+			Mode.MusicVideo = true;
+			Mode.Exercise = true;
 			
+			if(!document.getElementById("Video")) {
+				socket.on('getVideoID', function(data){
+					Task.Frames[Task.TaskName] = data.Content;
+					Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
+					//Task.Result.Type = Type;
+					PlaySong();
+				})
+			}
 			drawLoading();
 		}
 		var checkloaded = {};function selectAnimal(){
@@ -4238,6 +4250,11 @@
 			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			var frame = Properties.Buttons["skip.png"];
 			Display.setButton("skip.png", Title.leftSpace + 20, MenuItem.starts + 20, Display.getButton("exit_btn.png").w / frame.h * frame.w, Display.getButton("exit_btn.png").w);
+			
+			if(Mode.Mobile) {
+				Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20 + 10 + Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+				Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20 + 2*10 + 2*Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+			}
 			drawTest();
 		}
 		function drawTest() {
@@ -4316,7 +4333,10 @@
 			}
 			
 			Button.Draw("exit_btn.png");
-			
+			if(Mode.Mobile){
+				Button.Draw("info_btn.png");
+				Button.Draw("help_btn.png");				
+			}
 			if(!Mode.Training) {
 				var frame = Properties.Buttons["red-heart.png"];
 				var i;
@@ -5149,8 +5169,13 @@
 					Task.N_toTest = N;
 					Task.Type = Type;
 					Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+					if(Mode.Mobile){
+						Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * Display.getButton("right-arrow.png").w - 20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+						Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 3 * Display.getButton("right-arrow.png").w - 2*20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+						Button.Draw("help_btn.png");
+						Button.Draw("info_btn.png");
+					}
 					Button.Draw("exit_btn.png");
-							
 					if(Profile.LoggedIn) {
 						Task.Result.UserName = Profile.UserName;
 						Task.Result.Exercise = TaskName;
@@ -5189,11 +5214,53 @@
 					
 				}
 				
+				//exit button has been clicked during Info Mode
+				if(Mode.Info && mouseInRect(Display.getButton("exit_btn.png"))) {
+					
+					if(document.getElementById("InfoCanvas")){
+						Mode.Info = false;
+						var child = document.getElementById("InfoCanvas");
+						document.getElementById("mainDiv").removeChild(child);
+					}
+					console.log(Info.List, Info.List.length);
+					if(Info.List.length == 1) {
+						console.log(!Mode.Exercise, Task.Result != {}, Mode.MusicVideo);
+						if(!Mode.Exercise && Task.Result != {}) {
+							console.log("video mode + info closed");
+							//setTimeout(function() {
+								//$$$$$$$
+								
+								clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
+								showVideo();
+								drawHeader();
+								Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+								Button.Draw("exit_btn.png");
+								if(Mode.Mobile){
+									Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * Display.getButton("right-arrow.png").w - 20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+									Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 3 * Display.getButton("right-arrow.png").w - 2*20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+									Button.Draw("help_btn.png");
+									Button.Draw("info_btn.png");
+								}
+								
+							//}, 100);
+							
+							document.getElementById("Video").style.visibility = "visible";
+						}
+					}
+					else {
+						Mode.MenuItem = true;
+						respondCanvas();
+					}						
+					
+					
+				}
 				
 				//exit button has been clicked during song
-				if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
+				else if (Mode.Exercise && Mode.MusicVideo && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
+					console.log("exiting video");
 					Mode.MenuItem = true;
 					Mode.Exercise = false;
+					Mode.MusicVideo = false;
 					$("Video").remove();
 					$("inputdiv").remove();
 					
@@ -5233,24 +5300,7 @@
 					Mode.MenuItem = true;
 					respondCanvas();
 				}
-				//exit button has been clicked during Info Mode
-				if(Mode.Info && mouseInRect(Display.getButton("exit_btn.png"))) {
-					
-					if(document.getElementById("InfoCanvas")){
-						Mode.Info = false;
-						var child = document.getElementById("InfoCanvas");
-						document.getElementById("mainDiv").removeChild(child);
-					}
-					if(Info.List.length == 1) {
-						if(Info.List[Info.index].substring(Info.List[Info.index].length - "_help.png".length, Info.List[Info.index].length) == "videos")
-							Mode.Exercise = true;
-					}
-					else {
-						Mode.MenuItem = true;
-					}						
-					
-					respondCanvas();
-				}
+				
 				//left arrow clicked Info Mode
 				if(Mode.Info && Info.index && mouseInRect(Display.getButton("left-arrow.png"))) {
 					Info.index--;
@@ -5346,6 +5396,10 @@
 									var frame = Properties.Buttons["correct.png"];
 									var word_width = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 3;
 									var word_height = word_width * frame.h / frame.w;
+									if(MenuItem.starts - word_height - 20 < 0) {
+										word_height = MenuItem.starts - 10;
+										word_width = word_height / frame.h * frame.w;
+									}
 									drawCorrect((Screen.width / Math.min(Screen.k_width, Screen.k_height) - word_width) / 2, MenuItem.starts - word_height - 20, word_width, word_height);
 										
 									Task.toTest.splice(Task.toTest.indexOf((Task.test.concat())[k3]), 1);
@@ -5754,6 +5808,7 @@
 				}
 				//info button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu) || Mode.Exercise) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
+					Mode.Tasks = false;
 					console.log("info button clicked");
 					var n = 2;
 					if(Mode.Menu)
@@ -5769,6 +5824,25 @@
 								Mode.Menu = false;
 							}
 							Info.List = ["topics_info.png", "exercises_info.png", "videos_info.png", "task_info.png","help_info.png","rewards_info.png","progress_info.png","quiz_info.png"];
+							
+							//Info.List = "topics_info.png";
+							Info.index = 0;
+							console.log("show info", Info.List[Info.index]);
+							
+							showInfo(Info.List[Info.index]);
+							
+						}, 100);
+					}
+					else if(Mode.Exercise && Task.Type == "Video") {
+						console.log("playing video");
+						setTimeout(function(){
+							Mode.Info = true;
+							Mode.Exercise = false;
+							if(document.getElementById("MenuCanvas")) {
+								$("#MenuCanvas").remove();
+								Mode.Menu = false;
+							}
+							Info.List = ["videos_info.png"];
 							
 							//Info.List = "topics_info.png";
 							Info.index = 0;
