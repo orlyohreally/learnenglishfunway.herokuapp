@@ -1,4 +1,14 @@
 (function(){
+	var loadedMenuItems = false;
+	function loadMenuItems(){
+		console.log("loadedMenuItems");
+		atlasMenuItem.src = '/img/Menu-Items/menu-items.png';
+		atlasMenuItem.addEventListener("load", function() {
+			loadedMenuItems = true;
+			drawMenuItems();
+		})
+	}
+	
 	$(document).ready(function(){
 		var functions = require('./functions.js');
 		var Display = require('./display.js');
@@ -44,6 +54,8 @@
 		MenuItem.ItemList = {};
 		MenuItem.clicked = -1;
 		MenuItem.chosen = MenuItem.clicked;
+		MenuItem.ItemList = [];
+				
 		var Error = {};
 		Task.display = 4;
 		Task.firstTask = 0;
@@ -2169,19 +2181,19 @@
 				drawExitButton();
 				exit_btn_ch = false;
 			}
-			//MatchTheAnimalsWithTheirNames word has been hovered
+			//Matching word has been hovered
 			try {
 				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn &&!word_ch) {
 					var i = checkPoint({x:mouseX, y:mouseY}, Display.getTestItems());
 					k2 = i;
 					if(k2 < Display.getTestItems().length) {
+						//hovering correct word
+						if(Task.test[k2].Word == Task.asked.Word && document.getElementById("Help"))
+							document.getElementById("Help").style.visibility = "hidden";
 						wordFrame = (Task.test.concat())[k2][frametype2];
 						clearRectRect(Display.getTestItem(k2));
 						Display.expandTestItem(i, 3);
-						if(Task.TopicName != "School things")
-							ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k2).x)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).h)*Math.min(Screen.k_width, Screen.k_height));
-						else
-							ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k2).x)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).h)*Math.min(Screen.k_width, Screen.k_height));
+						ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k2).x)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k2).h)*Math.min(Screen.k_width, Screen.k_height));
 						word_ch = true;
 					}
 				}
@@ -2192,10 +2204,11 @@
 						wordFrame = Task.test[i][frametype2];
 						clearRectRect(Display.getTestItem(i));
 						Display.expandTestItem(i, -3);
-						if(Task.TopicName != "School things")
-							ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(i)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).h)*Math.min(Screen.k_width, Screen.k_height));
-						else
-							ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(i)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).h)*Math.min(Screen.k_width, Screen.k_height));
+						//hovering correct word
+						if(Task.test[k2].Word == Task.asked.Word && document.getElementById("Help"))
+							document.getElementById("Help").style.visibility = "visible";
+						
+						ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(i)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(i).h)*Math.min(Screen.k_width, Screen.k_height));
 						word_ch = false;
 						k2 = -1;
 					}
@@ -2206,9 +2219,9 @@
 						Item.x = Display.getTestItem(k3).x + mouseX/Math.min(Screen.k_width, Screen.k_height) - Pressed.x/Math.min(Screen.k_width, Screen.k_height);
 						Item.y = Display.getTestItem(k3).y + mouseY/Math.min(Screen.k_width, Screen.k_height) - Pressed.y/Math.min(Screen.k_width, Screen.k_height);
 						drawTest();
-						if(Task.TopicName != "School things")
-							ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Item.x)*Math.min(Screen.k_width, Screen.k_height), (Item.y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
-						else
+						//if(Task.TopicName != "School things")
+							//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Item.x)*Math.min(Screen.k_width, Screen.k_height), (Item.y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
+						//else
 							ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Item.x)*Math.min(Screen.k_width, Screen.k_height), (Item.y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
 						
 					}
@@ -4009,7 +4022,7 @@
 			if(!Task["loaded" + Task.TopicName + "frame"]) {
 				console.log("not loaded");
 				atlas[Task.TopicName + "frame"] = new Image();
-				atlas[Task.TopicName + "frame"].src = '/img/School things/School things.png';
+				atlas[Task.TopicName + "frame"].src = '/img/' + Task.TopicName + '/' + Task.TopicName + '.png';
 					atlas[Task.TopicName + "frame"].addEventListener("load", function() {
 						console.log("now loaded", "loaded" + Task.TopicName + "frame");
 						Task["loaded" + Task.TopicName + "frame"] = true;
@@ -4031,7 +4044,8 @@
 			if(!Mode.Quiz) {
 				console.log("not quiz");
 				socket.emit('getTask', {
-					TaskName: Task.TaskName
+					TaskName: Task.TaskName,
+					Accent: Profile.Accent
 				})
 				socket.on('getTask', function(data){
 					console.log("got task");
@@ -4155,10 +4169,7 @@
 				top = MenuItem.starts + 40 + animal_height + 40;
 			}
 			var word_height = setWordHeight();
-			if(Task.TopicName != "School things")
-				ctx.drawImage(atlas[Task.TopicName + frametype1],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
-			else
-				ctx.drawImage(atlas[Task.TopicName + "frame"],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
+			ctx.drawImage(atlas[Task.TopicName + "frame"],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
 			if(Mode.Training && (k3 != -1)) {
 				console.log("k3", k3);
 				if(document.getElementById("Help")) {
@@ -4184,9 +4195,9 @@
 			for(var i = 0; i < Task.test.length; i++) {
 				var wordFrame = (Task.test.concat())[i][frametype2];
 				if(k3 != i) {
-					if(Task.TopicName != "School things")
-						ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
-					else
+					//if(Task.TopicName != "School things")
+						//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
+					//else
 						ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, Display.getTestItem(i).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(i).h*Math.min(Screen.k_width, Screen.k_height));
 					
 				}
@@ -5067,239 +5078,24 @@
 					else if(Task.Type == "Matching")
 						showMatching();
 					else {
-					switch(TaskName) {
-						case 'Name animals':
-							Mode[Task.TaskName.replace(/\s/g,'')] = true;
-							frametype1 = "frame";
-							frametype2 = "Wordsframe";
-							
-							if(!Mode.Quiz)
-								Mode.Training = true;
-							if(!Task.loadedAnimalsWordsframe)
-								loadAnimalsWords();
-							if(!Task.loadedAnimalsframe)
-								loadAnimals();
-							
-							drawLoading();
-							if(!Mode.Quiz) {
-							socket.emit('getTask', {
-								TaskName: TaskName
-							})
-							socket.on('getTask', function(data){
-								Task.Frames[TaskName] = data.Content;
-								checkloaded.Animals(TaskName, N);
-								})
-							}
-							else
-								checkloaded.Animals(TaskName, N);
-							try{
-								size_btn = setWordHeight();
-								if(frametype1 == "Wordsframe" && frametype2 == "frame")
-									size_btn = 70;
-							}
-							catch(e) {
-								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
-							}
-							
-							break;
-						case 'Find the animal':
-							drawLoading();
-							
-							Mode.Findtheanimal = true;
-							if(!Mode.Quiz)
-								Mode.Training = true;
-							frametype1 = "Wordsframe";
-							frametype2 = "frame";
-				
-							if(!Task.loadedAnimalsWordsframe)
-								loadAnimalsWords();
-							if(!Task.loadedAnimalsframe)
-								loadAnimals();
-							
-								
-							if(!Mode.Quiz) {
-								socket.emit('getTask', {
-									TaskName: TaskName
-								})
-								socket.on('getTask', function(data){
-									Task.Frames[TaskName] = data.Content;
-									checkloaded.Animals(TaskName, N);	
-								})	
-							}
-							else							
-								checkloaded.Animals(TaskName, N);							
-							try{
-								size_btn = setWordHeight();
-								if(frametype1 == "Wordsframe" && frametype2 == "frame")
-									size_btn = 70;
-							}
-							catch(e) {
-								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
-							}
-							//Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							//drawExitButton();
-							
-							break;
-						case 'Name numbers from 0 to 9':
-							if(!Mode.Quiz)
-									Mode.Training = true;
-							frametype2 = "Wordsframe";
-							frametype1 = "frame";
-							if(!Task["loaded" +TopicName + "Wordsframe"])
-								loadNumbersWords();
-							if(!Task["loaded" +TopicName + "frame"])
-								loadNumbers();
-							drawLoading();
-							if(!Mode.Quiz) {
-								socket.emit('getTask', {
-									TaskName: TaskName
-								})
-								socket.on('getTask', function(data){
-									Task.Frames[TaskName] = data.Content;
-									
-									checkloaded.Numbers(TaskName, N);		
-								})		
-							}
-							else
-								checkloaded.Numbers(TaskName, N);
-							try{
-								size_btn = setWordHeight();
-								if(frametype1 == "Wordsframe" && frametype2 == "frame")
-									size_btn = 70;
-							}
-							catch(e) {
-								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
-							}
-							//Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							//drawExitButton();
-							
-							break;
-						case 'Find numbers from 0 to 9':
-							if(!Mode.Quiz)
-								Mode.Training = true;
-							frametype1 = "Wordsframe";
-							frametype2 = "frame";
-							if(!Task["loaded" +TopicName + "Wordsframe"])
-								loadNumbersWords();
-							if(!Task["loaded" +TopicName + "frame"])
-								loadNumbers();
-							drawLoading();
-							if(!Mode.Quiz) {
-								socket.emit('getTask', {
-									TaskName: TaskName
-								})
-								socket.on('getTask', function(data){
-									Task.Frames[TaskName] = data.Content;
-									checkloaded.Numbers(TaskName, N);		
-								})		
-							}
-							else
-								checkloaded.Numbers(TaskName, N);
-							try{
-								size_btn = setWordHeight();
-								if(frametype1 == "Wordsframe" && frametype2 == "frame")
-									size_btn = 70;
-							}
-							catch(e) {
-								size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
-							}
-							//Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							//drawExitButton();
-							
-							break;
-							
-							case 'Name supplies':
-								/*console.log("Name supplies", TopicName, Task);
-								Mode[Task.TaskName.replace(/\s/g,'')] = true;
-								frametype1 = "frame";
-								frametype2 = "Wordsframe";
-								
-								if(!Mode.Quiz)
-									Mode.Training = true;
-								if(!Task["loaded" + TopicName + "frame"])
-									loadSchoolThings();
-								
-								drawLoading();
-								if(!Mode.Quiz) {
-								socket.emit('getTask', {
-									TaskName: TaskName,
-									Accent: Profile.Accent
-								})
-								socket.on('getTask', function(data){
-									Task.Frames[TaskName] = data.Content;
-									checkloaded[TopicName](TaskName, N);
-									})
-								}
-								else
-									checkloaded[TopicName](TaskName, N);
-								try{
-									size_btn = setWordHeight();
-									if(frametype1 == "Wordsframe" && frametype2 == "frame")
-										size_btn = 70;
-								}
-								catch(e) {
-									size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
-								}
-							//	Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-							//	drawExitButton();
-								*/
-								showMatching();
-							break;
-							case 'Find the supply':
-								console.log("Name supplies", TopicName, Task);
-								Mode[Task.TaskName.replace(/\s/g,'')] = true;
-								frametype2 = "frame";
-								frametype1 = "Wordsframe";
-								
-								if(!Mode.Quiz)
-									Mode.Training = true;
-								if(!Task["loaded" + TopicName + "frame"])
-									loadSchoolThings();
-								
-								drawLoading();
-								if(!Mode.Quiz) {
-								socket.emit('getTask', {
-									TaskName: TaskName,
-									Accent: Profile.Accent
-								})
-								socket.on('getTask', function(data){
-									Task.Frames[TaskName] = data.Content;
-									checkloaded[TopicName](TaskName, N);
-									})
-								}
-								else
-									checkloaded[TopicName](TaskName, N);
-								try{
-									size_btn = setWordHeight();
-									if(frametype1 == "Wordsframe" && frametype2 == "frame")
-										size_btn = 70;
-								}
-								catch(e) {
-									size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
-								}
-								//Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-								//drawExitButton();
-								
-							break;
-							default: 
-									delete Task.TaskName;
-									delete Task.TopicName;
-									delete Task.MaxPoint;
-									delete Task.N_toTest;
-									Mode.Exercise = false;
-									Mode.Tasks = true;
-									Mode.MenuItem = true;
-									MenuItem.clicked = j;
-									MenuItem.chosen = j;
-									
-									Mode.LogIn = false;
-									Mode.SignIn = false;
-									Mode.Results = false;
-									
-									respondCanvas();
-									//alert(TaskName + " is not available yet:(");
+						delete Task.TaskName;
+						delete Task.TopicName;
+						delete Task.MaxPoint;
+						delete Task.N_toTest;
+						Mode.Exercise = false;
+						Mode.Tasks = true;
+						Mode.MenuItem = true;
+						MenuItem.clicked = j;
+						MenuItem.chosen = j;
+						
+						Mode.LogIn = false;
+						Mode.SignIn = false;
+						Mode.Results = false;
+						
+						respondCanvas();
+						//alert(TaskName + " is not available yet:(");
 					}
-					}
+					
 				}
 				
 				
@@ -5412,7 +5208,7 @@
 					}
 					Task.Result = {};
 				}
-				//MatchTheAnimalsWithTheirNames word has been clicked
+				//Matching word has been clicked
 				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
 					try {
 						if((Mode.Exercise && !Mode.MusicVideo) &&k3 != -1) {
@@ -5882,7 +5678,6 @@
 				speechRecognizer.start();
 				console.log("recording", speechRecognizer);
 				var finalTranscripts = '';
-				var r = document.getElementById('result');
 				speechRecognizer.onresult = function(event){
 					console.log("on result");
 					var interimTranscripts = '';
@@ -5895,15 +5690,12 @@
 							interimTranscripts += transcript;
 						}
 					}
-					r.value = finalTranscripts + '<span style="color:#999">' + interimTranscripts + '</span>';
 					console.log(finalTranscripts , interimTranscripts);
 				};
 				speechRecognizer.onspeechend = function(event){
 					console.log("stopped listening");
 				}
 				
-			}else{
-				r.innerHTML = 'Your browser is not supported. If google chrome, please upgrade!';
 			}
 		}
 		MainCanvas.addEventListener("mousedown", MouseDown);
@@ -5959,9 +5751,9 @@
 							if(Mode.Training) {
 								drawTest();
 								var wordFrame = (Task.test.concat())[k3][frametype2];
-								if(Task.TopicName != "School things")
-									ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
-								else
+								//if(Task.TopicName != "School things")
+									//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
+								//else
 									ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
 							}
 						}
@@ -6020,7 +5812,6 @@
 			if(Properties.Tasks.length && Properties.Topics.length && loadedMenuItems) {
 				document.getElementById("Loading").style.visibility = "hidden";
 				
-				MenuItem.ItemList = [];
 				MenuItem.itemsCount = (Properties.Topics).length;
 				for (i = 0; i < MenuItem.itemsCount; i++) {
 					MenuItem.ItemList[i] = Properties.Topics[i].Name;
