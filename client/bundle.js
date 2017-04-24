@@ -525,20 +525,9 @@ module.exports = {
 				clearRect(Display.getButton("left-arrow.png").x + Display.getButton("left-arrow.png").w, MenuItem.starts, Display.getButton("right-arrow.png").x - Display.getButton("left-arrow.png").w - Display.getButton("left-arrow.png").x, MenuItem.ends - MenuItem.starts);
 				while(j < MenuItem.firstItem + MenuItem.display){
 						var pX, pY;
-						//if(Screen.width >= Screen.height || !Mode.Mobile) {
-							pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
-							pY =  MenuItem.topSpace;
-							
-						//}
-						/*else
-						{
-							pX = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - MenuItem.size) / 2;
-							console.log(pX);
-							if(j > 0)
-								pY = Display.getTopic(j - 1).y + Display.getTopic(j - 1).h + 20;
-							else
-								pY = MenuItem.topSpace;
-						}*/
+						pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 68;
+						pY =  MenuItem.topSpace;
+					
 						var pW = MenuItem.size;
 						var pH = MenuItem.size;
 						Display.setTopic(j, pX, pY, pW, pH);
@@ -3312,6 +3301,8 @@ module.exports = {
 		function showInfo(name) {
 			console.log("name" , name);
 			document.getElementById("Loading").style.visibility = "hidden";
+			if(document.getElementById("BadgesCanvas"))
+				Badges_ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
 			ctx.clearRect(0,MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
 			if(document.getElementById("Video")) {
 				document.getElementById("Video").style.visibility = "hidden";
@@ -3649,6 +3640,11 @@ module.exports = {
 			console.log(Badges.width, Badges.height);
 			
 			Display.setButton("exit_btn.png", Display.getButton("right-arrow.png").x, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+			if(Mode.Mobile) {
+				Display.setButton("info_btn.png", Display.getButton("right-arrow.png").x - Display.getButton("right-arrow.png").w - 10, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+				Display.setButton("help_btn.png", Display.getButton("right-arrow.png").x - 2*Display.getButton("right-arrow.png").w - 2*10, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+				
+			}
 			setBadgesProp();
 			
 		}
@@ -3707,6 +3703,10 @@ module.exports = {
 			drawHeader();
 			if(Badges.loadedRewards) {
 				Button.Draw("exit_btn.png");
+				if(Mode.Mobile) {
+					Button.Draw("info_btn.png");
+					Button.Draw("help_btn.png");
+				}
 				console.log("recieved", Profile.Badges, Badges.All);
 				for (var i = Badges.firstItem; i < Badges.display + Badges.firstItem && i < Badges.All.length; i++) {
 					console.log(Badges.All[i]);
@@ -3740,6 +3740,10 @@ module.exports = {
 			setProgressProp(Progress.Array[Progress.index].Type);
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			Button.Draw("exit_btn.png");
+			if(Mode.Mobile) {
+				Button.Draw("help_btn.png");
+				Button.Draw("info_btn.png");
+			}
 			if(Progress.index)
 				drawLeftArrow();
 			if(Progress.Array.length > Progress.index + 1)
@@ -3786,7 +3790,10 @@ module.exports = {
 			
 			var size_btn = r_a_width;
 			Display.setButton("exit_btn.png", r_a_x + r_a_width - size_btn, MenuItem.starts + 20, size_btn, size_btn);
-			
+			if(Mode.Mobile) {
+				Display.setButton("info_btn.png", r_a_x + r_a_width - 2*size_btn - 10, MenuItem.starts + 20, size_btn, size_btn);
+				Display.setButton("help_btn.png", r_a_x + r_a_width - 3*size_btn - 2*10, MenuItem.starts + 20, size_btn, size_btn);
+			}
 			showProgressForm();
 				
 		}
@@ -4501,7 +4508,7 @@ module.exports = {
 		}
 		function drawTest() {
 			ctx.clearRect(0, MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
-			//drawHeader();
+			console.log("drawing test");
 			var top, center, animal_height;
 			if(frametype1 == "frame") {
 				animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
@@ -4520,6 +4527,8 @@ module.exports = {
 				top = MenuItem.starts + 40 + animal_height + 40;
 			}
 			var word_height = setWordHeight();
+			
+			console.log(Task.TopicName, atlas[Task.TopicName + "frame"], Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
 			ctx.drawImage(atlas[Task.TopicName + "frame"],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
 			if(Mode.Training && (k3 != -1)) {
 				console.log("k3", k3);
@@ -5410,6 +5419,7 @@ module.exports = {
 					Task.MaxPoint = Points;
 					Task.N_toTest = N;
 					Task.Type = Type;
+					console.log(Type);
 					Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 					if(Mode.Mobile){
 						Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * Display.getButton("right-arrow.png").w - 20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
@@ -5417,6 +5427,7 @@ module.exports = {
 						Button.Draw("help_btn.png");
 						Button.Draw("info_btn.png");
 					}
+					console.log("drawn buttns");
 					Button.Draw("exit_btn.png");
 					if(Profile.LoggedIn) {
 						Task.Result.UserName = Profile.UserName;
@@ -5458,16 +5469,16 @@ module.exports = {
 				
 				//exit button has been clicked during Info Mode
 				if(Mode.Info && mouseInRect(Display.getButton("exit_btn.png"))) {
-					
+					Mode.Info = false;
 					if(document.getElementById("InfoCanvas")){
-						Mode.Info = false;
+						
 						var child = document.getElementById("InfoCanvas");
 						document.getElementById("mainDiv").removeChild(child);
 					}
 					console.log(Info.List, Info.List.length);
 					if(Info.List.length == 1) {
-						console.log(!Mode.Exercise, Task.Result != {}, Mode.MusicVideo);
-						if(!Mode.Exercise && Task.Result != {}) {
+						console.log(!Mode.Exercise, Task.Result != {});
+						if(!Mode.Exercise && Task.Type == "Video" && Task.Result != {}) {
 							console.log("video mode + info closed");
 							//setTimeout(function() {
 								//$$$$$$$
@@ -5488,13 +5499,26 @@ module.exports = {
 							
 							document.getElementById("Video").style.visibility = "visible";
 						}
+						else if(!Mode.Exercise && Task.Type == "Matching" && Task.Result != {}) {
+							Mode.Exercise = true;
+							drawTest();
+						}
+						else if(Info.List[Info.index] == "rewards_info.png") {
+							Mode.Badges = true;
+							showBadges();
+						}
+						else if(Info.List[Info.index] == "progress_info.png") {
+							Mode.Progress = true;
+							showProgress();
+						}
 					}
 					else {
 						Mode.MenuItem = true;
 						respondCanvas();
 					}						
 					
-					
+					delete Info.List;
+					delete Info.index;
 				}
 				
 				//exit button has been clicked during song
@@ -5532,8 +5556,38 @@ module.exports = {
 					}
 					Task.Result = {};
 				}
+				//MatchTheAnimalsWithTheirNames exit button has been clicked
+				else if (Mode.Exercise && !Mode.MusicVideo && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
+					console.log("exiting matching");
+					if(Mode.Quiz)
+						Mode.Quiz = false;
+					Mode.MenuItem = true;
+					Mode.Exercise = false;
+					delete Task.Frames[Task.TaskName];
+					delete Task.toTest;
+					delete Task.test;
+					Mode[Task.TaskName.replace(/\s/g,'')] = false;
+					ctx.clearRect(0, 0, Screen.width, Screen.height)
+					MenuItem.clicked = -1;
+					MenuItem.chosen = MenuItem.clicked;
+					initMenu();
+					delete Task.Result.time;
+					
+					Task.Result.Max_point = Task.MaxPoint * Task.N_toTest;
+					console.log("adding points up", Task.Result.Points, Task.Result.Max_points);
+					
+					/*if(!Mode.Training) {
+						Profile.Points = Profile.Points + Task.Result.Points;
+						Profile.Max_points = Profile.Max_points + Task.Result.Max_points;
+					}*/
+					if(Profile.LoggedIn && !Mode.Training){
+						socket.emit("Result", {Result: Task.Result});
+						
+					}
+					Task.Result = {};
+				}
 				//exit button has been clicked during Badges Mode
-				if(Mode.Badges && mouseInRect(Display.getButton("exit_btn.png"))) {
+				else if(Mode.Badges && mouseInRect(Display.getButton("exit_btn.png"))) {
 					if(document.getElementById("BadgesCanvas")){
 						Mode.Badges = false;
 						var child = document.getElementById("BadgesCanvas");
@@ -5542,6 +5596,14 @@ module.exports = {
 					Mode.MenuItem = true;
 					respondCanvas();
 				}
+				//exit button clicked during progress mode
+				else if(Mode.Progress && mouseInRect(Display.getButton("exit_btn.png"))) {
+					$("#ProgressCanvas").remove();
+					Mode.MenuItem = true;
+					Mode.Progress = false;
+					respondCanvas();
+				}
+				
 				
 				//left arrow clicked Info Mode
 				if(Mode.Info && Info.index && mouseInRect(Display.getButton("left-arrow.png"))) {
@@ -5578,45 +5640,7 @@ module.exports = {
 						}
 					}
 				}
-				//MatchTheAnimalsWithTheirNames exit button has been clicked
-				if(Mode.Results || (Mode.Exercise && !Mode.MusicVideo)) {
-					try{
-						size_btn = setWordHeight();
-						if(frametype1 == "Wordsframe" && frametype2 == "frame")
-							size_btn = 70;
-					}
-					catch(e) {
-						size_btn = ((MenuItem.ends - MenuItem.starts - 40) - 4 * 10 - (MenuItem.ends - MenuItem.starts - 40) * 2/5) / 5
-					}
-				}
-				if (Mode.Exercise && !Mode.MusicVideo && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
-					if(Mode.Quiz)
-						Mode.Quiz = false;
-					Mode.MenuItem = true;
-					Mode.Exercise = false;
-					delete Task.Frames[Task.TaskName];
-					delete Task.toTest;
-					delete Task.test;
-					Mode[Task.TaskName.replace(/\s/g,'')] = false;
-					ctx.clearRect(0, 0, Screen.width, Screen.height)
-					MenuItem.clicked = -1;
-					MenuItem.chosen = MenuItem.clicked;
-					initMenu();
-					delete Task.Result.time;
-					
-					Task.Result.Max_point = Task.MaxPoint * Task.N_toTest;
-					console.log("adding points up", Task.Result.Points, Task.Result.Max_points);
-					
-					/*if(!Mode.Training) {
-						Profile.Points = Profile.Points + Task.Result.Points;
-						Profile.Max_points = Profile.Max_points + Task.Result.Max_points;
-					}*/
-					if(Profile.LoggedIn && !Mode.Training){
-						socket.emit("Result", {Result: Task.Result});
-						
-					}
-					Task.Result = {};
-				}
+				
 				//Matching word has been clicked
 				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
 					try {
@@ -5846,6 +5870,7 @@ module.exports = {
 				}
 				
 				//Quiz has been clicked
+				console.log(((!Mode.Mobile && Mode.MenuItem), (Mode.Mobile && Mode.Menu)), !Mode.Results, !Mode.Settings, !Mode.Exercise, mouseInRect(Display.getButton("quiz_btn.png")));
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Results && !Mode.Settings && !Mode.Exercise && mouseInRect(Display.getButton("quiz_btn.png"))) {
 					if(Profile.LoggedIn) {
 						drawLoading();
@@ -5872,6 +5897,7 @@ module.exports = {
 								Quiz.Points = 0;
 								Quiz.TotalMax = 0;
 								if(Exercise_num < Quiz.Content.length) {
+									console.log("sgowing");
 									showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Task.Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
 								}
 							}
@@ -6009,12 +6035,7 @@ module.exports = {
 						showMessage("need_to_loginProgress.png");
 					}
 				}
-				if(Mode.Progress && mouseInRect(Display.getButton("exit_btn.png"))) {
-					$("#ProgressCanvas").remove();
-					Mode.MenuItem = true;
-					Mode.Progress = false;
-					respondCanvas();
-				}
+				
 				//phrases button has been clicked
 				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Settings && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("phrase_of_the_day_btn.png"))) {
 					alert("Phrases are not available yet:(");
@@ -6049,7 +6070,7 @@ module.exports = {
 					
 				}
 				//info button has been clicked
-				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu) || Mode.Exercise) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
+				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu) || Mode.Exercise || Mode.Badges || Mode.Progress) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("info_btn.png"))){
 					Mode.Tasks = false;
 					console.log("info button clicked");
 					var n = 2;
@@ -6065,7 +6086,7 @@ module.exports = {
 								$("#MenuCanvas").remove();
 								Mode.Menu = false;
 							}
-							Info.List = ["topics_info.png", "exercises_info.png", "videos_info.png", "task_info.png","help_info.png","rewards_info.png","progress_info.png","quiz_info.png"];
+							Info.List = ["topics_info.png", "exercises_info.png", "videos_info.png", "task_info.png","help_info.png", "rewards_info.png", "progress_info.png", "quiz_info.png"];
 							
 							//Info.List = "topics_info.png";
 							Info.index = 0;
@@ -6087,6 +6108,58 @@ module.exports = {
 							Info.List = ["videos_info.png"];
 							
 							//Info.List = "topics_info.png";
+							Info.index = 0;
+							console.log("show info", Info.List[Info.index]);
+							
+							showInfo(Info.List[Info.index]);
+							
+						}, 100);
+					}
+					else if(Mode.Exercise && Task.Type == "Matching") {
+						console.log("playing video");
+						setTimeout(function(){
+							Mode.Info = true;
+							Mode.Exercise = false;
+							
+							if(document.getElementById("MenuCanvas")) {
+								$("#MenuCanvas").remove();
+								Mode.Menu = false;
+							}
+							Info.List = ["exercises_info.png"];
+							
+							//Info.List = "topics_info.png";
+							Info.index = 0;
+							console.log("show info", Info.List[Info.index]);
+							
+							showInfo(Info.List[Info.index]);
+							
+						}, 100);
+					}
+					else if(Mode.Badges) {
+						console.log("playing video");
+						setTimeout(function(){
+							Mode.Info = true;
+							Mode.Badges = false;
+							if(document.getElementById("BadgesCanvas")) {
+								$("#BadgesCanvas").remove();
+							}
+							Info.List = ["rewards_info.png"];
+							Info.index = 0;
+							console.log("show info", Info.List[Info.index]);
+							
+							showInfo(Info.List[Info.index]);
+							
+						}, 100);
+					}
+					else if(Mode.Progress) {
+						console.log("progress info");
+						setTimeout(function(){
+							Mode.Info = true;
+							Mode.Progress = false;
+							if(document.getElementById("ProgressCanvas")) {
+								$("#ProgressCanvas").remove();
+							}
+							Info.List = ["progress_info.png"];
 							Info.index = 0;
 							console.log("show info", Info.List[Info.index]);
 							
