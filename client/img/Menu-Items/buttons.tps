@@ -218,11 +218,13 @@
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/pause_btn.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/play_btn.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/restart_btn.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sound_off.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sound_on.png</key>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/stop_btn.png</key>
             <key type="filename">menu_btn.png</key>
+            <key type="filename">mic_btn.png</key>
+            <key type="filename">send_btn.png</key>
             <key type="filename">settings_btn.png</key>
+            <key type="filename">sound_off.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -259,25 +261,6 @@
                 <rect>38,57,76,113</rect>
                 <key>scale9Paddings</key>
                 <rect>38,57,76,113</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/login_btn.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/phrase_of_the_day_btn.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sign_up_btn.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/skip.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/progress_btn.png</key>
-            <key type="filename">quiz_btn.png</key>
-            <key type="filename">rewards_btn.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>57,19,114,38</rect>
-                <key>scale9Paddings</key>
-                <rect>57,19,114,38</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -363,6 +346,25 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">login_btn.png</key>
+            <key type="filename">phrase_btn.png</key>
+            <key type="filename">progress_btn.png</key>
+            <key type="filename">quiz_btn.png</key>
+            <key type="filename">rewards_btn.png</key>
+            <key type="filename">sign_up_btn.png</key>
+            <key type="filename">skip.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>57,19,114,38</rect>
+                <key>scale9Paddings</key>
+                <rect>57,19,114,38</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">title.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -403,7 +405,6 @@
                 <false/>
             </struct>
             <key type="filename">../Rewards/dark-star.png</key>
-            <key type="filename">../Rewards/star.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -413,6 +414,19 @@
                 <rect>14,13,27,26</rect>
                 <key>scale9Paddings</key>
                 <rect>14,13,27,26</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../Rewards/star.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,14,28,27</rect>
+                <key>scale9Paddings</key>
+                <rect>14,14,28,27</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -432,9 +446,6 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sign_up_btn.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/progress_btn.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/phrase_of_the_day_btn.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/info_btn.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/exit_btn.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/pause_btn.png</filename>
@@ -444,7 +455,6 @@
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/left-arrow.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/help_btn.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sound_on.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/sound_off.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/right-arrow.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/red-heart.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Reward/heart.png</filename>
@@ -453,12 +463,10 @@
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/touch-and-hold.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/drag-flick.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/flick-up.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/login_btn.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl2.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl1.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy1.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy2.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/skip.png</filename>
             <filename>lock.png</filename>
             <filename>settings_btn.png</filename>
             <filename>menu_btn.png</filename>
@@ -466,10 +474,18 @@
             <filename>title_in_line.png</filename>
             <filename>../Rewards/correct.png</filename>
             <filename>../Rewards/dark-star.png</filename>
-            <filename>../Rewards/star.png</filename>
             <filename>../Rewards/wrong.png</filename>
             <filename>rewards_btn.png</filename>
             <filename>quiz_btn.png</filename>
+            <filename>skip.png</filename>
+            <filename>sign_up_btn.png</filename>
+            <filename>phrase_btn.png</filename>
+            <filename>progress_btn.png</filename>
+            <filename>login_btn.png</filename>
+            <filename>mic_btn.png</filename>
+            <filename>sound_off.png</filename>
+            <filename>send_btn.png</filename>
+            <filename>../Rewards/star.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

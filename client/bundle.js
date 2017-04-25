@@ -735,11 +735,11 @@ module.exports = {
 				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("progress_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("progress_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("progress_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("progress_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function drawPhrasesButton(){
-			var frame = Properties.Buttons["phrase_of_the_day_btn.png"];
+			var frame = Properties.Buttons["phrase_btn.png"];
 			if(!Mode.Menu)
-				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("phrase_of_the_day_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_of_the_day_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_of_the_day_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_of_the_day_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
+				ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("phrase_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 			else
-				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("phrase_of_the_day_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_of_the_day_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_of_the_day_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_of_the_day_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
+				Menu_ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("phrase_btn.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_btn.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_btn.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("phrase_btn.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function drawQuizButton(){
 			var frame = Properties.Buttons["quiz_btn.png"];
@@ -1309,7 +1309,7 @@ module.exports = {
 					Display.setButton("progress_btn.png", Rewards.leftSpace + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawProgressButton(Rewards.leftSpace + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					//Phrases button
-					Display.setButton("phrase_of_the_day_btn.png", Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
+					Display.setButton("phrase_btn.png", Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					drawPhrasesButton(Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
 					//Quiz button
 					Display.setButton("quiz_btn.png", Rewards.leftSpace + Rewards.size + 68 + Rewards.size + 68 + Rewards.size + 68, Rewards.topSpace, Rewards.size, Rewards.size*75/228);
@@ -1422,7 +1422,7 @@ module.exports = {
 					progress_button_frame.w = rewards_button_frame.w;
 					progress_button_frame.h = rewards_button_frame.h;
 					//phrase button
-					var phrase_frame = Properties.Buttons["phrase_of_the_day_btn.png"];
+					var phrase_frame = Properties.Buttons["phrase_btn.png"];
 					var phrase_button_frame = {};
 					phrase_button_frame.x = progress_button_frame.x;
 					phrase_button_frame.y = progress_button_frame.y + progress_button_frame.h + 20;
@@ -1498,7 +1498,7 @@ module.exports = {
 					progress_button_frame.w = rewards_button_frame.w;
 					progress_button_frame.h = rewards_button_frame.h;
 					//phrase button
-					var phrase_frame = Properties.Buttons["phrase_of_the_day_btn.png"];
+					var phrase_frame = Properties.Buttons["phrase_btn.png"];
 					var phrase_button_frame = {};
 					phrase_button_frame.x = progress_button_frame.x + progress_button_frame.w + 20;
 					phrase_button_frame.y = progress_button_frame.y;
@@ -1523,7 +1523,7 @@ module.exports = {
 				Display.setButton("info_btn.png", info_button_frame.x, info_button_frame.y, info_button_frame.w, info_button_frame.h);
 				Display.setButton("rewards_btn.png", rewards_button_frame.x, rewards_button_frame.y, rewards_button_frame.w, rewards_button_frame.h);
 				Display.setButton("progress_btn.png", progress_button_frame.x, progress_button_frame.y, progress_button_frame.w, progress_button_frame.h);
-				Display.setButton("phrase_of_the_day_btn.png", phrase_button_frame.x, phrase_button_frame.y, phrase_button_frame.w, phrase_button_frame.h);
+				Display.setButton("phrase_btn.png", phrase_button_frame.x, phrase_button_frame.y, phrase_button_frame.w, phrase_button_frame.h);
 				Display.setButton("quiz_btn.png", quiz_button_frame.x, quiz_button_frame.y, quiz_button_frame.w, quiz_button_frame.h);
 				if(!Profile.LoggedIn) {
 					drawLogInButton();
@@ -2185,21 +2185,21 @@ module.exports = {
 			}
 			
 			//Phrases button hovered
-			if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!phrases_ch && mouseInRect(Display.getButton("phrase_of_the_day_btn.png"))) {
-				clearRectRectYellow(Display.getButton("phrase_of_the_day_btn.png"));
+			if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&!phrases_ch && mouseInRect(Display.getButton("phrase_btn.png"))) {
+				clearRectRectYellow(Display.getButton("phrase_btn.png"));
 				var n = 5;
 				if(Mode.Menu)
 					n = 10;
-				Display.expandButton("phrase_of_the_day_btn.png", n);
+				Display.expandButton("phrase_btn.png", n);
 				drawPhrasesButton();
 				phrases_ch = true;
 			}
-			else if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&phrases_ch && !(mouseInRect(Display.getButton("phrase_of_the_day_btn.png")))) {
-				clearRectRectYellow(Display.getButton("phrase_of_the_day_btn.png"));
+			else if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn &&phrases_ch && !(mouseInRect(Display.getButton("phrase_btn.png")))) {
+				clearRectRectYellow(Display.getButton("phrase_btn.png"));
 				var n = 5;
 				if(Mode.Menu)
 					n = 10;
-				Display.expandButton("phrase_of_the_day_btn.png", -n);
+				Display.expandButton("phrase_btn.png", -n);
 				drawPhrasesButton();
 				
 				phrases_ch = false;
@@ -3251,6 +3251,7 @@ module.exports = {
 							//Task.Result.Max_point = Total * Max;
 							Profile.Points = Profile.Points + Task.Result.Points;
 							Profile.Max_points = Profile.Max_points + Task.Result.Max_point;
+							console.log("emitting because results showing");
 							socket.emit("Result", {Result: Task.Result});
 						}
 					}
@@ -4231,6 +4232,8 @@ module.exports = {
 					Quiz.Start = Task.Result.Start;
 					Task.Result.Quiz = true;
 				}
+				else 
+					delete Task.Result.Quiz;
 			}
 			if(Task.toTest.length) {
 				document.getElementById("Loading").style.visibility = "hidden";
@@ -4263,15 +4266,20 @@ module.exports = {
 					Quiz.Points = Quiz.Points + countPoints(Task.Result.Answers, Task.Result.Answers.length, Quiz.Content[Exercise_num].Max_point);
 					Quiz.TotalMax = Quiz.TotalMax + Task.Result.Answers.length * Quiz.Content[Exercise_num].Max_point;
 					console.log("adding points up", Quiz,  Task.Result.Answers.length * Quiz.Content[Exercise_num].Max_point);
-					Profile.Points = Profile.Points + Quiz.Points;
-					Profile.Max_points = Profile.Max_points +  Task.Result.Answers.length * Quiz.Content[Exercise_num].Max_point;
+					
 					Mode.Results = false;
 					delete Task.Frames[Task.TaskName];
 					ctx.clearRect(0, MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, (MenuItem.ends - MenuItem.starts) * Math.min(Screen.k_width, Screen.k_height));
-					
+					console.log("before", Exercise_num);
 					Exercise_num++;
-					if(Exercise_num < Quiz.Content.length)
+					console.log("after", Exercise_num, Quiz.Content.length);
+					if(Exercise_num < Quiz.Content.length){
+						console.log("quiz continues");
+						console.log(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+						socket.emit("Result", {Result: Task.Result});
 						showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+						console.log("finished showing");
+					}
 					else {
 						if(Mode.Quiz)
 							Quiz.Finish = new Date;
@@ -4688,7 +4696,9 @@ module.exports = {
 					//check background click
 					//not top & bottom arrows have been clicked
 					//top arrow has been clicked
-					if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked))){
+					console.log("ckeck background click");
+					console.log(Mode.Tasks, !mouseInRect(Display.getTopic(MenuItem.clicked)), !mouseInRect("info_btn.png"), !mouseInRect("help_btn.png"), !mouseInRect("setting_btn.png"));
+					if(Mode.Tasks && !mouseInRect(Display.getTopic(MenuItem.clicked)) && !mouseInRect(Display.getButton("info_btn.png")) && !mouseInRect(Display.getButton("help_btn.png")) && !mouseInRect(Display.getButton("settings_btn.png"))){
 						MenuItem.chosen = MenuItem.clicked;
 						DrawMenuItem(MenuItem.clicked);
 						MenuItem.clicked = -1;
@@ -5034,35 +5044,40 @@ module.exports = {
 							respondCanvas();
 							//showing hand to login
 							//######
-							if(!Mode.Mobile) {
+							var name = "login_btn.png";
+							if(Profile.LoggedIn)
+								name = "star-boardPoints.png";
+							if(!Profile.LoggedIn) {
+								if(!Mode.Mobile) {
+										var div = document.createElement('HelpDiv');
+										div.innerHTML = '<image id = "Help"></image>';
+										document.getElementById("mainDiv").appendChild(div);
+										var Help = document.getElementById("Help");
+										Help.src = "/img/Menu-Items/mouse_up.gif";
+										Help.style.position = "absolute";
+										Help.style.height = 2 * Display.getButton(name).h * Math.min(Screen.k_width, Screen.k_height);
+										Help.style.width = "auto";
+										Help.style.top = Display.getButton(name).y * Math.min(Screen.k_width, Screen.k_height);
+										Help.style.left = Display.getButton(name).x * Math.min(Screen.k_width, Screen.k_height);
+										Help.style.visibility = "visible";
+								}
+								else{
+									Mode.Menu = true;
+									Mode.MenuItem = false;
+									showMenu();
 									var div = document.createElement('HelpDiv');
 									div.innerHTML = '<image id = "Help"></image>';
 									document.getElementById("mainDiv").appendChild(div);
 									var Help = document.getElementById("Help");
 									Help.src = "/img/Menu-Items/mouse_up.gif";
 									Help.style.position = "absolute";
-									Help.style.height = 2 * Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
+									Help.style.height = 2 * Display.getButton("menu_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
 									Help.style.width = "auto";
-									Help.style.top = Display.getButton("login_btn.png").y * Math.min(Screen.k_width, Screen.k_height);
-									Help.style.left = Display.getButton("login_btn.png").x * Math.min(Screen.k_width, Screen.k_height);
+									Help.style.top = (Display.getButton(name).y + Display.getButton(name).h / 2) * Math.min(Screen.k_width, Screen.k_height);
+									Help.style.left = (Display.getButton(name).x + Display.getButton(name).w / 2) * Math.min(Screen.k_width, Screen.k_height);
 									Help.style.visibility = "visible";
+								}
 							}
-							else{
-								Mode.Menu = true;
-								showMenu();
-								var div = document.createElement('HelpDiv');
-								div.innerHTML = '<image id = "Help"></image>';
-								document.getElementById("mainDiv").appendChild(div);
-								var Help = document.getElementById("Help");
-								Help.src = "/img/Menu-Items/mouse_up.gif";
-								Help.style.position = "absolute";
-								Help.style.height = 2 * Display.getButton("menu_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
-								Help.style.width = "auto";
-								Help.style.top = (Display.getButton("login_btn.png").y + Display.getButton("login_btn.png").h / 2) * Math.min(Screen.k_width, Screen.k_height);
-								Help.style.left = (Display.getButton("login_btn.png").x + Display.getButton("login_btn.png").w / 2) * Math.min(Screen.k_width, Screen.k_height);
-								Help.style.visibility = "visible";
-							}
-							
 						}, 100)
 					}
 					else if(Error.Mode == "settings_form") {
@@ -5403,63 +5418,7 @@ module.exports = {
 					}
 				}
 				
-				function showTask(TaskName, TopicName, Type, Points, N, j = -1, QuizArray = []) {
-					console.log(TaskName,TopicName);
-					Task.Result = {};
-					Mode.CountDown = false;
-					Task.TaskName = TaskName;
-					Task.TopicName = TopicName;
-					Task.MaxPoint = Points;
-					Task.N_toTest = N;
-					Task.Type = Type;
-					console.log(Type);
-					console.log("N", N);
-					Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
-					if(Mode.Mobile){
-						Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * Display.getButton("right-arrow.png").w - 20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
-						Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 3 * Display.getButton("right-arrow.png").w - 2*20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
-						Button.Draw("help_btn.png");
-						Button.Draw("info_btn.png");
-					}
-					console.log("drawn buttns");
-					Button.Draw("exit_btn.png");
-					if(Profile.LoggedIn) {
-						Task.Result.UserName = Profile.UserName;
-						Task.Result.Exercise = TaskName;
-						Task.Result.Topic_Name = Task.TopicName;
-						Task.Result.Type = Type;
-					};
-					if(Mode.Quiz) {
-						Task.Frames[TaskName] = QuizArray;
-						Mode.Training = false;
-					}
-					k2 = -1;
-					k3 = -1;
-					word_ch = false;
-					if(Task.Type == "Video")
-						showVideo();
-					else if(Task.Type == "Matching")
-						showMatching();
-					else {
-						delete Task.TaskName;
-						delete Task.TopicName;
-						delete Task.MaxPoint;
-						delete Task.N_toTest;
-						Mode.Exercise = false;
-						Mode.Tasks = true;
-						Mode.MenuItem = true;
-						MenuItem.clicked = j;
-						MenuItem.chosen = j;
-						
-						Mode.LogIn = false;
-						Mode.SignIn = false;
-						Mode.Results = false;
-						
-						respondCanvas();
-						//alert(TaskName + " is not available yet:(");
-					}
-					
-				}
+				
 				
 				//exit button has been clicked during Info Mode
 				if(Mode.Info && mouseInRect(Display.getButton("exit_btn.png"))) {
@@ -5546,6 +5505,7 @@ module.exports = {
 						Profile.Points = Profile.Points + Task.Result.Points;
 						Profile.Max_points = Profile.Max_points + Task.Result.Max_point;
 						console.log(Task.Result);
+						console.log("emitting on songs");
 						socket.emit("Result", {Result: Task.Result});
 					}
 					Task.Result = {};
@@ -5575,6 +5535,7 @@ module.exports = {
 						Profile.Max_points = Profile.Max_points + Task.Result.Max_points;
 					}*/
 					if(Profile.LoggedIn && !Mode.Training){
+						console.log("emitting because off exiting");
 						socket.emit("Result", {Result: Task.Result});
 						
 					}
@@ -5610,7 +5571,7 @@ module.exports = {
 					setInfoFormProp(Info.List[Info.index]);
 				}
 				//task has been clicked
-				console.log(Mode.Tasks,!Mode.Exercise, !Mode.Settings, !Mode.Badges);
+				
 				if(Mode.Tasks && !Mode.Exercise && !Mode.Settings && !Mode.Badges) {
 					console.log("task has been clicked");
 					var j = MenuItem.clicked;
@@ -5618,6 +5579,7 @@ module.exports = {
 					while (i < Task.display)  {
 						if(mouseInRect(Display.getTask(j, i))){
 							try{
+								if(Properties.Tasks[j][Task.firstTask + i].Content != undefined && Properties.Tasks[j][Task.firstTask + i].Content) {
 								Mode.Exercise = true;
 								clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), MenuItem.ends)
 								Mode.Tasks = false;
@@ -5625,6 +5587,7 @@ module.exports = {
 								document.getElementById("Explaining").style.visibility = "hidden";
 								console.log(Properties.Tasks[j][Task.firstTask + i]);
 								showTask(Properties.Tasks[j][Task.firstTask + i].Name, Properties.Tasks[j][Task.firstTask + i].Topic_Name, Properties.Tasks[j][Task.firstTask + i].Type, Properties.Tasks[j][Task.firstTask + i].Max_point, Properties.Tasks[j][Task.firstTask + i].N_toTest, j);						
+								}
 							}
 							catch(e){};
 							i  = Task.display + 1;
@@ -5864,7 +5827,6 @@ module.exports = {
 				}
 				
 				//Quiz has been clicked
-				console.log(((!Mode.Mobile && Mode.MenuItem), (Mode.Mobile && Mode.Menu)), !Mode.Results, !Mode.Settings, !Mode.Exercise, mouseInRect(Display.getButton("quiz_btn.png")));
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Results && !Mode.Settings && !Mode.Exercise && mouseInRect(Display.getButton("quiz_btn.png"))) {
 					if(Profile.LoggedIn) {
 						drawLoading();
@@ -5891,8 +5853,9 @@ module.exports = {
 								Quiz.Points = 0;
 								Quiz.TotalMax = 0;
 								if(Exercise_num < Quiz.Content.length) {
-									console.log("sgowing");
-									showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Task.Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+									console.log("sgowing",  Quiz.Content);
+									showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+									
 								}
 							}
 							else {
@@ -6031,7 +5994,7 @@ module.exports = {
 				}
 				
 				//phrases button has been clicked
-				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Settings && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("phrase_of_the_day_btn.png"))) {
+				if (((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Settings && !Mode.Exercise &&!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("phrase_btn.png"))) {
 					alert("Phrases are not available yet:(");
 				}
 				//help button has been clicked
@@ -6054,11 +6017,44 @@ module.exports = {
 						Help.style.visibility = "visible";
 						
 					}
+					else if(Mode.MenuItem && !Mode.Tasks) {
+						console.log("help has been clicked");
+						if(!document.getElementById("Help")) {
+							var div = document.createElement('HelpDiv');
+							div.innerHTML = '<image id = "Help"></image>';
+							document.getElementById("mainDiv").appendChild(div);
+						}
+						var Help = document.getElementById("Help");
+						Help.src = "/img/Menu-Items/mouse_up.gif";
+						Help.style.position = "absolute";
+						Help.style.height = Display.getTopic(1).h / 4 * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.width = "auto";
+						Help.style.top = (Display.getTopic(1).y + Display.getTopic(1).h / 2) * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.left = (Display.getTopic(1).x + Display.getTopic(1).w / 2) * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.visibility = "visible";
+					}
+					else if(Mode.MenuItem && Mode.Tasks) {
+						console.log("help has been clicked");
+						if(!document.getElementById("Help")) {
+							var div = document.createElement('HelpDiv');
+							div.innerHTML = '<image id = "Help"></image>';
+							document.getElementById("mainDiv").appendChild(div);
+						}
+						var Help = document.getElementById("Help");
+						Help.src = "/img/Menu-Items/mouse_up.gif";
+						Help.style.position = "absolute";
+						Help.style.height = Display.getTopic(MenuItem.clicked).h / 4 * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.width = "auto";
+						console.log(MenuItem.clicked);
+						Help.style.top = (Display.getTask(MenuItem.clicked, 0).y + Display.getTask(MenuItem.clicked, 0).h / 2) * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.left = (Display.getTopic(MenuItem.clicked).x + Display.getTopic(MenuItem.clicked).w / 2) * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.visibility = "visible";
+					}
 					else
 						console.log("Help is not available yet:(");
 					
 					/********speech recognition*************/
-					startConverting();
+					//startConverting();
 					/********speech recognition*************/
 					
 					
@@ -6162,6 +6158,63 @@ module.exports = {
 						}, 100);
 					}
 				}
+			
+		}
+		function showTask(TaskName, TopicName, Type, Points, N, j = -1, QuizArray = []) {
+			console.log("showing task", TaskName, TopicName, Type, Points, N, j, QuizArray);
+			Task.Result = {};
+			Mode.CountDown = false;
+			Task.TaskName = TaskName;
+			Task.TopicName = TopicName;
+			Task.MaxPoint = Points;
+			Task.N_toTest = N;
+			Task.Type = Type;
+			console.log(Type);
+			console.log("N", N);
+			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+			if(Mode.Mobile){
+				Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * Display.getButton("right-arrow.png").w - 20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+				Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 3 * Display.getButton("right-arrow.png").w - 2*20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+				Button.Draw("help_btn.png");
+				Button.Draw("info_btn.png");
+			}
+			console.log("drawn buttns");
+			Button.Draw("exit_btn.png");
+			if(Profile.LoggedIn) {
+				Task.Result.UserName = Profile.UserName;
+				Task.Result.Exercise = TaskName;
+				Task.Result.Topic_Name = Task.TopicName;
+				Task.Result.Type = Type;
+			};
+			if(Mode.Quiz) {
+				Task.Frames[TaskName] = QuizArray;
+				Mode.Training = false;
+			}
+			k2 = -1;
+			k3 = -1;
+			word_ch = false;
+			if(Task.Type == "Video")
+				showVideo();
+			else if(Task.Type == "Matching")
+				showMatching();
+			else {
+				delete Task.TaskName;
+				delete Task.TopicName;
+				delete Task.MaxPoint;
+				delete Task.N_toTest;
+				Mode.Exercise = false;
+				Mode.Tasks = true;
+				Mode.MenuItem = true;
+				MenuItem.clicked = j;
+				MenuItem.chosen = j;
+				
+				Mode.LogIn = false;
+				Mode.SignIn = false;
+				Mode.Results = false;
+				
+				respondCanvas();
+				//alert(TaskName + " is not available yet:(");
+			}
 			
 		}
 		function startConverting () {

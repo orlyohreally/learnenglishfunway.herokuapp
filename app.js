@@ -48,7 +48,7 @@ io.sockets.on('connection', function(socket) {
 	//console.log(socket.handshake.session);
 	if((true || (socket.handshake.session && socket.handshake.session.user))) {
 		//db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
-		db.Users.find({"UserName":"qwe"}, function(err, res){
+		db.Users.find({"UserName":"Orly"}, function(err, res){
 			if(res) {
 				//console.log("res1", res);
 				//socket.emit('Old session', {user: socket.handshake.session.user});
@@ -647,11 +647,13 @@ io.sockets.on('connection', function(socket) {
 		db.Results.find({"UserName":data.UserName}).sort({Start:-1}, function(err, res){
 			var Progress = [];
 			if(res && res.length) {
-				var f = 0, i = 0;
-				date = res[i].Start.substring(0, 10);
+				/*var f = 0, i = 0;
+				date = new Date(res[i].Start);
 				while(f < data.filter && i < res.length) {
 					console.log("f", f, "i", i, "date", date);
-					if(date == res[i].Start.substring(0, 10))
+					var Start = new Date(res[i].Start);
+					console.log(Start, Start.getDay());
+					if(date == Start.getDay)
 						Progress.push(res[i]);
 					else {
 						f = f + 1;
@@ -659,8 +661,10 @@ io.sockets.on('connection', function(socket) {
 						Progress.push(res[i]);
 					}
 					i = i + 1;
-				}
+				}*/
+				Progress = res;
 			}
+			//Progress = underscorejs.sortBy(Progress, "Start").reverse();
 			socket.emit('progress', {
 				progress: Progress
 			})
@@ -768,9 +772,10 @@ io.sockets.on('connection', function(socket) {
 			db.Exercise.find({"Name": Quiz[i].Name, "Topic_Name": Quiz[i].Topic_Name}, function(err, res) {
 				if(res) {
 					//console.log("res:", res);
-					Quiz[i].Max_point = res[0].Max_point;					
+					Quiz[i].Max_point = res[0].Max_point;
+					Quiz[i].Type = res[0].Type;
 					res = res[0].Content;
-					//console.log(res);
+					console.log(Quiz[i].Type);
 					for(var j = 0; j < Quiz[i].Content.length; j++) {
 						console.log(Quiz[i].Content[j].Word);
 						var q = inList(Quiz[i].Content[j].Word, res, "Word");
