@@ -43,14 +43,14 @@ io.sockets.on('connection', function(socket) {
 	socket.on('disconnect', function(){
 		console.log("socket disconnection");
 	})
-	console.log("cookie", socket.handshake.cookies);
+	//console.log("cookie", socket.handshake.cookies);
 	console.log("hello hello ");
-	console.log(socket.handshake.session);
+	//console.log(socket.handshake.session);
 	if((true || (socket.handshake.session && socket.handshake.session.user))) {
 		//db.Users.find({"UserName":socket.handshake.session.user.UserName}, function(err, res){
-		db.Users.find({"UserName":"Orly"}, function(err, res){
+		db.Users.find({"UserName":"qwe"}, function(err, res){
 			if(res) {
-				console.log("res1", res);
+				//console.log("res1", res);
 				//socket.emit('Old session', {user: socket.handshake.session.user});
 				socket.emit('Old session', {user: res[0]});
 			}
@@ -66,7 +66,7 @@ io.sockets.on('connection', function(socket) {
 		db.topics.drop();
 		console.log("socket disconnection");
 	})*/
-	db.SpreadSheets.find({"Name":"Numbers"}, function(err, res){
+	/*db.SpreadSheets.find({"Name":"Numbers"}, function(err, res){
 		res = res[0].Frames;
 		for(var i = 0; i < res.length; i++){
 			res[i].filename = res[i].filename.substring(0, res[i].filename.length - ".png".length);
@@ -97,7 +97,7 @@ io.sockets.on('connection', function(socket) {
 		}
 		console.log("look!", res);
 		
-	})
+	})*/
 	
 	/*db.SpreadSheets.find({"Name":"Tasks"}, function(err, res){
 		res = res[0].Frames;
@@ -541,9 +541,11 @@ io.sockets.on('connection', function(socket) {
 		db.Exercise.find({"Name":data.TaskName}, function(err, res){
 			if(data.Accent) {
 				var Accents = underscorejs.pluck(res[0].Content, "Accent");
+				//console.log(data.Accent, Accents);
 				for (var i = 0; i < Accents.length; i++) {
-					if(underscorejs.indexOf(Accents[i], data.Accent) == -1)
+					if(underscorejs.indexOf(Accents[i], data.Accent) == -1) {
 						res[0].Content.splice(i, 1);
+					}
 				}
 			}
 			//console.log("emitting Animals", res[0].Content);
@@ -577,16 +579,16 @@ io.sockets.on('connection', function(socket) {
 						db.Badges.find({"Topic_Name": data.Result.Topic_Name, "Quiz": res[0].Quiz}, function(err, res){
 							var Badges = res;
 							var pBadges = underscorejs.pluck(res, "Name");
-							console.log("all badges", data.Result.Topic_Name, pBadges, User.Badges, underscorejs.findWhere(User.Badges, {"Topic_Name": data.Result.Topic_Name}), underscorejs.pluck(underscorejs.findWhere(User.Badges, {"Topic_Name": data.Result.Topic_Name}), "Name"));
-							
+							console.log("all", underscorejs.pluck(Badges, "Name"), "users", User.Badges);
+							console.log("could get", underscorejs.difference(underscorejs.pluck(Badges, "Name"), underscorejs.pluck(User.Badges, "Name")));
 							if(!underscorejs.isEmpty(User.Badges)){
-								pBadges = underscorejs.difference(underscorejs.pluck(underscorejs.findWhere(User.Badges, {"Topic_Name": data.Result.Topic_Name}), "Name"), underscorejs.pluck(res, "Name"));
+								pBadges = underscorejs.difference(underscorejs.pluck(Badges, "Name"), underscorejs.pluck(User.Badges, "Name"));
 							}
-							//console.log("Badges", res, User.Badges, pBadges);
+							console.log("Badges to consider", pBadges);
 							for(var i = 0; i < pBadges.length; i++)
 							{
-								console.log("current badge", pBadges[i].Name, underscorejs.pluck(Badges, "Name"));
-								Badge = underscorejs.findWhere(Badges, {"Name": pBadges[i].Name});
+								console.log("current badge", pBadges[i]);
+								Badge = underscorejs.findWhere(Badges, {"Name": pBadges[i]});
 								console.log("Badge", Badge);
 								if(Badge && Badge.Reason && Badge.Reason.Time) {
 									var Finish = new Date(data.Result.Finish);
@@ -605,8 +607,23 @@ io.sockets.on('connection', function(socket) {
 									}
 								}
 								else if(Badge && Badge.Reason && Badge.Reason.Times){
-									db.Result.find({"Topic_Name": data.Result.Topic_Name}, function(err, res){
+									db.Results.find({"Topic_Name": data.Result.Topic_Name, "Type": "Matching"}, function(err, res){
 										console.log("all results on", data.Result.Topic_Name, res);
+										var i = 0;
+										var count = 0;
+										while(i < res.length && count < Badge.Reason.Times) {
+											if(res[i].Points && res[i].Points == res[i].Max_point)
+												count++;
+											i++;
+										}
+										console.log(i, count);
+										if(count >= Badge.Reason.Times){
+											console.log("got a new badge");
+											var time = new Date();
+											db.Users.update({"UserName":User.UserName}, {$push:{"Badges":{"Name":Badge.Name, "Date": time, "Topic_Name": Badge.Topic_Name}}}, function(err, res){
+												console.log(res);
+											})
+										}
 									})
 									console.log("badge on times");
 								}

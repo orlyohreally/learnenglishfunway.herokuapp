@@ -240,17 +240,7 @@ module.exports = {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function(){
-	var loadedMenuItems = false;
-	function loadMenuItems(){
-		console.log("loadedMenuItems");
-		atlasMenuItem.src = '/img/Menu-Items/menu-items.png';
-		atlasMenuItem.addEventListener("load", function() {
-			loadedMenuItems = true;
-			drawMenuItems();
-		})
-	}
-	
+(function(){	
 	$(document).ready(function(){
 		var functions = __webpack_require__(1);
 		var Display = __webpack_require__(0);
@@ -4247,6 +4237,7 @@ module.exports = {
 				var i = functions.randomInteger(0, Task.toTest.length - 1);
 				var animal = Task.toTest.concat()[i];
 				Task.asked = Task.toTest.concat()[i];
+				console.log("asked", Task.asked);
 				ctx.fillStyle="#000000";
 				Task.tries = Task.MaxPoint;
 				delete Pressed.x;
@@ -4349,6 +4340,7 @@ module.exports = {
 			Mode.Results = false;
 			Mode.CountDown = false;
 			Task.Total = N;
+			console.log(N);
 			if(!Mode.Training)
 				Task.test = functions.getRandomArray(Array, [], N);
 			else
@@ -4403,7 +4395,7 @@ module.exports = {
 				socket.on('getTask', function(data){
 					console.log("got task");
 					Task.Frames[Task.TaskName] = data.Content;
-					console.log(Task.TaskName, checkloaded);
+					console.log(Task.TaskName, data.Content);
 					checkloaded[Task.TopicName]();
 					})
 			}	
@@ -4472,6 +4464,7 @@ module.exports = {
 			var word_height = setWordHeight();
 			Display.setButton("itemImage", (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h) / 2, MenuItem.starts + (20 + 20), Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h, animal_height);
 			for(var i = 0; i < Task.test.length; i++) {
+				console.log(i, (Task.test.concat())[i], frametype2);
 				var wordFrame = (Task.test.concat())[i][frametype2];
 				if(frametype1 == "frame") {
 					Display.setTestItem(i,(edge + center/2-wordFrame.w*word_height/wordFrame.h/2), top, wordFrame.w*word_height/wordFrame.h, word_height);
@@ -5420,6 +5413,7 @@ module.exports = {
 					Task.N_toTest = N;
 					Task.Type = Type;
 					console.log(Type);
+					console.log("N", N);
 					Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 					if(Mode.Mobile){
 						Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * Display.getButton("right-arrow.png").w - 20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
