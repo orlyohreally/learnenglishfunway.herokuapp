@@ -4,14 +4,13 @@
 		var Display = require('./display.js');
 		var ctx = document.getElementById("MainCanvas").getContext("2d");
 		var video;
-		
+		var speechRecognizer;
 		//video animals American accent https://www.youtube.com/watch?v=BfUoopDpmmY
 		//video numbers from 1 to 10 "british" https://www.youtube.com/watch?v=dk9Yt1PqQiw&index=2&list=PL9811F95B184967D5
 		//video numbers from 1 to 20 american https://www.youtube.com/watch?v=D0Ajq682yrA
+		//video school things https://www.youtube.com/watch?v=g7kK989HiRQ&t=24s
 		
 		/************************************Resizing*******************************************************/
-			
-		
 				
 		$(window).resize(respondCanvas);
 		
@@ -604,7 +603,9 @@
 				context = ctx;
 			else
 				context = Menu_ctx;
+			console.log("drawing", frame);
 			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).h * Math.min(Screen.k_width, Screen.k_height));
+			console.log(frame.x, frame.y, frame.w, frame.h, Display.getButton(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		
 		function drawSignInForm() {
@@ -655,6 +656,7 @@
 					frame = Properties.Numbers[type + n + ".png"];
 				else
 					frame = Properties.Letters[type + "slash.png"];
+				
 				//console.log("frame", frame);
 				if(Mode.Progress)
 					context = Progress_ctx;
@@ -956,7 +958,7 @@
 				context = ctx;
 			else
 				context = Menu_ctx;
-			
+			console.log(context, rect);
 			if(!Mode.Menu || (rect == Display.getButton("menu_btn.png") && rect.x == Display.getButton("menu_btn.png").x && rect.y == Display.getButton("menu_btn.png").y && rect.w == Display.getButton("menu_btn.png").w && rect.h == Display.getButton("menu_btn.png").h)) {
 				context.fillStyle="#F7FE2E";
 				context.fillRect(rect.x * Math.min(Screen.k_width, Screen.k_height), rect.y * Math.min(Screen.k_width, Screen.k_height), rect.w * Math.min(Screen.k_width, Screen.k_height), rect.h * Math.min(Screen.k_width, Screen.k_height))
@@ -1006,9 +1008,10 @@
 			return false;
 		}
 		function speak(Word) {
+			try{
 			console.log(Profile.Accent, Word);
 			responsiveVoice.speak(Word, Profile.Accent);
-				
+			}catch(e){};
 		}
 		/*function speak(Word) {
 			var w = new SpeechSynthesisUtterance();
@@ -1090,8 +1093,10 @@
 				}
 				
 				//Settings button
-				Display.setButton("setting_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
-				drawSettingsButton();
+				//if(Mode.MenuItem) {
+					Display.setButton("setting_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2*5) / 3, (Profile.size_btn - 2*5) / 3);
+					drawSettingsButton();
+				//}
 				//Help button
 				Display.setButton("help_btn.png", (Screen.width)/ Math.min(Screen.k_width, Screen.k_height) - Profile.size_btn - Title.leftSpace + (Profile.size_btn - 2 * 5)/3 + 5, (20 + 5) + Profile.size_btn*75/228 + Profile.size_btn*75/228 + 5, (Profile.size_btn - 2 * 5) / 3, (Profile.size_btn - 2 * 5) / 3);
 				Button.Draw("help_btn.png");
@@ -1694,10 +1699,10 @@
 		var okay_ch = false;
 		var skip_ch = false;
 		var menu_btn_ch = false;
-		
+		var mic_btn_ch = false;
 		function HoverMenuItem(mouseX, mouseY){
 			//left arrow has been hovered
-			if((Mode.MenuItem && MenuItem.firstItem > 0) || (Mode.Progress && Progress.index) || (Mode.Badges && Badges.firstItem) || (Mode.Info && Info.index)) {
+			if((Mode.MenuItem && MenuItem.firstItem > 0) || (Mode.Progress && Progress.index) || (Mode.Badges && Badges.firstItem) || (Mode.Info && Info.index) || (Mode.Exercise && Task.Type == "Reading" && Task.index)) {
 				if (!(l_a_ch) && mouseInRect(Display.getButton("left-arrow.png"))) {	
 					clearRectRect(Display.getButton("left-arrow.png"));
 					Display.expandButton("left-arrow.png", 5);
@@ -1712,7 +1717,7 @@
 				}
 			}
 			//right arrow is hovered
-			if((Mode.MenuItem && (MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount)) || (Mode.Progress && Progress.Array.length > Progress.index + 1) || (Mode.Badges && Badges.All.length >= Badges.firstItem + Badges.display + 1) || (Mode.Info && Info.index + 1 < Info.List.length)){
+			if((Mode.MenuItem && (MenuItem.firstItem + MenuItem.display < MenuItem.itemsCount)) || (Mode.Progress && Progress.Array.length > Progress.index + 1) || (Mode.Badges && Badges.All.length >= Badges.firstItem + Badges.display + 1) || (Mode.Info && Info.index + 1 < Info.List.length)  || (Mode.Exercise && Task.Type == "Reading" && Task.index + 1 < Task.Frames[Task.TaskName].length)){
 				if (!(r_a_ch) && (mouseInRect(Display.getButton("right-arrow.png")))) {	
 					clearRectRect(Display.getButton("right-arrow.png"));
 					Display.expandButton("right-arrow.png", 5);
@@ -2002,6 +2007,19 @@
 				drawSettingsButton();
 				settings_ch = false;
 			}
+			//mic has been hovered
+			if(Mode.Exercise && Task.Type == "Reading" && !mic_btn_ch && mouseInRect(Display.getButton("mic_btn.png"))) {
+				clearRectRect(Display.getButton("mic_btn.png"));
+				Display.expandButton("mic_btn.png", 5);
+				Button.Draw("mic_btn.png");
+				mic_btn_ch = true;
+			}
+			if(Mode.Exercise && Task.Type == "Reading" && mic_btn_ch && !mouseInRect(Display.getButton("mic_btn.png"))) {
+				clearRectRect(Display.getButton("mic_btn.png"));
+				Display.expandButton("mic_btn.png", -5);
+				Button.Draw("mic_btn.png");
+				mic_btn_ch = false;
+			}
 			//help button has been hovered
 			if (((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) &&!help_ch && mouseInRect(Display.getButton("help_btn.png"))) {
 				clearRectRectYellow(Display.getButton("help_btn.png"));
@@ -2195,7 +2213,7 @@
 			}
 			//Matching word has been hovered
 			try {
-				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn &&!word_ch) {
+				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && Task.Type == "Matching" && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn &&!word_ch) {
 					var i = checkPoint({x:mouseX, y:mouseY}, Display.getTestItems());
 					k2 = i;
 					if(k2 < Display.getTestItems().length) {
@@ -3009,8 +3027,10 @@
 							//Task.Result.Max_point = Total * Max;
 							Profile.Points = Profile.Points + Task.Result.Points;
 							Profile.Max_points = Profile.Max_points + Task.Result.Max_point;
-							console.log("emitting because results showing");
-							socket.emit("Result", {Result: Task.Result});
+							//if(!Mode.Quiz) {
+								console.log("emitting because results showing");
+								socket.emit("Result", {Result: Task.Result});
+							//}
 						}
 					}
 					catch(e) {showResultForm(Answers, Total, Max);}
@@ -3139,11 +3159,11 @@
 					if(Progress.Array[Progress.index].Exercise[j] < "0" || Progress.Array[Progress.index].Exercise[j] > "9") {
 						if(j == 0)
 							type = "capital-" + type;
-						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 220 * Display.getForm("progress_form_Matching.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Matching.png").y +  75 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 220 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y +  75 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 					else
 					{
-						drawDigit(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 220 * Display.getForm("progress_form_Matching.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Matching.png").y +  75 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawDigit(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 220 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y +  75 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 				}
 			}
@@ -3161,11 +3181,11 @@
 					if(Progress.Array[Progress.index].Topic_Name[j] < "0" || Progress.Array[Progress.index].Topic_Name[j] > "9") {
 						if(j == 0)
 							type = "capital-" + type;
-						drawLetter(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 170 * Display.getForm("progress_form_Matching.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Matching.png").y + 100 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawLetter(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 170 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y + 100 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 					else
 					{
-						drawDigit(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 170 * Display.getForm("progress_form_Matching.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Matching.png").y + 100 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawDigit(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 170 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y + 100 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 				}
 			}
@@ -3174,7 +3194,7 @@
 			digit.h = 20  * Display.getForm("progress_form_Matching.png").h / frame.h;
 			digit.w = digit.h * digit_frame.w / digit_frame.h;
 			for(var j = 0; j < Points.length; j++)
-				drawDigit(Points[j], Display.getForm("progress_form_Matching.png").x + 185 * Display.getForm("progress_form_Matching.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Matching.png").y + 125 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, "small-dark");
+				drawDigit(Points[j], Display.getForm("progress_form_Matching.png").x + 185 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y + 125 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 			//stars
 			var stars = Math.round(5 * Progress.Array[Progress.index].Points / Progress.Array[Progress.index].Max_point);
 			var star_frame = Properties.Buttons["star.png"];
@@ -3206,10 +3226,10 @@
 					//fillRect(0, letter.y + 32 / frame.h * frame.w *(i), 100000, 1);
 					for(var c = 0; c < word.length; c++) {
 						if(Progress.Array[Progress.index].Topic_Name != "Numbers") {
-							drawLetter(word[c], letter.x + letter.w * (c), letter.y + 25*Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
+							drawLetter(word[c], letter.x + (letter.w + 2) * (c), letter.y + 25*Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
 						}
 						else
-							drawDigit(word[c], letter.x + letter.w * (c), letter.y + 25*Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
+							drawDigit(word[c], letter.x + (letter.w + 2) * (c), letter.y + 25*Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
 					}
 				
 			}
@@ -3273,19 +3293,19 @@
 				var min = "min";
 				i++;
 				for(j; j < min.length;j++) {
-					drawLetter(min[j], X + (i + j) * digit.w, Y - digit.h, digit.w, digit.h, "small-dark");
+					drawLetter(min[j], X + (i + j) * (digit.w + 2), Y - digit.h, digit.w, digit.h, "small-dark");
 				}
 				i = i + j + 1;
 				j = 0;
 			}
 			if(seconds != "0") {
 				for (j = 0; j < seconds.length; j++) {
-					drawDigit(seconds[j], X + (i + j) * digit.w, Y - digit.h, digit.w, digit.h, "small-dark");
+					drawDigit(seconds[j], X + (i + j) * (digit.w + 2), Y - digit.h, digit.w, digit.h, "small-dark");
 				}
 				i = i + j + 1;
 				var sec = "sec";
 				for(j = 0; j < sec.length;j++) {
-					drawLetter(sec[j], X + (i + j) * digit.w, Y - digit.h, digit.w, digit.h, "small-dark");
+					drawLetter(sec[j], X + (i + j) * (digit.w + 2), Y - digit.h, digit.w, digit.h, "small-dark");
 				}
 			}
 		}
@@ -3321,7 +3341,7 @@
 			digit.h = 30  * Display.getForm("progress_form_Video.png").h / frame.h;
 			digit.w = digit.h * digit_frame.w / digit_frame.h;
 			for(var j = 0; j < Points.length; j++)
-				drawDigit(Points[j], Display.getForm("progress_form_Video.png").x + 270 * Display.getForm("progress_form_Video.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Video.png").y + 340 * Display.getForm("progress_form_Video.png").h / frame.h - digit.h, digit.w, digit.h, "small-dark");
+				drawDigit(Points[j], Display.getForm("progress_form_Video.png").x + 270 * Display.getForm("progress_form_Video.png").w / frame.w + j * (digit.w + 5), Display.getForm("progress_form_Video.png").y + 340 * Display.getForm("progress_form_Video.png").h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 			//stars
 			var stars = Math.round(5 * Progress.Array[Progress.index].Points / Progress.Array[Progress.index].Max_point);
 			var star_frame = Properties.Buttons["star.png"];
@@ -3335,8 +3355,8 @@
 			//exercise name
 			digit.h = 25  * Display.getForm("progress_form_Video.png").h / frame.h;
 			digit.w = digit.h * digit_frame.w / digit_frame.h;
-			if(330 * Display.getForm("progress_form_Video.png").w / frame.w + Progress.Array[Progress.index].Exercise.length * digit.w > 680 * Display.getForm("progress_form_Video.png").w / frame.w) {
-				digit.w = (350 * Display.getForm("progress_form_Video.png").w / frame.w) / Progress.Array[Progress.index].Exercise.length;
+			if(330 * Display.getForm("progress_form_Video.png").w / frame.w + Progress.Array[Progress.index].Exercise.length * (digit.w + 5) > 680 * Display.getForm("progress_form_Video.png").w / frame.w) {
+				digit.w = (350 * Display.getForm("progress_form_Video.png").w / frame.w) / Progress.Array[Progress.index].Exercise.length - 5;
 				digit.h = digit.w * digit_frame.h / digit_frame.w;
 			}
 			for(var j = 0; j < Progress.Array[Progress.index].Exercise.length; j++) {
@@ -3345,11 +3365,11 @@
 					if(Progress.Array[Progress.index].Exercise[j] < "0" || Progress.Array[Progress.index].Exercise[j] > "9") {
 						if(j == 0)
 							type = "capital-" + type;
-						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 330 * Display.getForm("progress_form_Video.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Video.png").y + 160 * Display.getForm("progress_form_Video.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 330 * Display.getForm("progress_form_Video.png").w / frame.w + j * (digit.w + 5), Display.getForm("progress_form_Video.png").y + 160 * Display.getForm("progress_form_Video.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 					else
 					{
-						drawDigit(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 330 * Display.getForm("progress_form_Video.png").w / frame.w + j * digit.w, Display.getForm("progress_form_Video.png").y + 160 * Display.getForm("progress_form_Video.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawDigit(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Video.png").x + 330 * Display.getForm("progress_form_Video.png").w / frame.w + j * (digit.w + 5), Display.getForm("progress_form_Video.png").y + 160 * Display.getForm("progress_form_Video.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 				}
 			}
@@ -3380,20 +3400,21 @@
 				Display.setButton("left-arrow.png", 20, MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts) / 2 - Display.getButton("left-arrow.png").h / 2, Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h);
 				Display.setButton("right-arrow.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - 20 - Display.getButton("left-arrow.png").w, MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts) / 2 - Display.getButton("left-arrow.png").h / 2, Display.getButton("left-arrow.png").w, Display.getButton("left-arrow.png").h);
 			}
-			console.log("frame", frame, frame.x, Screen.height,Math.min(Screen.k_width, Screen.k_height), MenuItem.starts,2 * 30, frame.w / frame.h);
-			Badges.height = Screen.height  / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 30;
-			Badges.width = Badges.height * frame.w / frame.h;
-			Badges.display = Math.floor((Screen.width / Math.min(Screen.k_width, Screen.k_height) - 20 * 2 - 2 * 20 - 2 * Display.getButton("left-arrow.png").w + 30) / (Badges.width + 30)) + 1;
-			Badges.width = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 20 * 2 - 2 * 20 - 2 * Display.getButton("left-arrow.png").w - 30 * (Badges.display - 1)) / Badges.display;
-			Badges.height = Badges.width * frame.h / frame.w;
-			console.log(Badges.width, Badges.height);
-			
 			Display.setButton("exit_btn.png", Display.getButton("right-arrow.png").x, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			if(Mode.Mobile) {
 				Display.setButton("info_btn.png", Display.getButton("right-arrow.png").x - Display.getButton("right-arrow.png").w - 10, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 				Display.setButton("help_btn.png", Display.getButton("right-arrow.png").x - 2*Display.getButton("right-arrow.png").w - 2*10, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 				
 			}
+			console.log("frame", frame, frame.x, Screen.height,Math.min(Screen.k_width, Screen.k_height), MenuItem.starts, 2 * 30, frame.w / frame.h);
+			Badges.height = Screen.height  / Math.min(Screen.k_width, Screen.k_height) - Display.getButton("exit_btn.png").y - Display.getButton("exit_btn.png").h - 2 * 30;
+			Badges.width = Badges.height * frame.w / frame.h;
+			Badges.display = Math.floor((Screen.width / Math.min(Screen.k_width, Screen.k_height) - 20 * 2 - 2 * 20 - 2 * Display.getButton("left-arrow.png").w + 30) / (Badges.width + 30)) + 1;
+			Badges.width = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - 20 * 2 - 2 * 20 - 2 * Display.getButton("left-arrow.png").w - 30 * (Badges.display - 1)) / Badges.display;
+			Badges.height = Badges.width * frame.h / frame.w;
+			console.log(Badges.width, Badges.height);
+			
+			
 			setBadgesProp();
 			
 		}
@@ -4033,7 +4054,11 @@
 					console.log("after", Exercise_num, Quiz.Content.length);
 					if(Exercise_num < Quiz.Content.length){
 						console.log("quiz continues");
-						console.log(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+						Task.Result.Points = countPoints(Task.Result.Answers, Task.Result.Answers.length, Quiz.Content[Exercise_num].Max_point);
+						Task.Result.Max_point = Task.Result.Answers.length * Quiz.Content[Exercise_num].Max_point;
+						Profile.Points = Profile.Points + Task.Result.Points;
+						Profile.Max_points = Profile.Max_points + Task.Result.Max_point;
+						console.log("emitting part of quiz");
 						socket.emit("Result", {Result: Task.Result});
 						showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
 						console.log("finished showing");
@@ -4041,7 +4066,7 @@
 					else {
 						if(Mode.Quiz)
 							Quiz.Finish = new Date;
-						
+						//socket.emit("Result", {Result: Task.Result});
 						drawLoading();
 						showResultForm();
 					}
@@ -4114,7 +4139,77 @@
 			Task.toTest = Task.test.slice(0);
 			selectAnimal();
 		}
-		
+		function setReading(Array, N) {
+			speechRecognizer = new webkitSpeechRecognition();
+			console.log("setting reading", Array);
+			Mode.Result = false;
+			Mode.CountDown = false;
+			Task.Total = N;
+			Task.test = Array.concat();
+			Task.index = 0;
+			drawTestReading();
+			
+		}
+		function drawTestReading() {
+			ctx.clearRect(0, 0, Screen.width, Screen.height);
+			drawHeader();
+			Button.Draw("exit_btn.png");
+			if(Mode.Mobile) {
+				Display.setButton("info_btn.png", Display.getButton("exit_btn.png").x - Display.getButton("exit_btn.png").w - 20, Display.getButton("exit_btn.png").y,  Display.getButton("exit_btn.png").w,  Display.getButton("exit_btn.png").h);
+				Button.Draw("info_btn.png");
+				Display.setButton("help_btn.png", Display.getButton("exit_btn.png").x - 2 * Display.getButton("exit_btn.png").w - 2 * 20, Display.getButton("exit_btn.png").y,  Display.getButton("exit_btn.png").w,  Display.getButton("exit_btn.png").h);
+				Button.Draw("help_btn.png");
+			}
+			
+			var frame = {};
+			var Array = (Task.Frames[Task.TaskName]).concat();
+			console.log(Task.index, Array.length, Task.index + 1 < Array.length);
+			console.log(Task.index);
+			var item = {};
+			console.log(Array[Task.index], Task.index);
+			frame = Array[Task.index].Wordsframe;
+			item.height = (Screen.height / Math.min(Screen.k_width, Screen.k_height) - Display.getButton("exit_btn.png").h - Display.getButton("exit_btn.png").y - 4 * 20) / 2;
+			item.width = item.height * frame.w / frame.h;
+			if(Screen.width / Math.min(Screen.k_width, Screen.k_height) - 20 - Display.getButton("exit_btn.png").w - item.width - Display.getButton("exit_btn.png").w - 20 < 0) {
+				console.log("too big word");
+				item.width = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * (20 + Display.getButton("exit_btn.png").w);
+				item.height = item.width * frame.h / frame.w;
+			}
+			item.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - item.width) / 2;
+			item.y = Display.getButton("exit_btn.png").w + Display.getButton("exit_btn.png").y + 20;
+			Display.setTestItem(Task.index, item.x, item.y, item.width, item.height);
+			console.log("set frames", Task.index, Display.getTestItem(Task.index))
+			ctx.drawImage(atlas[Task.TopicName + "frame"], frame.x, frame.y, frame.w, frame.h, Display.getTestItem(Task.index).x*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(Task.index).y*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(Task.index).w*Math.min(Screen.k_width, Screen.k_height), Display.getTestItem(Task.index).h*Math.min(Screen.k_width, Screen.k_height));
+			frame = Properties.Buttons["mic_btn.png"];
+			var mic = {};
+			mic.h = Display.getTestItem(0).h / 2;
+			mic.w = mic.h * frame.w / frame.h;
+			mic.x = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2 - mic.w / 2;
+			mic.y = Display.getTestItem(0).y + Display.getTestItem(0).h + 20 + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - Display.getTestItem(0).y - Display.getTestItem(0).h - 2 * 20)/2;
+			Display.setButton("mic_btn.png", mic.x, mic.y, mic.w, mic.h);
+			console.log(Display.getButton("mic_btn.png"));
+			Button.Draw("mic_btn.png");
+			if(Task.index) {
+				frame = Properties.Buttons["left-arrow.png"];
+				var arrow = {};
+				arrow.w = Display.getButton("exit_btn.png").w;
+				arrow.h = arrow.w * frame.h / frame.w;
+				arrow.x = 20;
+				arrow.y = Display.getButton("exit_btn.png").y + Display.getButton("exit_btn.png").h + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - Display.getButton("exit_btn.png").y - Display.getButton("exit_btn.png").h - arrow.h) / 2;
+				Display.setButton("left-arrow.png", arrow.x, arrow.y, arrow.w, arrow.h);
+				Button.Draw("left-arrow.png");
+			}
+			if(Task.index + 1 < Array.length) {
+				frame = Properties.Buttons["left-arrow.png"];
+				var arrow = {};
+				arrow.w = Display.getButton("exit_btn.png").w;
+				arrow.h = arrow.w * frame.h / frame.w;
+				arrow.x = Screen.width / Math.min(Screen.k_width, Screen.k_height) -  20 - arrow.w;
+				arrow.y = Display.getButton("exit_btn.png").y + Display.getButton("exit_btn.png").h + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - Display.getButton("exit_btn.png").y - Display.getButton("exit_btn.png").h - arrow.h) / 2;
+				Display.setButton("right-arrow.png", arrow.x, arrow.y, arrow.w, arrow.h);
+				Button.Draw("right-arrow.png");
+			}
+		}
 		function showMatching() {
 			drawLoading();
 			Mode[Task.TaskName.replace(/\s/g,'')] = true;
@@ -4167,6 +4262,43 @@
 			}	
 			else
 				checkloaded[Task.TopicName]();
+		}
+		function showReading() {
+			console.log('showing Reading');
+			Mode[Task.TaskName.replace(/\s/g,'')] = true;
+			if(!Task["loaded" + Task.TopicName + "frame"]) {
+				console.log("not loaded");
+				atlas[Task.TopicName + "frame"] = new Image();
+				atlas[Task.TopicName + "frame"].src = '/img/' + Task.TopicName + '/' + Task.TopicName + '.png';
+					atlas[Task.TopicName + "frame"].addEventListener("load", function() {
+						console.log("now loaded", "loaded" + Task.TopicName + "frame");
+						Task["loaded" + Task.TopicName + "frame"] = true;
+						console.log(Task["loaded" + Task.TopicName + "frame"]);
+					})				
+			}
+			checkloaded[Task.TopicName] = function () {
+				console.log("here loaded" + Task.TopicName + "frame", Task["loaded" + Task.TopicName + "frame"]);
+				if(Task["loaded" + Task.TopicName + "frame"]) {
+					
+						console.log("settest to go", Task.Frames[Task.TaskName].concat(), Task.N_toTest);
+						setReading(Task.Frames[Task.TaskName].concat(), Task.N_toTest);
+					
+				}
+				else {setTimeout(function(){
+						checkloaded[Task.TopicName]();
+					}, 200)
+				}
+			}
+			socket.emit('getTask', {
+				TaskName: Task.TaskName,
+				Accent: Profile.Accent
+			})
+			socket.on('getTask', function(data){
+				console.log("got task");
+				Task.Frames[Task.TaskName] = data.Content;
+				console.log(Task.TaskName, data.Content);
+				checkloaded[Task.TopicName]();
+			})
 		}
 		function setWordHeight(){
 			try {
@@ -4295,12 +4427,15 @@
 					$("#Help").remove();
 					$("HelpDiv").remove();
 				}
-				var div = document.createElement('HelpDiv');
+				if(!mouseInRect(Display.getButton("itemImage"))) {
+					var div = document.createElement('HelpDiv');
 				div.innerHTML = '<image id = "Help"></image>';
 				document.getElementById("mainDiv").appendChild(div);
 				var Help = document.getElementById("Help");
 				Help.src = "/img/Menu-Items/mouse_up.gif";
 				Help.style.position = "absolute";
+				console.log(mouseInRect(Display.getButton("itemImage")));
+				
 				if(frametype1 == "frame")
 					Help.style.height = Display.getButton("itemImage").h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
 				else
@@ -4308,7 +4443,7 @@
 				Help.style.width = "auto";
 				Help.style.top = (Display.getButton("itemImage").y + Display.getButton("itemImage").h / 3) * Math.min(Screen.k_width, Screen.k_height);
 				Help.style.left = (Display.getButton("itemImage").x + Display.getButton("itemImage").w / 2) * Math.min(Screen.k_width, Screen.k_height);
-				
+				}
 			}
 			
 			for(var i = 0; i < Task.test.length; i++) {
@@ -4507,6 +4642,16 @@
 				if(Mode.Progress && Progress.index && mouseInRect(Display.getButton("left-arrow.png"))) {
 					Progress.index--;
 					showProgressForm();
+				}
+				//right arrow clicked during Reading
+				if(Mode.Exercise && Task.Type == "Reading" && Mode.Exercise && Task.Type == "Reading" && Task.index + 1 < Task.Frames[Task.TaskName].length && mouseInRect(Display.getButton("right-arrow.png"))) {
+					Task.index++;
+					drawTestReading();
+				}
+				//left arrow clicked during Reading
+				if(Mode.Exercise && Task.Type == "Reading" && Task.index && mouseInRect(Display.getButton("left-arrow.png"))) {
+					Task.index--;
+					drawTestReading();
 				}
 				//right arrow clicked during badges mode
 				if(Mode.Badges && Badges.All.length >= Badges.firstItem + Badges.display + 1 && mouseInRect(Display.getButton("right-arrow.png"))) {
@@ -5017,6 +5162,10 @@
 							Profile.storePasswordLogIn = false;
 					}*/
 				}
+				//mic has been clicked during Reading
+				if(Mode.Exercise && Task.Type == "Reading" && mouseInRect(Display.getButton("mic_btn.png"))) {
+					startConverting();
+				}
 				if(Mode.SignIn){
 					//username area clicked SignIn Mode
 					
@@ -5270,6 +5419,9 @@
 				}
 				//MatchTheAnimalsWithTheirNames exit button has been clicked
 				else if (Mode.Exercise && !Mode.MusicVideo && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
+					if(Task.Type == "Reading") {
+						speechRecognizer.stop();
+					}
 					console.log("exiting matching");
 					if(Mode.Quiz)
 						Mode.Quiz = false;
@@ -5293,12 +5445,13 @@
 						Profile.Max_points = Profile.Max_points + Task.Result.Max_points;
 					}*/
 					if(Profile.LoggedIn && !Mode.Training){
-						console.log("emitting because off exiting");
+						console.log("emitting because of exiting");
 						socket.emit("Result", {Result: Task.Result});
 						
 					}
 					Task.Result = {};
 				}
+				
 				//exit button has been clicked during Badges Mode
 				else if(Mode.Badges && mouseInRect(Display.getButton("exit_btn.png"))) {
 					if(document.getElementById("BadgesCanvas")){
@@ -5357,7 +5510,8 @@
 				}
 				
 				//Matching word has been clicked
-				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
+				if ((!Mode.Menu && !Mode.CountDown && !Mode.Results && Mode.Exercise && Task.Type == "Matching"  && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
+					console.log("word has been hovered", Task.Type);
 					try {
 						if((Mode.Exercise && !Mode.MusicVideo) &&k3 != -1) {
 							drawHeader();
@@ -5470,7 +5624,7 @@
 					catch(e){}
 				}
 				
-				if(Mode.Results || (Mode.Exercise && !Mode.MusicVideo)) {
+				if(Mode.Results || (Mode.Exercise && Task.Type == "Matching" && !Mode.MusicVideo)) {
 					//try again clicked in result form
 					var frame = Properties.Forms["result_form.png"];
 					var Result_form = {};
@@ -5756,7 +5910,8 @@
 					alert("Phrases are not available yet:(");
 				}
 				//help button has been clicked
-				if (((!Mode.Mobile) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("help_btn.png"))) {
+				//if (((!Mode.Mobile) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("help_btn.png"))) {
+				if (!Mode.LogIn && !Mode.SignIn && mouseInRect(Display.getButton("help_btn.png"))) {
 					//help clicked during badge mode
 					if(Mode.Badges && mouseInRect(Display.getButton("help_btn.png"))) {
 						console.log("help has been clicked");
@@ -5806,6 +5961,22 @@
 						console.log(MenuItem.clicked);
 						Help.style.top = (Display.getTask(MenuItem.clicked, 0).y + Display.getTask(MenuItem.clicked, 0).h / 2) * Math.min(Screen.k_width, Screen.k_height);
 						Help.style.left = (Display.getTopic(MenuItem.clicked).x + Display.getTopic(MenuItem.clicked).w / 2) * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.visibility = "visible";
+					}
+					else if(Mode.Exercise && Task.Type == "Reading") {
+						console.log("help has been clicked");
+						if(!document.getElementById("Help")) {
+							var div = document.createElement('HelpDiv');
+							div.innerHTML = '<image id = "Help"></image>';
+							document.getElementById("mainDiv").appendChild(div);
+						}
+						var Help = document.getElementById("Help");
+						Help.src = "/img/Menu-Items/mouse_up.gif";
+						Help.style.position = "absolute";
+						Help.style.height = Display.getButton("mic_btn.png").h / 2 * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.width = "auto";
+						Help.style.top = (Display.getButton("mic_btn.png").y + Display.getButton("mic_btn.png").h / 2) * Math.min(Screen.k_width, Screen.k_height);
+						Help.style.left = (Display.getButton("mic_btn.png").x + Display.getButton("mic_btn.png").w / 2) * Math.min(Screen.k_width, Screen.k_height);
 						Help.style.visibility = "visible";
 					}
 					else
@@ -5920,7 +6091,10 @@
 		}
 		function showTask(TaskName, TopicName, Type, Points, N, j = -1, QuizArray = []) {
 			console.log("showing task", TaskName, TopicName, Type, Points, N, j, QuizArray);
+			console.log(Display.getButton("settings_btn.png"));
+			//clearRectRectYellow(Display.getButton("settings_btn.png"));
 			Task.Result = {};
+			Mode.MenuItem = false;
 			Mode.CountDown = false;
 			Task.TaskName = TaskName;
 			Task.TopicName = TopicName;
@@ -5929,6 +6103,9 @@
 			Task.Type = Type;
 			console.log(Type);
 			console.log("N", N);
+			ctx.clearRect(0, 0, Screen.width, Screen.height);
+			drawHeader();
+			
 			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			if(Mode.Mobile){
 				Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * Display.getButton("right-arrow.png").w - 20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
@@ -5955,6 +6132,8 @@
 				showVideo();
 			else if(Task.Type == "Matching")
 				showMatching();
+			else if(Task.Type == "Reading")
+				showReading();
 			else {
 				delete Task.TaskName;
 				delete Task.TopicName;
@@ -5975,12 +6154,39 @@
 			}
 			
 		}
+		function checkSpeech(speech) {
+			console.log(speech, speech === "It is a" + Task.Frames[Task.TaskName][Task.index].Word);
+			if(speech.split(Task.Frames[Task.TaskName][Task.index].Word).length - 1) {
+				console.log("excellent!");
+				drawCorrect(0,0,100,100);
+			}
+			/*for(var i = 0; speech.split("it is").length; i++) {
+				if(speech.split("it is")[i] == Task.Frames[Task.TaskName][Task.index].Word) {
+					console.log(Task.Frames[Task.TaskName][Task.index].Word, "it is correct")
+					speechRecognizer.stop();
+				}
+			}
+			for(var i = 0; speech.split("it's").length; i++) {
+				if(speech.split("it's")[i] == Task.Frames[Task.TaskName][Task.index].Word) {
+					speechRecognizer.stop();
+					console.log(Task.Frames[Task.TaskName][Task.index].Word, "it's correct");
+				}
+			}*/
+		}
 		function startConverting () {
 			if('webkitSpeechRecognition' in window){
-				var speechRecognizer = new webkitSpeechRecognition();
-				speechRecognizer.continuous = true;
-				speechRecognizer.interimResults = true;
-				speechRecognizer.lang = 'en-US';
+				var words = ["bag", "pencil","pencil case", "doll", "hat"];
+				//var words = ["рюкзак", "карандаш","пенал", "кукла", "шл€па"];
+				var grammar = words.join(' | ') + ' ;'
+				console.log("grammar", grammar);
+				var speechRecognitionList = new webkitSpeechGrammarList();
+				speechRecognitionList.addFromString(grammar, 1);
+				speechRecognizer.grammars = speechRecognitionList;
+				//recognition.continuous = false;
+				speechRecognizer.continuous = false;
+				speechRecognizer.maxAlternatives = 1;
+				speechRecognizer.interimResults = false;
+				speechRecognizer.lang = 'en-GB';
 				//speechRecognizer.lang = 'ru-Ru';
 				speechRecognizer.start();
 				console.log("recording", speechRecognizer);
@@ -5997,12 +6203,17 @@
 							interimTranscripts += transcript;
 						}
 					}
-					console.log(finalTranscripts , interimTranscripts);
+					console.log("result", event.results[0][0].transcript);
+					checkSpeech(event.results[0][0].transcript);
 				};
-				speechRecognizer.onspeechend = function(event){
-					console.log("stopped listening");
+				speechRecognizer.onsoundend = function(event){
+					console.log("ended", event);
+					//console.log("stopped listening");
+					//speechRecognizer.stop();
 				}
-				
+				speechRecognizer.onnomatch = function(event) {
+				  console.log("I didn't recognise that color.");
+				}
 			}
 		}
 		MainCanvas.addEventListener("mousedown", MouseDown);
@@ -6036,7 +6247,7 @@
 					Mode.Smartphone = false;
 				}
 				try {
-					if ((!Mode.Results && Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
+					if ((!Mode.Results && Mode.Exercise && Task.Type == "Matching" && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn) {
 						var i = checkPoint({x:mouseX, y:mouseY}, Display.getTestItems());
 						if(i < Display.getTestItems().length) {
 							k3 = i;
@@ -6058,10 +6269,7 @@
 							if(Mode.Training) {
 								drawTest();
 								var wordFrame = (Task.test.concat())[k3][frametype2];
-								//if(Task.TopicName != "School things")
-									//ctx.drawImage(atlas[Task.TopicName + frametype2], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
-								//else
-									ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
+								ctx.drawImage(atlas[Task.TopicName + "frame"], wordFrame.x, wordFrame.y, wordFrame.w, wordFrame.h, (Display.getTestItem(k3)).x*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).y)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).w)*Math.min(Screen.k_width, Screen.k_height), (Display.getTestItem(k3).h)*Math.min(Screen.k_width, Screen.k_height));
 							}
 						}
 						else {
