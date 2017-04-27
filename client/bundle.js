@@ -372,7 +372,7 @@ module.exports = {
 			MenuItem.rheight = Screen.height * 0.6;
 			Screen.k_width = MenuItem.rwidth / MenuItem.width;
 			Screen.k_height =  MenuItem.rheight / MenuItem.height;
-			}
+			
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
 			if(Mode.Menu)
 				Menu_ctx.clearRect(0, 0, Screen.width, Screen.height);
@@ -474,7 +474,7 @@ module.exports = {
 			initMenu();
 			
 			ctx.fillStyle="#000000";
-			
+			}
 		}
 		//}
 		
@@ -1656,12 +1656,14 @@ module.exports = {
 						drawHeader();
 						setItemsProp();
 					}
-					else if(!Mode.MusicVideo){
+					else if(!Mode.MusicVideo && Task.Tye == "Matching"){
 						document.getElementById("Loading").style.visibility = "hidden";
 						drawHeader();
 						showResultForm(Task.Result.Answers, Task.Total, Task.MaxPoint);
 					}
-					
+					else if(Mode.Exercise && Task.Type == "Reading") {
+						drawTestReading();
+					}
 					if(Mode.MusicVideo) {
 						drawHeader();
 						var l_a_width = 100*koef;
