@@ -79,18 +79,19 @@
 		
 		
 		function respondCanvas(){
-			if(document.getElementById("UserName")) {
-				Profile.UserName = document.getElementById('UserName').value;
-				Profile.Password = document.getElementById('Password').value;
-				$("#UserName").remove();
-				$("#Password").remove();
-				$("inputdiv").remove();
-			}
+			
 			if($(document.activeElement).prop('type') == 'text'){
 			//if(false) {
 				console.log("text");
 			}
 			else {
+				if(document.getElementById("UserName")) {
+					Profile.UserName = document.getElementById('UserName').value;
+					Profile.Password = document.getElementById('Password').value;
+					$("#UserName").remove();
+					$("#Password").remove();
+					$("inputdiv").remove();
+				}
 			ctx.clearRect(0,0,100000,10000);
 			if(document.getElementById("Help"))
 				$("#Help").remove();
