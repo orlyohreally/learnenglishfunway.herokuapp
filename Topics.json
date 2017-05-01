@@ -1,4 +1,8 @@
-{ "Name" : "Alphabet", "Frame" : { "x" : 0, "y" : 0, "w" : 368, "h" : 368 }, "T_index" : 1 }
+{ 
+	"Name" : "Alphabet",
+	"Frame" : { "x" : 0, "y" : 0, "w" : 368, "h" : 368 },
+	"T_index" : 1
+}
 { "Name" : "Animals", "Frame" : { "x" : 368, "y" : 0, "w" : 368, "h" : 368 }, "T_index" : 6 }
 { "Name" : "Numbers", "SS_id" : ObjectId("57d67b41b50b7c04c4000001"), "Frame" : { "x" : 368, "y" : 368, "w" : 368, "h" : 368 }, "T_index" : 2 }
 { "Name" : "Toys", "Frame" : { "x" : 0, "y" : 1104, "w" : 368, "h" : 368 }, "T_index" : 4 }

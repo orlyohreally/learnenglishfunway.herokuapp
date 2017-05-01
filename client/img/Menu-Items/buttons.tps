@@ -417,6 +417,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../Rewards/excellent.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>90,18,181,37</rect>
+                <key>scale9Paddings</key>
+                <rect>90,18,181,37</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../Rewards/star.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -427,6 +440,19 @@
                 <rect>14,14,28,27</rect>
                 <key>scale9Paddings</key>
                 <rect>14,14,28,27</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../Rewards/try-again.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>89,22,179,44</rect>
+                <key>scale9Paddings</key>
+                <rect>89,22,179,44</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -486,6 +512,8 @@
             <filename>sound_off.png</filename>
             <filename>send_btn.png</filename>
             <filename>../Rewards/star.png</filename>
+            <filename>../Rewards/try-again.png</filename>
+            <filename>../Rewards/excellent.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

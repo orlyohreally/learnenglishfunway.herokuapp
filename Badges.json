@@ -1,4 +1,11 @@
-{"Name" : "Reader numbers", "Topic_Name" : "Numbers", "Frame" : { "x" : 294, "y" : 0, "w" : 294, "h" : 294 }, "Reason" : { "Times" : 5, "Reason" : "Got maximum points five times for finding numbers" }, "Quiz" : true }
+{
+"Name" : "Reader numbers",
+"Topic_Name" : "Numbers",
+"Frame" : { "x" : 294, "y" : 0, "w" : 294, "h" : 294 },
+"Reason" : { "Times" : 5,
+"Reason" : "Got maximum points five times for finding numbers" },
+"Quiz" : true
+}
 {"Name" : "Speedster animals", "Topic_Name" : "Animals", "Frame" : { "x" : 0, "y" : 1030, "w" : 294, "h" : 294 }, "Reason" : { "Reason" : "Finished Exercise from topic Animals in 20 seconds and got maximum points", "Time" : 20 }, "Quiz" : true }
 {"Name" : "Reader animals", "Topic_Name" : "Animals", "Frame" : { "x" : 0, "y" : 0, "w" : 294, "h" : 294 }, "Reason" : { "Reason" : "Got maximum points five times for finding animals", "Times" : 5 }, "Quiz" : true }
 {"Name" : "Speedster numbers", "Topic_Name" : "Numbers", "Frame" : { "x" : 294, "y" : 1030, "w" : 294, "h" : 294 }, "Reason" : { "Reason" : "Finished Exercise from topic Numbers in 20 seconds and got maximum points", "Time" : 20 }, "Quiz" : true }

@@ -10,7 +10,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Animals song.png",
+	"filename": "Find numbers from 0 to 9.png",
 	"frame": {"x":0,"y":55,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -19,7 +19,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Count animals.png",
+	"filename": "Find the animal.png",
 	"frame": {"x":0,"y":110,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -28,7 +28,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Find numbers after 100.png",
+	"filename": "Find the supply.png",
 	"frame": {"x":0,"y":165,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -37,7 +37,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Find numbers from 0 to 9.png",
+	"filename": "Find the toy.png",
 	"frame": {"x":0,"y":220,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -46,7 +46,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Find numbers from 10 to 100.png",
+	"filename": "Name animals.png",
 	"frame": {"x":0,"y":275,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -55,7 +55,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Find the supply.png",
+	"filename": "Name numbers from 0 to 9.png",
 	"frame": {"x":0,"y":330,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -64,7 +64,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Find the toy.png",
+	"filename": "Name supplies.png",
 	"frame": {"x":0,"y":385,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -73,7 +73,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Find the animal.png",
+	"filename": "Name toys.png",
 	"frame": {"x":0,"y":440,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -82,7 +82,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Is it yours or mine.png",
+	"filename": "Numbers song (1 - 10).png",
 	"frame": {"x":0,"y":495,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -91,7 +91,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Learning letter sounds.png",
+	"filename": "Numbers song (1 - 20).png",
 	"frame": {"x":0,"y":550,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -100,7 +100,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Memory game.png",
+	"filename": "Reading animals.png",
 	"frame": {"x":0,"y":605,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -109,7 +109,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Name numbers after 100.png",
+	"filename": "Reading numbers from 0 to 9.png",
 	"frame": {"x":0,"y":660,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -118,7 +118,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Name numbers from 0 to 9.png",
+	"filename": "Reading school things.png",
 	"frame": {"x":0,"y":715,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -127,7 +127,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Name numbers from 10 to 100.png",
+	"filename": "Reading toys.png",
 	"frame": {"x":0,"y":770,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -136,7 +136,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Name animals.png",
+	"filename": "School supplies song.png",
 	"frame": {"x":0,"y":825,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -145,116 +145,8 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "Name letters.png",
+	"filename": "Toys song.png",
 	"frame": {"x":0,"y":880,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "Name supplies.png",
-	"frame": {"x":0,"y":935,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "Name toys.png",
-	"frame": {"x":0,"y":990,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "NumbersSong(1 - 10).png",
-	"frame": {"x":0,"y":1045,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "NumbersSong(1 - 20).png",
-	"frame": {"x":0,"y":1100,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "Reading school things.png",
-	"frame": {"x":0,"y":1155,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "Reading.png",
-	"frame": {"x":0,"y":1210,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "School supplies song.png",
-	"frame": {"x":0,"y":1265,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "Spell animal names.png",
-	"frame": {"x":0,"y":1320,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "Telling time.png",
-	"frame": {"x":0,"y":1375,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "Tracing letters.png",
-	"frame": {"x":0,"y":1430,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "Unscramble animal names.png",
-	"frame": {"x":0,"y":1485,"w":368,"h":55},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
-	"sourceSize": {"w":368,"h":55},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "What is it.png",
-	"frame": {"x":0,"y":1540,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -266,8 +158,8 @@
 	"version": "1.0",
 	"image": "Tasks.png",
 	"format": "RGBA8888",
-	"size": {"w":368,"h":1595},
+	"size": {"w":368,"h":935},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:dd265860dffebb77750bd16c8a433c6a:6d047709b58329b47a319765d6662fed:fd425d55c4b6d9fc9e003564d75a2541$"
+	"smartupdate": "$TexturePacker:SmartUpdate:4aba3d9a0c52cd06fe43dc92b93d0f90:da7bf68306d0087b529691d24e9ca856:fd425d55c4b6d9fc9e003564d75a2541$"
 }
 }

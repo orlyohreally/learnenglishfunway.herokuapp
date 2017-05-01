@@ -335,10 +335,15 @@ module.exports = {
 					$("inputdiv").remove();
 				}
 			ctx.clearRect(0,0,100000,10000);
-			if(document.getElementById("Help"))
+			if(document.getElementById("Help")) {
 				$("#Help").remove();
-			if(document.getElementById("Help1"))
+				$("HelpDiv").remove();
+			}
+				
+			if(document.getElementById("Help1")) {
 				$("#Help1").remove();
+			}
+				
 			
 			if(document.getElementById("MenuCanvas"))
 				c = $('#MenuCanvas');
@@ -843,9 +848,7 @@ module.exports = {
 				context = ctx;
 			else
 				context = Menu_ctx;
-			console.log("drawing", frame);
 			context.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).h * Math.min(Screen.k_width, Screen.k_height));
-			console.log(frame.x, frame.y, frame.w, frame.h, Display.getButton(name).x * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).y * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).w * Math.min(Screen.k_width, Screen.k_height), Display.getButton(name).h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		
 		function drawSignInForm() {
@@ -3057,7 +3060,7 @@ module.exports = {
 				Display.setButton("bottom-arrow", pX, pY, b_a_width, b_a_height);
 				drawBottomArrow();
 				t_a_height = 100*0.5;
-				t_a_width = 0.5*100*226/152;
+				t_a_width = t_a_height*226/152;
 				pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 68 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 68 + MenuItem.size / 2 - t_a_width / 2;
 				pY =  MenuItem.topSpace;
 				Display.setButton("top-arrow", pX, pY,t_a_width, t_a_height);		
@@ -4217,6 +4220,7 @@ module.exports = {
 			video.style.left = VideoFrame.x * Math.min(Screen.k_width, Screen.k_height);
 			video.style.width = VideoFrame.width * Math.min(Screen.k_width, Screen.k_height);
 			video.style.height = VideoFrame.height * Math.min(Screen.k_width, Screen.k_height);
+			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			Button.Draw("exit_btn.png");
 		}
 		function PlaySong() {
@@ -4396,6 +4400,7 @@ module.exports = {
 		function drawTestReading() {
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
 			drawHeader();
+			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			Button.Draw("exit_btn.png");
 			if(Mode.Mobile) {
 				Display.setButton("info_btn.png", Display.getButton("exit_btn.png").x - Display.getButton("exit_btn.png").w - 20, Display.getButton("exit_btn.png").y,  Display.getButton("exit_btn.png").w,  Display.getButton("exit_btn.png").h);
@@ -4430,7 +4435,6 @@ module.exports = {
 			mic.x = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2 - mic.w / 2;
 			mic.y = Display.getTestItem(0).y + Display.getTestItem(0).h + 20 + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - Display.getTestItem(0).y - Display.getTestItem(0).h - 2 * 20)/2;
 			Display.setButton("mic_btn.png", mic.x, mic.y, mic.w, mic.h);
-			console.log(Display.getButton("mic_btn.png"));
 			Button.Draw("mic_btn.png");
 			if(Task.index) {
 				frame = Properties.Buttons["left-arrow.png"];
@@ -4453,6 +4457,7 @@ module.exports = {
 				Button.Draw("right-arrow.png");
 			}
 			document.getElementById("Loading").style.visibility = "hidden";
+			
 		}
 		function showMatching() {
 			drawLoading();
@@ -4890,11 +4895,15 @@ module.exports = {
 				//right arrow clicked during Reading
 				if(Mode.Exercise && Task.Type == "Reading" && Mode.Exercise && Task.Type == "Reading" && Task.index + 1 < Task.Frames[Task.TaskName].length && mouseInRect(Display.getButton("right-arrow.png"))) {
 					Task.index++;
+					speechRecognizer.stop();
+					$("recdiv").remove();
 					drawTestReading();
 				}
 				//left arrow clicked during Reading
 				if(Mode.Exercise && Task.Type == "Reading" && Task.index && mouseInRect(Display.getButton("left-arrow.png"))) {
 					Task.index--;
+					speechRecognizer.stop();
+					$("recdiv").remove();
 					drawTestReading();
 				}
 				//right arrow clicked during badges mode
@@ -5409,6 +5418,18 @@ module.exports = {
 				//mic has been clicked during Reading
 				if(Mode.Exercise && Task.Type == "Reading" && mouseInRect(Display.getButton("mic_btn.png"))) {
 					startConverting();
+					/*var div = document.createElement('recdiv');
+					div.innerHTML = '<image id = "recording"></image>';
+					document.getElementById("mainDiv").appendChild(div);
+					
+					var rec = document.getElementById("recording");
+					rec.src = "/img/Menu-Items/recording.gif";
+					rec.style.position = "absolute";
+					rec.style.height = Display.getButton("mic_btn.png").h / 2 * Math.min(Screen.k_width, Screen.k_height);
+					rec.style.width = "auto";
+					rec.style.top = (Display.getButton("mic_btn.png").y + 1/4*Display.getButton("mic_btn.png").h) * Math.min(Screen.k_width, Screen.k_height);
+					rec.style.left = (Display.getButton("mic_btn.png").x - 3/4*Display.getButton("mic_btn.png").w) * Math.min(Screen.k_width, Screen.k_height);
+					rec.style.visibility = "visible";*/
 				}
 				if(Mode.SignIn){
 					//username area clicked SignIn Mode
@@ -5664,6 +5685,7 @@ module.exports = {
 				//MatchTheAnimalsWithTheirNames exit button has been clicked
 				else if (Mode.Exercise && !Mode.MusicVideo && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
 					if(Task.Type == "Reading") {
+						$("#recording").remove();
 						speechRecognizer.stop();
 					}
 					console.log("exiting matching");
@@ -5740,7 +5762,6 @@ module.exports = {
 								Mode.Tasks = false;
 								Mode.MenuItem = false;
 								document.getElementById("Explaining").style.visibility = "hidden";
-								console.log(Properties.Tasks[j][Task.firstTask + i]);
 								showTask(Properties.Tasks[j][Task.firstTask + i].Name, Properties.Tasks[j][Task.firstTask + i].Topic_Name, Properties.Tasks[j][Task.firstTask + i].Type, Properties.Tasks[j][Task.firstTask + i].Max_point, Properties.Tasks[j][Task.firstTask + i].N_toTest, j);						
 								}
 							}
@@ -6335,7 +6356,6 @@ module.exports = {
 		}
 		function showTask(TaskName, TopicName, Type, Points, N, j = -1, QuizArray = []) {
 			console.log("showing task", TaskName, TopicName, Type, Points, N, j, QuizArray);
-			console.log(Display.getButton("settings_btn.png"));
 			//clearRectRectYellow(Display.getButton("settings_btn.png"));
 			Task.Result = {};
 			Mode.MenuItem = false;
@@ -6350,7 +6370,6 @@ module.exports = {
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
 			drawHeader();
 			
-			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - Display.getButton("right-arrow.png").w, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			if(Mode.Mobile){
 				Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * Display.getButton("right-arrow.png").w - 20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 				Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 3 * Display.getButton("right-arrow.png").w - 2*20, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
@@ -6403,10 +6422,10 @@ module.exports = {
 			console.log(speech, speech === "It is a" + Task.Frames[Task.TaskName][Task.index].Word);
 			if(speech.split(Task.Frames[Task.TaskName][Task.index].Word).length - 1) {
 				console.log("excellent!");
-				drawCorrect(0,0,100,100);
+				drawCorrect(0,0,200,100);
 			}
 			else
-				drawWrong(0,0,100,100);
+				drawWrong(0,0,200,100);
 			Task.Captured = true;
 			/*for(var i = 0; speech.split("it is").length; i++) {
 				if(speech.split("it is")[i] == Task.Frames[Task.TaskName][Task.index].Word) {
@@ -6424,7 +6443,6 @@ module.exports = {
 		function startConverting () {
 			if('webkitSpeechRecognition' in window){
 				var words = ["bag", "pencil","pencil case", "doll", "hat"];
-				//var words = ["������", "��������","�����", "�����", "�����"];
 				var grammar = words.join(' | ') + ' ;'
 				console.log("grammar", grammar);
 				var speechRecognitionList = new webkitSpeechGrammarList();
