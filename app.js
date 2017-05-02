@@ -100,7 +100,7 @@ io.sockets.on('connection', function(socket) {
 		
 	})*/
 	
-	/*db.SpreadSheets.find({"Name":"Tasks"}, function(err, res){
+	db.SpreadSheets.find({"Name":"Tasks"}, function(err, res){
 		res = res[0].Frames;
 		var i = 0;
 		for(i = 0; i < res.length; i++){
@@ -116,7 +116,7 @@ io.sockets.on('connection', function(socket) {
 				console.log("result:", res);
 			})			
 		}
-	})*/
+	})
 	/*db.SpreadSheets.find({"Name":"Topics"}, function(err, res){
 		res = res[0].Frames;
 		var i = 0;
