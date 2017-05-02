@@ -200,6 +200,7 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">Alphabet song.png</key>
+            <key type="filename">Animals song.png</key>
             <key type="filename">Find numbers from 0 to 9.png</key>
             <key type="filename">Find the animal.png</key>
             <key type="filename">Find the supply.png</key>
@@ -248,6 +249,7 @@
             <filename>Numbers song (1 - 10).png</filename>
             <filename>Numbers song (1 - 20).png</filename>
             <filename>Toys song.png</filename>
+            <filename>Animals song.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

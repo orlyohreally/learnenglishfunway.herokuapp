@@ -10,6 +10,15 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "Animals song.png",
+	"frame": {"x":368,"y":0,"w":368,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
+	"sourceSize": {"w":368,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "Find numbers from 0 to 9.png",
 	"frame": {"x":0,"y":55,"w":368,"h":55},
 	"rotated": false,
@@ -20,7 +29,7 @@
 },
 {
 	"filename": "Find the animal.png",
-	"frame": {"x":0,"y":110,"w":368,"h":55},
+	"frame": {"x":368,"y":55,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -29,7 +38,7 @@
 },
 {
 	"filename": "Find the supply.png",
-	"frame": {"x":0,"y":165,"w":368,"h":55},
+	"frame": {"x":0,"y":110,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -38,7 +47,7 @@
 },
 {
 	"filename": "Find the toy.png",
-	"frame": {"x":0,"y":220,"w":368,"h":55},
+	"frame": {"x":368,"y":110,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -47,7 +56,7 @@
 },
 {
 	"filename": "Name animals.png",
-	"frame": {"x":0,"y":275,"w":368,"h":55},
+	"frame": {"x":0,"y":165,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -56,7 +65,7 @@
 },
 {
 	"filename": "Name numbers from 0 to 9.png",
-	"frame": {"x":0,"y":330,"w":368,"h":55},
+	"frame": {"x":368,"y":165,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -65,7 +74,7 @@
 },
 {
 	"filename": "Name supplies.png",
-	"frame": {"x":0,"y":385,"w":368,"h":55},
+	"frame": {"x":0,"y":220,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -74,7 +83,7 @@
 },
 {
 	"filename": "Name toys.png",
-	"frame": {"x":0,"y":440,"w":368,"h":55},
+	"frame": {"x":368,"y":220,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -83,7 +92,7 @@
 },
 {
 	"filename": "Numbers song (1 - 10).png",
-	"frame": {"x":0,"y":495,"w":368,"h":55},
+	"frame": {"x":0,"y":275,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -92,7 +101,7 @@
 },
 {
 	"filename": "Numbers song (1 - 20).png",
-	"frame": {"x":0,"y":550,"w":368,"h":55},
+	"frame": {"x":368,"y":275,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -101,7 +110,7 @@
 },
 {
 	"filename": "Reading animals.png",
-	"frame": {"x":0,"y":605,"w":368,"h":55},
+	"frame": {"x":0,"y":330,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -110,7 +119,7 @@
 },
 {
 	"filename": "Reading numbers from 0 to 9.png",
-	"frame": {"x":0,"y":660,"w":368,"h":55},
+	"frame": {"x":368,"y":330,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -119,7 +128,7 @@
 },
 {
 	"filename": "Reading school things.png",
-	"frame": {"x":0,"y":715,"w":368,"h":55},
+	"frame": {"x":0,"y":385,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -128,7 +137,7 @@
 },
 {
 	"filename": "Reading toys.png",
-	"frame": {"x":0,"y":770,"w":368,"h":55},
+	"frame": {"x":368,"y":385,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -137,7 +146,7 @@
 },
 {
 	"filename": "School supplies song.png",
-	"frame": {"x":0,"y":825,"w":368,"h":55},
+	"frame": {"x":0,"y":440,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -146,7 +155,7 @@
 },
 {
 	"filename": "Toys song.png",
-	"frame": {"x":0,"y":880,"w":368,"h":55},
+	"frame": {"x":368,"y":440,"w":368,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":55},
@@ -158,8 +167,8 @@
 	"version": "1.0",
 	"image": "Tasks.png",
 	"format": "RGBA8888",
-	"size": {"w":368,"h":935},
+	"size": {"w":736,"h":495},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:4aba3d9a0c52cd06fe43dc92b93d0f90:da7bf68306d0087b529691d24e9ca856:fd425d55c4b6d9fc9e003564d75a2541$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a3a5e1a76c933059e20a8e064135772b:94b40a3d29c881fc3bfae0b29a5a0524:fd425d55c4b6d9fc9e003564d75a2541$"
 }
 }

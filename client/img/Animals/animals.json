@@ -1,8 +1,17 @@
 {"frames": [
 
 {
+	"filename": "bee-word.png",
+	"frame": {"x":646,"y":0,"w":126,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":126,"h":56},
+	"sourceSize": {"w":126,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "bee.png",
-	"frame": {"x":648,"y":0,"w":402,"h":468},
+	"frame": {"x":2993,"y":0,"w":402,"h":468},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":402,"h":468},
@@ -10,8 +19,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "bird-word.png",
+	"frame": {"x":496,"y":0,"w":150,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":56},
+	"sourceSize": {"w":150,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "bird.png",
-	"frame": {"x":1535,"y":621,"w":610,"h":745},
+	"frame": {"x":724,"y":1132,"w":610,"h":745},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":610,"h":745},
@@ -19,8 +37,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "butterfly-word.png",
+	"frame": {"x":1159,"y":0,"w":337,"h":68},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":337,"h":68},
+	"sourceSize": {"w":337,"h":68},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "butterfly.png",
-	"frame": {"x":2088,"y":0,"w":603,"h":595},
+	"frame": {"x":1038,"y":468,"w":603,"h":595},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":603,"h":595},
@@ -28,8 +55,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "cat-word.png",
+	"frame": {"x":224,"y":0,"w":121,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":121,"h":56},
+	"sourceSize": {"w":121,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "cat.png",
-	"frame": {"x":900,"y":1395,"w":566,"h":817},
+	"frame": {"x":0,"y":1936,"w":566,"h":817},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":566,"h":817},
@@ -37,8 +73,26 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "chicken-word.png",
+	"frame": {"x":772,"y":0,"w":262,"h":57},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":262,"h":57},
+	"sourceSize": {"w":262,"h":57},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dog-word.png",
+	"frame": {"x":1982,"y":0,"w":123,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":123,"h":70},
+	"sourceSize": {"w":123,"h":70},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "dog.png",
-	"frame": {"x":0,"y":621,"w":811,"h":664},
+	"frame": {"x":2433,"y":468,"w":811,"h":664},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":811,"h":664},
@@ -46,8 +100,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "donkey-word.png",
+	"frame": {"x":2105,"y":0,"w":240,"h":76},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":240,"h":76},
+	"sourceSize": {"w":240,"h":76},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "donkey.png",
-	"frame": {"x":2803,"y":1395,"w":1093,"h":1018},
+	"frame": {"x":1903,"y":1936,"w":1093,"h":1018},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1093,"h":1018},
@@ -55,8 +118,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "fish-word.png",
+	"frame": {"x":345,"y":0,"w":151,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":151,"h":56},
+	"sourceSize": {"w":151,"h":56},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "fish.png",
-	"frame": {"x":0,"y":0,"w":648,"h":423},
+	"frame": {"x":2345,"y":0,"w":648,"h":423},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":648,"h":423},
@@ -64,8 +136,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "hen-word.png",
+	"frame": {"x":1034,"y":0,"w":125,"h":58},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":125,"h":58},
+	"sourceSize": {"w":125,"h":58},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "hen.png",
-	"frame": {"x":1466,"y":1395,"w":555,"h":820},
+	"frame": {"x":566,"y":1936,"w":555,"h":820},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":555,"h":820},
@@ -74,7 +155,7 @@
 },
 {
 	"filename": "mouse.png",
-	"frame": {"x":811,"y":621,"w":724,"h":697},
+	"frame": {"x":0,"y":1132,"w":724,"h":697},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":724,"h":697},
@@ -83,7 +164,7 @@
 },
 {
 	"filename": "parrot.png",
-	"frame": {"x":2021,"y":1395,"w":782,"h":864},
+	"frame": {"x":1121,"y":1936,"w":782,"h":864},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":782,"h":864},
@@ -92,7 +173,7 @@
 },
 {
 	"filename": "pig.png",
-	"frame": {"x":2145,"y":621,"w":1099,"h":774},
+	"frame": {"x":1334,"y":1132,"w":1099,"h":774},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1099,"h":774},
@@ -100,8 +181,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "sheep-word.png",
+	"frame": {"x":1782,"y":0,"w":200,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":70},
+	"sourceSize": {"w":200,"h":70},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "sheep.png",
-	"frame": {"x":0,"y":1395,"w":900,"h":804},
+	"frame": {"x":2433,"y":1132,"w":900,"h":804},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":900,"h":804},
@@ -109,8 +199,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "squirrel-word.png",
+	"frame": {"x":1496,"y":0,"w":286,"h":69},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":286,"h":69},
+	"sourceSize": {"w":286,"h":69},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "squirrel.png",
-	"frame": {"x":2691,"y":0,"w":792,"h":621},
+	"frame": {"x":1641,"y":468,"w":792,"h":621},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":792,"h":621},
@@ -118,8 +217,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "turtle-word.png",
+	"frame": {"x":0,"y":0,"w":224,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":224,"h":55},
+	"sourceSize": {"w":224,"h":55},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "turtle.png",
-	"frame": {"x":1050,"y":0,"w":1038,"h":524},
+	"frame": {"x":0,"y":468,"w":1038,"h":524},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1038,"h":524},
@@ -131,8 +239,8 @@
 	"version": "1.0",
 	"image": "animals.png",
 	"format": "RGBA8888",
-	"size": {"w":3896,"h":2413},
+	"size": {"w":3395,"h":2954},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:46add597df9ea7204a0d71c08e57b9e2:e027073c6132ca86c72031ae1fe5b18f:b00d48b51f56eb7c81e25100fcce2828$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a1848bf56dc67d6f0b3d8d6b6668ee12:efbe6958ca2b6f064a6a2c94441cb436:b00d48b51f56eb7c81e25100fcce2828$"
 }
 }

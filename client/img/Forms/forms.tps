@@ -199,6 +199,24 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">cancel_btn.png</key>
+            <key type="filename">login_btn.png</key>
+            <key type="filename">okay_btn.png</key>
+            <key type="filename">save_btn.png</key>
+            <key type="filename">signin_btn.png</key>
+            <key type="filename">try_again_btn.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>39,9,78,19</rect>
+                <key>scale9Paddings</key>
+                <rect>39,9,78,19</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">log_in_form.png</key>
             <key type="filename">../Messages/enter-all-data.png</key>
             <key type="filename">../Messages/enter-all-passwords.png</key>
@@ -213,6 +231,7 @@
             <key type="filename">../Messages/passwrod_is_too_short.png</key>
             <key type="filename">../Messages/same-passwords.png</key>
             <key type="filename">../Messages/username_is_taken.png</key>
+            <key type="filename">../Messages/username_is_too_short.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -222,25 +241,6 @@
                 <rect>92,51,184,101</rect>
                 <key>scale9Paddings</key>
                 <rect>92,51,184,101</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">log_in_form_cancel_btn.png</key>
-            <key type="filename">log_in_form_login_btn.png</key>
-            <key type="filename">result_form_okay_btn.png</key>
-            <key type="filename">result_form_try_again_btn.png</key>
-            <key type="filename">sign_in_form_cancel_btn.png</key>
-            <key type="filename">sign_in_form_save_btn.png</key>
-            <key type="filename">sign_in_form_signin_btn.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>39,9,78,19</rect>
-                <key>scale9Paddings</key>
-                <rect>39,9,78,19</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -313,16 +313,9 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>log_in_form_login_btn.png</filename>
             <filename>sign_in_form.png</filename>
-            <filename>sign_in_form_cancel_btn.png</filename>
-            <filename>log_in_form_cancel_btn.png</filename>
             <filename>log_in_form.png</filename>
-            <filename>sign_in_form_signin_btn.png</filename>
-            <filename>sign_in_form_save_btn.png</filename>
             <filename>result_form.png</filename>
-            <filename>result_form_okay_btn.png</filename>
-            <filename>result_form_try_again_btn.png</filename>
             <filename>log_out_btn.png</filename>
             <filename>setting_form.png</filename>
             <filename>progress_form_Matching.png</filename>
@@ -340,6 +333,13 @@
             <filename>../Messages/enter-all-passwords.png</filename>
             <filename>../Messages/passwrod_is_too_short.png</filename>
             <filename>../Messages/username_is_taken.png</filename>
+            <filename>../Messages/username_is_too_short.png</filename>
+            <filename>okay_btn.png</filename>
+            <filename>save_btn.png</filename>
+            <filename>signin_btn.png</filename>
+            <filename>try_again_btn.png</filename>
+            <filename>cancel_btn.png</filename>
+            <filename>login_btn.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

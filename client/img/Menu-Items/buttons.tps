@@ -264,22 +264,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy1.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy2.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl1.png</key>
-            <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl2.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>92,92,184,184</rect>
-                <key>scale9Paddings</key>
-                <rect>92,92,184,184</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/tap.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -330,6 +314,22 @@
                 <rect>92,31,184,63</rect>
                 <key>scale9Paddings</key>
                 <rect>92,31,184,63</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">animals.png</key>
+            <key type="filename">numbers.png</key>
+            <key type="filename">school things.png</key>
+            <key type="filename">toys.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>92,92,184,184</rect>
+                <key>scale9Paddings</key>
+                <rect>92,92,184,184</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -489,10 +489,6 @@
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/touch-and-hold.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/drag-flick.png</filename>
             <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/flick-up.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl2.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_girl1.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy1.png</filename>
-            <filename>../../../../../../../Desktop/Learn English Fun Way/client/img/Menu-Items/profile_boy2.png</filename>
             <filename>lock.png</filename>
             <filename>settings_btn.png</filename>
             <filename>menu_btn.png</filename>
@@ -514,6 +510,10 @@
             <filename>../Rewards/star.png</filename>
             <filename>../Rewards/try-again.png</filename>
             <filename>../Rewards/excellent.png</filename>
+            <filename>numbers.png</filename>
+            <filename>animals.png</filename>
+            <filename>toys.png</filename>
+            <filename>school things.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

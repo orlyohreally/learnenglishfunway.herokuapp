@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "alphabet.png",
+	"filename": "animals.png",
 	"frame": {"x":0,"y":0,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
@@ -10,7 +10,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "animals.png",
+	"filename": "numbers.png",
 	"frame": {"x":368,"y":0,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
@@ -19,35 +19,8 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "my-body.png",
-	"frame": {"x":0,"y":368,"w":368,"h":368},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
-	"sourceSize": {"w":368,"h":368},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "numbers.png",
-	"frame": {"x":368,"y":368,"w":368,"h":368},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
-	"sourceSize": {"w":368,"h":368},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
 	"filename": "school things.png",
-	"frame": {"x":0,"y":736,"w":368,"h":368},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
-	"sourceSize": {"w":368,"h":368},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "sport.png",
-	"frame": {"x":368,"y":736,"w":368,"h":368},
+	"frame": {"x":736,"y":0,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
@@ -56,7 +29,7 @@
 },
 {
 	"filename": "toys.png",
-	"frame": {"x":0,"y":1104,"w":368,"h":368},
+	"frame": {"x":1104,"y":0,"w":368,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":368},
@@ -68,8 +41,8 @@
 	"version": "1.0",
 	"image": "menu-items.png",
 	"format": "RGBA8888",
-	"size": {"w":736,"h":1472},
+	"size": {"w":1472,"h":368},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3bb0a96a555bc37a515710f7558870a3:518a7e8da28ba74e3d69a5d5c6858849:1ee5878538d51eee0a445cc75a93476f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a2edd98a2230594cc4bfb29768db1f83:d4497ee3160e69af1c50b8ac124413c0:1ee5878538d51eee0a445cc75a93476f$"
 }
 }
