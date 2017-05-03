@@ -228,6 +228,7 @@
             <key type="filename">../Messages/need_to_loginProgress.png</key>
             <key type="filename">../Messages/need_to_loginQuiz.png</key>
             <key type="filename">../Messages/need_to_loginRewards.png</key>
+            <key type="filename">../Messages/no_reading.png</key>
             <key type="filename">../Messages/passwrod_is_too_short.png</key>
             <key type="filename">../Messages/same-passwords.png</key>
             <key type="filename">../Messages/username_is_taken.png</key>
@@ -268,6 +269,19 @@
                 <rect>184,101,368,202</rect>
                 <key>scale9Paddings</key>
                 <rect>184,101,368,202</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">progress_form_Reading.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>184,110,368,219</rect>
+                <key>scale9Paddings</key>
+                <rect>184,110,368,219</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -340,6 +354,8 @@
             <filename>try_again_btn.png</filename>
             <filename>cancel_btn.png</filename>
             <filename>login_btn.png</filename>
+            <filename>progress_form_Reading.png</filename>
+            <filename>../Messages/no_reading.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

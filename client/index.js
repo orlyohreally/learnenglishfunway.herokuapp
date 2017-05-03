@@ -3556,8 +3556,6 @@
 		function showProgressForm() {
 			console.log(Progress.Array)
 			var type = Progress.Array[Progress.index].Type;
-			if(type == "Reading")
-				type = "Matching";
 			setProgressProp(type);
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
 			Button.Draw("exit_btn.png");
@@ -5405,6 +5403,10 @@
 							Mode.Exercise = true;
 							drawTest();
 						}
+						else if(!Mode.Exercise && Task.Type == "Reading" && Task.Result != {}) {
+							Mode.Exercise = true;
+							drawTestReading();
+						}
 						else if(Info.List[Info.index] == "rewards_info.png") {
 							Mode.Badges = true;
 							showBadges();
@@ -6036,6 +6038,22 @@
 							Info.List = ["videos_info.png"];
 							
 							//Info.List = "topics_info.png";
+							Info.index = 0;
+								
+							showInfo(Info.List[Info.index]);
+							
+						}, 100);
+					}
+					else if(Mode.Exercise && Task.Type == "Reading") {
+						setTimeout(function(){
+							Mode.Info = true;
+							Mode.Exercise = false;
+							if(document.getElementById("MenuCanvas")) {
+								$("#MenuCanvas").remove();
+								Mode.Menu = false;
+							}
+							Info.List = ["reading_info.png"];
+							
 							Info.index = 0;
 								
 							showInfo(Info.List[Info.index]);
