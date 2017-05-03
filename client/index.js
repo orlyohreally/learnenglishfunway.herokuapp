@@ -79,9 +79,12 @@
 		
 		
 		function respondCanvas(){
+			var c = $('#MainCanvas');
+			var ct = c.get(0).getContext('2d');
+			var container = $(c).parent();
+			console.log(Screen, "width", $(container).width());
 			
-			if(Mode.Smartphone && $(document.activeElement).prop('type') == 'text'){
-			//if(false) {
+			if(Mode.Smartphone && $(document.activeElement).prop('type') == 'text' && $(container).width() == Screen.width){
 				console.log("text");
 			}
 			else {
@@ -93,7 +96,7 @@
 					$("inputdiv").remove();
 				}
 			if(document.getElementById("Help")) {
-				$("#Help").remove();
+				$("HelpDiv").remove();
 				$("HelpDiv").remove();
 			}
 				
@@ -2047,7 +2050,7 @@
 				mic_btn_ch = false;
 			}
 			//help button has been hovered
-			if (((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) &&!help_ch && mouseInRect(Display.getButton("help_btn.png"))) {
+			if (((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || (Mode.Exercise && Task.Type != "Matching") || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) &&!help_ch && mouseInRect(Display.getButton("help_btn.png"))) {
 				clearRectRectYellow(Display.getButton("help_btn.png"));
 				var n = 2;
 				if(Mode.Menu)
@@ -2908,8 +2911,8 @@
 					document.getElementById("UserName").style.border = "2px solid";
 					document.getElementById('UserName').style.position = "absolute";
 					document.getElementById('UserName').autofocus = false;
-					
 					document.getElementById('UserName').style.backgroundColor = "transparent";
+					Display.setButton("UserName", (X_ + 35 / 368 * (MenuItem.size) / 202 * 368), (Y_ + 57 / 202 * MenuItem.size), 297/ 368 * size_, 35 / 202 * size_ );
 					document.getElementById("Password").style.top = (Y_ + 115 / 202 * MenuItem.size) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("Password").style.left = (X_ + 35 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("Password").style.paddingLeft = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
@@ -2920,6 +2923,8 @@
 					document.getElementById('Password').style.position = "absolute";
 					document.getElementById('Password').style.backgroundColor = "transparent";
 					document.getElementById('Password').autofocus = false;
+					Display.setButton("Password", (X_ + 35 / 368 * (MenuItem.size) / 202 * 368), (Y_ + 115 / 202 * MenuItem.size), 297/ 368 * size_, 35 / 202 * size_ );
+					
 					if(Profile.UserName)
 						document.getElementById('UserName').value = Profile.UserName;
 					if(Profile.Password)
@@ -3970,7 +3975,7 @@
 				document.getElementById("mainDiv").appendChild(div);
 				video = document.getElementById("Video");
 				video.style.visibility = "visible";
-				video.style.position = "absolute";
+				video.style.position = "fixed";
 				video.src = url_;
 			}
 			var VideoFrame = {};
@@ -4411,18 +4416,18 @@
 			if(frametype1 == "Wordsframe" && frametype2 == "frame") {
 				size_btn = 70;
 			}
-			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			var frame = Properties.Buttons["skip.png"];
+			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			Display.setButton("skip.png", Title.leftSpace + 20, MenuItem.starts + 20, Display.getButton("exit_btn.png").w / frame.h * frame.w, Display.getButton("exit_btn.png").w);
 			
-			if(Mode.Mobile) {
-				Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20 + 10 + Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
-				Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20 + 2*10 + 2*Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
-			}
 			drawTest();
 		}
 		function drawTest() {
 			ctx.clearRect(0, MenuItem.starts * Math.min(Screen.k_width, Screen.k_height), Screen.width, Screen.height);
+			Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+			if(Mode.Mobile) {
+				Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20 + 10 + Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
+			}
 			console.log("drawing test");
 			var top, center, animal_height;
 			if(frametype1 == "frame") {
@@ -4448,25 +4453,25 @@
 			if(Mode.Training && (k3 != -1)) {
 				console.log("k3", k3);
 				if(document.getElementById("Help")) {
-					$("#Help").remove();
+					$("HelpDiv").remove();
 					$("HelpDiv").remove();
 				}
 				if(!mouseInRect(Display.getButton("itemImage"))) {
 					var div = document.createElement('HelpDiv');
-				div.innerHTML = '<image id = "Help"></image>';
-				document.getElementById("mainDiv").appendChild(div);
-				var Help = document.getElementById("Help");
-				Help.src = "/img/Menu-Items/mouse_up.gif";
-				Help.style.position = "absolute";
-				console.log(mouseInRect(Display.getButton("itemImage")));
-				
-				if(frametype1 == "frame")
-					Help.style.height = Display.getButton("itemImage").h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
-				else
-					Help.style.height = Display.getTestItem(Task.toTest.indexOf(Task.asked)).h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
-				Help.style.width = "auto";
-				Help.style.top = (Display.getButton("itemImage").y + Display.getButton("itemImage").h / 3) * Math.min(Screen.k_width, Screen.k_height);
-				Help.style.left = (Display.getButton("itemImage").x + Display.getButton("itemImage").w / 2) * Math.min(Screen.k_width, Screen.k_height);
+					div.innerHTML = '<image id = "Help"></image>';
+					document.getElementById("mainDiv").appendChild(div);
+					var Help = document.getElementById("Help");
+					Help.src = "/img/Menu-Items/mouse_up.gif";
+					Help.style.position = "absolute";
+					console.log(mouseInRect(Display.getButton("itemImage")));
+					
+					if(frametype1 == "frame")
+						Help.style.height = Display.getButton("itemImage").h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
+					else
+						Help.style.height = Display.getTestItem(Task.toTest.indexOf(Task.asked)).h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
+					Help.style.width = "auto";
+					Help.style.top = (Display.getButton("itemImage").y + Display.getButton("itemImage").h / 3) * Math.min(Screen.k_width, Screen.k_height);
+					Help.style.left = (Display.getButton("itemImage").x + Display.getButton("itemImage").w / 2) * Math.min(Screen.k_width, Screen.k_height);
 				}
 			}
 			
@@ -4482,7 +4487,7 @@
 			}
 			if(Mode.Training && (k3 == -1 || Task.test[k3].Word != Task.asked.Word)) {
 				if(document.getElementById("Help")) {
-					$("#Help").remove();
+					$("HelpDiv").remove();
 					$("HelpDiv").remove();
 				}
 				var div = document.createElement('HelpDiv');
@@ -4504,7 +4509,6 @@
 			Button.Draw("exit_btn.png");
 			if(Mode.Mobile){
 				Button.Draw("info_btn.png");
-				Button.Draw("help_btn.png");				
 			}
 			if(!Mode.Training) {
 				var frame = Properties.Buttons["red-heart.png"];
@@ -4565,16 +4569,15 @@
 				}
 				catch(e) {Mode.Smartphone = false;}
 				//remove all helping gifs
-				if(document.getElementById("Help")) {
-					document.getElementsByTagName("HelpDiv")[0].removeChild(document.getElementById("Help"));
-					document.getElementById("mainDiv").removeChild(document.getElementsByTagName("HelpDiv")[0]);
+				if(Task.Type != "Matching") {
+					if(document.getElementById("Help")) {
+						$("HelpDiv").remove();
+					}
+					if(document.getElementById("Help1")) {
+						console.log(document.getElementsByTagName("HelpDiv"));
+						$("HelpDiv").remove();
+					}
 				}
-				if(document.getElementById("Help1")) {
-					console.log(document.getElementsByTagName("HelpDiv"));
-					document.getElementsByTagName("HelpDiv")[0].removeChild(document.getElementById("Help1"));
-					document.getElementById("mainDiv").removeChild(document.getElementsByTagName("HelpDiv")[0]);
-				}
-				
 			
 				// menu button has been clicked
 				if(!document.getElementById("MenuCanvas") && Mode.Mobile && Mode.MenuItem && !Mode.Exercise && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("menu_btn.png"))) {
@@ -5180,13 +5183,14 @@
 				if(Mode.Exercise && Task.Type == "Reading" && !Mode.Results && mouseInRect(Display.getTestItem(Task.index))) {
 					speak(Task.Frames[Task.TaskName][Task.index].Word);
 				}
-				if(Mode.SignIn){
-					if(Mode.SignIn && document.getElementById("UserName") && !mouseInRect(Display.getButton("UserName")) &&  !mouseInRect(Display.getButton("Password"))) {
+				if((Mode.SignIn || Mode.LogIn) && document.getElementById("UserName") && !mouseInRect(Display.getButton("UserName")) &&  !mouseInRect(Display.getButton("Password"))) {
 						document.getElementById('Password').blur();
 						document.getElementById('UserName').blur();
 						
 						respondCanvas();
-					}
+				}
+				if(Mode.SignIn){
+					
 					if(Mode.SignIn) {
 						var i = 0;
 						var new_flag = flag; 
@@ -5454,6 +5458,10 @@
 				}
 				//MatchTheAnimalsWithTheirNames exit button has been clicked
 				else if (Mode.Exercise && !Mode.MusicVideo && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
+					if(document.getElementById("Help"))
+						$("HelpDiv").remove();
+					if(document.getElementById("Help1"))
+						$("#Help1").remove();
 					Mode[Task.TaskName.replace(/\s/g,'')] = false;
 					
 					ctx.clearRect(0, 0, Screen.width, Screen.height)
@@ -5550,7 +5558,7 @@
 								var correct = checkAnswer(k3);
 								if(correct){
 									if(document.getElementById("Help")) {
-										$("#Help").remove();
+										$("HelpDiv").remove();
 										$("HelpDiv").remove();
 									}
 									if(Task.TopicName != "Numbers")
