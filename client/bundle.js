@@ -326,7 +326,7 @@ module.exports = {
 			var container = $(c).parent();
 			console.log(Screen, "width", $(container).width());
 			
-			if(Mode.Smartphone && $(document.activeElement).prop('type') == 'text'){// && $(container).width() == Screen.width
+			if(Mode.Smartphone && $(document.activeElement).prop('type') == 'text' && $(container).width() == Screen.width){
 				console.log("text");
 			}
 			else {
