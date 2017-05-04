@@ -286,6 +286,7 @@
 					}
 					j = j + 1;
 				}
+				document.getElementById("Loading").style.visibility = "hidden";
 				
 			}
 			catch(e){};
@@ -702,11 +703,11 @@
 		function drawLetter(n, x, y, width, height, type = "") {
 			if(type != "")
 				type = type + "-";
-			console.log(type + n + ".png");
+			//console.log(type + n + ".png");
 			var frame = Properties.Letters[type + n + ".png"];
 			//use this
 			//height = width / frame.w * frame.h;
-			console.log(frame, n, "type.substring(0, type.length - 8)", type.substring(0, 8), type);
+			//console.log(frame, n, "type.substring(0, type.length - 8)", type.substring(0, 8), type);
 			if(Mode.Progress)
 				context = Progress_ctx;
 			else if(Mode.Settings)
@@ -2820,7 +2821,9 @@
 			pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 40 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 40;
 			pY =  MenuItem.topSpace;
 			t_a_width = 100*0.5;
-			t_a_height = 0.5*100*226/152;
+			//if(t_a_width < 30 / Math.min(Screen.k_width, Screen.k_height))
+				//t_a_width = 30 / Math.min(Screen.k_width, Screen.k_height);
+			t_a_height = t_a_width*226/152;
 			clearRectRect(Display.getTopic(j));
 			Display.setButton("top-arrow.png", 0, 0, t_a_width, t_a_height);
 			if(Task.firstTask > 0) {
@@ -2837,7 +2840,9 @@
 				pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 40 * (j - MenuItem.firstItem + 1) + MenuItem.size * (j - MenuItem.firstItem) - 40;
 				pY =  MenuItem.topSpace + MenuItem.size;
 				b_a_height = 100*0.5;
-				b_a_width = 0.5*100*226/152;
+				//if(b_a_height < 30 / Math.min(Screen.k_width, Screen.k_height))
+				//	b_a_height = 30 / Math.min(Screen.k_width, Screen.k_height);
+				b_a_width = b_a_height*226/152;
 				pX = 2 * MenuItem.leftSpace + Display.getButton("left-arrow.png").w + 40 * (MenuItem.clicked - MenuItem.firstItem + 1) + MenuItem.size * (MenuItem.clicked - MenuItem.firstItem) - 40 + MenuItem.size / 2 - b_a_width / 2;
 				pY = MenuItem.topSpace + MenuItem.size - b_a_height;
 				Display.setButton("bottom-arrow.png", 0, 0, t_a_width, t_a_height);
@@ -3184,16 +3189,16 @@
 			
 		}
 		function showProgressReading() {
-			//console.log(Progress.Array[Progress.index]);
-			var frame = Properties.Forms["progress_form_Matching.png"];
+			console.log("drawing reading");
+			var frame = Properties.Forms["progress_form_Reading.png"];
 			var digit_frame = Properties.Numbers["small-dark-1.png"];
 			var digit = {};
-			//fillRect(0, Display.getForm("progress_form_Matching.png").y + 150 * Display.getForm("progress_form_Matching.png").h / frame.h, 10000, 10);
-			//fillRect(0, Display.getForm("progress_form_Matching.png").y + 172 * Display.getForm("progress_form_Matching.png").h / frame.h, 10000, 2);
-			//fillRect(Display.getForm("progress_form_Matching.png").x + 240 * Display.getForm("progress_form_Matching.png").w / frame.w, 0 , 10, 10000);
-			//fillRect(Display.getForm("progress_form_Matching.png").x + 510 * Display.getForm("progress_form_Matching.png").w / frame.w, 0 , 10, 10000);
+			//fillRect(0, Display.getForm("progress_form_Reading.png").y + 150 * Display.getForm("progress_form_Reading.png").h / frame.h, 10000, 10);
+			//fillRect(0, Display.getForm("progress_form_Reading.png").y + 172 * Display.getForm("progress_form_Reading.png").h / frame.h, 10000, 2);
+			//fillRect(Display.getForm("progress_form_Reading.png").x + 240 * Display.getForm("progress_form_Reading.png").w / frame.w, 0 , 10, 10000);
+			//fillRect(Display.getForm("progress_form_Reading.png").x + 510 * Display.getForm("progress_form_Reading.png").w / frame.w, 0 , 10, 10000);
 			//exercise name
-			digit.h = 20  * Display.getForm("progress_form_Matching.png").h / frame.h;
+			digit.h = 20  * Display.getForm("progress_form_Reading.png").h / frame.h;
 			digit.w = digit.h * digit_frame.w / digit_frame.h;
 			if(880 / frame.w * frame.h + Progress.Array[Progress.index].Exercise.length * digit.w > 2700 / frame.w * frame.h) {
 				digit.w = (2700 / frame.w * frame.h - 1300 / frame.w * frame.h - 10 / Screen.height / Math.min(Screen.k_width, Screen.k_height)) / Progress.Array[Progress.index].Exercise.length;
@@ -3206,16 +3211,16 @@
 					if(Progress.Array[Progress.index].Exercise[j] < "0" || Progress.Array[Progress.index].Exercise[j] > "9") {
 						if(j == 0)
 							type = "capital-" + type;
-						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 220 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y +  75 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawLetter(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Reading.png").x + 220 * Display.getForm("progress_form_Reading.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Reading.png").y +  75 * Display.getForm("progress_form_Reading.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 					else
 					{
-						drawDigit(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 220 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y +  75 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawDigit(Progress.Array[Progress.index].Exercise.toLowerCase()[j], Display.getForm("progress_form_Reading.png").x + 220 * Display.getForm("progress_form_Reading.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Reading.png").y +  75 * Display.getForm("progress_form_Reading.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 				}
 			}
 			//topic name
-			digit.h = 20  * Display.getForm("progress_form_Matching.png").h / frame.h;
+			digit.h = 20  * Display.getForm("progress_form_Reading.png").h / frame.h;
 			digit.w = digit.h * digit_frame.w / digit_frame.h;
 			if(700 / frame.w * frame.h + Progress.Array[Progress.index].Topic_Name.length * digit.w > 2700 / frame.w * frame.h) {
 				digit.w = (2700 / frame.w * frame.h - 700 / frame.w * frame.h - 10 / Screen.height / Math.min(Screen.k_width, Screen.k_height)) / Progress.Array[Progress.index].Exercise.length;
@@ -3228,20 +3233,20 @@
 					if(Progress.Array[Progress.index].Topic_Name[j] < "0" || Progress.Array[Progress.index].Topic_Name[j] > "9") {
 						if(j == 0)
 							type = "capital-" + type;
-						drawLetter(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 170 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y + 100 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawLetter(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Reading.png").x + 170 * Display.getForm("progress_form_Reading.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Reading.png").y + 100 * Display.getForm("progress_form_Reading.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 					else
 					{
-						drawDigit(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Matching.png").x + 170 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y + 100 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, type);
+						drawDigit(Progress.Array[Progress.index].Topic_Name.toLowerCase()[j], Display.getForm("progress_form_Reading.png").x + 170 * Display.getForm("progress_form_Reading.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Reading.png").y + 100 * Display.getForm("progress_form_Reading.png").h / frame.h - digit.h, digit.w, digit.h, type);
 					}
 				}
 			}
 			//points
 			Points = Progress.Array[Progress.index].Points + "";
-			digit.h = 20  * Display.getForm("progress_form_Matching.png").h / frame.h;
+			digit.h = 20  * Display.getForm("progress_form_Reading.png").h / frame.h;
 			digit.w = digit.h * digit_frame.w / digit_frame.h;
 			for(var j = 0; j < Points.length; j++)
-				drawDigit(Points[j], Display.getForm("progress_form_Matching.png").x + 185 * Display.getForm("progress_form_Matching.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Matching.png").y + 125 * Display.getForm("progress_form_Matching.png").h / frame.h - digit.h, digit.w, digit.h, "small-dark");
+				drawDigit(Points[j], Display.getForm("progress_form_Reading.png").x + 185 * Display.getForm("progress_form_Reading.png").w / frame.w + j * (digit.w + 2), Display.getForm("progress_form_Reading.png").y + 125 * Display.getForm("progress_form_Reading.png").h / frame.h - digit.h, digit.w, digit.h, "small-dark");
 			//stars
 			var stars = Math.round(5 * Progress.Array[Progress.index].Points / Progress.Array[Progress.index].Max_point);
 			var star_frame = Properties.Buttons["star.png"];
@@ -3249,17 +3254,17 @@
 			star.h = digit.h;
 			star.w = star.h * star_frame.w / star_frame.h;
 			for(var j = 0; j < stars; j++)
-				drawStar(Display.getForm("progress_form_Matching.png").x + 465 * Display.getForm("progress_form_Matching.png").w / frame.w + j * star.w, Display.getForm("progress_form_Matching.png").y +  125 * Display.getForm("progress_form_Matching.png").h / frame.h - star.h, star.w, star.h);
+				drawStar(Display.getForm("progress_form_Reading.png").x + 465 * Display.getForm("progress_form_Reading.png").w / frame.w + j * star.w, Display.getForm("progress_form_Reading.png").y +  125 * Display.getForm("progress_form_Reading.png").h / frame.h - star.h, star.w, star.h);
 			for(var j = 0; j < 5 - stars; j++)
-				drawDarkStar(Display.getForm("progress_form_Matching.png").x + 465 * Display.getForm("progress_form_Matching.png").w / frame.w + (stars + j) * star.w, Display.getForm("progress_form_Matching.png").y +  125 * Display.getForm("progress_form_Matching.png").h / frame.h - star.h, star.w, star.h);
+				drawDarkStar(Display.getForm("progress_form_Reading.png").x + 465 * Display.getForm("progress_form_Reading.png").w / frame.w + (stars + j) * star.w, Display.getForm("progress_form_Reading.png").y +  125 * Display.getForm("progress_form_Reading.png").h / frame.h - star.h, star.w, star.h);
 			
 			//Words
 			Answers = Progress.Array[Progress.index].Answers;
 			for(var i = 0; i < Answers.length; i++) {
 				var word = Answers[i].Word;
 				var letter = {};
-					letter.x = Display.getForm("progress_form_Matching.png").x + 50 * Display.getForm("progress_form_Matching.png").w / frame.w;
-					letter.y = Display.getForm("progress_form_Matching.png").y + 148 * Display.getForm("progress_form_Matching.png").h / frame.h;
+					letter.x = Display.getForm("progress_form_Reading.png").x + 50 * Display.getForm("progress_form_Reading.png").w / frame.w;
+					letter.y = Display.getForm("progress_form_Reading.png").y + 148 * Display.getForm("progress_form_Reading.png").h / frame.h;
 					letter.h = 20 / frame.h * frame.w;
 					if(Progress.Array[Progress.index].Topic_Name != "Numbers")
 						letter.w = letter.h * Properties.Letters["small-dark-" + word[0] + ".png"].w / Properties.Letters["small-dark-" + word[0] + ".png"].h;
@@ -3273,39 +3278,34 @@
 					//fillRect(0, letter.y + 32 / frame.h * frame.w *(i), 100000, 1);
 					for(var c = 0; c < word.length; c++) {
 						if(Progress.Array[Progress.index].Topic_Name != "Numbers") {
-							drawLetter(word[c], letter.x + (letter.w + 2) * (c), letter.y + 25*Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
+							drawLetter(word[c], letter.x + (letter.w + 2) * (c), letter.y + 25*Display.getForm("progress_form_Reading.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
 						}
 						else
-							drawDigit(word[c], letter.x + (letter.w + 2) * (c), letter.y + 25*Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
+							drawDigit(word[c], letter.x + (letter.w + 2) * (c), letter.y + 25*Display.getForm("progress_form_Reading.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
 					}
 				
 			}
 			
-			//Time
+			//pronounced correctly
 			for(var i = 0; i < Answers.length; i++) {
-				var minuts = Math.floor(Answers[i].Time / 60);
-				var seconds = Math.round(Answers[i].Time - 60 * minuts);
-				//console.log(minuts, seconds);
+				var word  = "no";
+				if(Answers[i].Correct)
+					word = "yes"
 				var letter = {};
-				letter.x = Display.getForm("progress_form_Matching.png").x + 260 * Display.getForm("progress_form_Matching.png").w / frame.w;
-				letter.y = Display.getForm("progress_form_Matching.png").y + 148 * Display.getForm("progress_form_Matching.png").h / frame.h;
+				letter.x = Display.getForm("progress_form_Reading.png").x + 260 * Display.getForm("progress_form_Reading.png").w / frame.w;
+				letter.y = Display.getForm("progress_form_Reading.png").y + 148 * Display.getForm("progress_form_Reading.png").h / frame.h;
 				letter.h = 20 / frame.h * frame.w;
-				if(Progress.Array[Progress.index].Topic_Name != "Numbers")
-					letter.w = letter.h * Properties.Letters["small-dark-" + word[0] + ".png"].w / Properties.Letters["small-dark-" + word[0] + ".png"].h;
-				else
-					letter.w = letter.h * Properties.Numbers["small-dark-" + word[0] + ".png"].w / Properties.Numbers["small-dark-" + word[0] + ".png"].h;
-				minuts = minuts + "";
-				seconds = seconds + "";
-				//console.log(minuts, seconds);
-				drawTime(minuts, seconds, letter.x, letter.y + 25*Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1), letter);
-				
+				letter.w = letter.h * Properties.Letters["small-dark-" + word[0] + ".png"].w / Properties.Letters["small-dark-" + word[0] + ".png"].h;
+				for(var c = 0; c < word.length; c++) {
+					drawLetter(word[c], letter.x + c * (letter.w + 2), letter.y + 25*Display.getForm("progress_form_Reading.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
+				}
 			}
 			//Attempts
 			for(var i = 0; i < Answers.length; i++) {
 				var word = Answers[i].Attempts + "";
 				var letter = {};
-				letter.x = Display.getForm("progress_form_Matching.png").x + 510 * Display.getForm("progress_form_Matching.png").w / frame.w;
-				letter.y = Display.getForm("progress_form_Matching.png").y + 148 * Display.getForm("progress_form_Matching.png").h / frame.h;
+				letter.x = Display.getForm("progress_form_Reading.png").x + 510 * Display.getForm("progress_form_Reading.png").w / frame.w;
+				letter.y = Display.getForm("progress_form_Reading.png").y + 148 * Display.getForm("progress_form_Reading.png").h / frame.h;
 				letter.h = 20 / frame.h * frame.w;
 				letter.w = letter.h * Properties.Numbers["small-dark-" + word[0] + ".png"].w / Properties.Numbers["small-dark-" + word[0] + ".png"].h;
 				if(680 / frame.w * frame.h < letter.w * word.length) {
@@ -3316,7 +3316,7 @@
 				//fillRect(0, letter.y + 32 / frame.h * frame.w *(i), 100000, 1);
 				if(word != "0") {
 					for(var c = 0; c < word.length; c++) {
-						drawDigit(word[c], letter.x + letter.w * (c), letter.y + 25 * Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
+						drawDigit(word[c], letter.x + letter.w * (c), letter.y + 25 * Display.getForm("progress_form_Reading.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
 					}
 				}
 				else 
@@ -3324,7 +3324,7 @@
 					word = "-";
 					
 					for(var c = 0; c < word.length; c++) {
-						drawLetter(word[c], letter.x + letter.w * (c), letter.y + 25 * Display.getForm("progress_form_Matching.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
+						drawLetter(word[c], letter.x + letter.w * (c), letter.y + 25 * Display.getForm("progress_form_Reading.png").h / frame.h *(i + 1) - letter.h, letter.w, letter.h, "small-dark");
 					}
 				}
 			}
@@ -3723,8 +3723,10 @@
 					break;
 				case "Matching"	:
 					showProgressMatching();
+					break;
 				case "Reading":
-				showProgressReading();
+					showProgressReading();
+					break;
 			}
 		}
 		function showProgress() {
@@ -4125,15 +4127,15 @@
 				video.src = url_;
 			}
 			var VideoFrame = {};
-			VideoFrame.height = Screen.height/Math.min(Screen.k_width, Screen.k_height) - Display.getButton("exit_btn.png").y - Display.getButton("exit_btn.png").h - 2 * 10;
+			VideoFrame.height = Screen.height/Math.min(Screen.k_width, Screen.k_height) - Display.getButton("exit_btn.png").y - Display.getButton("exit_btn.png").h - 2 * 50;
 			
 			VideoFrame.width = 1280/720*VideoFrame.height;
-			if(VideoFrame.width > Screen.width/Math.min(Screen.k_width, Screen.k_height) - 2 * 10) {
-				VideoFrame.width = Screen.width/Math.min(Screen.k_width, Screen.k_height) - 2 * 10;
+			if(VideoFrame.width > Screen.width/Math.min(Screen.k_width, Screen.k_height) - 2 * 50) {
+				VideoFrame.width = Screen.width/Math.min(Screen.k_width, Screen.k_height) - 2 * 50;
 				VideoFrame.height = 720 / 1280 * VideoFrame.width;
 			}
 			VideoFrame.x = (Screen.width/Math.min(Screen.k_width, Screen.k_height) - VideoFrame.width) / 2;
-			VideoFrame.y = Display.getButton("exit_btn.png").h + Display.getButton("exit_btn.png").y + 10;
+			VideoFrame.y = Display.getButton("exit_btn.png").h + Display.getButton("exit_btn.png").y + 50;
 			
 
 			
@@ -4818,7 +4820,7 @@
 					showProgressForm();
 				}
 				//right arrow clicked during Reading
-				if(Mode.Exercise && Task.Type == "Reading" && Mode.Exercise && Task.Type == "Reading" && Task.index + 1 < Task.Frames[Task.TaskName].length && mouseInRect(Display.getButton("right-arrow.png"))) {
+				if(Mode.Exercise && Task.Type == "Reading" && Mode.Exercise && Task.Type == "Reading" && Task.Frames[Task.TaskName] && Task.index + 1 < Task.Frames[Task.TaskName].length && mouseInRect(Display.getButton("right-arrow.png"))) {
 					Task.index++;
 					speechRecognizer.stop();
 					$("recdiv").remove();
@@ -6251,7 +6253,7 @@
 								$("#MenuCanvas").remove();
 								Mode.Menu = false;
 							}
-							Info.List = ["topics_info.png", "exercises_info.png", "videos_info.png", "task_info.png","help_info.png", "rewards_info.png", "progress_info.png", "quiz_info.png"];
+							Info.List = ["topics_info.png", "exercises_info.png", "videos_info.png", "task_info.png", "reading_info.png","help_info.png", "rewards_info.png", "progress_info.png", "quiz_info.png"];
 							
 							//Info.List = "topics_info.png";
 							Info.index = 0;
@@ -6634,7 +6636,65 @@
 		Profile.Max_points = data.user.Max_points;
 		Profile.LoggedIn = true;
 	})
-	
+	socket.on("reload", function(data){
+		console.log('reload');
+		if(Properties && Properties.Buttons) {
+		if(document.getElementById("Video")) {
+			$("Video").remove();
+			$("inputdiv").remove();
+		}
+			
+		Quiz.Content = [];
+		Mode.MenuItem  = true;
+		Mode.Tasks = false;
+		Mode.LogIn = false;
+		Mode.SignIn = false;
+		Mode.Exercise = false;
+		Mode.Results = false;
+		Mode.Quiz = false;
+		Mode.Menu = false;
+		Mode.CountDown = false;
+		Mode.Mobile = false;
+		Mode.Smartphone = false;
+		MenuItem.height = 600;
+		MenuItem.width = 1800;
+		MenuItem.display = 2;
+		MenuItem.firstItem = 0;
+		MenuItem.size = 100;
+		MenuItem.ItemList = {};
+		MenuItem.clicked = -1;
+		MenuItem.chosen = MenuItem.clicked;
+		MenuItem.ItemList = [];
+				
+		var Error = {};
+		Task.display = 4;
+		Task.firstTask = 0;
+		Task.test = [];
+		Task.toTest = [];
+		Task.Result = {};
+		Task.Frames = {};
+		Task.asked = {};
+		var frametype1, frametype2;
+		Title.width = 1800;
+		Title.height = 180;
+		
+
+		Rewards.width = MenuItem.width;
+		Rewards.height = MenuItem.height / 5;
+		Rewards.size = 300;
+
+		Profile.width = 540;
+		Profile.height = 180;
+		
+		Profile.Accent = "UK English Male";
+		NewAccent = Profile.Accent
+		Profile.LoggedIn = false;
+		koef = 0.75;
+		flags = [ "american_flag.png", "australian_flag.png", "british_flag.png"];
+		var flag = flags[2];
+		respondCanvas();
+		}
+	})
 	function displayMenu() {
 		try{
 			console.log(Properties);

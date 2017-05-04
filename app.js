@@ -40,6 +40,8 @@ Properties.Buttons = {};
 			
 
 io.sockets.on('connection', function(socket) {
+	console.log("reloading");
+	socket.emit("reload", {});
 	socket.on('disconnect', function(){
 		console.log("socket disconnection");
 	})

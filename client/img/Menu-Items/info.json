@@ -10,7 +10,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "progress_info.png",
+	"filename": "help_info.png",
 	"frame": {"x":506,"y":0,"w":506,"h":368},
 	"rotated": false,
 	"trimmed": false,
@@ -19,25 +19,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "quiz_info.png",
-	"frame": {"x":1012,"y":0,"w":506,"h":368},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":506,"h":368},
-	"sourceSize": {"w":506,"h":368},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "reading_info.png",
-	"frame": {"x":1518,"y":0,"w":506,"h":368},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":506,"h":368},
-	"sourceSize": {"w":506,"h":368},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "rewards_info.png",
+	"filename": "progress_info.png",
 	"frame": {"x":0,"y":368,"w":506,"h":368},
 	"rotated": false,
 	"trimmed": false,
@@ -46,7 +28,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "task_info.png",
+	"filename": "quiz_info.png",
 	"frame": {"x":506,"y":368,"w":506,"h":368},
 	"rotated": false,
 	"trimmed": false,
@@ -55,8 +37,35 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "reading_info.png",
+	"frame": {"x":0,"y":736,"w":506,"h":368},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":506,"h":368},
+	"sourceSize": {"w":506,"h":368},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "rewards_info.png",
+	"frame": {"x":506,"y":736,"w":506,"h":368},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":506,"h":368},
+	"sourceSize": {"w":506,"h":368},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "task_info.png",
+	"frame": {"x":0,"y":1104,"w":506,"h":368},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":506,"h":368},
+	"sourceSize": {"w":506,"h":368},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "topics_info.png",
-	"frame": {"x":1012,"y":368,"w":506,"h":368},
+	"frame": {"x":506,"y":1104,"w":506,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":506,"h":368},
@@ -65,7 +74,7 @@
 },
 {
 	"filename": "videos_info.png",
-	"frame": {"x":1518,"y":368,"w":506,"h":368},
+	"frame": {"x":0,"y":1472,"w":506,"h":368},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":506,"h":368},
@@ -77,8 +86,8 @@
 	"version": "1.0",
 	"image": "info.png",
 	"format": "RGBA8888",
-	"size": {"w":2024,"h":736},
+	"size": {"w":1012,"h":1840},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9b75f6d95a3aff3f3473cdc7f56101e5:891cc372ed90fab713148100cd66d903:da148eda8025a20028e3d0b9ca1572ba$"
+	"smartupdate": "$TexturePacker:SmartUpdate:61e29be11d7c6e4850ac4afca7967ac0:f4a7340ce339ac79ffe21bd284778abc:da148eda8025a20028e3d0b9ca1572ba$"
 }
 }

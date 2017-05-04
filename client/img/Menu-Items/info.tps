@@ -200,6 +200,7 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">exercises_info.png</key>
+            <key type="filename">help_info.png</key>
             <key type="filename">progress_info.png</key>
             <key type="filename">quiz_info.png</key>
             <key type="filename">reading_info.png</key>
@@ -230,6 +231,7 @@
             <filename>rewards_info.png</filename>
             <filename>progress_info.png</filename>
             <filename>reading_info.png</filename>
+            <filename>help_info.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
