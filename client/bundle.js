@@ -3361,6 +3361,10 @@ module.exports = {
 				
 		}
 		function showInfo(name) {
+			if(document.getElementById("Help")) {
+				$("#Hand").remove();
+				$("HelpDiv").remove();
+			}
 			console.log("name" , name);
 			document.getElementById("Loading").style.visibility = "hidden";
 			if(document.getElementById("BadgesCanvas"))
@@ -4365,7 +4369,7 @@ module.exports = {
 				document.getElementById("mainDiv").appendChild(div);
 				video = document.getElementById("Video");
 				video.style.visibility = "visible";
-				video.style.position = "fixed";
+				video.style.position = "absolute";
 				video.src = url_;
 			}
 			var VideoFrame = {};
@@ -4441,6 +4445,7 @@ module.exports = {
 				setItemsProp();
 			}
 			else if(!Mode.Training){
+				
 				Task.Result.Finish = new Date;
 				delete Task.Result.time;
 				Mode[Task.TaskName.replace(/\s/g,'')] = false;
@@ -4484,6 +4489,10 @@ module.exports = {
 				}
 			}
 			else {
+				if(document.getElementById("Help")) {
+					$("#Hand").remove();
+					$("HelpDiv").remove();
+				}
 				Mode.CountDown = true;
 				Mode.Training = false;
 				Mode[Task.TaskName.replace(/\s/g,'')] = false;
@@ -6203,12 +6212,12 @@ module.exports = {
 						
 					}
 					//skip has been clicked
-					var size_btn = setWordHeight();
-					if(frametype1 == "Wordsframe" && frametype2 == "frame")
-							size_btn = 70;
-					var frame = Properties.Buttons["skip.png"];
 					
 					if (!Mode.Quiz && Mode.Training && (Mode.Exercise && !Mode.MusicVideo) && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("skip.png"))) {
+						if(document.getElementById("Help")) {
+							$("#Hand").remove();
+							$("HelpDiv").remove();
+						}
 						Mode.CountDown = true;
 						Mode.Training = false;
 						Mode[Task.TaskName.replace(/\s/g,'')] = false;
