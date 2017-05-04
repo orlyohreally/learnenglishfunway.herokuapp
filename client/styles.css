@@ -16,7 +16,7 @@ canvas {
 	background-color: transparent;
 	width:100%;
 	height:auto;
-	position:absolute;
+	position:fixed;
 }
 
 #Loading {

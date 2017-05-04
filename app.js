@@ -67,7 +67,7 @@ io.sockets.on('connection', function(socket) {
 		db.topics.drop();
 		console.log("socket disconnection");
 	})*/
-	db.SpreadSheets.find({"Name":"Animals"}, function(err, res){
+	/*db.SpreadSheets.find({"Name":"Animals"}, function(err, res){
 		res = res[0].Frames;
 		for(var i = 0; i < res.length; i++){
 			res[i].filename = res[i].filename.substring(0, res[i].filename.length - ".png".length);
@@ -77,7 +77,7 @@ io.sockets.on('connection', function(socket) {
 			delete res[i].sourceSize;
 			delete res[i].pivot;
 			//db.test.update({"Content.Word": "bee"}, {$set:{"Content.$.frame":{"x":50, "y":50}}})
-			db.Exercise.update({"Name": "Read animals", "Content.Word":res[i].filename}, {$set:{'Content.$.frame':res[i].frame}}, function(err, res){
+			db.Exercise.update({"Name": "Reading animals", "Content.Word":res[i].filename}, {$set:{'Content.$.frame':res[i].frame}}, function(err, res){
 				console.log("result:", res);
 				db.SpreadSheets.find({"Name":"Animals"}, function(err, res){
 					res = res[0].Frames;
@@ -89,7 +89,7 @@ io.sockets.on('connection', function(socket) {
 						delete res[i].sourceSize;
 						delete res[i].pivot;
 						//db.test.update({"Content.Word": "bee"}, {$set:{"Content.$.frame":{"x":50, "y":50}}})
-						db.Exercise.update({"Name": "Read animals", "Content.Word":res[i].filename}, {$set:{'Content.$.Wordsframe':res[i].frame}}, function(err, res){
+						db.Exercise.update({"Name": "Reading animals", "Content.Word":res[i].filename}, {$set:{'Content.$.Wordsframe':res[i].frame}}, function(err, res){
 							//console.log("result:", res);
 						})
 					}
@@ -99,8 +99,8 @@ io.sockets.on('connection', function(socket) {
 		console.log("look!", res);
 		
 	})
-	
-	db.SpreadSheets.find({"Name":"Tasks"}, function(err, res){
+	*/
+	/*db.SpreadSheets.find({"Name":"Tasks"}, function(err, res){
 		res = res[0].Frames;
 		var i = 0;
 		for(i = 0; i < res.length; i++){
@@ -116,8 +116,8 @@ io.sockets.on('connection', function(socket) {
 				console.log("result:", res);
 			})			
 		}
-	})
-	db.SpreadSheets.find({"Name":"Buttons"}, function(err, res){
+	})*/
+	/*db.SpreadSheets.find({"Name":"Buttons"}, function(err, res){
 		res = res[0].Frames;
 		var i = 0;
 		for(i = 0; i < res.length; i++){
@@ -133,7 +133,7 @@ io.sockets.on('connection', function(socket) {
 				console.log("result:", res);
 			})			
 		}
-	})
+	})*/
 	/*db.SpreadSheets.find({"Name":"Badges"}, function(err, res){
 		res = res[0].Frames;
 		var i = 0;
