@@ -6917,7 +6917,16 @@ module.exports = {
 			$("Video").remove();
 			$("inputdiv").remove();
 		}
-			
+		if(document.getElementById("MenuCanvas"))
+			$("#MenuCanvas").remove();
+		if(document.getElementById("BadgesCanvas"))
+			$("#BadgesCanvas").remove();
+		if(document.getElementById("ProgressCanvas"))
+			$("#ProgressCanvas").remove();
+		if(document.getElementById("MessageCanvas"))
+			$("#MessageCanvas").remove();
+		if(document.getElementById("SettingsCanvas"))
+			$("#SettingsCanvas").remove();
 		Quiz.Content = [];
 		Mode.MenuItem  = true;
 		Mode.Tasks = false;
