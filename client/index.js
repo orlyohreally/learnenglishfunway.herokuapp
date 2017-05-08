@@ -1416,8 +1416,9 @@
 				else {
 					if(Mode.Exercise && Task.Type == "Matching" && !Mode.MusicVideo && !Mode.Results) {
 						document.getElementById("Loading").style.visibility = "hidden";
-						drawHeader();
+						
 						setItemsProp();
+						drawHeader();
 					}
 					else if(!Mode.MusicVideo && Task.Tye == "Matching"){
 						document.getElementById("Loading").style.visibility = "hidden";
@@ -1429,18 +1430,6 @@
 					}
 					if(Mode.MusicVideo) {
 						drawHeader();
-						var l_a_width = 100*koef;
-						if(l_a_width < 30 / Math.min(Screen.k_width, Screen.k_height)) {
-							l_a_width = 30 / Math.min(Screen.k_width, Screen.k_height);
-						}
-						Display.setButton("exit_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - l_a_width, MenuItem.starts + 20, l_a_width, l_a_width);
-						Button.Draw("exit_btn.png");
-						if(Mode.Mobile) {
-							Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 2 * l_a_width - 20, MenuItem.starts + 20, l_a_width, l_a_width);
-							Button.Draw("info_btn.png");
-							Display.setButton("help_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - 3 * l_a_width - 2*20, MenuItem.starts + 20, l_a_width, l_a_width);
-							Button.Draw("help_btn.png");
-						}
 						PlaySong();
 					}
 				}
@@ -5613,7 +5602,8 @@
 						}
 						else if(!Mode.Exercise && !Mode.Progress && Task.Type == "Matching" && Task.Result != {}) {
 							Mode.Exercise = true;
-							drawTest();
+							setItemsProp();
+							drawHeader();
 						}
 						else if(!Mode.Exercise && !Mode.Progress && Task.Type == "Reading" && Task.Result != {}) {
 							Mode.Exercise = true;
@@ -6674,6 +6664,13 @@
 		if(document.getElementById("Video")) {
 			$("Video").remove();
 			$("inputdiv").remove();
+		}
+		
+		if(document.getElementById("UserName")) {
+			$("inputdiv").remove();
+		}
+		if(document.getElementById("Help")) {
+			$("helpdiv").remove();
 		}
 		if(document.getElementById("MenuCanvas"))
 			$("#MenuCanvas").remove();
