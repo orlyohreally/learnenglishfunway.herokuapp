@@ -647,7 +647,7 @@ io.sockets.on('connection', function(socket) {
 		})
 	})
 	socket.on('progress', function(data){
-		db.Results.find({"UserName":data.UserName}).sort({Start:-1}, function(err, res){
+		db.Results.find({"UserName":data.UserName}, function(err, res){
 			var Progress = [];
 			if(res && res.length) {
 				/*var f = 0, i = 0;

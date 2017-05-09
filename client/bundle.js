@@ -247,6 +247,9 @@ module.exports = {
 		var ctx = document.getElementById("MainCanvas").getContext("2d");
 		var video;
 		var speechRecognizer;
+		
+
+
 		//video animals American accent https://www.youtube.com/watch?v=BfUoopDpmmY
 		//video numbers from 1 to 10 "british" https://www.youtube.com/watch?v=dk9Yt1PqQiw&index=2&list=PL9811F95B184967D5
 		//video numbers from 1 to 20 american https://www.youtube.com/watch?v=D0Ajq682yrA
@@ -317,6 +320,225 @@ module.exports = {
 		flags = [ "american_flag.png", "australian_flag.png", "british_flag.png"];
 		var flag = flags[2];
 		
+		
+		
+		
+		socket.on("Logout", function(data){
+			if(data.res) {
+				var name = "";
+				name = Profile.UserName;
+				responsiveVoice.speak("Good bye, " + name, Profile.Accent);
+				setTimeout(function(){
+				$("#SettingsCanvas").remove();
+				$("inputdiv").remove();
+				$("#oldPassword").remove();
+				$("#newPassword").remove();
+				Mode.MenuItem = true;
+				Mode.Settings = false;
+				Profile.LoggedIn = false;
+				respondCanvas();
+				}, 100);
+			}
+		})
+		socket.on('getVideoID', function(data){
+			if(!document.getElementById("Video")) {
+				Task.Frames[Task.TaskName] = data.Content;
+				Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
+				//Task.Result.Type = Type;
+				PlaySong();
+			}
+		})
+		
+		socket.on('getTask', function(data){
+			//console.log("got task");
+			Task.Frames[Task.TaskName] = data.Content;
+			//console.log(Task.TaskName, data.Content);
+			checkloaded[Task.TopicName]();
+		})
+			
+		socket.on("resetPassword", function(data){
+			//console.log("result", data.res);
+			if(data.res == "everything is okay, password has been reset") {
+				setTimeout(function() {
+					Mode.MenuItem = true;
+					Mode.Settings = false;
+					$("#SettingsCanvas").remove();
+					$("inputdiv").remove();
+					$("#oldPassword").remove();
+					$("#newPassword").remove();
+					
+					respondCanvas();
+				}, 100);
+				//console.log("new accent", Profile.Accent);
+			}
+			else if(data.res == "wrong password") {
+				setTimeout(function(){//console.log("wrong password");
+					Mode.Message = true;
+					Mode.Settings = false;
+					$("#OldPassword").remove();
+					$("#NewPassword").remove();
+					$("inputdiv").remove();
+					$("#SettingsCanvas").remove();
+		
+						
+					Error.Name = "incorrect-password";
+					Error.Mode = "settings_form";
+					showMessage(Error.Name + ".png");
+				}, 100);
+			}
+		})
+		
+		socket.on('auth', function(data){
+			//console.log("res", data.res);
+			var ok;
+			if(data.res) {
+				ok = true;
+				Profile.Accent = data.User.Accent;
+				Profile.Points = data.User.Points;
+				Profile.Max_points = data.User.Max_points;
+				Profile.LoggedIn = true;
+				Mode.LogIn = false;
+				Mode.MenuItem = true;
+				clearRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
+				$("#UserName").remove();
+				$("#Password").remove();
+				$("inputdiv").remove();
+				delete Profile.Password;
+				$("#MenuCanvas").remove();
+				Mode.Menu = false;
+				respondCanvas();
+			}
+			else if(data.res == false) {
+				//console.log("res is false", data.res);
+				if(ok == undefined) {
+					ok = false;
+					//console.log("Wrong data");
+					Mode.Message = true;
+					Mode.LogIn = false;
+					$("inputdiv").remove();
+					$("#UserName").remove();
+					$("#Password").remove();
+					Error.Name = "incorrect-data";
+					Error.Mode = "log_in_form";
+					showMessage("incorrect-data.png");
+				}
+			}
+			
+		});
+		
+		socket.on('newUser', function(data){
+			var ok;
+			if(data.res) {
+				ok = true;
+				Profile.LoggedIn = true;
+				Mode.SignIn = false;
+				Mode.MenuItem = true;
+				Mode.Menu = false;
+				Profile.Accent = NewAccent;
+				Profile.Points = 0;
+				Profile.Max_points = 0;
+				
+				clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
+				$("#UserName").remove();
+				$("#Password").remove();
+				$("inputdiv").remove();
+				
+				respondCanvas();
+			}
+			else if(!data.res) {
+				if(ok == undefined) {
+					ok = false;
+					document.getElementById("Loading").style.visibility = "hidden";
+					Mode.Message = true;
+					Mode.SignIn = false;
+					$("inputdiv").remove();
+					$("#UserName").remove();
+					$("#Password").remove();
+					Error.Name = "username_is_taken";
+					Error.Mode = "sign_in_form";
+					showMessage(Error.Name + ".png");
+				}
+			}
+			
+		})
+		
+		socket.on('getQuiz', function(data) {
+			if(data.quiz) {
+				if(document.getElementById("MenuCanvas"))
+					$("#MenuCanvas").remove();
+				Mode.Menu = false;
+				respondCanvas();
+				Mode.Quiz = true;
+				Mode.Menu = false;
+				Mode.Exercise = true;
+				clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), MenuItem.ends);
+				Mode.Tasks = false;
+				Mode.MenuItem = false;
+				
+				Quiz.Content = data.quiz;
+				Exercise_num = 0;
+				Quiz.Correct = 0;
+				Quiz.Total = 0;
+				Quiz.Points = 0;
+				Quiz.TotalMax = 0;
+				if(Exercise_num < Quiz.Content.length) {
+					showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
+					
+				}
+			}
+			else {
+				setTimeout(function(){
+					document.getElementById("Loading").style.visibility = "hidden";
+					Mode.Message = true;
+					Mode.MenuItem = false;
+					if(document.getElementById("MenuCanvas")){
+						Mode.Menu = false;
+						var child = document.getElementById("MenuCanvas");
+						document.getElementById("mainDiv").removeChild(child);
+					}
+						
+					Error.Name = "need_to_do_exerciseQuiz";
+					Error.Mode = "quiz_form";
+					showMessage(Error.Name + ".png");
+				}, 100);
+			}
+		})
+		
+		socket.on("Badges", function(data){
+			Badges.All = data.Badges.All;
+			Profile.Badges = data.Badges.Recieved;
+			if(!Badges.loadedRewards)
+				loadBadges();
+			Mode.MenuItem = false;
+			Mode.Tasks = false;
+			//console.log("Mode.Tasks",Mode.Tasks);
+			Mode.Menu = false;
+			Mode.Badges = true;
+			Badges.firstItem = 0;
+			showBadges();
+		})
+		
+		socket.on('progress', function(data){
+			Progress.Array = data.progress;
+			if(Progress.Array.length) {
+				Progress.index =  0;
+				Mode.Progress = true;
+				Mode.MenuItem = false;
+				Mode.Tasks = false;
+				showProgress();
+			}
+			else
+			{
+				setTimeout(function(){
+				document.getElementById("Loading").style.visibility = "hidden";
+				Mode.Message = true;
+				Mode.MenuItem = false;
+				Error.Name = "need_to_do_exerciseProgress";
+				Error.Mode = "progress_form";
+				showMessage("need_to_do_exerciseProgress.png");
+				}, 100);
+			}
+		})
 		
 		
 		
@@ -1874,12 +2096,7 @@ module.exports = {
 			HoverMenuItem(mouseX, mouseY);
 		}
 		
-		function checkProfileData(UserName, Password) {
-			
-			if(Password != "" && UserName != "")
-				return true;
-			return false;
-		}
+		
 		function checkPoint(Point, Array) {
 			var i = 0;
 			while(i < Array.length) {
@@ -4418,14 +4635,7 @@ module.exports = {
 			Mode.MusicVideo = true;
 			Mode.Exercise = true;
 			
-			if(!document.getElementById("Video")) {
-				socket.on('getVideoID', function(data){
-					Task.Frames[Task.TaskName] = data.Content;
-					Task.Result.Duration = Task.Frames[Task.TaskName].Duration;
-					//Task.Result.Type = Type;
-					PlaySong();
-				})
-			}
+			//on video
 			drawLoading();
 		}
 		var checkloaded = {};
@@ -4691,12 +4901,7 @@ module.exports = {
 					TaskName: Task.TaskName,
 					Accent: Profile.Accent
 				})
-				socket.on('getTask', function(data){
-					//console.log("got task");
-					Task.Frames[Task.TaskName] = data.Content;
-					//console.log(Task.TaskName, data.Content);
-					checkloaded[Task.TopicName]();
-					})
+				//on getTask
 			}	
 			else
 				checkloaded[Task.TopicName]();
@@ -4733,12 +4938,7 @@ module.exports = {
 				TaskName: Task.TaskName,
 				Accent: Profile.Accent
 			})
-			socket.on('getTask', function(data){
-				//console.log("got task");
-				Task.Frames[Task.TaskName] = data.Content;
-				//console.log(Task.TaskName, data.Content);
-				checkloaded[Task.TopicName]();
-			})
+			//on hgetTask
 		}
 		function setWordHeight(){
 			try {
@@ -5046,6 +5246,9 @@ module.exports = {
 							if(Properties.Tasks[j + MenuItem.firstItem].length) {
 								Task.firstTask = 0;
 								MenuItem.clicked = j + MenuItem.firstItem;
+								if(!document.getElementById("Help")) {
+									$("HelpDiv").remove();
+								}
 								MenuItemClicked(MenuItem.clicked);
 							}
 							else {
@@ -5190,44 +5393,27 @@ module.exports = {
 					if(Profile.LoggedIn) {
 						if(document.getElementById("oldPassword").value != "" && document.getElementById("newPassword").value != "") {
 							if(document.getElementById("oldPassword").value != document.getElementById("newPassword").value) {
-								var User = {};
-								User.UserName = Profile.UserName;
-								User.oldPassword = document.getElementById("oldPassword").value;
-								User.newPassword = document.getElementById("newPassword").value;
-								//console.log(User);
-								socket.emit("resetPassword", {user: User})
-								socket.on("resetPassword", function(data){
-									//console.log("result", data.res);
-									if(data.res == "everything is okay, password has been reset") {
-										setTimeout(function() {
-											Mode.MenuItem = true;
-											Mode.Settings = false;
-											$("#SettingsCanvas").remove();
-											$("inputdiv").remove();
-											$("#oldPassword").remove();
-											$("#newPassword").remove();
-											
-											respondCanvas();
-										}, 100);
-										//console.log("new accent", Profile.Accent);
-									}
-									else if(data.res == "wrong password") {
-										setTimeout(function(){//console.log("wrong password");
-											Mode.Message = true;
-											Mode.Settings = false;
-											$("#OldPassword").remove();
-											$("#NewPassword").remove();
-											$("inputdiv").remove();
-											$("#SettingsCanvas").remove();
-								
-												
-											Error.Name = "incorrect-password";
-											Error.Mode = "settings_form";
-											showMessage(Error.Name + ".png");
-										}, 100);
-									}
-								})
-								
+								if(document.getElementById("newPassword").value.length >= 8){
+							
+									var User = {};
+									User.UserName = Profile.UserName;
+									User.oldPassword = document.getElementById("oldPassword").value;
+									User.newPassword = document.getElementById("newPassword").value;
+									//console.log(User);
+									socket.emit("resetPassword", {user: User})
+									//on reset Password
+								}
+								else if(document.getElementById("oldPassword").value.length < 8){
+									Mode.Message = true;
+									Mode.Settings = false;
+									$("#OldPassword").remove();
+									$("#NewPassword").remove();
+									$("inputdiv").remove();
+									$("#SettingsCanvas").remove();
+									Error.Name = "passwrod_is_too_short";
+									Error.Mode = "settings_form";
+									showMessage(Error.Name + ".png");
+								}
 							}
 							else {
 								//console.log("new password should not be the same as current one");
@@ -5458,23 +5644,7 @@ module.exports = {
 				//log out btton clicked during Settings
 				if (Mode.Settings && Profile.LoggedIn && mouseInRect(Display.getButton("log_out_btn.png"))){
 					socket.emit("Logout", {});
-					socket.on("Logout", function(data){
-						if(data.res) {
-							var name = "";
-							name = Profile.UserName;
-							responsiveVoice.speak("Good bye, " + name, Profile.Accent);
-							setTimeout(function(){
-							$("#SettingsCanvas").remove();
-							$("inputdiv").remove();
-							$("#oldPassword").remove();
-							$("#newPassword").remove();
-							Mode.MenuItem = true;
-							Mode.Settings = false;
-							Profile.LoggedIn = false;
-							respondCanvas();
-							}, 100);
-						}
-					})
+					//goodbye emit
 				}
 				if(Mode.Settings) {
 					var i = 0;
@@ -5533,7 +5703,7 @@ module.exports = {
 					//login button clicked LogIn Mode
 					if(Mode.LogIn && mouseInRect(Display.getButton("login_btn.png")))
 					{
-						if(checkProfileData(document.getElementById("UserName").value, document.getElementById("Password").value)) {
+						if(document.getElementById("UserName").value, document.getElementById("Password").value) {
 							drawLoading();
 							Profile.UserName = document.getElementById("UserName").value;
 							Profile.Password = document.getElementById("Password").value;
@@ -5545,43 +5715,8 @@ module.exports = {
 							socket.emit('auth', {
 								User: User
 							})
-							var ok;
-							socket.on('auth', function(data){
-								//console.log("res", data.res);
-								if(data.res) {
-									ok = true;
-									Profile.Accent = data.User.Accent;
-									Profile.Points = data.User.Points;
-									Profile.Max_points = data.User.Max_points;
-									Profile.LoggedIn = true;
-									Mode.LogIn = false;
-									Mode.MenuItem = true;
-									clearRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
-									$("#UserName").remove();
-									$("#Password").remove();
-									$("inputdiv").remove();
-									delete Profile.Password;
-									$("#MenuCanvas").remove();
-									Mode.Menu = false;
-									respondCanvas();
-								}
-								else if(data.res == false) {
-									//console.log("res is false", data.res);
-									if(ok == undefined) {
-										ok = false;
-										//console.log("Wrong data");
-										Mode.Message = true;
-										Mode.LogIn = false;
-										$("inputdiv").remove();
-										$("#UserName").remove();
-										$("#Password").remove();
-										Error.Name = "incorrect-data";
-										Error.Mode = "log_in_form";
-										showMessage("incorrect-data.png");
-									}
-								}
-								
-							});
+							
+							//on auth
 						}
 						else {
 							//console.log("fill all the information");
@@ -5705,36 +5840,10 @@ module.exports = {
 							socket.emit('newUser', {
 								User: User
 							});
-							socket.on('newUser', function(data){
-								if(data.res) {
-									ok = true;
-									Profile.LoggedIn = true;
-									Mode.SignIn = false;
-									Mode.MenuItem = true;
-									Mode.Menu = false;
-									Profile.Accent = NewAccent;
-									Profile.Points = 0;
-									Profile.Max_points = 0;
-									
-									clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
-									$("#UserName").remove();
-									$("#Password").remove();
-									$("inputdiv").remove();
-									
-									respondCanvas();
-								}
-								else if(!data.res) {
-									if(ok == undefined) {
-										ok = false;
-										document.getElementById("Loading").style.visibility = "hidden";
-										alert("This user name is already taken");
-									}
-								}
-								
-							})
+							//on newuser
 							
 						}
-						else if(checkProfileData(document.getElementById("UserName").value.length < 6)) {
+						else if(document.getElementById("UserName").value.length < 6) {
 							Mode.Message = true;
 							Mode.SignIn = false;
 							$("inputdiv").remove();
@@ -5744,7 +5853,7 @@ module.exports = {
 							Error.Mode = "sign_in_form";
 							showMessage(Error.Name + ".png");
 						}
-						else if(checkProfileData(document.getElementById("Password").value.length < 8)){
+						else if(document.getElementById("Password").value.length < 8){
 							Mode.Message = true;
 							Mode.SignIn = false;
 							$("inputdiv").remove();
@@ -6283,47 +6392,7 @@ module.exports = {
 						socket.emit('getQuiz', {
 							UserName: Profile.UserName
 						});
-						socket.on('getQuiz', function(data) {
-							if(data.quiz) {
-								if(document.getElementById("MenuCanvas"))
-									$("#MenuCanvas").remove();
-								Mode.Menu = false;
-								respondCanvas();
-								Mode.Quiz = true;
-								Mode.Menu = false;
-								Mode.Exercise = true;
-								clearRect(0, MenuItem.starts, Screen.width/ Math.min(Screen.k_width, Screen.k_height), MenuItem.ends);
-								Mode.Tasks = false;
-								Mode.MenuItem = false;
-								
-								Quiz.Content = data.quiz;
-								Exercise_num = 0;
-								Quiz.Correct = 0;
-								Quiz.Total = 0;
-								Quiz.Points = 0;
-								Quiz.TotalMax = 0;
-								if(Exercise_num < Quiz.Content.length) {
-									showTask(Quiz.Content[Exercise_num].Name, Quiz.Content[Exercise_num].Topic_Name, Quiz.Content[Exercise_num].Type, Quiz.Content[Exercise_num].Max_point, Quiz.Content[Exercise_num].Content.length, -1, Quiz.Content[Exercise_num].Content);
-									
-								}
-							}
-							else {
-								setTimeout(function(){
-									document.getElementById("Loading").style.visibility = "hidden";
-									Mode.Message = true;
-									Mode.MenuItem = false;
-									if(document.getElementById("MenuCanvas")){
-										Mode.Menu = false;
-										var child = document.getElementById("MenuCanvas");
-										document.getElementById("mainDiv").removeChild(child);
-									}
-										
-									Error.Name = "need_to_do_exerciseQuiz";
-									Error.Mode = "quiz_form";
-									showMessage(Error.Name + ".png");
-								}, 100);
-							}
-						})
+						//on getQuiz
 					}
 					else {
 						setTimeout(function(){
@@ -6349,19 +6418,7 @@ module.exports = {
 						socket.emit("Badges", {
 							username: Profile.UserName
 						});
-						socket.on("Badges", function(data){
-							Badges.All = data.Badges.All;
-							Profile.Badges = data.Badges.Recieved;
-							if(!Badges.loadedRewards)
-								loadBadges();
-							Mode.MenuItem = false;
-							Mode.Tasks = false;
-							//console.log("Mode.Tasks",Mode.Tasks);
-							Mode.Menu = false;
-							Mode.Badges = true;
-							Badges.firstItem = 0;
-							showBadges();
-						})
+						
 					}
 					else {
 						Mode.Message = true;
@@ -6392,27 +6449,7 @@ module.exports = {
 							UserName: Profile.UserName,
 							filter: 3
 						})
-						socket.on('progress', function(data){
-							Progress.Array = data.progress;
-							if(Progress.Array.length) {
-								Progress.index =  0;
-								Mode.Progress = true;
-						Mode.MenuItem = false;
-						Mode.Tasks = false;
-						showProgress();
-							}
-							else
-							{
-								setTimeout(function(){
-								document.getElementById("Loading").style.visibility = "hidden";
-								Mode.Message = true;
-								Mode.MenuItem = false;
-								Error.Name = "need_to_do_exerciseProgress";
-								Error.Mode = "progress_form";
-								showMessage("need_to_do_exerciseProgress.png");
-								}, 100);
-							}
-						})
+						//on progress
 						
 						
 					}
@@ -6454,7 +6491,13 @@ module.exports = {
 						Help.style.visibility = "visible";
 						
 					}
-					else if(Mode.MenuItem && !Mode.Tasks) {
+					else if((Mode.MenuItem && !Mode.Tasks) || (Mode.Menu && MenuItem.clicked == -1)) {
+						if(Mode.Menu) {
+							$("#MenuCanvas").remove();
+							Mode.Menu = false;
+							Mode.MenuItem = true;
+							respondCanvas();
+						}
 						if(!document.getElementById("Help")) {
 							var div = document.createElement('HelpDiv');
 							div.innerHTML = '<image id = "Help"></image>';
@@ -6469,7 +6512,13 @@ module.exports = {
 						Help.style.left = (Display.getTopic(1).x + Display.getTopic(1).w / 2) * Math.min(Screen.k_width, Screen.k_height);
 						Help.style.visibility = "visible";
 					}
-					else if(Mode.MenuItem && Mode.Tasks) {
+					else if((Mode.MenuItem && Mode.Tasks)  || (Mode.Menu && MenuItem.clicked != -1)){
+						if(Mode.Menu) {
+							$("#MenuCanvas").remove();
+							Mode.Menu = false;
+							Mode.MenuItem = true;
+							respondCanvas();
+						}
 						if(!document.getElementById("Help")) {
 							var div = document.createElement('HelpDiv');
 							div.innerHTML = '<image id = "Help"></image>';
@@ -6900,6 +6949,17 @@ module.exports = {
 		Profile.Max_points = data.user.Max_points;
 		Profile.LoggedIn = true;
 	})
+	var time = new Date().getHours();
+	var name = "";
+	if(Profile.LoggedIn)
+		name = Profile.UserName;
+	if(time >= 0 && time < 12)
+		responsiveVoice.speak("Good morning, " + name, Profile.Accent);
+	else if(time < 16 && time >= 12)
+		responsiveVoice.speak("Good afternoon, " + name, Profile.Accent);
+	else
+		responsiveVoice.speak("Good evening, " + name, Profile.Accent);
+		//console.log("autofocus", $(document.activeElement));
 	socket.on("reload", function(data){
 		//console.log('reload');
 		if(Properties && Properties.Buttons) {
@@ -7033,31 +7093,19 @@ module.exports = {
 				}, 100)
 			}
 	}
-	function getProperties() {
-		socket.on('getProperties', function(data){
-			Properties.Topics = data.topics;
-			Properties.Tasks = data.tasks;
-			Properties.Buttons = data.buttons;
-			Properties.Forms = data.forms;
-			Properties.Numbers = data.numbers;
-			Properties.Letters = data.letters;
-			current = 0;
-			drawLoading();
-			displayMenu();
-			var time = new Date().getHours();
-			var name = "";
-			if(Profile.LoggedIn)
-				name = Profile.UserName;
-			if(time >= 0 && time < 12)
-				responsiveVoice.speak("Good morning, " + name, Profile.Accent);
-			else if(time < 16 && time >= 12)
-				responsiveVoice.speak("Good afternoon, " + name, Profile.Accent);
-			else
-				responsiveVoice.speak("Good evening, " + name, Profile.Accent);
-		})
-	}
-	getProperties();
-	//console.log("autofocus", $(document.activeElement));
+	socket.on('getProperties', function(data){
+		Properties.Topics = data.topics;
+		Properties.Tasks = data.tasks;
+		Properties.Buttons = data.buttons;
+		Properties.Forms = data.forms;
+		Properties.Numbers = data.numbers;
+		Properties.Letters = data.letters;
+		current = 0;
+		drawLoading();
+		displayMenu();
+		
+	})
+	
 	
 });
 })();
