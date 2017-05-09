@@ -3293,7 +3293,7 @@ module.exports = {
 					document.getElementById("UserName").style.width = 297 / 368 * (MenuItem.size) / 202 * 368*Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.height = 35 / 202 * MenuItem.size * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.border = "2px solid";
-					document.getElementById('UserName').style.position = "absolute";
+					document.getElementById('UserName').style.position = "fixed";
 					document.getElementById('UserName').autofocus = false;
 					document.getElementById('UserName').style.backgroundColor = "transparent";
 					Display.setButton("UserName", (X_ + 35 / 368 * (MenuItem.size) / 202 * 368), (Y_ + 57 / 202 * MenuItem.size), 297/ 368 * size_, 35 / 202 * size_ );
@@ -3304,7 +3304,7 @@ module.exports = {
 					document.getElementById("Password").style.width = 297 / 368 * (MenuItem.size) / 202 * 368 *Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("Password").style.height = 35 / 202 * MenuItem.size * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("Password").style.border = "2px solid";
-					document.getElementById('Password').style.position = "absolute";
+					document.getElementById('Password').style.position = "fixed";
 					document.getElementById('Password').style.backgroundColor = "transparent";
 					document.getElementById('Password').autofocus = false;
 					Display.setButton("Password", (X_ + 35 / 368 * (MenuItem.size) / 202 * 368), (Y_ + 115 / 202 * MenuItem.size), 297/ 368 * size_, 35 / 202 * size_ );
@@ -4194,7 +4194,7 @@ module.exports = {
 			document.getElementById("oldPassword").style.width = (Display.getForm("setting_form.png").w - 185 * Display.getForm("setting_form.png").w / frame.w)*Math.min(Screen.k_width, Screen.k_height);
 			document.getElementById("oldPassword").style.height = 45 * Display.getForm("setting_form.png").h / frame.h * Math.min(Screen.k_width, Screen.k_height);
 			document.getElementById("oldPassword").style.border = "2px solid";
-			document.getElementById('oldPassword').style.position = "absolute";
+			document.getElementById('oldPassword').style.position = "fixed";
 			document.getElementById('oldPassword').autofocus = false;
 			document.getElementById('oldPassword').style.backgroundColor = "transparent";
 			document.getElementById("newPassword").style.top = (Display.getForm("setting_form.png").y +  242 * Display.getForm("setting_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
@@ -4204,7 +4204,7 @@ module.exports = {
 			document.getElementById("newPassword").style.width = (Display.getForm("setting_form.png").w - 185 * Display.getForm("setting_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
 			document.getElementById("newPassword").style.height = 45 * Display.getForm("setting_form.png").h / frame.h * Math.min(Screen.k_width, Screen.k_height);
 			document.getElementById("newPassword").style.border = "2px solid";
-			document.getElementById('newPassword').style.position = "absolute";
+			document.getElementById('newPassword').style.position = "fixed";
 			document.getElementById('newPassword').autofocus = false;
 			document.getElementById('newPassword').style.backgroundColor = "transparent";
 			if(!Profile.LoggedIn) {
@@ -4391,7 +4391,7 @@ module.exports = {
 				document.getElementById("UserName").style.height = username.h * Math.min(Screen.k_width, Screen.k_height);
 				Display.setButton("UserName", username.x, username.y, username.w, username.h);
 				document.getElementById("UserName").style.border = "2px solid";
-				document.getElementById('UserName').style.position = "absolute";
+				document.getElementById('UserName').style.position = "fixed";
 				document.getElementById('UserName').autofocus = false;
 				document.getElementById('UserName').style.backgroundColor = "transparent";
 				
@@ -4412,7 +4412,7 @@ module.exports = {
 				document.getElementById("Password").style.height = password.h * Math.min(Screen.k_width, Screen.k_height);
 				Display.setButton("Password", password.x, password.y, password.w, password.h);
 				document.getElementById("Password").style.border = "2px solid";
-				document.getElementById('Password').style.position = "absolute";
+				document.getElementById('Password').style.position = "fixed";
 				document.getElementById('Password').autofocus = false;
 				document.getElementById('Password').style.backgroundColor = "transparent";
 				if(Profile.UserName)
@@ -4462,7 +4462,7 @@ module.exports = {
 				document.getElementById("UserName").style.height = 36 / 368 * size_ * Math.min(Screen.k_width, Screen.k_height);
 				Display.setButton("UserName", (X_ + 35 / 368 * size_), (Y_ + 150 / 368 * size_), 298/ 368 * size_, 36 / 368 * size_ );
 				document.getElementById("UserName").style.border = "2px solid";
-				document.getElementById('UserName').style.position = "absolute";
+				document.getElementById('UserName').style.position = "fixed";
 				document.getElementById('UserName').autofocus = false;
 				document.getElementById('UserName').style.backgroundColor = "transparent";
 				document.getElementById("Password").style.top = (Y_ + 115 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
@@ -4472,7 +4472,7 @@ module.exports = {
 				document.getElementById("Password").style.width = 298/ 368 * size_*Math.min(Screen.k_width, Screen.k_height);
 				document.getElementById("Password").style.height = 36 / 368 * size_ * Math.min(Screen.k_width, Screen.k_height);
 				document.getElementById("Password").style.border = "2px solid";
-				document.getElementById('Password').style.position = "absolute";
+				document.getElementById('Password').style.position = "fixed";
 				document.getElementById('Password').style.backgroundColor = "transparent";
 				Display.setButton("Password", X_ + 35 / 368 * size_, Y_ + 115 / 368 * size_, 298/ 368 * size_, 36 / 368 * size_ );
 
@@ -4598,7 +4598,7 @@ module.exports = {
 				document.getElementById("mainDiv").appendChild(div);
 				video = document.getElementById("Video");
 				video.style.visibility = "visible";
-				video.style.position = "absolute";
+				video.style.position = "fixed";
 				video.src = url_;
 			}
 			var VideoFrame = {};
@@ -4729,7 +4729,7 @@ module.exports = {
 				document.getElementById("mainDiv").appendChild(div);
 				var CountDowngif = document.getElementById("CountDowngif");
 				CountDowngif.src = "/img/Menu-Items/countdown.gif";
-				CountDowngif.style.position = "absolute";
+				CountDowngif.style.position = "fixed";
 				CountDowngif.style.visibility = "visible";
 				CountDowngif.style.width = 300 * Math.min(Screen.k_width, Screen.k_height);
 					CountDowngif.style.height = 300 * 330 / 306 * Math.min(Screen.k_width, Screen.k_height);
@@ -5073,7 +5073,7 @@ module.exports = {
 					document.getElementById("mainDiv").appendChild(div);
 					var Help = document.getElementById("Help");
 					Help.src = "/img/Menu-Items/mouse_up.gif";
-					Help.style.position = "absolute";
+					Help.style.position = "fixed";
 					//console.log(mouseInRect(Display.getButton("itemImage")));
 					
 					if(frametype1 == "frame")
@@ -5106,7 +5106,7 @@ module.exports = {
 				document.getElementById("mainDiv").appendChild(div);
 				var Help = document.getElementById("Help");
 				Help.src = "/img/Menu-Items/mouse_up.gif";
-				Help.style.position = "absolute";
+				Help.style.position = "fixed";
 				if(frametype2 == "frame")
 					Help.style.height = Display.getTestItem(Task.test.indexOf(Task.asked)).h * 2/ 3 * Math.min(Screen.k_width, Screen.k_height);
 				else
@@ -5510,7 +5510,7 @@ module.exports = {
 							}
 							var Help = document.getElementById("Help");
 							Help.src = "/img/Menu-Items/mouse_up.gif";
-							Help.style.position = "absolute";
+							Help.style.position = "fixed";
 							Help.style.height = document.getElementById("UserName").style.height;
 							Help.style.width = "auto";
 							Help.style.top = document.getElementById("UserName").style.top;
@@ -5524,7 +5524,7 @@ module.exports = {
 							}
 							var Help = document.getElementById("Help1");
 							Help.src = "/img/Menu-Items/mouse_up.gif";
-							Help.style.position = "absolute";
+							Help.style.position = "fixed";
 							Help.style.height = document.getElementById("Password").style.height;
 							Help.style.width = "auto";
 							Help.style.top = document.getElementById("Password").style.top;
@@ -5546,7 +5546,7 @@ module.exports = {
 						}
 						var Help = document.getElementById("Help");
 						Help.src = "/img/Menu-Items/mouse_up.gif";
-						Help.style.position = "absolute";
+						Help.style.position = "fixed";
 						Help.style.height = document.getElementById("UserName").style.height;
 						Help.style.width = "auto";
 						Help.style.top = document.getElementById("UserName").style.top;
@@ -5560,7 +5560,7 @@ module.exports = {
 						}
 						Help = document.getElementById("Help1");
 						Help.src = "/img/Menu-Items/mouse_up.gif";
-						Help.style.position = "absolute";
+						Help.style.position = "fixed";
 						Help.style.height = document.getElementById("Password").style.height;
 						Help.style.width = "auto";
 						Help.style.top = document.getElementById("Password").style.top;
@@ -5585,7 +5585,7 @@ module.exports = {
 										document.getElementById("mainDiv").appendChild(div);
 										var Help = document.getElementById("Help");
 										Help.src = "/img/Menu-Items/mouse_up.gif";
-										Help.style.position = "absolute";
+										Help.style.position = "fixed";
 										Help.style.height = 2 * Display.getButton(name).h * Math.min(Screen.k_width, Screen.k_height);
 										Help.style.width = "auto";
 										Help.style.top = Display.getButton(name).y * Math.min(Screen.k_width, Screen.k_height);
@@ -5601,7 +5601,7 @@ module.exports = {
 									document.getElementById("mainDiv").appendChild(div);
 									var Help = document.getElementById("Help");
 									Help.src = "/img/Menu-Items/mouse_up.gif";
-									Help.style.position = "absolute";
+									Help.style.position = "fixed";
 									Help.style.height = 2 * Display.getButton("menu_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
 									Help.style.width = "auto";
 									Help.style.top = (Display.getButton(name).y + Display.getButton(name).h / 2) * Math.min(Screen.k_width, Screen.k_height);
@@ -6355,7 +6355,7 @@ module.exports = {
 							document.getElementById("mainDiv").appendChild(div);
 							var CountDowngif = document.getElementById("CountDowngif");
 							CountDowngif.src = "/img/Menu-Items/countdown.gif";
-							CountDowngif.style.position = "absolute";
+							CountDowngif.style.position = "fixed";
 							CountDowngif.style.visibility = "visible";
 							drawHeader();
 							CountDowngif.style.width = 300 * Math.min(Screen.k_width, Screen.k_height);
@@ -6483,7 +6483,7 @@ module.exports = {
 						}
 						var Help = document.getElementById("Help");
 						Help.src = "/img/Menu-Items/mouse_up.gif";
-						Help.style.position = "absolute";
+						Help.style.position = "fixed";
 						Help.style.height = Display.getBadge(Badges.All[0].Name).h / 4 * Math.min(Screen.k_width, Screen.k_height);
 						Help.style.width = "auto";
 						Help.style.top = (Display.getBadge(Badges.All[0].Name).y + Display.getBadge(Badges.All[0].Name).h / 2) * Math.min(Screen.k_width, Screen.k_height);
@@ -6505,7 +6505,7 @@ module.exports = {
 						}
 						var Help = document.getElementById("Help");
 						Help.src = "/img/Menu-Items/mouse_up.gif";
-						Help.style.position = "absolute";
+						Help.style.position = "fixed";
 						Help.style.height = Display.getTopic(1).h / 4 * Math.min(Screen.k_width, Screen.k_height);
 						Help.style.width = "auto";
 						Help.style.top = (Display.getTopic(1).y + Display.getTopic(1).h / 2) * Math.min(Screen.k_width, Screen.k_height);
@@ -6526,7 +6526,7 @@ module.exports = {
 						}
 						var Help = document.getElementById("Help");
 						Help.src = "/img/Menu-Items/mouse_up.gif";
-						Help.style.position = "absolute";
+						Help.style.position = "fixed";
 						Help.style.height = Display.getTopic(MenuItem.clicked).h / 4 * Math.min(Screen.k_width, Screen.k_height);
 						Help.style.width = "auto";
 						Help.style.top = (Display.getTask(MenuItem.clicked, 0).y + Display.getTask(MenuItem.clicked, 0).h / 2) * Math.min(Screen.k_width, Screen.k_height);
@@ -6541,7 +6541,7 @@ module.exports = {
 						}
 						var Help = document.getElementById("Help");
 						Help.src = "/img/Menu-Items/mouse_up.gif";
-						Help.style.position = "absolute";
+						Help.style.position = "fixed";
 						Help.style.height = Display.getButton("mic_btn.png").h / 2 * Math.min(Screen.k_width, Screen.k_height);
 						Help.style.width = "auto";
 						Help.style.top = (Display.getButton("mic_btn.png").y + Display.getButton("mic_btn.png").h / 2) * Math.min(Screen.k_width, Screen.k_height);
@@ -6829,7 +6829,7 @@ module.exports = {
 					
 					var rec = document.getElementById("recording");
 					rec.src = "/img/Menu-Items/recording.gif";
-					rec.style.position = "absolute";
+					rec.style.position = "fixed";
 					rec.style.height = Display.getButton("mic_btn.png").h / 2 * Math.min(Screen.k_width, Screen.k_height);
 					rec.style.width = "auto";
 					rec.style.top = (Display.getButton("mic_btn.png").y + 1/4*Display.getButton("mic_btn.png").h) * Math.min(Screen.k_width, Screen.k_height);
@@ -7065,7 +7065,7 @@ module.exports = {
 					document.getElementById("mainDiv").appendChild(div);
 					var Help = document.getElementById("Help");
 					Help.src = "/img/Menu-Items/mouse_up.gif";
-					Help.style.position = "absolute";
+					Help.style.position = "fixed";
 					if(!Mode.Mobile) {
 						Help.style.height = 2 * Display.getButton("login_btn.png").h * Math.min(Screen.k_width, Screen.k_height);
 						Help.style.width = "auto";
