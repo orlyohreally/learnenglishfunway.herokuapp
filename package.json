@@ -17,6 +17,7 @@
     "express-session": "*",
     "express-socket.io-session": "^1.3.2",
     "mongojs": "*",
+	"unirest":"*",
     "socket.io": "^1.7.2",
     "underscore": "^1.8.3"
   },
