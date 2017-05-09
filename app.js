@@ -29,7 +29,7 @@ server.listen(port, function () {
 // Routing
 app.use(express.static(__dirname + '/client'));
 
-
+var unirest = require('unirest');
 
 var Properties = {};
 Properties.Topics = [];
@@ -665,7 +665,7 @@ io.sockets.on('connection', function(socket) {
 					}
 					i = i + 1;
 				}*/
-				Progress = res;
+				Progress = res.reverse();
 			}
 			//Progress = underscorejs.sortBy(Progress, "Start").reverse();
 			socket.emit('progress', {
@@ -674,70 +674,162 @@ io.sockets.on('connection', function(socket) {
 		})
 		
 	})
+	
+	
+	/*
+		var i = 0, j = -1;
+	var inter = setInterval(function(){
+		if (i < 3) {
+			j++;
+			console.log(i, j);
+				
+			if(i == j) {
+				unirest.post("https://twinword-language-scoring.p.mashape.com/word/")
+				.header("X-Mashape-Key", "3P4c7iBp0HmshWKbNMFK8R3WZUlSp1ipPn3jsnIX86hLkMgpey")
+				.header("Content-Type", "application/x-www-form-urlencoded")
+				.header("Accept", "application/json")
+				.send("entry=" + "book")
+				.end(function (result) {
+					console.log(result.body.value);
+					i++;
+					j = i - 1;
+					
+				});
+			}
+	}
+	else
+		clearInterval(inter);
+	}, 100)
+	*/
+	
+	function setlist(list) {
+		console.log("list:", list, list != []);
+		if(list.length) {
+		for(var i = 0; i < list.length; i++){
+			for (var j = i + 1; j < list.length; j++) {
+				if(list[i].duration > list[j].duration)
+					list[i].duration_est = list[i].duration_est + 1 * 2 / list.length / (list.length - 1);
+				if(list[i].Difficulty > list[j].Difficulty)
+					list[i].difficulty_est = list[i].difficulty_est + 1 * 2 / list.length / (list.length - 1);
+				else if(list[i].duration != list[j].duration)
+					list[j].duration_est = list[j].duration_est + 1 * 2 / list.length / (list.length - 1);
+				if((list[i].Attempts == 0 && list[i].Attempts != list[j].Attempts) || list[i].Attempts > list[j].Attempts)
+					list[i].attempts_est = list[i].attempts_est  + 1 * 2 / list.length / (list.length - 1);
+				else if (list[j].Attempts == 0 || list[i].Attempts != list[j].Attempts)
+					list[j].attempts_est = list[j].attempts_est  + 1 * 2 / list.length / (list.length - 1);
+			}
+		}
+		for(var i = 0; i < list.length; i++){
+			list[i].w = (list[i].duration_est + list[i].attempts_est + list[i].difficulty_est) / list.length;
+		}
+		list = list.sort(function(a, b){
+			return -a.w + b.w;
+		})
+		//console.log(list);
+		console.log("before removing duplicates list.length",list.length);
+		list = removeUnique(list);
+		//console.log(list);
+		console.log("after removing duplicates list.length", list.length);
+		list = list.splice(0, 20);
+		//console.log(list);
+		console.log("list.length", list.length);
+		var Quiz = getQuiz(list);
+		console.log("Quiz", Quiz);
+		var i = 0;
+		console.log(Quiz[i].Name, Quiz[i].Topic_Name);
+		setFramesForQuiz(i, Quiz);
+		}
+		else {
+			socket.emit('getQuiz', {
+				quiz: false
+			})
+		}
+	}
+	
 	socket.on('getQuiz', function(data){
-		console.log("getQuiz", data.UserName);
+		//console.log("getQuiz", data.UserName);
 		db.Results.find({"UserName":data.UserName}).sort({Exercise:1, Start:-1}, function(err, res){
 			if(res.length) {
 				resp = getRecentResults(res);
+				//console.log("resp", resp.length);
 				db.Exercise.find({"Quiz": false}, {"Name":1, "_id":0}, function(err, res){
 					var notForQuiz = res;
 					var list = [];
-					for(var i = 0; i < resp.length; i++) {
-						if(inList(resp[i].Exercise, notForQuiz, "Name") == -1) {
-							for(var j = 0; j < resp[i].Answers.length; j++) {
-								console.log(resp[i]);
-								var item = {};
-								item.Exercise = resp[i].Exercise;
-								item.Topic_Name = resp[i].Topic_Name;
-								item.testStart = resp[i].Start;
-								item.duration = resp[i].Answers[j].Time;
-								item.Word = resp[i].Answers[j].Word;
-								item.Attempts = resp[i].Answers[j].Attempts;
-								item.duration_est = 0;
-								item.attempts_est = 0;
-								list.push(item);
+					//for(var i = 0; i < resp.length; i++) {
+					i1 = -1, k = 0;
+					//console.log("k", k);
+					var inter1 = setInterval(function(){
+						i1 = k - 1;
+						//console.log("k", i1, k);
+						if(k < resp.length) {
+							//console.log("k ininter1", k, "resp[k].Answers.length", resp[k].Answers.length);
+							i1++;
+							if(i1 == k) {
+								if(inList(resp[k].Exercise, notForQuiz, "Name") == -1) {
+									j = 0;
+									j1 = -1;
+									//for(var j = 0; j < resp[i].Answers.length; j++) {
+									var inter2 = setInterval(function(){
+										//console.log("j", j, j1, "k", k, i1, resp[k].Answers);
+										if(resp[k].Answers && j < resp[k].Answers.length){
+											j1++;
+											if(j == j1) {
+												//console.log(resp[k].Answers[j].Word, k, j);
+												unirest.post("https://twinword-language-scoring.p.mashape.com/word/")
+												.header("X-Mashape-Key", "3P4c7iBp0HmshWKbNMFK8R3WZUlSp1ipPn3jsnIX86hLkMgpey")
+												.header("Content-Type", "application/x-www-form-urlencoded")
+												.header("Accept", "application/json")
+												.send("entry=" + resp[k].Answers[j].Word)
+												.end(function (result) {
+													var item = {};
+													item.Exercise = resp[k].Exercise;
+													item.Topic_Name = resp[k].Topic_Name;
+													item.testStart = resp[k].Start;
+													//console.log(k, j, resp[k].Answers[j]);
+													if(resp[k].Answers && j < resp[k].Answers.length)
+														item.duration = resp[k].Answers[j].Time;
+													if(resp[k].Answers && j < resp[k].Answers.length)
+														item.Word = resp[k].Answers[j].Word;
+													if(resp[k].Answers && j < resp[k].Answers.length)
+														item.Attempts = resp[k].Answers[j].Attempts;
+													//console.log("word", item.Word, k, j);
+													//console.log(result.body.value);
+													item.Difficulty = result.body.value;
+													//console.log(item.Difficulty);
+													item.duration_est = 0;
+													item.attempts_est = 0;
+													item.difficulty_est = 0;
+													if(k < resp.length && resp[k].Answers && j < resp[k].Answers.length)
+														list.push(item);
+													j1 = j;
+													j++;
+													
+												});
+											}
+										}
+										else {
+											clearInterval(inter2);
+											k++;
+										}
+											
+									}, 100)
+									
+								
+								}
+								else
+									k++;
 							}
+							
 						}
-					}
-					console.log("list:", list, list != []);
-					if(list.length) {
-					for(var i = 0; i < list.length; i++){
-						for (var j = i + 1; j < list.length; j++) {
-							if(list[i].duration > list[j].duration)
-								list[i].duration_est = list[i].duration_est + 1 * 2 / list.length / (list.length - 1);
-							else if(list[i].duration != list[j].duration)
-								list[j].duration_est = list[j].duration_est + 1 * 2 / list.length / (list.length - 1);
-							if((list[i].Attempts == 0 && list[i].Attempts != list[j].Attempts) || list[i].Attempts > list[j].Attempts)
-								list[i].attempts_est = list[i].attempts_est  + 1 * 2 / list.length / (list.length - 1);
-							else if (list[j].Attempts == 0 || list[i].Attempts != list[j].Attempts)
-								list[j].attempts_est = list[j].attempts_est  + 1 * 2 / list.length / (list.length - 1);
+						else {
+							setlist(list);
+							clearInterval(inter2);
+							clearInterval(inter1);
+							
 						}
-					}
-					for(var i = 0; i < list.length; i++){
-						list[i].w = (list[i].duration_est + list[i].attempts_est) / list.length;
-					}
-					list = list.sort(function(a, b){
-						return -a.w + b.w;
-					})
-					//console.log(list);
-					console.log("before removing duplicates list.length",list.length);
-					list = removeUnique(list);
-					//console.log(list);
-					console.log("after removing duplicates list.length", list.length);
-					list = list.splice(0, 20);
-					//console.log(list);
-					console.log("list.length", list.length);
-					var Quiz = getQuiz(list);
-					console.log("Quiz", Quiz);
-					var i = 0;
-					console.log(Quiz[i].Name, Quiz[i].Topic_Name);
-					setFramesForQuiz(i, Quiz);
-					}
-					else {
-						socket.emit('getQuiz', {
-							quiz: false
-						})
-					}
+							
+					}, 2000)
+					
 				})
 			}
 			else {
@@ -814,12 +906,12 @@ io.sockets.on('connection', function(socket) {
 		return -1;
 	}
 	function getRecentResults(res) {
-		console.log("all data", res);
+		//console.log("all data", res);
 		var currEx = res[0].Exercise;
 		var count = 0;
 		var list = [];
 		for (var i = 0; i < res.length; i++) {
-			console.log("currEx == res[i].Exercise, count", currEx == res[i].Exercise, count)
+			//console.log("currEx == res[i].Exercise, count", currEx == res[i].Exercise, count)
 			if(res[i].Answers && res[i].Answers.length && currEx == res[i].Exercise && count < 2) {
 				//console.log("res[", i, "]",res[i]);
 				list.push(res[i]);
@@ -865,4 +957,6 @@ io.sockets.on('connection', function(socket) {
 		Quiz.push(item);
 		return Quiz.slice(0);
 	}
+	// These code snippets use an open-source library. http://unirest.io/nodejs
+	
 })

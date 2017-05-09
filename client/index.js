@@ -3042,7 +3042,7 @@
 					Form.Draw("cancel_btn.png");
 					ctx.fillStyle='#000000';
 					var div = document.createElement('inputDiv');
-					div.innerHTML = "<input id = 'UserName' name = 'UserName'/><input id = 'Password' name = 'UserName' />";
+					div.innerHTML = "<input id = 'UserName' name = 'UserName'/><input type = 'password' id = 'Password' name = 'UserName' />";
 					document.getElementById("mainDiv").appendChild(div);
 					document.getElementById("UserName").style.top = (Y_ + 57 / 202 * MenuItem.size) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.left = (X_ + 35 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height);
@@ -3941,7 +3941,7 @@
 			Display.setButton("sign_in_form_cancel_btn_ch.png", cancel_btn_ch.x, cancel_btn_ch.y, cancel_btn_ch.w, cancel_btn_ch.h);
 			if(document.getElementById("oldPassword") == null) {
 			var div = document.createElement('inputDiv');
-			div.innerHTML = "<input id = 'oldPassword' name = 'OldPassword' autofocus/><input id = 'newPassword' name = 'newPassword' autofocus/>";
+			div.innerHTML = "<input  type = 'password' id = 'oldPassword' name = 'OldPassword' autofocus/><input  type = 'password' id = 'newPassword' name = 'newPassword' autofocus/>";
 			document.getElementById("mainDiv").appendChild(div);
 			
 			}
@@ -4138,7 +4138,7 @@
 				username.h = 50 * Display.getForm("sign_in_form.png").h / frame.h;
 				username.w = Display.getForm("sign_in_form.png").w - 2*92 * Display.getForm("sign_in_form.png").w / frame.w;
 				var div = document.createElement('inputDiv');
-				div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input id = 'Password' name = 'UserName' autofocus/>";
+				div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input type = 'password'  id = 'Password' name = 'UserName' autofocus/>";
 				
 				document.getElementById("mainDiv").appendChild(div);
 				document.getElementById("UserName").style.top = username.y * Math.min(Screen.k_width, Screen.k_height);
@@ -4159,7 +4159,7 @@
 				password.h = 50 * Display.getForm("sign_in_form.png").h / frame.h;
 				password.w = Display.getForm("sign_in_form.png").w - 2*92 * Display.getForm("sign_in_form.png").w / frame.w;
 				var div = document.createElement('inputDiv');
-				div.innerHTML = "<input id = 'Password' name = 'Password' autofocus/><input id = 'Password' name = 'Password' autofocus/>";
+				div.innerHTML = "<input id = 'Password' name = 'Password' autofocus/><input type = 'password' id = 'Password' name = 'Password' autofocus/>";
 				
 				document.getElementById("mainDiv").appendChild(div);
 				document.getElementById("Password").style.top = password.y * Math.min(Screen.k_width, Screen.k_height);
@@ -6749,6 +6749,9 @@
 		Mode.SignIn = false;
 		Mode.Exercise = false;
 		Mode.Results = false;
+		Mode.Badges = false;
+		Mode.Progress = false;
+		Mode.Message = false;
 		Mode.Quiz = false;
 		Mode.Menu = false;
 		Mode.CountDown = false;
