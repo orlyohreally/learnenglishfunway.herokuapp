@@ -3031,42 +3031,72 @@
 					drawHeader();
 					if(document.getElementById("MenuCanvas"))
 						$("#MenuCanvas").remove();
-					X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (MenuItem.size) / 202 * 368)/2
-					Y_ = MenuItem.starts + (MenuItem.ends - MenuItem.starts - MenuItem.size) / 2;
-					size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-					Display.setForm("log_in_form.png", X_, Y_, (MenuItem.size) / 202 * 368, MenuItem.size);
+					var frame = Properties.Forms["log_in_form.png"];
+					console.log(frame);
+					var Form_frame = {};
+				
+					Form_frame.h = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 40 - 100;
+					Form_frame.w = Form_frame.h * frame.w / frame.h;
+					
+					if(Form_frame.w > Screen.width / Math.min(Screen.k_width, Screen.k_height)- 2 * 20 - 100) {
+						Form_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20 - 100;
+						Form_frame.h = Form_frame.w * frame.h / frame.w;
+					}
+					Form_frame.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Form_frame.w) / 2;
+					Form_frame.y = MenuItem.starts + 10;
+					Display.setForm("log_in_form.png", Form_frame.x, Form_frame.y, Form_frame.w, Form_frame.h);
+					
 					drawLogInForm();
-					Display.setButton("login_btn.png", X_ + 47, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
-					Form.Draw("login_btn.png");
-					Display.setButton("cancel_btn.png", X_ + 49 + (MenuItem.size) / 202 * 156 + 35, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40, (MenuItem.size) / 202 * 156, MenuItem.size * 37 / 202);
-					Form.Draw("cancel_btn.png");
+					
+					//fillRect(0, Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
+					//fillRect(0, Display.getForm("log_in_form.png").y + 55 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
+					//fillRect(Display.getForm("log_in_form.png").x + 32 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
+					//fillRect(Display.getForm("log_in_form.png").x + 200 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
+					//fillRect(Display.getForm("log_in_form.png").x + 170 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
+					//fillRect(Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w - 30 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
+					
 					ctx.fillStyle='#000000';
 					var div = document.createElement('inputDiv');
 					div.innerHTML = "<input id = 'UserName' name = 'UserName'/><input type = 'password' id = 'Password' name = 'UserName' />";
 					document.getElementById("mainDiv").appendChild(div);
-					document.getElementById("UserName").style.top = (Y_ + 57 / 202 * MenuItem.size) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.left = (X_ + 35 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.paddingLeft = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.paddingRight = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.width = 297 / 368 * (MenuItem.size) / 202 * 368*Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.height = 35 / 202 * MenuItem.size * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.top = (Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.left = (Display.getForm("log_in_form.png").x + 32 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.paddingLeft = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.paddingRight = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.width = (145 * Display.getForm("log_in_form.png").w / frame.w)*Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.height = (20 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.border = "2px solid";
 					document.getElementById('UserName').style.position = "absolute";
 					document.getElementById('UserName').autofocus = false;
 					document.getElementById('UserName').style.backgroundColor = "transparent";
-					Display.setButton("UserName", (X_ + 35 / 368 * (MenuItem.size) / 202 * 368), (Y_ + 57 / 202 * MenuItem.size), 297/ 368 * size_, 35 / 202 * size_ );
-					document.getElementById("Password").style.top = (Y_ + 115 / 202 * MenuItem.size) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.left = (X_ + 35 / 368 * (MenuItem.size) / 202 * 368) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.paddingLeft = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.paddingRight = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.width = 297 / 368 * (MenuItem.size) / 202 * 368 *Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.height = 35 / 202 * MenuItem.size * Math.min(Screen.k_width, Screen.k_height);
+					Display.setButton("UserName", Display.getForm("log_in_form.png").x + 32 * Display.getForm("log_in_form.png").w / frame.w, (Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h), 145 * Display.getForm("log_in_form.png").w / frame.w, 20 * Display.getForm("log_in_form.png").h / frame.h);
+					document.getElementById("Password").style.top = (Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("Password").style.left = (Display.getForm("log_in_form.png").x + 198 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("Password").style.paddingLeft = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("Password").style.paddingRight = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("Password").style.width = 145 * Display.getForm("log_in_form.png").w / frame.w * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("Password").style.height = 20 * Display.getForm("log_in_form.png").h / frame.h * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("Password").style.border = "2px solid";
 					document.getElementById('Password').style.position = "absolute";
 					document.getElementById('Password').style.backgroundColor = "transparent";
 					document.getElementById('Password').autofocus = false;
-					Display.setButton("Password", (X_ + 35 / 368 * (MenuItem.size) / 202 * 368), (Y_ + 115 / 202 * MenuItem.size), 297/ 368 * size_, 35 / 202 * size_ );
-					
+					Display.setButton("Password", Display.getForm("log_in_form.png").x + 198 * Display.getForm("log_in_form.png").w / frame.w, Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h, 145 * Display.getForm("log_in_form.png").w / frame.w, 20 * Display.getForm("log_in_form.png").h / frame.h);
+
+					frame = Properties.Forms["login_btn.png"];
+					var btn = {};
+					btn.w = (Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w - 30 - 10) / 4;
+					btn.x = (Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w / 2) / 2 - btn.w / 2;
+					btn.h = btn.w * Properties.Forms["log_in_form.png"].h / Properties.Forms["log_in_form.png"].w;
+					btn.y = Display.getForm("log_in_form.png").y + Display.getForm("log_in_form.png").h - 30 - btn.h / 2;
+					Display.setButton("login_btn.png", btn.x, btn.y, btn.w, btn.h);
+					Form.Draw("login_btn.png");
+					btn.x = Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w / 2 + 2 * 10;
+					btn.w = (Display.getForm("log_in_form.png").w - 2 * 30 - 10) / 4;
+					btn.h = btn.w * Properties.Forms["cancel_btn.png"].h / Properties.Forms["cancel_btn.png"].w;
+					btn.y = Display.getForm("log_in_form.png").y + Display.getForm("log_in_form.png").h - 30 - btn.h / 2;
+					Display.setButton("cancel_btn.png", btn.x, btn.y, btn.w, btn.h);
+					Form.Draw("cancel_btn.png");
+						
 					if(Profile.UserName)
 						document.getElementById('UserName').value = Profile.UserName;
 					if(Profile.Password)
