@@ -3332,13 +3332,13 @@ module.exports = {
 					btn.h = btn.w * Properties.Forms["log_in_form.png"].h / Properties.Forms["log_in_form.png"].w;
 					btn.y = Display.getForm("log_in_form.png").y + Display.getForm("log_in_form.png").h - 10 - btn.h / 2;
 					Display.setButton("login_btn.png", btn.x, btn.y, btn.w, btn.h);
-					console.log(btn);
+					//console.log(btn);
 					Form.Draw("login_btn.png");
 					btn.x = Display.getForm("log_in_form.png").x + 395 * Display.getForm("log_in_form.png").w / Properties.Forms["log_in_form.png"].w + 20;
 					//btn.w = (Display.getForm("log_in_form.png").w - 2 * 30 - 10) / 4;
 					//btn.h = btn.w * Properties.Forms["cancel_btn.png"].h / Properties.Forms["cancel_btn.png"].w;
 					//btn.y = Display.getForm("log_in_form.png").y + Display.getForm("log_in_form.png").h - 30 - btn.h / 2;
-					console.log(btn);
+					//console.log(btn);
 					Display.setButton("cancel_btn.png", btn.x, btn.y, btn.w, btn.h);
 					Form.Draw("cancel_btn.png");
 						
@@ -3511,7 +3511,7 @@ module.exports = {
 							}
 							
 							Task.Result.Points = points;
-							console.log("emitting because results showing", Task);
+							//console.log("emitting because results showing", Task);
 							socket.emit("Result", {Result: Task.Result});
 							
 						}

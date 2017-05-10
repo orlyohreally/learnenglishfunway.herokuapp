@@ -23,7 +23,7 @@ io.use(sharedsessoion(session, {
 }));
 
 server.listen(port, function () {
-  console.log('Server listening at port %d', port);
+  //console.log('Server listening at port %d', port);
 });
 
 // Routing
@@ -40,13 +40,13 @@ Properties.Buttons = {};
 			
 
 io.sockets.on('connection', function(socket) {
-	console.log("reloading");
+	//console.log("reloading");
 	socket.emit("reload", {});
 	socket.on('disconnect', function(){
-		console.log("socket disconnection");
+		//console.log("socket disconnection");
 	})
 	//console.log("cookie", socket.handshake.cookies);
-	console.log("hello hello ");
+	//console.log("hello hello ");
 	//console.log(socket.handshake.session);
 	if(socket.handshake.session && socket.handshake.session.user) {
 	//if((true || (socket.handshake.session && socket.handshake.session.user))) {
@@ -67,7 +67,7 @@ io.sockets.on('connection', function(socket) {
 		db.TopicFrames.drop();
 		db.TaskFrames.drop();
 		db.topics.drop();
-		console.log("socket disconnection");
+		//console.log("socket disconnection");
 	})*/
 	/*db.SpreadSheets.find({"Name":"Animals"}, function(err, res){
 		res = res[0].Frames;
@@ -80,7 +80,7 @@ io.sockets.on('connection', function(socket) {
 			delete res[i].pivot;
 			//db.test.update({"Content.Word": "bee"}, {$set:{"Content.$.frame":{"x":50, "y":50}}})
 			db.Exercise.update({"Name": "Reading animals", "Content.Word":res[i].filename}, {$set:{'Content.$.frame':res[i].frame}}, function(err, res){
-				console.log("result:", res);
+				//console.log("result:", res);
 				db.SpreadSheets.find({"Name":"Animals"}, function(err, res){
 					res = res[0].Frames;
 					for(var i = 0; i < res.length; i++){
@@ -98,7 +98,7 @@ io.sockets.on('connection', function(socket) {
 				})
 			})
 		}
-		console.log("look!", res);
+		//console.log("look!", res);
 		
 	})
 	*/
@@ -112,10 +112,10 @@ io.sockets.on('connection', function(socket) {
 			delete res[i].spriteSourceSize;
 			delete res[i].sourceSize;
 			delete res[i].pivot;
-			console.log("look!", res);
-			console.log(res[i].frame);
+			//console.log("look!", res);
+			//console.log(res[i].frame);
 			db.Exercise.update({"Name": res[i].filename}, {$set:{"Frame":res[i].frame}}, function(err, res){
-				console.log("result:", res);
+				//console.log("result:", res);
 			})			
 		}
 	})*/
@@ -129,10 +129,10 @@ io.sockets.on('connection', function(socket) {
 			delete res[i].spriteSourceSize;
 			delete res[i].sourceSize;
 			delete res[i].pivot;
-			console.log("look!", res);
+			//console.log("look!", res);
 			//console.log(res[i].frame);
 			db.Topics.update({"Name": res[i].filename}, {$set:{"Frame":res[i].frame}}, function(err, res){
-				console.log("result:", res);
+				//console.log("result:", res);
 			})			
 		}
 	})*/
@@ -149,11 +149,11 @@ io.sockets.on('connection', function(socket) {
 			//console.log("look!", res);
 			//console.log(res[i].frame);
 			db.Badges.update({"Name": res[i].filename}, {$set:{"Frame":res[i].frame}}, function(err, res){
-				console.log("result:", res);
+				//console.log("result:", res);
 			})			
 		}
 	})*/
-	console.log('socket connection');
+	//console.log('socket connection');
 	db.Topics.find({}).sort({"Index":1}, function(err, res){
 		if(res) {
 			//console.log("msg:", res);
@@ -220,7 +220,7 @@ io.sockets.on('connection', function(socket) {
 			}
 			db.SpreadSheets.find({"Name": "Capital-letters"}, function(err, res){
 				res = res[0].Frames;
-				console.log(res);
+				//console.log(res);
 				for(i = 0; i < res.length; i++){
 					delete res[i].rotated;
 					delete res[i].trimmed;
@@ -329,7 +329,7 @@ io.sockets.on('connection', function(socket) {
 										Properties.Forms[res[i].filename] = res[i].frame;
 										//console.log(Properties.Forms[res[i].filename]);
 									}
-									console.log("sending");
+									//console.log("sending");
 									socket.emit('getProperties', {
 										topics:Properties.Topics,
 										tasks:Properties.Tasks,
@@ -358,18 +358,18 @@ io.sockets.on('connection', function(socket) {
 		User.UserName = data.User.UserName;
 		User.Password = data.User.Password;
 		User.Accent = data.User.Accent;
-		console.log(User.UserName, User.Password);
+		//console.log(User.UserName, User.Password);
 		var checked;
 		db.Users.find({"UserName":User.UserName}, function(err, res){
 			if(res){
-				console.log(res);
+				//console.log(res);
 				if(!res.length) {
 					checked = true;
-					console.log("vacant");
+					//console.log("vacant");
 				}
 				else {
 					checked = false;					
-					console.log("taken");
+					//console.log("taken");
 				}
 			}
 			if(checked) {
@@ -378,7 +378,7 @@ io.sockets.on('connection', function(socket) {
 						bcrypt.hash(User.Password, salt, function(err, hash){
 							if(res){
 								User.Password = hash;
-								console.log("hash:", User.Password);
+								//console.log("hash:", User.Password);
 								db.Users.insert({"UserName": User.UserName, "Password": User.Password, "Accent":User.Accent, "Points":0, "Max_points": 0, "Badges":[]}, function(err, res){
 									if(res) {
 										socket.handshake.session.user = User;
@@ -406,7 +406,7 @@ io.sockets.on('connection', function(socket) {
 				socket.emit('newUser', {
 						res:checked
 				});
-				console.log("emit", checked);
+				//console.log("emit", checked);
 			}
 			else if(err)
 				socket.emit('newUser', {res: err});
@@ -414,39 +414,39 @@ io.sockets.on('connection', function(socket) {
 	});
 	
 	socket.on('auth', function(data){
-		console.log("auth");
+		//console.log("auth");
 		db.Users.find({"UserName":data.User.UserName}, function(err, res){
 			if(res) {
 				if(!res.length) {
-					console.log("emitting false", "no user");
+					//console.log("emitting false", "no user");
 					socket.emit('auth', {res: false});
 				}
 				else {
-					console.log(res, "found user");
-					console.log("res", res[0].Password);
+					//console.log(res, "found user");
+					//console.log("res", res[0].Password);
 					var User = res[0];
 					bcrypt.compare(data.User.Password,res[0].Password, function(err, res) {
-						console.log("emitting", res);
-						console.log(socket.handshake.cookies);
+						//console.log("emitting", res);
+						//console.log(socket.handshake.cookies);
 						if(res == true) {
 							socket.handshake.session.user = User;
 							socket.handshake.cookies.user = User;
-							console.log(socket.handshake.cookies);
+							//console.log(socket.handshake.cookies);
 							socket.emit('auth', {res:res, User: User});
 							delete socket.handshake.session.user.Password;
 							delete User.Password;
 							socket.handshake.session.save();
-							console.log(socket.handshake.session);
+							//console.log(socket.handshake.session);
 						}
 						else {
-							console.log("wrong password");
+							//console.log("wrong password");
 							socket.emit("auth", {res: false});
 						}
 					})
 				}
 			}
 			else {
-				console.log("emitting", err);
+				//console.log("emitting", err);
 				socket.emit('auth',{res: err});
 			}
 		})
@@ -454,26 +454,26 @@ io.sockets.on('connection', function(socket) {
 	socket.on("resetPassword", function(data) {
 		db.Users.find({"UserName":data.user.UserName}, function(err, res){
 			if(res) {
-				console.log(res);
+				//console.log(res);
 				if(!res.length) {
-					console.log("emitting false");
+					//console.log("emitting false");
 					socket.emit('resetPassword', {res: "wrong username"});
 				}
 				else {
-					console.log("res", res[0].Password);
+					//console.log("res", res[0].Password);
 					var User = res[0];
-					console.log(res[0].Password, data.user.oldPassword);
+					//console.log(res[0].Password, data.user.oldPassword);
 					bcrypt.compare(data.user.oldPassword, res[0].Password, function(err, res) {
-						console.log("emitting", res);
+						//console.log("emitting", res);
 						if(res == false) {
 							socket.emit("resetPassword", {res: "wrong password"})
 						}
 						else {
-							console.log("correct old password");
+							//console.log("correct old password");
 							bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
 								bcrypt.hash(data.user.newPassword, salt, function(err, hash){
 									if(res){
-										console.log("hash:", hash, data.user.UserName);
+										//console.log("hash:", hash, data.user.UserName);
 										db.Users.update({"UserName": data.user.UserName}, {$set:{"Password": hash}}, function(err, res) {
 											if(!res) {
 												socket.emit("resetPassword", {res: "something went wrong"});
@@ -518,16 +518,16 @@ io.sockets.on('connection', function(socket) {
 		db.Users.find({"UserName": data.username}, function(err, res) {
 			var Badges = {};
 			Badges.Recieved = [];
-			console.log(res, res[0]);
+			//console.log(res, res[0]);
 			if(res && res.length) {
 				Badges.Recieved = res[0].Badges;
 			}
 			db.Badges.find({}).sort({Topic_Name:1, Name: 1}, function(err, res){
 			Badges.All = res;
 				for (var i = 0; i < Badges.Recieved.length; i++){
-					console.log(underscorejs.pluck(Badges.Recieved[i].Name, Badges.All, "Name"));
+					//console.log(underscorejs.pluck(Badges.Recieved[i].Name, Badges.All, "Name"));
 					var ind = underscorejs.indexOf( underscorejs.pluck(Badges.All, "Name"), Badges.Recieved[i].Name);
-					console.log(Badges.Recieved[i].Name, ind);
+					//console.log(Badges.Recieved[i].Name, ind);
 					if(ind != -1)
 						Badges.All[ind].Recieved = true;
 				}
@@ -567,51 +567,51 @@ io.sockets.on('connection', function(socket) {
 		})
 	})						
 	socket.on('Result', function(data){
-		console.log("result", data.Result);
+		//console.log("result", data.Result);
 		var User = {};
 		db.Results.insert(data.Result, function(err, res){
 			if(res) {
 				db.Users.update({"UserName" : data.Result.UserName}, {$inc:{Points:data.Result.Points, Max_points: data.Result.Max_point}}, function(err, res){});
-				console.log("Topic_Name", data.Result.Topic_Name);
+				//console.log("Topic_Name", data.Result.Topic_Name);
 				db.Users.find({"UserName": data.Result.UserName}, function(err, res){
 					User = res[0];
 				
 					db.Exercise.find({"Name":data.Result.Exercise}, function(err, res){
 						//console.log("res", res);
-						console.log(data.Result.Topic_Name, res[0].Quiz);
+						//console.log(data.Result.Topic_Name, res[0].Quiz);
 						db.Badges.find({"Topic_Name": data.Result.Topic_Name, "Quiz": res[0].Quiz}, function(err, res){
 							var Badges = res;
 							var pBadges = underscorejs.pluck(res, "Name");
-							console.log("all", underscorejs.pluck(Badges, "Name"), "users", User.Badges);
-							console.log("could get", underscorejs.difference(underscorejs.pluck(Badges, "Name"), underscorejs.pluck(User.Badges, "Name")));
+							//console.log("all", underscorejs.pluck(Badges, "Name"), "users", User.Badges);
+							//console.log("could get", underscorejs.difference(underscorejs.pluck(Badges, "Name"), underscorejs.pluck(User.Badges, "Name")));
 							if(!underscorejs.isEmpty(User.Badges)){
 								pBadges = underscorejs.difference(underscorejs.pluck(Badges, "Name"), underscorejs.pluck(User.Badges, "Name"));
 							}
-							console.log("Badges to consider", pBadges);
+							//console.log("Badges to consider", pBadges);
 							for(var i = 0; i < pBadges.length; i++)
 							{
-								console.log("current badge", pBadges[i]);
+								//console.log("current badge", pBadges[i]);
 								Badge = underscorejs.findWhere(Badges, {"Name": pBadges[i]});
-								console.log("Badge", Badge);
+								//console.log("Badge", Badge);
 								if(Badge && Badge.Reason && Badge.Reason.Time) {
 									var Finish = new Date(data.Result.Finish);
 									var Start = new Date(data.Result.Start);
-									console.log(data.Result.Finish, Finish);
-									console.log((Finish.getTime() - Start.getTime()) / 1000, Badge.Reason.Time, (Finish.getTime() - Start.getTime()) / 1000 <= Badge.Reason.Time);
+									//console.log(data.Result.Finish, Finish);
+									//console.log((Finish.getTime() - Start.getTime()) / 1000, Badge.Reason.Time, (Finish.getTime() - Start.getTime()) / 1000 <= Badge.Reason.Time);
 									if((Finish.getTime() - Start.getTime()) / 1000 <= Badge.Reason.Time) {
-										console.log("got a new badge");
+										//console.log("got a new badge");
 										var time = new Date();
 										db.Users.update({"UserName":User.UserName}, {$push:{"Badges":{"Name":Badge.Name, "Date": time, "Topic_Name": Badge.Topic_Name}}}, function(err, res){
-											console.log(res);
+											//console.log(res);
 										})
 									}
 									else {
-										console.log("too slow");
+										//console.log("too slow");
 									}
 								}
 								else if(Badge && Badge.Reason && Badge.Reason.Times){
 									db.Results.find({"Topic_Name": data.Result.Topic_Name, "Type": "Matching"}, function(err, res){
-										console.log("all results on", data.Result.Topic_Name, res);
+										//console.log("all results on", data.Result.Topic_Name, res);
 										var i = 0;
 										var count = 0;
 										while(i < res.length && count < Badge.Reason.Times) {
@@ -619,16 +619,16 @@ io.sockets.on('connection', function(socket) {
 												count++;
 											i++;
 										}
-										console.log(i, count);
+										//console.log(i, count);
 										if(count >= Badge.Reason.Times){
-											console.log("got a new badge");
+											//console.log("got a new badge");
 											var time = new Date();
 											db.Users.update({"UserName":User.UserName}, {$push:{"Badges":{"Name":Badge.Name, "Date": time, "Topic_Name": Badge.Topic_Name}}}, function(err, res){
-												console.log(res);
+												//console.log(res);
 											})
 										}
 									})
-									console.log("badge on times");
+									//console.log("badge on times");
 								}
 							}
 							
@@ -639,7 +639,7 @@ io.sockets.on('connection', function(socket) {
 		});
 	})
 	socket.on('Logout', function(data){
-		console.log("logout");
+		//console.log("logout");
 		delete socket.handshake.session.user;
 		socket.handshake.session.save();
 		socket.emit('Logout', {
@@ -653,9 +653,9 @@ io.sockets.on('connection', function(socket) {
 				/*var f = 0, i = 0;
 				date = new Date(res[i].Start);
 				while(f < data.filter && i < res.length) {
-					console.log("f", f, "i", i, "date", date);
+					//console.log("f", f, "i", i, "date", date);
 					var Start = new Date(res[i].Start);
-					console.log(Start, Start.getDay());
+					//console.log(Start, Start.getDay());
 					if(date == Start.getDay)
 						Progress.push(res[i]);
 					else {
@@ -681,7 +681,7 @@ io.sockets.on('connection', function(socket) {
 	var inter = setInterval(function(){
 		if (i < 3) {
 			j++;
-			console.log(i, j);
+			//console.log(i, j);
 				
 			if(i == j) {
 				unirest.post("https://twinword-language-scoring.p.mashape.com/word/")
@@ -690,7 +690,7 @@ io.sockets.on('connection', function(socket) {
 				.header("Accept", "application/json")
 				.send("entry=" + "book")
 				.end(function (result) {
-					console.log(result.body.value);
+					//console.log(result.body.value);
 					i++;
 					j = i - 1;
 					
@@ -703,7 +703,7 @@ io.sockets.on('connection', function(socket) {
 	*/
 	
 	function setlist(list) {
-		console.log("list:", list, list != []);
+		//console.log("list:", list, list != []);
 		if(list.length) {
 		for(var i = 0; i < list.length; i++){
 			for (var j = i + 1; j < list.length; j++) {
@@ -726,17 +726,17 @@ io.sockets.on('connection', function(socket) {
 			return -a.w + b.w;
 		})
 		//console.log(list);
-		console.log("before removing duplicates list.length",list.length);
+		//console.log("before removing duplicates list.length",list.length);
 		list = removeUnique(list);
 		//console.log(list);
-		console.log("after removing duplicates list.length", list.length);
+		//console.log("after removing duplicates list.length", list.length);
 		list = list.splice(0, 20);
 		//console.log(list);
-		console.log("list.length", list.length);
+		//console.log("list.length", list.length);
 		var Quiz = getQuiz(list);
-		console.log("Quiz", Quiz);
+		//console.log("Quiz", Quiz);
 		var i = 0;
-		console.log(Quiz[i].Name, Quiz[i].Topic_Name);
+		//console.log(Quiz[i].Name, Quiz[i].Topic_Name);
 		setFramesForQuiz(i, Quiz);
 		}
 		else {
@@ -856,13 +856,13 @@ io.sockets.on('connection', function(socket) {
 				else
 					j++;
 			}
-			console.log("i++");
+			//console.log("i++");
 			i++;
 		}
 		return list;
 	}
 	function setFramesForQuiz(i, Quiz) {
-		console.log("setFramesForQuiz()");
+		//console.log("setFramesForQuiz()");
 		if(i < Quiz.length) {
 			db.Exercise.find({"Name": Quiz[i].Name, "Topic_Name": Quiz[i].Topic_Name}, function(err, res) {
 				if(res) {
@@ -870,11 +870,11 @@ io.sockets.on('connection', function(socket) {
 					Quiz[i].Max_point = res[0].Max_point;
 					Quiz[i].Type = res[0].Type;
 					res = res[0].Content;
-					console.log(Quiz[i].Type);
+					//console.log(Quiz[i].Type);
 					for(var j = 0; j < Quiz[i].Content.length; j++) {
-						console.log(Quiz[i].Content[j].Word);
+						//console.log(Quiz[i].Content[j].Word);
 						var q = inList(Quiz[i].Content[j].Word, res, "Word");
-						console.log("q:", q, res[q]);
+						//console.log("q:", q, res[q]);
 						if(q != -1) {
 							Quiz[i].Content[j] = res[q];
 						}
@@ -888,11 +888,11 @@ io.sockets.on('connection', function(socket) {
 			socket.emit('getQuiz', {
 				quiz: Quiz
 			})
-			console.log("emitting");
+			//console.log("emitting");
 			for(var i = 0; i < Quiz.length; i++) {
-				console.log(Quiz[i].Content);
+				//console.log(Quiz[i].Content);
 			}
-			console.log("emmited");
+			//console.log("emmited");
 			
 		}
 			
@@ -937,9 +937,9 @@ io.sockets.on('connection', function(socket) {
 		currEx = "";
 		var item = {};
 		for (var i = 0; i < list.length; i++) {
-			console.log("list[", i, "].Exercise", currEx, list[i].Exercise);
+			//console.log("list[", i, "].Exercise", currEx, list[i].Exercise);
 			if(currEx != list[i].Exercise) {
-				console.log(currEx);
+				//console.log(currEx);
 				if(currEx != "")
 					Quiz.push(item);
 				currEx = list[i].Exercise;
@@ -950,7 +950,7 @@ io.sockets.on('connection', function(socket) {
 				item.Content.push({"Word": list[i].Word});
 			}
 			else if(currEx == list[i].Exercise) {
-				console.log(currEx);
+				//console.log(currEx);
 				item.Content.push({"Word": list[i].Word});
 			}
 		}
