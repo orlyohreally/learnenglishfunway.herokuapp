@@ -3290,28 +3290,28 @@ module.exports = {
 					
 					drawLogInForm();
 					
-					//fillRect(0, Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
-					//fillRect(0, Display.getForm("log_in_form.png").y + 55 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
-					//fillRect(Display.getForm("log_in_form.png").x + 32 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
-					//fillRect(Display.getForm("log_in_form.png").x + 200 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
-					//fillRect(Display.getForm("log_in_form.png").x + 170 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
-					//fillRect(Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w - 30 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
+					fillRect(0, Display.getForm("log_in_form.png").y + 95 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
+					fillRect(0, Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
+					fillRect(Display.getForm("log_in_form.png").x + 65 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
+					fillRect(Display.getForm("log_in_form.png").x + 347 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
+					fillRect(Display.getForm("log_in_form.png").x + 395 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
+					fillRect(Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w - 55 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
 					
 					ctx.fillStyle='#000000';
 					var div = document.createElement('inputDiv');
 					div.innerHTML = "<input id = 'UserName' name = 'UserName'/><input type = 'password' id = 'Password' name = 'UserName' />";
 					document.getElementById("mainDiv").appendChild(div);
-					document.getElementById("UserName").style.top = (Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.left = (Display.getForm("log_in_form.png").x + 32 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.top = (Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.left = (Display.getForm("log_in_form.png").x + 65 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.paddingLeft = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.paddingRight = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.width = (145 * Display.getForm("log_in_form.png").w / frame.w)*Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.height = (20 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.width = (282 * Display.getForm("log_in_form.png").w / frame.w)*Math.min(Screen.k_width, Screen.k_height);
+					document.getElementById("UserName").style.height = (35 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("UserName").style.border = "2px solid";
 					document.getElementById('UserName').style.position = "absolute";
 					document.getElementById('UserName').autofocus = false;
 					document.getElementById('UserName').style.backgroundColor = "transparent";
-					Display.setButton("UserName", Display.getForm("log_in_form.png").x + 32 * Display.getForm("log_in_form.png").w / frame.w, (Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h), 145 * Display.getForm("log_in_form.png").w / frame.w, 20 * Display.getForm("log_in_form.png").h / frame.h);
+					Display.setButton("UserName", Display.getForm("log_in_form.png").x + 65 * Display.getForm("log_in_form.png").w / frame.w, (Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h), 282 * Display.getForm("log_in_form.png").w / frame.w, 35 * Display.getForm("log_in_form.png").h / frame.h);
 					document.getElementById("Password").style.top = (Display.getForm("log_in_form.png").y + 35 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("Password").style.left = (Display.getForm("log_in_form.png").x + 198 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
 					document.getElementById("Password").style.paddingLeft = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);

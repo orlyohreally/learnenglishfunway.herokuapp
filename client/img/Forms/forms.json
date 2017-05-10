@@ -11,7 +11,7 @@
 },
 {
 	"filename": "enter-all-data.png",
-	"frame": {"x":1472,"y":280,"w":368,"h":202},
+	"frame": {"x":1472,"y":337,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -20,7 +20,7 @@
 },
 {
 	"filename": "enter-all-passwords.png",
-	"frame": {"x":0,"y":482,"w":368,"h":202},
+	"frame": {"x":0,"y":539,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -29,7 +29,7 @@
 },
 {
 	"filename": "incorrect-data.png",
-	"frame": {"x":1104,"y":280,"w":368,"h":202},
+	"frame": {"x":1104,"y":337,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -38,7 +38,7 @@
 },
 {
 	"filename": "incorrect-password.png",
-	"frame": {"x":368,"y":280,"w":368,"h":202},
+	"frame": {"x":368,"y":337,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -47,11 +47,11 @@
 },
 {
 	"filename": "log_in_form.png",
-	"frame": {"x":1117,"y":0,"w":368,"h":78},
+	"frame": {"x":1117,"y":0,"w":736,"h":135},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":78},
-	"sourceSize": {"w":368,"h":78},
+	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":135},
+	"sourceSize": {"w":736,"h":135},
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
@@ -74,7 +74,7 @@
 },
 {
 	"filename": "need_to_do_exerciseProgress.png",
-	"frame": {"x":368,"y":482,"w":368,"h":202},
+	"frame": {"x":368,"y":539,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -83,7 +83,7 @@
 },
 {
 	"filename": "need_to_do_exerciseQuiz.png",
-	"frame": {"x":1472,"y":482,"w":368,"h":202},
+	"frame": {"x":1472,"y":539,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -92,7 +92,7 @@
 },
 {
 	"filename": "need_to_loginPhrases.png",
-	"frame": {"x":1104,"y":482,"w":368,"h":202},
+	"frame": {"x":1104,"y":539,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -101,7 +101,7 @@
 },
 {
 	"filename": "need_to_loginProgress.png",
-	"frame": {"x":736,"y":482,"w":368,"h":202},
+	"frame": {"x":736,"y":539,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -110,7 +110,7 @@
 },
 {
 	"filename": "need_to_loginQuiz.png",
-	"frame": {"x":736,"y":280,"w":368,"h":202},
+	"frame": {"x":736,"y":337,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -119,7 +119,7 @@
 },
 {
 	"filename": "need_to_loginRewards.png",
-	"frame": {"x":1472,"y":78,"w":368,"h":202},
+	"frame": {"x":1472,"y":135,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -128,7 +128,7 @@
 },
 {
 	"filename": "no_reading.png",
-	"frame": {"x":0,"y":280,"w":368,"h":202},
+	"frame": {"x":0,"y":337,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -146,7 +146,7 @@
 },
 {
 	"filename": "passwrod_is_too_short.png",
-	"frame": {"x":368,"y":78,"w":368,"h":202},
+	"frame": {"x":368,"y":135,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -155,7 +155,7 @@
 },
 {
 	"filename": "progress_form_Matching.png",
-	"frame": {"x":736,"y":1087,"w":736,"h":438},
+	"frame": {"x":736,"y":1144,"w":736,"h":438},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":438},
@@ -164,7 +164,7 @@
 },
 {
 	"filename": "progress_form_Reading.png",
-	"frame": {"x":0,"y":1087,"w":736,"h":438},
+	"frame": {"x":0,"y":1144,"w":736,"h":438},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":438},
@@ -173,7 +173,7 @@
 },
 {
 	"filename": "progress_form_Video.png",
-	"frame": {"x":736,"y":684,"w":736,"h":403},
+	"frame": {"x":736,"y":741,"w":736,"h":403},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":403},
@@ -182,7 +182,7 @@
 },
 {
 	"filename": "result_form.png",
-	"frame": {"x":0,"y":684,"w":736,"h":318},
+	"frame": {"x":0,"y":741,"w":736,"h":318},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":318},
@@ -191,7 +191,7 @@
 },
 {
 	"filename": "same-passwords.png",
-	"frame": {"x":736,"y":78,"w":368,"h":202},
+	"frame": {"x":736,"y":135,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -209,7 +209,7 @@
 },
 {
 	"filename": "setting_form.png",
-	"frame": {"x":736,"y":1525,"w":736,"h":586},
+	"frame": {"x":736,"y":1582,"w":736,"h":586},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":586},
@@ -218,7 +218,7 @@
 },
 {
 	"filename": "sign_in_form.png",
-	"frame": {"x":0,"y":1525,"w":736,"h":474},
+	"frame": {"x":0,"y":1582,"w":736,"h":474},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":474},
@@ -245,7 +245,7 @@
 },
 {
 	"filename": "username_is_taken.png",
-	"frame": {"x":1104,"y":78,"w":368,"h":202},
+	"frame": {"x":1104,"y":135,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -254,7 +254,7 @@
 },
 {
 	"filename": "username_is_too_short.png",
-	"frame": {"x":0,"y":78,"w":368,"h":202},
+	"frame": {"x":0,"y":135,"w":368,"h":202},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":368,"h":202},
@@ -266,8 +266,8 @@
 	"version": "1.0",
 	"image": "forms.png",
 	"format": "RGBA8888",
-	"size": {"w":1840,"h":2111},
+	"size": {"w":1853,"h":2168},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:844f5023dfd7a1e3fd9d7f16818d0e40:341041e9d9b939c2e13f9f344b82871f:9b03ed0702ee7e82d798cd9ace954c38$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6d1ebbb853b5fb36f4b898f14b84841a:6650fd68b5896ffc64b8fd68cee9a5d9:9b03ed0702ee7e82d798cd9ace954c38$"
 }
 }
