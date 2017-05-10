@@ -3251,7 +3251,25 @@
 							
 							Profile.Points = Profile.Points + Task.Result.Points;
 							Profile.Max_points = Profile.Max_points + Task.Result.Max_point;
-							//console.log("emitting because results showing");
+							var points = 0;
+							//console.log(Answers, Max);
+							Answers = Task.Result.Answers;
+							if(Task.Type == "Matching") {
+								for (var i = 0; i < Answers.length; i++) {
+									if(Answers[i].Attempts)
+										points = points + Task.MaxPoint + 1 - Answers[i].Attempts;
+								}
+							}
+							else if(Task.Type == "Reading") {
+								for (var i = 0; i < Answers.length; i++) {
+									if(Answers[i].Correct)
+										points = points + Task.MaxPoint;
+								}
+
+							}
+							
+							Task.Result.Points = points;
+							console.log("emitting because results showing", Task);
 							socket.emit("Result", {Result: Task.Result});
 							
 						}
