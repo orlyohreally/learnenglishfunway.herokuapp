@@ -3284,6 +3284,8 @@ module.exports = {
 						Form_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20 - 100;
 						Form_frame.h = Form_frame.w * frame.h / frame.w;
 					}
+					Form_frame.h = Form_frame.h - 20;
+					Form_frame.w = Form_frame.h * frame.w / frame.h;
 					Form_frame.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Form_frame.w) / 2;
 					Form_frame.y = MenuItem.starts + 10;
 					Display.setForm("log_in_form.png", Form_frame.x, Form_frame.y, Form_frame.w, Form_frame.h);
