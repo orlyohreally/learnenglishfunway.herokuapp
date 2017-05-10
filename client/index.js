@@ -4591,7 +4591,6 @@
 			selectAnimal();
 		}
 		function setReading(Array, N) {
-			try {
 			if(webkitSpeechRecognition != undefined)
 				speechRecognizer = new webkitSpeechRecognition();
 			else if(SpeechRecognition != undefined)
@@ -4604,7 +4603,7 @@
 			Task.test = Array.concat();
 			Task.index = 0;
 			drawTestReading();
-			}catch(e){};
+			
 		}
 		function drawTestReading() {
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
@@ -4717,6 +4716,15 @@
 				checkloaded[Task.TopicName]();
 		}
 		function showReading() {
+			if(!('webkitSpeechRecognition' in window)) {
+					
+						Mode.Message = true;
+						Mode.Exercise = false;
+						Error.Name = "no_reading";
+						Error.Mode = "reading";
+						showMessage(Error.Name + ".png");
+					}
+					else {
 			//console.log('showing Reading');
 			Task.Result.Answers = [];
 			Task.Result.Start = new Date();
@@ -4749,6 +4757,7 @@
 				Accent: Profile.Accent
 			})
 			//on hgetTask
+					}
 		}
 		function setWordHeight(){
 			try {
