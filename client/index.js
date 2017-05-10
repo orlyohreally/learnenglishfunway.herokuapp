@@ -4591,6 +4591,7 @@
 			selectAnimal();
 		}
 		function setReading(Array, N) {
+			try {
 			if(webkitSpeechRecognition != undefined)
 				speechRecognizer = new webkitSpeechRecognition();
 			else if(SpeechRecognition != undefined)
@@ -4603,7 +4604,7 @@
 			Task.test = Array.concat();
 			Task.index = 0;
 			drawTestReading();
-			
+			}catch(e){};
 		}
 		function drawTestReading() {
 			ctx.clearRect(0, 0, Screen.width, Screen.height);
@@ -5833,7 +5834,7 @@
 							Task.Result.Points = Points;
 						else
 							Task.Result.Points = Task.MaxPoint;
-						Profile.Points = Profile.Points + Task.Result.Points;
+						Profile.Points = Profile.Points + points;
 						Profile.Max_points = Profile.Max_points + Task.Result.Max_point;
 						socket.emit("Result", {Result: Task.Result});
 					}
