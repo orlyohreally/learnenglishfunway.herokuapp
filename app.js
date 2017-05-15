@@ -498,9 +498,11 @@ io.sockets.on('connection', function(socket) {
 		
 	})
 	socket.on("updateAccent", function(data) {
+		console.log("updateAccent", data);
 		db.Users.find({"UserName":data.UserName}, function(err, res){
 			if(res.length == 1) {
 				db.Users.update({"UserName": data.UserName}, {$set:{"Accent": data.Accent}}, function(err, res) {
+					console.log("changed", res);
 					if(res) {
 						socket.emit("updateAccent", {res: true});
 					}

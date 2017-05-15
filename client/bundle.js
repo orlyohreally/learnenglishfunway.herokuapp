@@ -553,9 +553,6 @@ module.exports = {
 				$("HelpDiv").remove();
 			}
 				
-			if(document.getElementById("Help1")) {
-				$("#Help1").remove();
-			}
 				
 			
 			if(document.getElementById("MenuCanvas"))
@@ -3254,7 +3251,7 @@ module.exports = {
 		
 		
 		
-		function showLogInForm(){
+		function showLogInForm(text){
 				
 					ctx.clearRect(0,0,Screen.width, Screen.height);
 					if(Forms_loaded){
@@ -3269,44 +3266,33 @@ module.exports = {
 					
 					if(document.getElementById("MenuCanvas"))
 						$("#MenuCanvas").remove();
-					var frame = Properties.Forms["log_in_form.png"];
-					var Form_frame = {};
-				
-					Form_frame.h = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 40 - 100;
-					Form_frame.w = Form_frame.h * frame.w / frame.h;
 					
-					if(Form_frame.w > Screen.width / Math.min(Screen.k_width, Screen.k_height)- 2 * 20 - 100) {
-						Form_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20 - 100;
-						Form_frame.h = Form_frame.w * frame.h / frame.w;
-					}
-					Form_frame.h = Form_frame.h - 50;
-					Form_frame.w = Form_frame.h * frame.w / frame.h;
-					Form_frame.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Form_frame.w) / 2;
-					Form_frame.y = MenuItem.starts + 10;
-					Display.setForm("log_in_form.png", Form_frame.x, Form_frame.y, Form_frame.w, Form_frame.h);
-					
-					//drawLogInForm();
-					
-					//fillRect(0, Display.getForm("log_in_form.png").y + 95 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
-					//fillRect(0, Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
-					//fillRect(Display.getForm("log_in_form.png").x + 65 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
-					//fillRect(Display.getForm("log_in_form.png").x + 347 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
-					//fillRect(Display.getForm("log_in_form.png").x + 395 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
-					//fillRect(Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w - 55 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
-					
-					ctx.fillStyle='#000000';
 					if(!document.getElementById("LogInForm")) {
 					var div = document.createElement('inputDiv');
 					//div.innerHTML = "<form> <input id = 'UserName' name = 'UserName'/><input type = 'password' id = 'Password' name = 'UserName' /></form>";
-					div.innerHTML = '<form id = "LogInForm" style= "padding: 20px; border: 10px #7cc576 solid; text-align:center; background-color: transparent; position:absolute"> First name <input style = "margin:10px;" type="text" id="UserName"><br>  Last name <input style = "margin:10px;"type="password" id="Password"><br> <div style = "display:inline-block"> <div style = "padding: 10px; display:inline-block; border: 1px solid; margin:10px; background-color:#7cc576;"id = "LogInbtn" class = "button"> Log in</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 1px solid;"id = "Cancelbtn"> Cancel</div></div></form>';
+					div.innerHTML = '<form id = "LogInForm" style= "padding: 20px; border: 10px #7cc576 solid; text-align:center; background-color: transparent; position:absolute"> User name <input style = "margin:10px;" type="text" id="UserName"><br>Password<input style = "margin:10px;"type="password" id="Password"><br> <div style = "display:inline-block"> <div style = "padding: 10px; display:inline-block; border: 1px solid; margin:10px; background-color:#7cc576;"id = "LogInbtn" class = "button"> Log in</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 1px solid;"id = "Cancelbtn"> Cancel</div></div></form>';
 					document.getElementById("mainDiv").appendChild(div);
 					}
 					console.log("showloginform");
+					if(text) {
+						
+						document.getElementById("UserName").style.backgroundColor = "red";
+						document.getElementById("Password").style.backgroundColor = "red";
+					}
 					
 					document.getElementById("LogInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
 					
 					
 					
+					
+					document.getElementById("UserName").addEventListener("input", function() {
+						document.getElementById("UserName").style.backgroundColor = "transparent";
+						document.getElementById("Password").style.backgroundColor = "transparent";
+					})
+					document.getElementById("Password").addEventListener("input", function() {
+						document.getElementById("UserName").style.backgroundColor = "transparent";
+						document.getElementById("Password").style.backgroundColor = "transparent";
+					})
 					
 					//login button clicked LogIn Mode
 					document.getElementById("LogInbtn").addEventListener("click", function() {
@@ -4295,7 +4281,7 @@ module.exports = {
 			//console.log("logoutbtn", log_out_btn, log_out_btn.h, save_btn.w * Properties.Forms["save_btn.png"].h / Properties.Forms["save_btn.png"].w);
 			Display.setButton("log_out_btn.png", log_out_btn.x, log_out_btn.y, log_out_btn.w, log_out_btn.h);
 		}
-		function showSettingsForm() {
+		/*function showSettingsForm() {
 			document.getElementById("Loading").style.visibility = "hidden";
 			//console.log("showing settings form");
 			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
@@ -4314,7 +4300,215 @@ module.exports = {
 			//fillRect(Display.getForm("setting_form.png").x + 70 * Display.getForm("setting_form.png").w / frame.w, 0, 10, 1000);
 			//fillRect(Display.getForm("setting_form.png").x + 140 * Display.getForm("setting_form.png").w / frame.w, 0, 10, 1000);
 			//fillRect(Display.getForm("setting_form.png").x + 160 * Display.getForm("setting_form.png").w / frame.w, 0, 10, 1000);
+		}*/
+		
+		function showSettingsForm(text) {
+			if(document.getElementById("MenuCanvas"))
+					$("#MenuCanvas").remove();
+				
+			if(!document.getElementById("SignInForm")) {
+				var div = document.createElement('inputDiv');
+				if(Profile.LoggedIn)
+					div.innerHTML = '<form id = "SignInForm" style= "padding: 20px; border: 10px #00a651 solid; text-align:center; background-color: #7cc576; position:absolute"> <b>Old password</b> <input style = "margin:10px;" type="password" id="oldPassword"><br><b>New password</b><input style = "margin:10px;"type="password" id="newPassword"><br> <div style = "display:inline-block;"> <b>Accent</b><div style = "display:inline-block;"><img class = "flag" id = "british" src = "/img/Forms/british.png" style = "height:5%;"/></div><div style = "display:inline-block;"><img class = "flag" id = "american" src = "/img/Forms/american.png" style = "height:5%;"/> </div><div style = "display:inline-block;"><img class = "flag" id = "australian" src = "/img/Forms/australian.png" style = "height:5%;"/> </div> </div> <br> <div style = "display:inline-block"> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 3px solid #00a651;"id = "LogOutbtn"> Log out</div> <div style = "padding: 10px; display:inline-block; border: 3px solid #00a651; margin:10px; background-color:#7cc576;"id = "Savebtn" class = "button"> Save</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 3px solid #00a651;"id = "Cancelbtn"> Cancel</div></div></form>';
+				else
+				div.innerHTML = '<form id = "SignInForm" style= "padding: 20px; border: 10px #00a651 solid; text-align:center; background-color: #7cc576; position:absolute"><div style = "display:inline-block;"> <div style = "display:inline-block;"><img class = "flag" id = "british" src = "/img/Forms/british.png" style = "height:5%;"/></div><div style = "display:inline-block;"><img class = "flag" id = "american" src = "/img/Forms/american.png" style = "height:5%;"/> </div><div style = "display:inline-block;"><img class = "flag" id = "australian" src = "/img/Forms/australian.png" style = "height:5%;"/> </div> </div> <br> <div style = "display:inline-block"> <div style = "padding: 10px; display:inline-block; border: 3px solid #00a651; margin:10px; background-color:#7cc576;"id = "Savebtn" class = "button"> Save</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 3px solid #00a651;"id = "Cancelbtn"> Cancel</div></div></form>';
+				document.getElementById("mainDiv").appendChild(div);
+				
+				switch(Profile.Accent) {
+					case "US English Female":
+						document.getElementById("american").style.border = "4px solid";
+						break;
+					case "Australian Female":
+						document.getElementById("australian").style.border = "4px solid";
+						break;
+					case "UK English Male":
+						document.getElementById("british").style.border = "4px solid";
+						break;
+					default:
+						document.getElementById("british").style.border = "4px solid";
+						break;
+				}
+				
+			}
+				if(Profile.LoggedIn && text) {
+					
+					document.getElementById("oldPassword").style.backgroundColor = "red";
+					document.getElementById("newPassword").style.backgroundColor = "red";
+
+				}
+				if(Profile.LoggedIn) {
+					document.getElementById("oldPassword").addEventListener("input", function() {
+						console.log("input1");
+						document.getElementById("oldPassword").style.backgroundColor = "transparent";
+						document.getElementById("newPassword").style.backgroundColor = "transparent";
+					})
+					document.getElementById("newPassword").addEventListener("input", function() {
+						console.log("input2");
+						document.getElementById("oldPassword").style.backgroundColor = "transparent";
+						document.getElementById("newPassword").style.backgroundColor = "transparent";
+					})
+					document.getElementById("LogOutbtn").addEventListener("click", function() {
+						if(Profile.LoggedIn)
+							socket.emit("Logout", {});
+					});
+					
+					
+				}
+				document.getElementById("SignInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
+				
+				document.getElementById("british").addEventListener("click", function() {
+					console.log("click")
+					document.getElementById("british").style.border = "4px solid";
+					document.getElementById("american").style.border = "none";
+					document.getElementById("australian").style.border = "none";
+					NewAccent = "UK English Male";
+				})
+				document.getElementById("american").addEventListener("click", function() {
+					console.log("click")
+					document.getElementById("american").style.border = "4px solid";
+					document.getElementById("british").style.border = "none";
+					document.getElementById("australian").style.border = "none";
+					NewAccent = "US English Female";
+				})
+				document.getElementById("australian").addEventListener("click", function() {
+					console.log("click")
+					document.getElementById("american").style.border = "none";
+					document.getElementById("australian").style.border = "4px solid";
+					document.getElementById("british").style.border = "none";
+					NewAccent = "Australian Female";
+				})
+				
+				drawHeader();
+				document.getElementById("Loading").style.visibility = "hidden";
+				//save button clicked Settings Mode
+				
+			
+				document.getElementById("Savebtn").addEventListener("click", function() {
+					//console.log("old Accent",Profile.Accent);
+					Profile.Accent = NewAccent;
+					//console.log("new Accent",Profile.Accent);
+					console.log(Profile.LoggedIn, document.getElementById("oldPassword").value, document.getElementById("newPassword").value);
+					if(Profile.LoggedIn && document.getElementById("oldPassword")&& document.getElementById("newPassword")) {
+						if(document.getElementById("oldPassword").value != "" && document.getElementById("newPassword").value != "") {
+							console.log("not empty");
+							if(document.getElementById("oldPassword").value != document.getElementById("newPassword").value) {
+								console.log("not equal");
+								if(document.getElementById("newPassword").value.length >= 8){
+							
+									var User = {};
+									User.UserName = Profile.UserName;
+									User.oldPassword = document.getElementById("oldPassword").value;
+									User.newPassword = document.getElementById("newPassword").value;
+									console.log(User);
+									drawLoading();
+									socket.emit("resetPassword", {user: User})
+									//on reset Password
+								}
+								else if(document.getElementById("newPassword").value.length < 8){
+									console.log("too short");
+									Mode.Message = true;
+									Mode.Settings = false;
+									$("#OldPassword").remove();
+									$("#NewPassword").remove();
+									$("inputdiv").remove();
+									$("#SettingsCanvas").remove();
+									Error.Name = "passwrod_is_too_short";
+									Error.Mode = "settings_form";
+									showMessage(Error.Name + ".png");
+								}
+							}
+							else {
+								console.log("new password should not be the same as current one");
+								setTimeout(function(){
+										
+								Mode.Message = true;
+								Mode.Settings = false;
+								$("#OldPassword").remove();
+								$("#NewPassword").remove();
+								$("inputdiv").remove();
+								$("#SettingsCanvas").remove();
+							
+									
+								Error.Name = "same-passwords";
+								Error.Mode = "settings_form";
+								showMessage("same-passwords.png");
+								}, 100);
+							}
+						}
+						else if((document.getElementById("oldPassword").value != document.getElementById("newPassword").value) && (document.getElementById("oldPassword").value != "" || document.getElementById("newPassword").value != "")) {
+							console.log("fill all the information (passwords)");
+							setTimeout(function(){
+											
+								Mode.Message = true;
+								Mode.Settings = false;
+								$("#OldPassword").remove();
+								$("#NewPassword").remove();
+								$("inputdiv").remove();
+								$("#SettingsCanvas").remove();
+					
+									
+								Error.Name = "enter-all-passwords";
+								Error.Mode = "settings_form";
+								showMessage(Error.Name + ".png");
+							}, 100);
+						}
+						else {
+							//console.log("empty gaps");
+							
+							setTimeout(function() {
+							Mode.MenuItem = true;
+							Mode.Settings = false;
+							//update accent in database!!!!!
+							$("#SettingsCanvas").remove();
+							$("inputdiv").remove();
+							$("#oldPassword").remove();
+							$("#newPassword").remove();
+								
+							respondCanvas();
+							}, 100);
+							
+						}
+						console.log("before emit", NewAccent, Profile.Accent);
+						socket.emit("updateAccent", {UserName: Profile.UserName, Accent: Profile.Accent});
+					}
+					else {
+						//console.log("no reseting password");
+						setTimeout(function() {
+						Mode.MenuItem = true;
+						Mode.Settings = false;
+						//update accent in database!!!!!
+						$("#SettingsCanvas").remove();
+						$("inputdiv").remove();
+						$("#oldPassword").remove();
+						$("#newPassword").remove();
+									
+						respondCanvas();
+						}, 100);
+					
+					}
+					
+					
+				});
+				//cancel button has been clicked during settings mode
+				document.getElementById("Cancelbtn").addEventListener("click", function() {
+					setTimeout(function(){
+					$("#SettingsCanvas").remove();
+					$("inputdiv").remove();
+					$("#oldPassword").remove();
+					$("#newPassword").remove();
+					Mode.MenuItem = true;
+					Mode.Settings = false;
+					
+					respondCanvas();
+					}, 100);
+				});
+					
+				
+				document.getElementById("Loading").style.visibility = "hidden";
+			
+
 		}
+		
 		function setPropMessage(name) {
 			//console.log("message", name);
 			var frame = Properties.Forms[name];
@@ -4409,22 +4603,10 @@ module.exports = {
 				}, 10);
 			}
 		}
-		function showSignInForm(){
+		function showSignInForm(text){
 			if(Forms_loaded){
 				
-				var frame = Properties.Forms["sign_in_form.png"];
-				var Form_frame = {};
 				
-				Form_frame.h = Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - 2 * 40 - 100;
-				Form_frame.w = Form_frame.h * frame.w / frame.h;
-				
-				if(Form_frame.w > Screen.width / Math.min(Screen.k_width, Screen.k_height)- 2 * 20 - 100) {
-					Form_frame.w = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20 - 100;
-					Form_frame.h = Form_frame.w * frame.h / frame.w;
-				}
-				Form_frame.x = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Form_frame.w) / 2;
-				Form_frame.y = MenuItem.starts + (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - Form_frame.h) / 2;
-				Display.setForm("sign_in_form.png", Form_frame.x, Form_frame.y, Form_frame.w, Form_frame.h);
 				Mode.MenuItem  = false;
 				Mode.Tasks = false;
 				Mode.LogIn = false;
@@ -4432,134 +4614,147 @@ module.exports = {
 				ctx.clearRect(0,0,Screen.width, Screen.height);
 				drawHeader();
 				
-				drawSignInForm();
-				//fillRect(Display.getForm("sign_in_form.png").x + 65 * Display.getForm("sign_in_form.png").w / frame.w, 0, 10, 10000);
-				//fillRect(Display.getForm("sign_in_form.png").x + 145 * Display.getForm("sign_in_form.png").w / frame.w, 0, 10, 10000);
-				//fillRect(Display.getForm("sign_in_form.png").x + 160 * Display.getForm("sign_in_form.png").w / frame.w, 0, 10, 10000);
-				//fillRect(0, Display.getForm("sign_in_form.png").y + 350 * Display.getForm("sign_in_form.png").h / frame.h, 10000, 10);
-				//fillRect(0, Display.getForm("sign_in_form.png").y + 400 * Display.getForm("sign_in_form.png").h / frame.h, 10000, 10);
 				
-				Display.setButton("american_flag.png",Display.getForm("sign_in_form.png").x + 67 * Display.getForm("sign_in_form.png").w / frame.w, Display.getForm("sign_in_form.png").y + 350 * Display.getForm("sign_in_form.png").h / frame.h, 78 * Display.getForm("sign_in_form.png").w / frame.w, 52 * Display.getForm("sign_in_form.png").h / frame.h);
-				Display.setButton("australian_flag.png",Display.getForm("sign_in_form.png").x + 157 * Display.getForm("sign_in_form.png").w / frame.w, Display.getForm("sign_in_form.png").y + 350 * Display.getForm("sign_in_form.png").h / frame.h,  78 * Display.getForm("sign_in_form.png").w / frame.w, 52 * Display.getForm("sign_in_form.png").h / frame.h);
-				Display.setButton("british_flag.png",Display.getForm("sign_in_form.png").x + 247 * Display.getForm("sign_in_form.png").w / frame.w, Display.getForm("sign_in_form.png").y + 350 * Display.getForm("sign_in_form.png").h / frame.h,  78 * Display.getForm("sign_in_form.png").w / frame.w, 52 * Display.getForm("sign_in_form.png").h / frame.h);
-				selectAccent(flag);
-				
-				var username = {};
-				username.x = Display.getForm("sign_in_form.png").x + 92 * Display.getForm("sign_in_form.png").w / frame.w;
-				username.y = Display.getForm("sign_in_form.png").y + 123 * Display.getForm("sign_in_form.png").h / frame.h;
-				username.h = 50 * Display.getForm("sign_in_form.png").h / frame.h;
-				username.w = Display.getForm("sign_in_form.png").w - 2*92 * Display.getForm("sign_in_form.png").w / frame.w;
-				var div = document.createElement('inputDiv');
-				div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input type = 'password'  id = 'Password' name = 'UserName' autofocus/>";
-				
-				document.getElementById("mainDiv").appendChild(div);
-				document.getElementById("UserName").style.top = username.y * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.left = username.x * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.paddingLeft = 20 * Display.getForm("sign_in_form.png").w / frame.w * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.paddingRight = 20 * Display.getForm("sign_in_form.png").h / frame.h * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.width = username.w * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.height = username.h * Math.min(Screen.k_width, Screen.k_height);
-				Display.setButton("UserName", username.x, username.y, username.w, username.h);
-				document.getElementById("UserName").style.border = "2px solid";
-				document.getElementById('UserName').style.position = "absolute";
-				document.getElementById('UserName').autofocus = false;
-				document.getElementById('UserName').style.backgroundColor = "transparent";
-				
-				var password = {};
-				password.x = Display.getForm("sign_in_form.png").x + 92 * Display.getForm("sign_in_form.png").w / frame.w;
-				password.y = Display.getForm("sign_in_form.png").y + 240 * Display.getForm("sign_in_form.png").h / frame.h;
-				password.h = 50 * Display.getForm("sign_in_form.png").h / frame.h;
-				password.w = Display.getForm("sign_in_form.png").w - 2*92 * Display.getForm("sign_in_form.png").w / frame.w;
-				var div = document.createElement('inputDiv');
-				div.innerHTML = "<input id = 'Password' name = 'Password' autofocus/><input type = 'password' id = 'Password' name = 'Password' autofocus/>";
-				
-				document.getElementById("mainDiv").appendChild(div);
-				document.getElementById("Password").style.top = password.y * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.left = password.x * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.paddingLeft = 20 * Display.getForm("sign_in_form.png").w / frame.w * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.paddingRight = 20 * Display.getForm("sign_in_form.png").h / frame.h * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.width = password.w * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.height = password.h * Math.min(Screen.k_width, Screen.k_height);
-				Display.setButton("Password", password.x, password.y, password.w, password.h);
-				document.getElementById("Password").style.border = "2px solid";
-				document.getElementById('Password').style.position = "absolute";
-				document.getElementById('Password').autofocus = false;
-				document.getElementById('Password').style.backgroundColor = "transparent";
-				if(Profile.UserName)
-					document.getElementById('UserName').value = Profile.UserName;
-				if(Profile.Password)
-					document.getElementById('Password').value = Profile.Password;
-				
-				var btn = {};
-				btn.x = Display.getForm("sign_in_form.png").x + 30;
-				btn.w = (Display.getForm("sign_in_form.png").w - 2 * 30 - 10) / 2;
-				btn.h = btn.w * Properties.Forms["signin_btn.png"].h / Properties.Forms["signin_btn.png"].w;
-				btn.y = Display.getForm("sign_in_form.png").y + Display.getForm("sign_in_form.png").h - 30 - btn.h / 2;
-				Display.setButton("signin_btn.png", btn.x, btn.y, btn.w, btn.h);
-				Form.Draw("signin_btn.png");
-				btn.x = Display.getForm("sign_in_form.png").x + 30 + 10 + btn.w;
-				btn.w = (Display.getForm("sign_in_form.png").w - 2 * 30 - 10) / 2;
-				btn.h = btn.w * Properties.Forms["cancel_btn.png"].h / Properties.Forms["cancel_btn.png"].w;
-				btn.y = Display.getForm("sign_in_form.png").y + Display.getForm("sign_in_form.png").h - 30 - btn.h / 2;
-				Display.setButton("cancel_btn.png", btn.x, btn.y, btn.w, btn.h);
-				Form.Draw("cancel_btn.png");
-				
-				
-				/*var frame = Properties.Forms["sign_in_form.png"];
-				Y_ = (MenuItem.topSpace + MenuItem.starts) / 2;
-				size_ = 2*(Y_ - MenuItem.starts) + MenuItem.size;
-				var frame = Properties.Forms["sign_in_form"];
-				if(Screen.width/ Math.min(Screen.k_width, Screen.k_height) < size_) {
-					size_ = Screen.width / Math.min(Screen.k_width, Screen.k_height) - 2 * 20;
-					Y_ = (Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.starts - size_) / 2
-				}
-				X_ = (Screen.width / Math.min(Screen.k_width, Screen.k_height) - (size_))/2;
-				document.getElementById("Loading").style.visibility = "hidden";
-				Display.setForm("sign_in_form.png", X_, Y_, size_, size_);
-				Display.setButton("british_flag.png", X_ + 124 / 368 * size_, Y_ + 280 / 368 * size_, 36 / 368 * size_, 23 / 368 * size_);
-				Display.setButton("american_flag.png", X_ + 35 / 368 * size_, Y_ + 280 / 368 * size_, 36 / 368 * size_, 23/ 368 * size_);
-				Display.setButton("australian_flag.png", X_ + 80 / 368 * size_, Y_ + 280 / 368 * size_, 36 / 368 * size_, 23 / 368 * size_);
-				
-				var div = document.createElement('inputDiv');
-				div.innerHTML = "<input id = 'UserName' name = 'UserName' autofocus/><input id = 'Password' name = 'UserName' autofocus/>";
-				
-				document.getElementById("mainDiv").appendChild(div);
-				document.getElementById("UserName").style.top = (Y_ + 150 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.left = (X_ + 35 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.paddingLeft = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.paddingRight = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.width = 298/ 368 * size_*Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("UserName").style.height = 36 / 368 * size_ * Math.min(Screen.k_width, Screen.k_height);
-				Display.setButton("UserName", (X_ + 35 / 368 * size_), (Y_ + 150 / 368 * size_), 298/ 368 * size_, 36 / 368 * size_ );
-				document.getElementById("UserName").style.border = "2px solid";
-				document.getElementById('UserName').style.position = "absolute";
-				document.getElementById('UserName').autofocus = false;
-				document.getElementById('UserName').style.backgroundColor = "transparent";
-				document.getElementById("Password").style.top = (Y_ + 115 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.left = (X_ + 35 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.paddingLeft = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.paddingRight = (20 / 368 * size_) * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.width = 298/ 368 * size_*Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.height = 36 / 368 * size_ * Math.min(Screen.k_width, Screen.k_height);
-				document.getElementById("Password").style.border = "2px solid";
-				document.getElementById('Password').style.position = "absolute";
-				document.getElementById('Password').style.backgroundColor = "transparent";
-				Display.setButton("Password", X_ + 35 / 368 * size_, Y_ + 115 / 368 * size_, 298/ 368 * size_, 36 / 368 * size_ );
-
-				document.getElementById('Password').autofocus = false;
-				if(Profile.UserName)
-					document.getElementById('UserName').value = Profile.UserName;
-				if(Profile.Password)
-					document.getElementById('Password').value = Profile.Password;
-				drawSignInForm();
-				Display.setButton("signin_btn.png", X_ + 20 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
-				drawSignInSignInButton();
-				Display.setButton("sign_in_form_cancel_btn_ch.png", X_ + 190 / 368 * size_, Y_ + 318 / 368 * size_, 157 / 368 * size_, 157 / 368 * size_ * 37 / 156);
-				drawSignInCancelButton();
-				selectAccent(flag);*/
-				ctx.fillStyle='#000000';
-								
+				if(document.getElementById("MenuCanvas"))
+						$("#MenuCanvas").remove();
+					
+					if(!document.getElementById("SignInForm")) {
+						var div = document.createElement('inputDiv');
+						div.innerHTML = '<form id = "SignInForm" style= "padding: 20px; border: 10px #00a651 solid; text-align:center; background-color: #7cc576; position:absolute"> <b>User name</b> <input style = "margin:10px;" type="text" id="UserName"><br><b>Password</b><input style = "margin:10px;"type="password" id="Password"><br> <div style = "display:inline-block;"><b>Accent</b><div style = "display:inline-block;"><img class = "flag" id = "british" src = "/img/Forms/british.png" style = "height:5%;"/></div><div style = "display:inline-block;"><img class = "flag" id = "american" src = "/img/Forms/american.png" style = "height:5%;"/> </div><div style = "display:inline-block;"><img class = "flag" id = "australian" src = "/img/Forms/australian.png" style = "height:5%;"/> </div> </div> <br> <div style = "display:inline-block">  <div style = "padding: 10px; display:inline-block; border: 3px solid #00a651; margin:10px; background-color:#7cc576;"id = "SignInbtn" class = "button"> Sign up</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 3px solid #00a651;"id = "Cancelbtn"> Cancel</div></div></form>';
+						document.getElementById("mainDiv").appendChild(div);
+						document.getElementById("british").style.border = "4px solid";
+					}
+					
+					if(text) {
 						
+						document.getElementById("UserName").style.backgroundColor = "red";
+						document.getElementById("Password").style.backgroundColor = "red";
+					}
+					
+					document.getElementById("SignInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
+					if(Profile.UserName)
+						document.getElementById('UserName').value = Profile.UserName;
+					if(Profile.Password)
+						document.getElementById('Password').value = Profile.Password;
+					
+					document.getElementById("british").addEventListener("click", function() {
+						console.log("click")
+						document.getElementById("british").style.border = "4px solid";
+						document.getElementById("american").style.border = "none";
+						document.getElementById("australian").style.border = "none";
+						NewAccent = "UK English Male";
+					})
+					document.getElementById("american").addEventListener("click", function() {
+						console.log("click")
+						document.getElementById("american").style.border = "4px solid";
+						document.getElementById("british").style.border = "none";
+						document.getElementById("australian").style.border = "none";
+						NewAccent = "US English Female";
+					})
+					document.getElementById("australian").addEventListener("click", function() {
+						console.log("click")
+						document.getElementById("american").style.border = "none";
+						document.getElementById("australian").style.border = "4px solid";
+						document.getElementById("british").style.border = "none";
+						NewAccent = "Australian Female";
+					})
+					document.getElementById("UserName").addEventListener("input", function() {
+						console.log("input1");
+						document.getElementById("UserName").style.backgroundColor = "transparent";
+						document.getElementById("Password").style.backgroundColor = "transparent";
+					})
+					document.getElementById("Password").addEventListener("input", function() {
+						console.log("input2");
+						document.getElementById("UserName").style.backgroundColor = "transparent";
+						document.getElementById("Password").style.backgroundColor = "transparent";
+					})
+					drawHeader();
+					//login button clicked LogIn Mode
+					document.getElementById("SignInbtn").addEventListener("click", function() {
+						console.log('document.getElementById("UserName")', document.getElementById("UserName"));
+						if(document.getElementById("UserName") && document.getElementById("Password")) {
+						if(!document.getElementById("UserName").value.length || !document.getElementById("Password").value.length){
+							//console.log("Fill all information");
+							Mode.Message = true;
+							Mode.SignIn = false;
+							$("inputdiv").remove();
+							$("#UserName").remove();
+							$("#Password").remove();
+							Error.Name = "enter-all-data";
+							Error.Mode = "sign_in_form";
+							showMessage("enter-all-data.png");
+						}
+						else if(document.getElementById("UserName").value.length >= 6 && document.getElementById("Password").value.length >= 8){
+							drawLoading();
+							var ok;
+							Profile.UserName = document.getElementById("UserName").value;
+							Profile.Password = document.getElementById("Password").value;
+							document.getElementById("Password").disabled = true;
+							document.getElementById("UserName").disabled = true;
+							
+							var User = {};
+							User.UserName = Profile.UserName;
+							User.Password = Profile.Password;
+							User.Accent = NewAccent;
+							socket.emit('newUser', {
+								User: User
+							});
+							//on newuser
+							
+						}
+						else if(document.getElementById("UserName").value.length < 6) {
+							Mode.Message = true;
+							Mode.SignIn = false;
+							$("inputdiv").remove();
+							$("#UserName").remove();
+							$("#Password").remove();
+							Error.Name = "username_is_too_short";
+							Error.Mode = "sign_in_form";
+							showMessage(Error.Name + ".png");
+						}
+						else if(document.getElementById("Password").value.length < 8){
+							Mode.Message = true;
+							Mode.SignIn = false;
+							$("inputdiv").remove();
+							$("#UserName").remove();
+							$("#Password").remove();
+							Error.Name = "passwrod_is_too_short";
+							Error.Mode = "sign_in_form";
+							showMessage(Error.Name + ".png");
+						}
+						}
+					});
+					//cancel button has been clicked during signin mode
+					document.getElementById("Cancelbtn").addEventListener("click", function() {
+						setTimeout(function(){
+						Mode.SignIn = false;
+						Mode.MenuItem = true;
+						Mode.Menu = false;
+						NewAccent = "UK English Male";
+						
+						Profile.UserName = "";
+						Profile.Password = "";
+						$("#UserName").remove();
+						$("#Password").remove();
+						$("inputdiv").remove();
+						clearRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) )
+						respondCanvas();
+						}, 200);
+					
+					});
+						
+					
+					document.getElementById("Loading").style.visibility = "hidden";
+				
+				
+				if(Profile.UserName)
+					document.getElementById('UserName').value = Profile.UserName;
+				if(Profile.Password)
+					document.getElementById('Password').value = Profile.Password;
+
+
+
+				
 			}
 			else {
 				setTimeout(function(){
@@ -5264,10 +5459,7 @@ module.exports = {
 					if(document.getElementById("Help")) {
 						$("HelpDiv").remove();
 					}
-					if(document.getElementById("Help1")) {
-						//console.log(document.getElementsByTagName("HelpDiv"));
-						$("HelpDiv").remove();
-					}
+					
 				}
 			
 				// menu button has been clicked
@@ -5406,11 +5598,16 @@ module.exports = {
 				
 				//Sign Up button has been clicked
 				if(((!Mode.Mobile && Mode.MenuItem) || (Mode.Mobile && Mode.Menu)) && !Mode.Exercise &&!Profile.LoggedIn && !Mode.LogIn && !Mode.LogIn && mouseInRect(Display.getButton("sign_in_btn.png"))) {
-					drawLoading();
+					document.getElementById("Loading").style.visibility = "visible";
+					
 					if(document.getElementById("MenuCanvas"))
 						$("#MenuCanvas").remove();
 					Mode.Menu = false;
 					respondCanvas();
+					var img = new Image();
+					img.src = "/img/Forms/american.png";
+					img.src = "/img/Forms/british.png";
+					img.src = "/img/Forms/australian.png";
 					showSignInForm();
 					
 				
@@ -5433,6 +5630,7 @@ module.exports = {
 					flag = "";
 					if(document.getElementById("MenuCanvas"))
 						$("#MenuCanvas").remove();
+					drawLoading();
 					showSettings();
 				}
 				//cancel button clicked during Settings
@@ -5582,34 +5780,7 @@ module.exports = {
 							Mode.Message = false;
 							Mode.SignIn = true;
 							respondCanvas();
-							showSignInForm();
-							if(!document.getElementById("Help")) {
-								var div = document.createElement('HelpDiv');
-								div.innerHTML = '<image id = "Help"></image>';
-								document.getElementById("mainDiv").appendChild(div);
-							}
-							var Help = document.getElementById("Help");
-							Help.src = "/img/Menu-Items/mouse_up.gif";
-							Help.style.position = "absolute";
-							Help.style.height = document.getElementById("UserName").style.height;
-							Help.style.width = "auto";
-							Help.style.top = document.getElementById("UserName").style.top;
-							Help.style.left = document.getElementById("UserName").style.left;
-							Help.style.visibility = "visible";
-						
-							if(!document.getElementById("Help1")) {
-								var div = document.createElement('HelpDiv');
-								div.innerHTML = '<image id = "Help1"></image>';
-								document.getElementById("mainDiv").appendChild(div);
-							}
-							var Help = document.getElementById("Help1");
-							Help.src = "/img/Menu-Items/mouse_up.gif";
-							Help.style.position = "absolute";
-							Help.style.height = document.getElementById("Password").style.height;
-							Help.style.width = "auto";
-							Help.style.top = document.getElementById("Password").style.top;
-							Help.style.left = document.getElementById("Password").style.left;
-							Help.style.visibility = "visible";
+							showSignInForm("red");
 							
 						}, 100)
 					}
@@ -5618,35 +5789,8 @@ module.exports = {
 							
 						Mode.Message = false;
 						Mode.LogIn = true;
-						showLogInForm();
-						if(!document.getElementById("Help")) {
-							var div = document.createElement('HelpDiv');
-							div.innerHTML = '<image id = "Help"></image>';
-							document.getElementById("mainDiv").appendChild(div);
-						}
-						var Help = document.getElementById("Help");
-						Help.src = "/img/Menu-Items/mouse_up.gif";
-						Help.style.position = "absolute";
-						Help.style.height = document.getElementById("UserName").style.height;
-						Help.style.width = "auto";
-						Help.style.top = document.getElementById("UserName").style.top;
-						Help.style.left = document.getElementById("UserName").style.left;
-						Help.style.visibility = "visible";
-					
-						if(!document.getElementById("Help1")) {
-							var div = document.createElement('HelpDiv');
-							div.innerHTML = '<image id = "Help1"></image>';
-							document.getElementById("mainDiv").appendChild(div);
-						}
-						Help = document.getElementById("Help1");
-						Help.src = "/img/Menu-Items/mouse_up.gif";
-						Help.style.position = "absolute";
-						Help.style.height = document.getElementById("Password").style.height;
-						Help.style.width = "auto";
-						Help.style.top = document.getElementById("Password").style.top;
-						Help.style.left = document.getElementById("Password").style.left;
-						Help.style.visibility = "visible";
 						
+						showLogInForm("red");
 						}, 100)
 					}
 					else if(Error.Mode == "progress_form" || Error.Mode == "badges_form" || Error.Mode == "quiz_form") {
@@ -6064,8 +6208,6 @@ module.exports = {
 				else if (Mode.Exercise && !Mode.MusicVideo && !Mode.Results && !Mode.SignIn && !Mode.LogIn && mouseInRect(Display.getButton("exit_btn.png"))) {
 					if(document.getElementById("Help"))
 						$("HelpDiv").remove();
-					if(document.getElementById("Help1"))
-						$("#Help1").remove();
 					Mode[Task.TaskName.replace(/\s/g,'')] = false;
 					
 					ctx.clearRect(0, 0, Screen.width, Screen.height)
