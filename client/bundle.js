@@ -3280,7 +3280,7 @@ module.exports = {
 						document.getElementById("Password").style.backgroundColor = "red";
 					}
 					
-					document.getElementById("LogInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
+					//document.getElementById("LogInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
 					
 					
 					
@@ -4355,7 +4355,7 @@ module.exports = {
 					
 					
 				}
-				document.getElementById("SignInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
+				//document.getElementById("SignInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
 				
 				document.getElementById("british").addEventListener("click", function() {
 					console.log("click")
@@ -4630,7 +4630,7 @@ module.exports = {
 						document.getElementById("Password").style.backgroundColor = "red";
 					}
 					
-					document.getElementById("SignInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
+					//document.getElementById("SignInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
 					if(Profile.UserName)
 						document.getElementById('UserName').value = Profile.UserName;
 					if(Profile.Password)
