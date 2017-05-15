@@ -2480,7 +2480,7 @@ module.exports = {
 				mic_btn_ch = false;
 			}
 			//help button has been hovered
-			if (((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || (Mode.Exercise && Task.Type != "Matching") || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) &&!help_ch && mouseInRect(Display.getButton("help_btn.png"))) {
+			if (((!Mode.Mobile && (Mode.MenuItem || (Mode.Exercise && Task.Type != "Matching") || Mode.Progress || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) &&!help_ch && mouseInRect(Display.getButton("help_btn.png"))) {
 				clearRectRectYellow(Display.getButton("help_btn.png"));
 				var n = 2;
 				if(Mode.Menu)
@@ -2489,7 +2489,7 @@ module.exports = {
 				Button.Draw("help_btn.png");
 				help_ch = true;
 			}
-			else if(((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && help_ch && !(mouseInRect(Display.getButton("help_btn.png")))) {
+			else if(((!Mode.Mobile && (Mode.MenuItem  || Mode.Exercise || Mode.Progress || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && help_ch && !(mouseInRect(Display.getButton("help_btn.png")))) {
 				clearRectRectYellow(Display.getButton("help_btn.png"));
 				var n = 2;
 				if(Mode.Menu)
@@ -2499,7 +2499,7 @@ module.exports = {
 				help_ch = false;
 			}
 			//Info button has been hovered
-			if (((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn &&!info_ch && mouseInRect(Display.getButton("info_btn.png"))) {
+			if (((!Mode.Mobile && (Mode.MenuItem || Mode.Exercise || Mode.Progress|| Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn &&!info_ch && mouseInRect(Display.getButton("info_btn.png"))) {
 				clearRectRectYellow(Display.getButton("info_btn.png"));
 				var n = 2;
 				if(Mode.Menu)
@@ -2509,7 +2509,7 @@ module.exports = {
 				Button.Draw("info_btn.png");
 				
 			}
-			else if(((!Mode.Mobile && (Mode.MenuItem || Mode.LogIn || Mode.SignIn || Mode.Exercise || Mode.Progress || Mode.Settings || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn &&info_ch && !(mouseInRect(Display.getButton("info_btn.png")))) {
+			else if(((!Mode.Mobile && (Mode.MenuItem || Mode.Exercise || Mode.Progress || Mode.Badges)) || (Mode.Mobile && Mode.Menu)) && !Mode.LogIn && !Mode.SignIn &&info_ch && !(mouseInRect(Display.getButton("info_btn.png")))) {
 				clearRectRectYellow(Display.getButton("info_btn.png"));
 				var n = 2;
 				if(Mode.Menu)
@@ -3352,7 +3352,7 @@ module.exports = {
 					if(Profile.Password)
 						document.getElementById('Password').value = Profile.Password;
 					document.getElementById("Loading").style.visibility = "hidden";
-					drawHeader();
+					//drawHeader();
 					
 				}
 				else {
@@ -4303,6 +4303,7 @@ module.exports = {
 		}*/
 		
 		function showSettingsForm(text) {
+			clearRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height))
 			if(document.getElementById("MenuCanvas"))
 					$("#MenuCanvas").remove();
 				
@@ -4311,7 +4312,7 @@ module.exports = {
 				if(Profile.LoggedIn)
 					div.innerHTML = '<form id = "SignInForm" style= "padding: 20px; border: 10px #00a651 solid; text-align:center; background-color: #7cc576; position:absolute"> <b>Old password</b> <input style = "margin:10px;" type="password" id="oldPassword"><br><b>New password</b><input style = "margin:10px;"type="password" id="newPassword"><br> <div style = "display:inline-block;"> <b>Accent</b><div style = "display:inline-block;"><img class = "flag" id = "british" src = "/img/Forms/british.png" style = "height:5%;"/></div><div style = "display:inline-block;"><img class = "flag" id = "american" src = "/img/Forms/american.png" style = "height:5%;"/> </div><div style = "display:inline-block;"><img class = "flag" id = "australian" src = "/img/Forms/australian.png" style = "height:5%;"/> </div> </div> <br> <div style = "display:inline-block"> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 3px solid #00a651;"id = "LogOutbtn"> Log out</div> <div style = "padding: 10px; display:inline-block; border: 3px solid #00a651; margin:10px; background-color:#7cc576;"id = "Savebtn" class = "button"> Save</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 3px solid #00a651;"id = "Cancelbtn"> Cancel</div></div></form>';
 				else
-				div.innerHTML = '<form id = "SignInForm" style= "padding: 20px; border: 10px #00a651 solid; text-align:center; background-color: #7cc576; position:absolute"><div style = "display:inline-block;"> <div style = "display:inline-block;"><img class = "flag" id = "british" src = "/img/Forms/british.png" style = "height:5%;"/></div><div style = "display:inline-block;"><img class = "flag" id = "american" src = "/img/Forms/american.png" style = "height:5%;"/> </div><div style = "display:inline-block;"><img class = "flag" id = "australian" src = "/img/Forms/australian.png" style = "height:5%;"/> </div> </div> <br> <div style = "display:inline-block"> <div style = "padding: 10px; display:inline-block; border: 3px solid #00a651; margin:10px; background-color:#7cc576;"id = "Savebtn" class = "button"> Save</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 3px solid #00a651;"id = "Cancelbtn"> Cancel</div></div></form>';
+				div.innerHTML = '<form id = "SignInForm" style= "padding: 20px; border: 10px #00a651 solid; text-align:center; background-color: #7cc576; position:absolute">Accent<div style = "display:inline-block;"> <div style = "display:inline-block;"><img class = "flag" id = "british" src = "/img/Forms/british.png" style = "height:5%;"/></div><div style = "display:inline-block;"><img class = "flag" id = "american" src = "/img/Forms/american.png" style = "height:5%;"/> </div><div style = "display:inline-block;"><img class = "flag" id = "australian" src = "/img/Forms/australian.png" style = "height:5%;"/> </div> </div> <br> <div style = "display:inline-block"> <div style = "padding: 10px; display:inline-block; border: 3px solid #00a651; margin:10px; background-color:#7cc576;"id = "Savebtn" class = "button"> Save</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 3px solid #00a651;"id = "Cancelbtn"> Cancel</div></div></form>';
 				document.getElementById("mainDiv").appendChild(div);
 				
 				switch(Profile.Accent) {
@@ -4378,7 +4379,7 @@ module.exports = {
 					NewAccent = "Australian Female";
 				})
 				
-				drawHeader();
+				//drawHeader();
 				document.getElementById("Loading").style.visibility = "hidden";
 				//save button clicked Settings Mode
 				
@@ -4612,8 +4613,6 @@ module.exports = {
 				Mode.LogIn = false;
 				Mode.SignIn = true;	
 				ctx.clearRect(0,0,Screen.width, Screen.height);
-				drawHeader();
-				
 				
 				if(document.getElementById("MenuCanvas"))
 						$("#MenuCanvas").remove();
@@ -4668,7 +4667,7 @@ module.exports = {
 						document.getElementById("UserName").style.backgroundColor = "transparent";
 						document.getElementById("Password").style.backgroundColor = "transparent";
 					})
-					drawHeader();
+					//drawHeader();
 					//login button clicked LogIn Mode
 					document.getElementById("SignInbtn").addEventListener("click", function() {
 						console.log('document.getElementById("UserName")', document.getElementById("UserName"));
