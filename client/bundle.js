@@ -6522,10 +6522,7 @@ module.exports = {
 						}
 						var i = checkPoint({x:mouseX, y:mouseY}, Display.getTestItems());
 						if(i < Display.getTestItems().length) {
-							if(Task.TopicName != "Numbers")
-								speak("a " + Task.test[i].Word);
-							else
-								speak(Task.test[i].Word);
+							speak(Task.test[i].Word);
 						}
 						else if(Mode.Exercise){
 							k3 = -1;
