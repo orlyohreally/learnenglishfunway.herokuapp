@@ -6190,7 +6190,7 @@
 										$("HelpDiv").remove();
 									}
 									if(Task.TopicName != "Numbers")
-										speak("It is a " + Task.test[k3].Word);
+										speak("It is" + Task.test[k3].Word);
 									else
 										speak(Task.test[k3].Word);
 									var frame = Properties.Buttons["correct.png"];
@@ -6224,7 +6224,7 @@
 								else {
 									if(Task.tries) {
 										if(Task.TopicName != "Numbers")
-											speak("It is not a " + Task.test[k3].Word);
+											speak("It is not" + Task.test[k3].Word);
 										drawTest();
 										
 									}
@@ -6240,7 +6240,7 @@
 											Task.Result.Answers.push({Word: Task.asked.Word, Attempts: 0, Time: (Task.Result.time - Task.Result.Start) / 1000});
 										}
 										if(Task.TopicName != "Numbers")
-											speak("It is a " + Task.asked.Word);
+											speak("It is" + Task.asked.Word);
 										else
 											speak(Task.asked.Word);
 										Task.Result.time = new Date;
