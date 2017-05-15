@@ -3085,10 +3085,7 @@
 					//cancel button has been clicked during login mode
 					document.getElementById("Cancelbtn").addEventListener("click", function() {
 						setTimeout(function(){
-						if(Profile.storeUserNameLogIn == true)
-							Profile.storeUserNameLogIn = false;
-						if(Profile.storePasswordLogIn == true)
-							Profile.storePasswordLogIn = false;
+						
 						Profile.UserName = "";
 						Profile.Password = "";
 						$("#UserName").remove();
@@ -3105,10 +3102,6 @@
 					
 					});
 						
-					if(Profile.UserName)
-						document.getElementById('UserName').value = Profile.UserName;
-					if(Profile.Password)
-						document.getElementById('Password').value = Profile.Password;
 					document.getElementById("Loading").style.visibility = "hidden";
 					//drawHeader();
 					
@@ -4389,10 +4382,6 @@
 					}
 					
 					//document.getElementById("SignInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
-					if(Profile.UserName)
-						document.getElementById('UserName').value = Profile.UserName;
-					if(Profile.Password)
-						document.getElementById('Password').value = Profile.Password;
 					
 					document.getElementById("british").addEventListener("click", function() {
 						console.log("click")
@@ -4504,11 +4493,7 @@
 					document.getElementById("Loading").style.visibility = "hidden";
 				
 				
-				if(Profile.UserName)
-					document.getElementById('UserName').value = Profile.UserName;
-				if(Profile.Password)
-					document.getElementById('Password').value = Profile.Password;
-
+				
 
 
 				
