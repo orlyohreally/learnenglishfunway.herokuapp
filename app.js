@@ -153,7 +153,7 @@ io.sockets.on('connection', function(socket) {
 			})			
 		}
 	})*/
-	//console.log('socket connection');
+	console.log('socket connection');
 	db.Topics.find({}).sort({"Index":1}, function(err, res){
 		if(res) {
 			//console.log("msg:", res);
@@ -581,6 +581,7 @@ io.sockets.on('connection', function(socket) {
 					db.Exercise.find({"Name":data.Result.Exercise}, function(err, res){
 						//console.log("res", res);
 						//console.log(data.Result.Topic_Name, res[0].Quiz);
+						if(res.length){
 						db.Badges.find({"Topic_Name": data.Result.Topic_Name, "Quiz": res[0].Quiz}, function(err, res){
 							var Badges = res;
 							var pBadges = underscorejs.pluck(res, "Name");
@@ -635,6 +636,7 @@ io.sockets.on('connection', function(socket) {
 							}
 							
 						});
+					}
 					});
 				});
 			}
@@ -706,6 +708,7 @@ io.sockets.on('connection', function(socket) {
 	
 	function setlist(list) {
 		//console.log("list:", list, list != []);
+		console.log("final list", list);
 		if(list.length) {
 		for(var i = 0; i < list.length; i++){
 			for (var j = i + 1; j < list.length; j++) {
@@ -747,19 +750,86 @@ io.sockets.on('connection', function(socket) {
 			})
 		}
 	}
-	
+	var Words = {};
+	function formItem(list, j, i, notForQuiz, resp) {
+		//for(var j = 0; j < resp[i].Answers.length; j++) {
+		console.log("formItem", j);
+		if(j < resp[i].Answers.length) {
+			console.log(i, j, Words[resp[i].Answers[j].Word],resp[i].Answers[j].Word);
+			if(Words[resp[i].Answers[j].Word] != undefined) {
+				var item = {};
+				item.Exercise = resp[i].Exercise;
+				item.Topic_Name = resp[i].Topic_Name;
+				item.testStart = resp[i].Start;
+				item.duration = resp[i].Answers[j].Time;
+				item.Word = resp[i].Answers[j].Word;
+				item.Attempts = resp[i].Answers[j].Attempts;
+				item.Difficulty = 10 * Words[resp[i].Answers[j].Word];
+				item.duration_est = 0;
+				item.attempts_est = 0;
+				item.difficulty_est = 0;
+				list.push(item);
+				j++;
+				formItem(list, j, i, notForQuiz, resp);
+			}
+			else {
+			unirest.post("https://twinword-language-scoring.p.mashape.com/word/")
+			.header("X-Mashape-Key", "3P4c7iBp0HmshWKbNMFK8R3WZUlSp1ipPn3jsnIX86hLkMgpey")
+			.header("Content-Type", "application/x-www-form-urlencoded")
+			.header("Accept", "application/json")
+			.send("entry=" + resp[i].Answers[j].Word)
+			.end(function (result) {
+				var item = {};
+				item.Exercise = resp[i].Exercise;
+				item.Topic_Name = resp[i].Topic_Name;
+				item.testStart = resp[i].Start;
+				item.duration = resp[i].Answers[j].Time;
+				item.Word = resp[i].Answers[j].Word;
+				item.Attempts = resp[i].Answers[j].Attempts;
+				item.Difficulty = 10 * result.body.value;
+				Words[resp[i].Answers[j].Word] = item.Difficulty;
+				item.duration_est = 0;
+				item.attempts_est = 0;
+				item.difficulty_est = 0;
+				list.push(item);
+				j++;
+				formItem(list, j, i, notForQuiz, resp);
+			});
+			}
+		}
+		else
+			formList(list, i + 1, notForQuiz, resp);
+	}
+	function formList(list, i, notForQuiz, resp) {
+		//for(var i = 0; i < resp.length; i++) {
+			console.log("formList", i)
+		if(i < resp.length) {
+			if(inList(resp[i].Exercise, notForQuiz, "Name") == -1) {
+				formItem(list, 0, i, notForQuiz, resp);
+			}
+			else
+				formList(list, i + 1, notForQuiz, resp)
+		}
+		else {
+			console.log("setting list", list);
+			setlist(list);
+			
+		}
+	}
 	socket.on('getQuiz', function(data){
 		//console.log("getQuiz", data.UserName);
 		db.Results.find({"UserName":data.UserName}).sort({Exercise:1, Start:-1}, function(err, res){
 			if(res.length) {
 				resp = getRecentResults(res);
-				//console.log("resp", resp.length);
+				console.log("resp", resp.length);
 				db.Exercise.find({"Quiz": false}, {"Name":1, "_id":0}, function(err, res){
 					var notForQuiz = res;
 					var list = [];
-					//for(var i = 0; i < resp.length; i++) {
-					i1 = -1, k = 0;
-					//console.log("k", k);
+					formList(list, 0, notForQuiz, resp);
+					
+					
+					
+					/*i1 = -1, k = 0;
 					var inter1 = setInterval(function(){
 						i1 = k - 1;
 						//console.log("k", i1, k);
@@ -831,7 +901,7 @@ io.sockets.on('connection', function(socket) {
 						}
 							
 					}, 2000)
-					
+					*/
 				})
 			}
 			else {
