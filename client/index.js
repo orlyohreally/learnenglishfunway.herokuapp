@@ -301,21 +301,11 @@
 		
 		
 		function respondCanvas(){
-			var c = $('#MainCanvas');
-			var ct = c.get(0).getContext('2d');
-			var container = $(c).parent();
 			
-			if(Mode.Smartphone && $(document.activeElement).prop('type') == 'text' && $(container).width() == Screen.width){
-				//console.log("text");
-			}
-			else {
-				if(document.getElementById("UserName")) {
-					Profile.UserName = document.getElementById('UserName').value;
-					Profile.Password = document.getElementById('Password').value;
-					$("#UserName").remove();
-					$("#Password").remove();
-					$("inputdiv").remove();
-				}
+			//if(!Mode.SignIn && !Mode.Settings && !Mode.LogIn) {
+			
+			
+				
 			if(document.getElementById("Help")) {
 				$("HelpDiv").remove();
 				$("HelpDiv").remove();
@@ -459,7 +449,7 @@
 			initMenu();
 			
 			ctx.fillStyle="#000000";
-			}
+			//}
 		}
 		//}
 		
@@ -1132,7 +1122,6 @@
 			ctx.drawImage(atlasButtons, frame.x, frame.y, frame.w, frame.h, Display.getButton("skip.png").x * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").y * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").w * Math.min(Screen.k_width, Screen.k_height), Display.getButton("skip.png").h * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function fillRect(x, y, width, height) {
-			//console.log("fillRect");
 			if(Mode.Progress)
 				context = Progress_ctx;
 			else if(Mode.Settings)
@@ -1147,7 +1136,8 @@
 				context = Menu_ctx;
 			else
 				context = ctx;
-			
+			//console.log(context);
+			console.log("fillRect", x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
 			context.fillRect(x * Math.min(Screen.k_width, Screen.k_height), y * Math.min(Screen.k_width, Screen.k_height), width * Math.min(Screen.k_width, Screen.k_height), height * Math.min(Screen.k_width, Screen.k_height));
 		}
 		function clearRect(x, y, width, height) {
@@ -1574,6 +1564,7 @@
 			}
 		}
 		function drawHeader() {
+			console.log("drawHeader");
 			ctx.fillStyle="#F7FE2E";
 			if(Mode.Progress)
 				Progress_ctx.fillStyle="#F7FE2E";
@@ -1592,6 +1583,7 @@
 				Menu_ctx.fillStyle="#F7FE2E";
 			//yellow stripes
 			//console.log("drawing upper stripe");
+			
 			fillRect(0, 0, Screen.width / Math.min(Screen.k_width, Screen.k_height), MenuItem.starts);
 			if(!Mode.Exercise && !Mode.Mobile && !Mode.Progress && !Mode.Settings && !Mode.Message && !Mode.Badges && !Mode.Info && !Mode.Results && !Mode.LogIn && !Mode.SignIn)
 				fillRect(0, MenuItem.ends, Screen.width / Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height) - MenuItem.ends);
@@ -2288,43 +2280,7 @@
 				Button.Draw("info_btn.png");
 			}
 				
-			//login button has beeen hovered
-			if (Mode.LogIn && !log_in_btn && mouseInRect(Display.getButton("login_btn.png"))) {
-				clearRectRect(Display.getButton("login_btn.png"));
-				Display.expandButton("login_btn.png", 2);
-				Form.Draw("login_btn.png");
-				log_in_btn = true;
-			}
-			else if(Mode.LogIn && log_in_btn && !(mouseInRect(Display.getButton("login_btn.png")))) {
-				
-				log_in_btn = false;
-				clearRectRect(Display.getButton("login_btn.png"));
-				drawLogInForm();
-				Display.expandButton("login_btn.png", -2);
-				Form.Draw("login_btn.png");
-				Form.Draw("cancel_btn.png");
-			}
-			//Cancel button has been hovered during login mode
-			if (Mode.LogIn && !cancel_btn_ch && mouseInRect(Display.getButton("cancel_btn.png"))) {
-				//console.log("in");
-				clearRectRect(Display.getButton("cancel_btn.png"));
-				Display.expandButton("cancel_btn.png", 2);
-				Form.Draw("cancel_btn.png");
-				cancel_btn_ch = true;
-			}
-			else if(Mode.LogIn && cancel_btn_ch && !(mouseInRect(Display.getButton("cancel_btn.png")))) {
-				//console.log("out");
-				clearRectRect(Display.getButton("cancel_btn.png"));
-				cancel_btn_ch = false;
-				
-				drawLogInForm();
-				//console.log(Display.getButton("cancel_btn.png"));
-				Form.Draw("login_btn.png");
-				
-				Display.expandButton("cancel_btn.png", -2);
-				
-				Form.Draw("cancel_btn.png");
-			}
+			
 			//Signin button hovered SignIn mode
 			if (Mode.SignIn && !sign_in_btn && mouseInRect(Display.getButton("signin_btn.png"))) {
 				clearRectRect(Display.getButton("signin_btn.png"));
@@ -3020,15 +2976,55 @@
 			}
 			
 		}
-
+		/*
+			
+					if(Mode.LogIn && mouseInRect(Display.getButton("login_btn.png")))
+					{
+						if(document.getElementById("UserName").value, document.getElementById("Password").value) {
+							drawLoading();
+							Profile.UserName = document.getElementById("UserName").value;
+							Profile.Password = document.getElementById("Password").value;
+							var User = {};
+							User.UserName = Profile.UserName;
+							User.Password = Profile.Password;
+							document.getElementById("Password").disabled = true;
+							document.getElementById("UserName").disabled = true;
+							socket.emit('auth', {
+								User: User
+							})
+							
+							//on auth
+						}
+						else {
+							//console.log("fill all the information");
+							Mode.Message = true;
+							Mode.LogIn = false;
+							//console.log("Mode.MenuItem", Mode.MenuItem);
+							Error.Name = "enter-all-data";
+							Error.Mode = "log_in_form";
+							$("inputdiv").remove();
+							$("#UserName").remove();
+							$("#Password").remove();
+							showMessage("enter-all-data.png");
+						}
+					}
+		*/
+		
+		
+		
 		function showLogInForm(){
-				if(Forms_loaded){
+				
+					ctx.clearRect(0,0,Screen.width, Screen.height);
+					if(Forms_loaded){
+					//console.log(document.getElementsByTagName('body'));
+					//document.getElementsByTagName('body')[0].style.overflowY = 'auto';
+					document.getElementById("MainCanvas").style.overflowY = "auto";
 					Mode.MenuItem  = false;
 					Mode.Tasks = false;
 					Mode.LogIn = true;	
 					Mode.SignIn= false;
-					ctx.clearRect(0,0,Screen.width, Screen.height);
-					drawHeader();
+					
+					
 					if(document.getElementById("MenuCanvas"))
 						$("#MenuCanvas").remove();
 					var frame = Properties.Forms["log_in_form.png"];
@@ -3047,7 +3043,7 @@
 					Form_frame.y = MenuItem.starts + 10;
 					Display.setForm("log_in_form.png", Form_frame.x, Form_frame.y, Form_frame.w, Form_frame.h);
 					
-					drawLogInForm();
+					//drawLogInForm();
 					
 					//fillRect(0, Display.getForm("log_in_form.png").y + 95 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
 					//fillRect(0, Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h, 10000, 10);
@@ -3057,55 +3053,78 @@
 					//fillRect(Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w - 55 * Display.getForm("log_in_form.png").w / frame.w, 0 , 10, 10000);
 					
 					ctx.fillStyle='#000000';
+					if(!document.getElementById("LogInForm")) {
 					var div = document.createElement('inputDiv');
-					div.innerHTML = "<input id = 'UserName' name = 'UserName'/><input type = 'password' id = 'Password' name = 'UserName' />";
+					//div.innerHTML = "<form> <input id = 'UserName' name = 'UserName'/><input type = 'password' id = 'Password' name = 'UserName' /></form>";
+					div.innerHTML = '<form id = "LogInForm" style= "padding: 20px; border: 10px #7cc576 solid; text-align:center; background-color: transparent; position:absolute"> First name <input style = "margin:10px;" type="text" id="UserName"><br>  Last name <input style = "margin:10px;"type="password" id="Password"><br> <div style = "display:inline-block"> <div style = "padding: 10px; display:inline-block; border: 1px solid; margin:10px; background-color:#7cc576;"id = "LogInbtn" class = "button"> Log in</div> <div class = "button" style = "display:inline-block; background-color: #7cc576; margin:10px;padding: 10px; border: 1px solid;"id = "Cancelbtn"> Cancel</div></div></form>';
 					document.getElementById("mainDiv").appendChild(div);
-					document.getElementById("UserName").style.top = (Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.left = (Display.getForm("log_in_form.png").x + 62 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.paddingLeft = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.paddingRight = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.width = (286 * Display.getForm("log_in_form.png").w / frame.w)*Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.height = (35 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("UserName").style.border = "2px solid";
-					document.getElementById('UserName').style.position = "absolute";
-					document.getElementById('UserName').autofocus = false;
-					document.getElementById('UserName').style.backgroundColor = "transparent";
-					Display.setButton("UserName", Display.getForm("log_in_form.png").x + 65 * Display.getForm("log_in_form.png").w / frame.w, (Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h), 286 * Display.getForm("log_in_form.png").w / frame.w, 35 * Display.getForm("log_in_form.png").h / frame.h);
-					document.getElementById("Password").style.top = (Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.left = (Display.getForm("log_in_form.png").x + 395 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.paddingLeft = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.paddingRight = (10 * Display.getForm("log_in_form.png").w / frame.w) * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.width = 286 * Display.getForm("log_in_form.png").w / frame.w * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.height = 35 * Display.getForm("log_in_form.png").h / frame.h * Math.min(Screen.k_width, Screen.k_height);
-					document.getElementById("Password").style.border = "2px solid";
-					document.getElementById('Password').style.position = "absolute";
-					document.getElementById('Password').style.backgroundColor = "transparent";
-					document.getElementById('Password').autofocus = false;
-					Display.setButton("Password", Display.getForm("log_in_form.png").x + 395 * Display.getForm("log_in_form.png").w / frame.w, Display.getForm("log_in_form.png").y + 60 * Display.getForm("log_in_form.png").h / frame.h, 286 * Display.getForm("log_in_form.png").w / frame.w, 35 * Display.getForm("log_in_form.png").h / frame.h);
-
-					frame = Properties.Forms["login_btn.png"];
-					var btn = {};
-					btn.w = (Display.getForm("log_in_form.png").x + Display.getForm("log_in_form.png").w - 30 - 10) / 4;
-					btn.x = Display.getForm("log_in_form.png").x + 347 * Display.getForm("log_in_form.png").w / Properties.Forms["log_in_form.png"].w - btn.w - 20;
-					btn.h = btn.w * Properties.Forms["log_in_form.png"].h / Properties.Forms["log_in_form.png"].w;
-					btn.y = Display.getForm("log_in_form.png").y + Display.getForm("log_in_form.png").h - 10 - btn.h / 2;
-					Display.setButton("login_btn.png", btn.x, btn.y, btn.w, btn.h);
-					//console.log(btn);
-					Form.Draw("login_btn.png");
-					btn.x = Display.getForm("log_in_form.png").x + 395 * Display.getForm("log_in_form.png").w / Properties.Forms["log_in_form.png"].w + 20;
-					//btn.w = (Display.getForm("log_in_form.png").w - 2 * 30 - 10) / 4;
-					//btn.h = btn.w * Properties.Forms["cancel_btn.png"].h / Properties.Forms["cancel_btn.png"].w;
-					//btn.y = Display.getForm("log_in_form.png").y + Display.getForm("log_in_form.png").h - 30 - btn.h / 2;
-					//console.log(btn);
-					Display.setButton("cancel_btn.png", btn.x, btn.y, btn.w, btn.h);
-					Form.Draw("cancel_btn.png");
+					}
+					console.log("showloginform");
+					
+					document.getElementById("LogInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
+					
+					
+					
+					
+					//login button clicked LogIn Mode
+					document.getElementById("LogInbtn").addEventListener("click", function() {
+						if(document.getElementById("UserName").value, document.getElementById("Password").value) {
+							drawLoading();
+							Profile.UserName = document.getElementById("UserName").value;
+							Profile.Password = document.getElementById("Password").value;
+							var User = {};
+							User.UserName = Profile.UserName;
+							User.Password = Profile.Password;
+							document.getElementById("Password").disabled = true;
+							document.getElementById("UserName").disabled = true;
+							socket.emit('auth', {
+								User: User
+							})
+							
+							//on auth
+						}
+						else {
+							//console.log("fill all the information");
+							Mode.Message = true;
+							Mode.LogIn = false;
+							//console.log("Mode.MenuItem", Mode.MenuItem);
+							Error.Name = "enter-all-data";
+							Error.Mode = "log_in_form";
+							$("inputdiv").remove();
+							$("#UserName").remove();
+							$("#Password").remove();
+							showMessage("enter-all-data.png");
+						}
+					});
+					//cancel button has been clicked during login mode
+					document.getElementById("Cancelbtn").addEventListener("click", function() {
+						setTimeout(function(){
+						if(Profile.storeUserNameLogIn == true)
+							Profile.storeUserNameLogIn = false;
+						if(Profile.storePasswordLogIn == true)
+							Profile.storePasswordLogIn = false;
+						Profile.UserName = "";
+						Profile.Password = "";
+						$("#UserName").remove();
+						$("#Password").remove();
+						$("inputdiv").remove();
+						
+						clearRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
+						Mode.LogIn = false;
+						Mode.MenuItem = true;
+						Mode.Menu = false;
+						$("#MenuCanvas").remove();
+						respondCanvas();
+						}, 200);
+					
+					});
 						
 					if(Profile.UserName)
 						document.getElementById('UserName').value = Profile.UserName;
 					if(Profile.Password)
 						document.getElementById('Password').value = Profile.Password;
 					document.getElementById("Loading").style.visibility = "hidden";
-					
+					drawHeader();
 					
 				}
 				else {
@@ -5138,7 +5157,7 @@
 						$("#MenuCanvas").remove();
 					Mode.Menu = false;
 					respondCanvas();
-					drawLoading();
+					document.getElementById("Loading").style.visibility = "visible";
 					
 					showLogInForm();
 				}
@@ -5497,59 +5516,9 @@
 						//log in area clicked
 					}
 					
-					//cancel button has been clicked during login mode
-					if(Mode.LogIn && mouseInRect(Display.getButton("cancel_btn.png"))) {
-						setTimeout(function(){
-						if(Profile.storeUserNameLogIn == true)
-							Profile.storeUserNameLogIn = false;
-						if(Profile.storePasswordLogIn == true)
-							Profile.storePasswordLogIn = false;
-						Profile.UserName = "";
-						Profile.Password = "";
-						$("#UserName").remove();
-						$("#Password").remove();
-						$("inputdiv").remove();
-						
-						clearRect(0, 0, Screen.width/ Math.min(Screen.k_width, Screen.k_height), Screen.height / Math.min(Screen.k_width, Screen.k_height));
-						Mode.LogIn = false;
-						Mode.MenuItem = true;
-						Mode.Menu = false;
-						$("#MenuCanvas").remove();
-						respondCanvas();
-						}, 200);
-					}
 					
-					//login button clicked LogIn Mode
-					if(Mode.LogIn && mouseInRect(Display.getButton("login_btn.png")))
-					{
-						if(document.getElementById("UserName").value, document.getElementById("Password").value) {
-							drawLoading();
-							Profile.UserName = document.getElementById("UserName").value;
-							Profile.Password = document.getElementById("Password").value;
-							var User = {};
-							User.UserName = Profile.UserName;
-							User.Password = Profile.Password;
-							document.getElementById("Password").disabled = true;
-							document.getElementById("UserName").disabled = true;
-							socket.emit('auth', {
-								User: User
-							})
-							
-							//on auth
-						}
-						else {
-							//console.log("fill all the information");
-							Mode.Message = true;
-							Mode.LogIn = false;
-							//console.log("Mode.MenuItem", Mode.MenuItem);
-							Error.Name = "enter-all-data";
-							Error.Mode = "log_in_form";
-							$("inputdiv").remove();
-							$("#UserName").remove();
-							$("#Password").remove();
-							showMessage("enter-all-data.png");
-						}
-					}
+					
+					
 					//background has been clicked during LogIn Mode
 					/*if(Mode.LogIn && !mouseInRect(X_ + 47 - 2, Y_ + MenuItem.size - MenuItem.size * 37 / 202 / 2 - 40 - 2, (MenuItem.size) / 202 * 156 + 4, MenuItem.size * 37 / 202 + 4)&& !(mouseInRect(X_ + 35 / 368 * (MenuItem.size) / 202 * 368, Y_ + 115 / 202 * MenuItem.size, 297 / 368 * (MenuItem.size) / 202 * 368, 35 / 202 * MenuItem.size) || mouseInRect(X_ + 35 / 368 * (MenuItem.size) / 202 * 368, Y_ + 57 / 202 * MenuItem.size, 297 / 368 * (MenuItem.size) / 202 * 368, 35 / 202 * MenuItem.size))) {
 						if(Profile.storeUserNameLogIn == true)
