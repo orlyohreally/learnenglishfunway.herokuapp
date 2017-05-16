@@ -248,8 +248,11 @@ module.exports = {
 		var video;
 		var speechRecognizer;
 		
-
-
+		var img = new Image();
+		img.src = "/img/Forms/american.png";
+		img.src = "/img/Forms/british.png";
+		img.src = "/img/Forms/australian.png";
+		
 		//video animals American accent https://www.youtube.com/watch?v=BfUoopDpmmY
 		//video numbers from 1 to 10 "british" https://www.youtube.com/watch?v=dk9Yt1PqQiw&index=2&list=PL9811F95B184967D5
 		//video numbers from 1 to 20 american https://www.youtube.com/watch?v=D0Ajq682yrA
@@ -3130,6 +3133,9 @@ module.exports = {
 		function drawTask(j, i, x, y, width, height) {
 			try{
 				var frame = Properties.Tasks[j][i].Frame;
+				var img = new Image();
+				img.src = "img/" + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Topic_Name + "/left " + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Name + " gif.gif";								
+				img.src = "img/" + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Topic_Name + "/right " + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Name + " gif.gif";
 				Display.setTask(j, i, x, y, width, height);
 				ctx.drawImage(atlasMenuItemTask, frame.x, frame.y, frame.w, frame.h, x*Math.min(Screen.k_width, Screen.k_height), y*Math.min(Screen.k_width, Screen.k_height) , width*Math.min(Screen.k_width, Screen.k_height), height*Math.min(Screen.k_width, Screen.k_height))
 				var Lockframe = Properties.Buttons['lock.png'];
@@ -5338,6 +5344,7 @@ module.exports = {
 					if(max_word_width < broadest_word[frametype2].w*word_height/broadest_word[frametype2].h) {
 						word_height = max_word_width * broadest_word[frametype2].h / broadest_word[frametype2].w;
 					}
+					
 					return word_height;
 				}
 				else if(frametype1 == "Wordsframe" && frametype2 == "frame") {
@@ -5381,6 +5388,8 @@ module.exports = {
 				top = MenuItem.starts + 40 + animal_height + 40;
 			}
 			var word_height = setWordHeight();
+			if((Screen.width / Math.min(Screen.k_width, Screen.k_height) - Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h) / 2 + Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h > Screen.width / Math.min(Screen.k_width, Screen.k_height))
+				animal_height = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 4 / Task.asked[frametype1].w * Task.asked[frametype1].h
 			Display.setButton("itemImage", (Screen.width / Math.min(Screen.k_width, Screen.k_height) - Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h) / 2, MenuItem.starts + (20 + 20), Task.asked[frametype1].w*animal_height/Task.asked[frametype1].h, animal_height);
 			for(var i = 0; i < Task.test.length; i++) {
 				//console.log(i, (Task.test.concat())[i], frametype2);
@@ -5420,27 +5429,6 @@ module.exports = {
 			if(Mode.Mobile) {
 				Display.setButton("info_btn.png", Screen.width / Math.min(Screen.k_width, Screen.k_height) - Title.leftSpace - size_btn, MenuItem.starts + 20 + 10 + Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w, Display.getButton("right-arrow.png").w);
 			}
-			//console.log("drawing test");
-			var top, center, animal_height;
-			if(frametype1 == "frame") {
-				animal_height = Screen.height / Math.min(Screen.k_width, Screen.k_height) / 4;
-			}
-			else {
-				animal_height = 100;
-			}
-			var edge = 0;
-			
-			if(frametype1 == "frame") {
-				center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / 2;
-				top = MenuItem.starts + 40 + animal_height + 40;
-			}
-			else if(frametype1 == "Wordsframe") {
-				center = Screen.width / Math.min(Screen.k_width, Screen.k_height) / Math.floor((Task.test.length + 1) / 2);
-				top = MenuItem.starts + 40 + animal_height + 40;
-			}
-			var word_height = setWordHeight();
-			
-			//console.log(Task.TopicName, atlas[Task.TopicName + "frame"], Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
 			ctx.drawImage(atlas[Task.TopicName + "frame"],Task.asked[frametype1].x, Task.asked[frametype1].y, Task.asked[frametype1].w, Task.asked[frametype1].h, Display.getButton("itemImage").x*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").y*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").w*Math.min(Screen.k_width, Screen.k_height), Display.getButton("itemImage").h*Math.min(Screen.k_width, Screen.k_height));
 			if(Mode.Training && (k3 != -1)) {
 				//console.log("k3", k3);
@@ -5710,10 +5698,7 @@ module.exports = {
 						$("#MenuCanvas").remove();
 					Mode.Menu = false;
 					respondCanvas();
-					var img = new Image();
-					img.src = "/img/Forms/american.png";
-					img.src = "/img/Forms/british.png";
-					img.src = "/img/Forms/australian.png";
+					
 					showSignInForm();
 					
 				
@@ -6432,7 +6417,7 @@ module.exports = {
 										$("HelpDiv").remove();
 									}
 									if(Task.TopicName != "Numbers")
-										speak("It is" + Task.test[k3].Word);
+										speak("It is " + Task.test[k3].Word);
 									else
 										speak(Task.test[k3].Word);
 									var frame = Properties.Buttons["correct.png"];
@@ -6466,7 +6451,7 @@ module.exports = {
 								else {
 									if(Task.tries) {
 										if(Task.TopicName != "Numbers")
-											speak("It is not" + Task.test[k3].Word);
+											speak("It is not " + Task.test[k3].Word);
 										drawTest();
 										
 									}
@@ -6482,7 +6467,7 @@ module.exports = {
 											Task.Result.Answers.push({Word: Task.asked.Word, Attempts: 0, Time: (Task.Result.time - Task.Result.Start) / 1000});
 										}
 										if(Task.TopicName != "Numbers")
-											speak("It is" + Task.asked.Word);
+											speak("It is " + Task.asked.Word);
 										else
 											speak(Task.asked.Word);
 										Task.Result.time = new Date;
