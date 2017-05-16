@@ -12,7 +12,7 @@ var port = process.env.PORT || 3000;
 var underscorejs = require("underscore");
 
 var session = require('express-session')({
-	secret: "my-secret",
+	secret: "vbsvnsmvkmvsms",
 	resave: true,
 	saveUninitialized: true
 });

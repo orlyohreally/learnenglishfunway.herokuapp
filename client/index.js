@@ -3041,11 +3041,6 @@
 						document.getElementById("Password").style.backgroundColor = "red";
 					}
 					
-					//document.getElementById("LogInForm").style.top = (MenuItem.starts + 50) * Math.min(Screen.k_width, Screen.k_height);
-					
-					
-					
-					
 					document.getElementById("UserName").addEventListener("input", function() {
 						document.getElementById("UserName").style.backgroundColor = "transparent";
 						document.getElementById("Password").style.backgroundColor = "transparent";
@@ -6987,6 +6982,9 @@
 		}
 		
 		if(document.getElementById("UserName")) {
+			$("inputdiv").remove();
+		}
+		if(document.getElementById("oldPassword")) {
 			$("inputdiv").remove();
 		}
 		if(document.getElementById("Help")) {
