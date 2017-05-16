@@ -2782,10 +2782,6 @@
 				t_a_width = 100*0.5;
 				t_a_height = 0.5*100*226/152;
 				Task.firstTask = Task.firstTask - 1;
-				//drawTask(j, Task.firstTask, pX, (pY+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
-				//drawTask(j, Task.firstTask + 1, pX, (pY + 55/368*MenuItem.size + 10 + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
-				//drawTask(j, Task.firstTask + 2, pX, (pY + (55/368*MenuItem.size + 10) * 2+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
-				//drawTask(j , Task.firstTask + 3, pX, (pY + (55/368*MenuItem.size + 10) * 3+ t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size)
 				for (var i = 0; i < Task.display; i++) {
 					drawTask(j , Task.firstTask + i, pX, (pY + (55/368*MenuItem.size + 10) * i + t_a_width + Task.topSpace), MenuItem.size, 55/368*MenuItem.size);
 				}
@@ -2891,9 +2887,10 @@
 		function drawTask(j, i, x, y, width, height) {
 			try{
 				var frame = Properties.Tasks[j][i].Frame;
+				console.log(j, i);
 				var img = new Image();
-				img.src = "img/" + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Topic_Name + "/left " + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Name + " gif.gif";								
-				img.src = "img/" + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Topic_Name + "/right " + Properties.Tasks[MenuItem.clicked][i + Task.firstTask].Name + " gif.gif";
+				img.src = "img/" + Properties.Tasks[MenuItem.clicked][i].Topic_Name + "/left " + Properties.Tasks[MenuItem.clicked][i].Name + " gif.gif";								
+				img.src = "img/" + Properties.Tasks[MenuItem.clicked][i].Topic_Name + "/right " + Properties.Tasks[MenuItem.clicked][i].Name + " gif.gif";
 				Display.setTask(j, i, x, y, width, height);
 				ctx.drawImage(atlasMenuItemTask, frame.x, frame.y, frame.w, frame.h, x*Math.min(Screen.k_width, Screen.k_height), y*Math.min(Screen.k_width, Screen.k_height) , width*Math.min(Screen.k_width, Screen.k_height), height*Math.min(Screen.k_width, Screen.k_height))
 				var Lockframe = Properties.Buttons['lock.png'];
